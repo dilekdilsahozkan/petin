@@ -31,7 +31,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_login"
+            android:id="@+id/nav_register"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -40,7 +40,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:navGraph="@navigation/login_navigation"/>
+            app:navGraph="@navigation/register_navigation"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
