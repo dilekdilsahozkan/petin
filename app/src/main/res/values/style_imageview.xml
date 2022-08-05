@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PetImageView" />
+
+    <style name="PetImageView.Round">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="shapeAppearanceOverlay">@style/PetShapeAppearanceOverlay.Round</item>
+    </style>
+
+    <style name="PetImageView.Round.8">
+        <item name="shapeAppearanceOverlay">@style/PetShapeAppearanceOverlay.Round.8</item>
+    </style>
+
+    <style name="PetShapeAppearanceOverlay" parent="ShapeAppearanceOverlay" />
+
+    <style name="PetShapeAppearanceOverlay.Round">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="PetShapeAppearanceOverlay.Round.8">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+</resources>

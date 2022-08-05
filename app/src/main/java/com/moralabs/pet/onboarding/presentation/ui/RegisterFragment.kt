@@ -1,13 +1,21 @@
 package com.moralabs.pet.onboarding.presentation.ui
 
+import android.content.Intent
+import android.graphics.Color
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.BaseFragment
+import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.databinding.FragmentRegisterBinding
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.presentation.viewmodel.RegisterViewModel
-import com.moralabs.pet.onboarding.presentation.viewmodel.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,4 +29,30 @@ class RegisterFragment: BaseFragment<FragmentRegisterBinding, RegisterDto, Regis
         return viewModel
     }
 
+    override fun addListeners() {
+        super.addListeners()
+        setRegisterClickable()
+        binding.registerButton.setOnClickListener {
+
+        }
+        binding.agreementRead.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_register_to_agreementFragment)
+        }
+    }
+    fun setRegisterClickable(){
+        val spannableString = SpannableString(getString(R.string.haveAccount))
+        val clickableSpan: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                startActivity(Intent(context, LoginActivity::class.java))
+            }
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = false
+                ds.color = Color.parseColor("#FF724C")
+            }
+        }
+        spannableString.setSpan(clickableSpan, spannableString.length-10, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.dontHaveAccountText.text = spannableString
+        binding.dontHaveAccountText.movementMethod = LinkMovementMethod.getInstance()
+    }
 }

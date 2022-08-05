@@ -1,4 +1,4 @@
-package com.moralabs.pet.mainPage.presentation
+package com.moralabs.pet.mainPage.presentation.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

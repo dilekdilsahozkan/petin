@@ -1,4 +1,4 @@
-package com.moralabs.pet.core.presentation
+package com.moralabs.pet.core.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
-import com.moralabs.pet.core.presentation.ui.PetLoading
 import com.moralabs.pet.databinding.ActivityBaseBinding
 
 abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), PetToolbarListener {

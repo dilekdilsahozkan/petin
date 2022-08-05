@@ -9,5 +9,25 @@
         android:id="@+id/registerFragment"
         android:name="com.moralabs.pet.onboarding.presentation.ui.RegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/fragment_register"/>
+        tools:layout="@layout/fragment_register">
+
+        <action
+            android:id="@+id/action_fragment_register_to_agreementFragment"
+            app:destination="@id/agreementFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/agreementFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.AgreementFragment"
+        android:label="AgreementFragment"
+        tools:layout="@layout/fragment_agreement"/>
+
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
+        android:label="MainPageFragment"
+        tools:layout="@layout/fragment_main_page"/>
 </navigation>

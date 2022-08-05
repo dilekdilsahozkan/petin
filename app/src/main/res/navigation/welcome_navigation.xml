@@ -9,15 +9,18 @@
         android:id="@+id/welcomeFragment"
         android:name="com.moralabs.pet.onboarding.presentation.ui.WelcomeFragment"
         android:label="WelcomeFragment"
-        tools:layout="@layout/fragment_welcome">
-        <action
-            android:id="@+id/action_welcomeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_welcome"/>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.moralabs.pet.onboarding.presentation.ui.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
+
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
+        android:label="MainPageFragment"
+        tools:layout="@layout/fragment_main_page"/>
 
 </navigation>

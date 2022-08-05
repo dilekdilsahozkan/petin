@@ -9,5 +9,26 @@
         android:id="@+id/loginFragment"
         android:name="com.moralabs.pet.onboarding.presentation.ui.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"/>
+        tools:layout="@layout/fragment_login" >
+
+        <action
+            android:id="@+id/action_fragment_login_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password"/>
+
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
+        android:label="MainPageFragment"
+        tools:layout="@layout/fragment_main_page"/>
+
 </navigation>

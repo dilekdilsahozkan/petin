@@ -15,6 +15,7 @@
     <color name="darkPrimary">#2A2B38</color>
     <color name="darkSecondary">#535B5B</color>
     <color name="darkGrayTransparent">#336A6B74</color>
-
-
+    <color name="mainPageTitle">#232323</color>
+    <color name="searchBackground">#F3F3F6</color>
+    <color name="transparent">#CC000000</color>
 </resources>

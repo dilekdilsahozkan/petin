@@ -17,10 +17,13 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".onboarding.presentation.ui.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".onboarding.presentation.ui.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".mainPage.presentation.MainPageActivity"
+            android:name=".mainPage.presentation.ui.MainPageActivity"
             android:exported="false" />
         <activity
             android:name=".onboarding.presentation.ui.LoginActivity"
@@ -29,7 +32,7 @@
             android:name=".onboarding.presentation.ui.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".core.presentation.BaseActivity"
+            android:name=".core.presentation.ui.BaseActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

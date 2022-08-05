@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import com.moralabs.pet.MainActivity
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.BaseFragment
+import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.databinding.FragmentWelcomeBinding
-import com.moralabs.pet.mainPage.presentation.MainPageActivity
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.onboarding.data.remote.dto.WelcomeDto
 import com.moralabs.pet.onboarding.presentation.viewmodel.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint

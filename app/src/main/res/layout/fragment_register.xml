@@ -19,118 +19,121 @@
                 android:id="@+id/register_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Register"
+                android:text="@string/register"
                 android:textSize="34dp"
                 android:gravity="center"
+                android:textColor="@color/mainColor"
+                android:fontFamily="@font/poppins_bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@color/mainColor"
-                android:fontFamily="@font/poppins_bold"/>
+                app:layout_constraintRight_toRightOf="parent"/>
 
             <TextView
                 android:id="@+id/name_surname_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/register_title"
                 android:layout_marginTop="57dp"
-                android:text="Name Surname"
+                android:text="@string/nameLastname"
                 android:textSize="13dp"
                 android:textColor="@color/darkSecondary"
-                android:fontFamily="@font/poppins_regular" />
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/register_title"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_surname_edittext"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                app:layout_constraintStart_toStartOf="@id/name_surname_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_surname_title"
-                android:paddingLeft="8dp"
                 android:textSize="15dp"
                 android:inputType="text"
-                android:background="@drawable/edit_background" />
+                android:background="@drawable/background_edit"
+                app:layout_constraintStart_toStartOf="@id/name_surname_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_surname_title" />
 
             <TextView
                 android:id="@+id/username_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_surname_edittext"
-                android:text="Username"
+                android:text="@string/username"
                 android:textSize="13dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/darkSecondary"
-                android:fontFamily="@font/poppins_regular" />
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_surname_edittext"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username_edittext"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                app:layout_constraintStart_toStartOf="@id/username_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username_title"
-                android:paddingLeft="8dp"
                 android:textSize="15dp"
                 android:inputType="text"
-                android:background="@drawable/edit_background" />
+                android:background="@drawable/background_edit"
+                app:layout_constraintStart_toStartOf="@id/username_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_title" />
 
             <TextView
                 android:id="@+id/email_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username_edittext"
-                android:text="Email"
+                android:text="@string/email"
                 android:textSize="13dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/darkSecondary"
-                android:fontFamily="@font/poppins_regular" />
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_edittext"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_edittext"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                app:layout_constraintStart_toStartOf="@id/email_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_title"
-                android:paddingLeft="8dp"
                 android:textSize="15dp"
                 android:inputType="text"
-                android:background="@drawable/edit_background" />
+                android:background="@drawable/background_edit"
+                app:layout_constraintStart_toStartOf="@id/email_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_title"/>
 
             <TextView
                 android:id="@+id/password_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_edittext"
-                android:text="Password"
+                android:text="@string/password"
                 android:textSize="13dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/darkSecondary"
-                android:fontFamily="@font/poppins_regular" />
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_edittext" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_inputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="4dp"
+                app:boxCornerRadiusBottomStart="4dp"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:passwordToggleEnabled="true"
                 app:layout_constraintStart_toStartOf="@id/password_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password_title"
-                app:passwordToggleEnabled="true">
+                app:layout_constraintTop_toBottomOf="@id/password_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:inputType="textPassword"
-                    android:background="@drawable/edit_background"
+                    android:background="@drawable/background_edit"
                     android:textSize="15dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -143,15 +146,21 @@
                 app:layout_constraintTop_toBottomOf="@id/password_inputLayout"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <RadioButton
+                <CheckBox
                     android:id="@+id/agreement_radio_button"
-                    android:layout_width="40dp"
-                    android:layout_height="20dp" />
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:buttonTint="@color/mainColor"/>
 
                 <TextView
+                    android:id="@+id/agreementRead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accept the agreement"/>
+                    android:text="@string/agreement"
+                    android:textColor="@color/darkSecondary"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="8dp"
+                    android:clickable="true"/>
 
             </LinearLayout>
 
@@ -159,17 +168,20 @@
                 android:id="@+id/register_button"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                app:layout_constraintStart_toStartOf="@id/agreement_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/agreement_layout"
                 android:layout_marginTop="46dp"
                 style="@style/PetButton"
-                android:text="Register"/>
+                android:text="@string/register"
+                app:layout_constraintStart_toStartOf="@id/agreement_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/agreement_layout"/>
 
             <TextView
+                android:id="@+id/dontHaveAccountText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Do you have an account? Login"
+                android:text="@string/haveAccount"
+                android:textSize="13dp"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_marginTop="50dp"
                 android:gravity="center"
                 app:layout_constraintStart_toStartOf="@id/register_button"

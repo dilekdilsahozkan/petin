@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.BaseActivity
+import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
