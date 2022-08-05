@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"
+        android:title="@string/mainPageTitle"/>
+    <item
+        android:id="@+id/messages"
+        android:icon="@drawable/ic_messages"
+        app:showAsAction="always"
+        android:title="@string/messagesTitle"/>
+    <item
+        android:id="@+id/addButton"
+        android:icon="@null"
+        app:showAsAction="always"
+        android:title="@string/addPostTitle"/>
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/ic_notification"
+        app:showAsAction="always"
+        android:title="@string/notificationTitle"/>
+
+    <item android:id="@+id/profile"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always"
+        android:title="@string/profileTitle"/>
+
+</menu>
