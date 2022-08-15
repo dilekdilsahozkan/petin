@@ -41,29 +41,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_title"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/email_linear"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                app:boxCornerRadiusBottomEnd="4dp"
-                app:boxCornerRadiusBottomStart="4dp"
-                app:boxCornerRadiusTopEnd="4dp"
-                app:boxCornerRadiusTopStart="4dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
+            <EditText
+                android:id="@+id/email_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edit"
+                android:padding="10dp"
+                android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="@id/email_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_title">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_edit"
-                    android:padding="10dp"
-                    android:textSize="15dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@id/email_title"/>
 
             <TextView
                 android:id="@+id/password_title"
@@ -76,16 +63,12 @@
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_linear"/>
+                app:layout_constraintTop_toBottomOf="@id/email_edittext"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_inputLayout"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                app:boxCornerRadiusBottomEnd="4dp"
-                app:boxCornerRadiusBottomStart="4dp"
-                app:boxCornerRadiusTopEnd="4dp"
-                app:boxCornerRadiusTopStart="4dp"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:passwordToggleEnabled="true"
@@ -103,6 +86,35 @@
                     android:textSize="15dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/errorLinear"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="@dimen/scale_20dp"
+                android:background="@drawable/background_soft_orange"
+                app:layout_constraintTop_toBottomOf="@id/password_inputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_error"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/scale_10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wrongLogin"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/scale_12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/scale_5dp"/>
+
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_button"
@@ -176,18 +188,21 @@
                 app:layout_constraintTop_toBottomOf="@id/or_login_linear">
 
                 <ImageView
+                    android:id="@+id/google"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_google_logo"
                     android:layout_marginRight="40dp"/>
 
                 <ImageView
+                    android:id="@+id/apple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_apple_logo"
                     android:layout_marginRight="40dp"/>
 
                 <ImageView
+                    android:id="@+id/facebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_facebook_logo" />

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/scale_16dp"
+        android:background="@drawable/base_cardview">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:cardCornerRadius="0dp"
+            android:gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/reportText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chooseType"
+                    android:textSize="@dimen/scale_15dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/darkPrimary"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <RadioButton
+                    android:id="@+id/postButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/post"
+                    android:textSize="@dimen/scale_15dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:buttonTint="@color/darkPrimary"/>
+
+                <RadioButton
+                    android:id="@+id/qnaButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/qna"
+                    android:textSize="@dimen/scale_15dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:buttonTint="@color/darkPrimary"/>
+
+                <RadioButton
+                    android:id="@+id/findPartnerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/findPartner"
+                    android:textSize="@dimen/scale_15dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:buttonTint="@color/darkPrimary"/>
+
+                <RadioButton
+                    android:id="@+id/adoptionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adoption"
+                    android:textSize="@dimen/scale_15dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:buttonTint="@color/darkPrimary"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+</layout>

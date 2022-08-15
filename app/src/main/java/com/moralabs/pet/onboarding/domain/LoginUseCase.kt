@@ -2,6 +2,8 @@ package com.moralabs.pet.onboarding.domain
 
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
 import com.moralabs.pet.onboarding.data.repository.LoginRepository
@@ -14,15 +16,25 @@ class LoginUseCase @Inject constructor(
 ) : BaseUseCase() {
     fun login(loginPet: LoginRequestDto): Flow<BaseResult<LoginDto>> {
         return flow {
-            loginRepository.login(loginPet).body().let {
-                LoginDto(
-                    accessToken = it?.data?.accessToken,
-                    refreshToken = it?.data?.refreshToken,
-                    accessTokenExpiration = it?.data?.accessTokenExpiration,
-                    refreshTokenExpiration = it?.data?.refreshTokenExpiration,
-                    tokenType = it?.data?.tokenType
-
-                )
+            val response = loginRepository.login(loginPet)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    emit(
+                        BaseResult.Success(
+                            LoginDto(
+                                accessToken = it?.data?.accessToken,
+                                refreshToken = it?.data?.refreshToken,
+                                accessTokenExpiration = it?.data?.accessTokenExpiration,
+                                refreshTokenExpiration = it?.data?.refreshTokenExpiration,
+                                tokenType = it?.data?.tokenType
+                            )
+                        )
+                    )
+                } ?: run {
+                    emit(
+                        BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR))
+                    )
+                }
             }
         }
     }

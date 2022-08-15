@@ -8,30 +8,31 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="@dimen/notification_icon_width"
             android:layout_height="@dimen/notification_icon_height"
+            android:layout_marginStart="@dimen/scale_16dp"
             android:src="@drawable/ic_back"
-            android:layout_marginStart="@dimen/edge_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/darkPrimary"
             android:text=""
-            android:textSize="20dp"
+            android:textSize="@dimen/scale_17dp"
+            android:fontFamily="@font/poppins_semibold"
             android:layout_centerInParent="true"
+            android:layout_marginStart="12dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/img_back"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

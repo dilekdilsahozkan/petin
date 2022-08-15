@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/userInfoLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/postText"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userPhoto"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/user"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toEndOf="@+id/userPhoto"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="dilsah.ozkan"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Ankara"
+                android:textColor="@color/darkGray"
+                android:textSize="@dimen/scale_11dp"
+                android:fontFamily="@font/poppins_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_adoption"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Adoption"
+                android:textColor="@color/darkPrimary"
+                android:textSize="11dp"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginStart="4dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/postText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="This is my buddy. Love him."
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/darkPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/userInfoLinear"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/offerImage"
+        android:layout_width="164dp"
+        android:layout_height="148dp"
+        style="@style/PetImageView.Round.8"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pet"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/postText"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/petInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/postText"
+        app:layout_constraintStart_toEndOf="@+id/offerImage">
+
+        <TextView
+            android:id="@+id/petName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Kara Fırtına"
+            android:textSize="17dp"
+            android:textColor="@color/darkPrimary"
+            android:fontFamily="@font/poppins_semibold"/>
+
+        <TextView
+            android:id="@+id/petKind"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Himalaya"
+            android:textSize="13dp"
+            android:textColor="@color/darkGray"
+            android:fontFamily="@font/poppins_regular" />
+
+        <TextView
+            android:id="@+id/petAge"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="2 y.o"
+            android:textSize="13dp"
+            android:textColor="@color/darkGray"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:id="@+id/petGender"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Male"
+            android:textSize="13dp"
+            android:textColor="@color/darkGray"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <Button
+            android:id="@+id/offerButton"
+            android:layout_width="163dp"
+            android:layout_height="44dp"
+            style="@style/PetButton"
+            android:layout_marginTop="10dp"
+            android:text="Offer"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/postOfferLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/offerImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginVertical="12dp">
+
+        <ImageView
+            android:id="@+id/offerCountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_offer"/>
+
+        <TextView
+            android:id="@+id/offerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/darkGray"
+            android:textSize="11dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/postReleaseTime"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="1h ago"
+        android:textSize="@dimen/scale_11dp"
+        android:textColor="@color/darkGray"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintTop_toBottomOf="@+id/offerImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

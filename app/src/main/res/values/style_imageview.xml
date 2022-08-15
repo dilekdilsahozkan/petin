@@ -11,6 +11,10 @@
         <item name="shapeAppearanceOverlay">@style/PetShapeAppearanceOverlay.Round.8</item>
     </style>
 
+    <style name="PetImageView.PetCard">
+        <item name="shapeAppearanceOverlay">@style/PetShapeAppearanceOverlay.PetCard</item>
+    </style>
+
     <style name="PetShapeAppearanceOverlay" parent="ShapeAppearanceOverlay" />
 
     <style name="PetShapeAppearanceOverlay.Round">
@@ -20,6 +24,11 @@
 
     <style name="PetShapeAppearanceOverlay.Round.8">
         <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="PetShapeAppearanceOverlay.PetCard">
+        <item name="cornerSizeTopLeft">8dp</item>
+            <item name="cornerSizeBottomLeft">8dp</item>
     </style>
 
 </resources>

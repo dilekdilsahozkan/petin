@@ -24,7 +24,7 @@ class WelcomeViewModel @Inject constructor(
                     _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->

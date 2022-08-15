@@ -34,10 +34,11 @@ class CommonAppBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
 
     fun showLightColorBar() {
         binding.root.setBackgroundColor(context.getColor(R.color.white))
+        binding.toolbarTitle.setTextColor(context.getColor(R.color.darkPrimary))
     }
 
     fun showDarkColorBar() {
-        binding.imgBack.setColorFilter(context.getColor(R.color.black))
-        binding.toolbarTitle.setTextColor(context.getColor(R.color.black))
+        binding.root.setBackgroundColor(context.getColor(R.color.mainColor))
+        binding.toolbarTitle.setTextColor(context.getColor(R.color.white))
     }
 }

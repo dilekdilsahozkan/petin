@@ -22,4 +22,22 @@
     <string name="findAccount">Hesabınızı Bulun</string>
     <string name="read">Okudum</string>
     <string name="passwordSended">Yeni şifrenizi kayıtlı <font color="#FF724C"> e-mail adresinize</font> gönderildi.</string>
+    <string name="choosePet">Evcil hayvanınızı seçiniz.</string>
+    <string name="choosePetEditText">Neden seçtiğiniz evcil hayvanla kendi evcil hayvanınızın partner olmasını istediğinizi açıklayınız.</string>
+    <string name="offer">Teklif</string>
+    <string name="sendOffer">Teklifte Bulun</string>
+    <string name="decline">Reddet</string>
+    <string name="accept">Kabul Et</string>
+    <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
+    <string name="wrongLogin">Yanlış email ya da şifre</string>
+    <string name="chooseType">Gönderi tipinizi seçiniz</string>
+    <string name="post">Post</string>
+    <string name="qna">Soru - Cevap</string>
+    <string name="findPartner">Arkadaş Bulma</string>
+    <string name="adoption">Sahiplendirme</string>
+    <string name="comment">Yorum yazınız</string>
+    <string name="message">Mesajlar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

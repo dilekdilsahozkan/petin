@@ -3,6 +3,8 @@ package com.moralabs.pet.onboarding.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
@@ -25,13 +27,15 @@ class RegisterViewModel @Inject constructor(
                     _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success ->
                             _state.value = ViewState.Success(baseResult.data)
+                        is BaseResult.Error ->
+                            _state.value = ViewState.Error(error = baseResult.error.code)
                     }
                 }
         }

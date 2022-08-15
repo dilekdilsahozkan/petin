@@ -17,6 +17,21 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".profile.presentation.ui.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".notification.presentation.ui.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".message.presentation.ui.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".newPost.presentation.ui.NewPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".offer.presentation.ui.OfferActivity"
+            android:exported="false" />
+        <activity
             android:name=".onboarding.presentation.ui.ForgotPasswordActivity"
             android:exported="false" />
         <activity

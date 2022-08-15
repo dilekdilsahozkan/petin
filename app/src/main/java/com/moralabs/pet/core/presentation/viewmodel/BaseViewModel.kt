@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.ErrorCode
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,7 @@ open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewMod
                     _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
@@ -43,7 +44,7 @@ open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewMod
 
 sealed class ViewState<T> {
     data class Success<T>(val data:T): ViewState<T>()
-    data class Error<T>(val error: String?): ViewState<T>()
+    data class Error<T>(val error: ErrorCode? = null, val message: String? = null): ViewState<T>()
     class Idle<T> : ViewState<T>()
     class Loading<T> : ViewState<T>()
 }

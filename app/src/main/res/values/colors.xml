@@ -7,15 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#F41B0D</color>
     <color name="mainColor">#FF724C</color>
+    <color name="softOrange">#FFD7CC</color>
     <color name="secondaryColor">#2A2C41</color>
     <color name="softGray">#EEEEF2</color>
     <color name="darkGray">#6A6B74</color>
-    <color name="grayBackground">#F4F4F4</color>
     <color name="darkPrimary">#2A2B38</color>
     <color name="darkSecondary">#535B5B</color>
     <color name="darkGrayTransparent">#336A6B74</color>
     <color name="mainPageTitle">#232323</color>
-    <color name="searchBackground">#F3F3F6</color>
+    <color name="grayBackground">#F3F3F6</color>
     <color name="transparent">#CC000000</color>
 </resources>

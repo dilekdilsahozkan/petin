@@ -17,7 +17,6 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCase
 ): BaseViewModel<LoginDto>(useCase){
-
     fun login(loginPet: LoginRequestDto) {
         viewModelScope.launch {
             useCase.login(loginPet)
@@ -25,7 +24,7 @@ class LoginViewModel @Inject constructor(
                     _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->

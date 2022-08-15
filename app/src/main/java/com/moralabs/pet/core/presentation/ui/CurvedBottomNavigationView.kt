@@ -33,7 +33,7 @@ class CurvedBottomNavigationView @JvmOverloads constructor(
 
     init {
         // radius of fab button
-        radius = 200 / 2
+        radius = 170 / 2
         mPath = Path()
         mPaint = Paint()
         with(mPaint) {

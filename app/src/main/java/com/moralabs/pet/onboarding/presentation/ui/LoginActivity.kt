@@ -30,4 +30,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() ,
 
         setSupportActionBar(binding.appBar)
     }
+    override fun showTitleText(title: String?) {
+        binding.appBar.showTitleText(title)
+    }
 }

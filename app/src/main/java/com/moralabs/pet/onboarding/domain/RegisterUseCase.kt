@@ -2,6 +2,8 @@ package com.moralabs.pet.onboarding.domain
 
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
 import com.moralabs.pet.onboarding.data.repository.RegisterRepository
@@ -14,15 +16,21 @@ class RegisterUseCase  @Inject constructor(
 ) : BaseUseCase() {
     fun register(registerPet: RegisterRequestDto): Flow<BaseResult<RegisterDto>> {
         return flow {
-            registerRepository.register(registerPet).body().let {
-                RegisterDto(
-                    accessToken = it?.data?.accessToken,
-                    refreshToken = it?.data?.refreshToken,
-                    accessTokenExpiration = it?.data?.accessTokenExpiration,
-                    refreshTokenExpiration = it?.data?.refreshTokenExpiration,
-                    tokenType = it?.data?.tokenType
 
-                )
+            if (registerPet.email.isNullOrEmpty()) {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.EMPTY_EMAIL)))
+            } else {
+                val result = registerRepository.register(registerPet)
+
+                if (result.isSuccessful && result.code() == 200) {
+                    result.body()?.data?.run {
+                        emit(BaseResult.Success(this))
+                    } ?: run {
+                        emit(BaseResult.Error(ErrorResult(code = ErrorCode.NO_DATA)))
+                    }
+                } else {
+                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                }
             }
         }
     }

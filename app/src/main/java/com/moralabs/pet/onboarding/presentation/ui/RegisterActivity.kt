@@ -28,4 +28,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() ,
             R.id.img_back -> super.onBackPressed()
         }
     }
+
+    override fun showTitleText(title: String?) {
+        binding.appBar.showTitleText(title)
+    }
 }

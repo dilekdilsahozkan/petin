@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/base_cardview"
-        android:padding="@dimen/edge_margin">
+        android:padding="@dimen/scale_20dp">
 
         <TextView
             android:id="@+id/is_bank_title"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="@dimen/scale_15dp"
             android:text="@string/passwordSended"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

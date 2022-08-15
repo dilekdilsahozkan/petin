@@ -9,8 +9,8 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_welcome"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/scale_0dp"
+            android:layout_height="@dimen/scale_0dp"
             app:defaultNavHost="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

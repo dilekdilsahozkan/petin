@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.moralabs.pet.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AgreementFragment : Fragment() {
 
     override fun onCreateView(
@@ -16,4 +18,5 @@ class AgreementFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_agreement, container, false)
     }
+
 }

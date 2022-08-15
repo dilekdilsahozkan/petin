@@ -53,7 +53,13 @@ abstract class BaseFragment<T : ViewDataBinding,
             viewModel.state.collect {
                 when (it) {
                     is ViewState.Success<U> -> stateSuccess(it.data)
-                    is ViewState.Error<U> -> stateError(it.error)
+                    is ViewState.Error<U> -> {
+                        it.message?.let { message ->
+                            stateError(message)
+                        } ?: run {
+                            stateError(it.error?.toString())
+                        }
+                    }
                     is ViewState.Idle<U> -> stopLoading()
                     is ViewState.Loading<U> -> startLoading()
                 }
