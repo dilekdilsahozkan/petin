@@ -4,6 +4,7 @@
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
     <dimen name="scale_0dp">0dp</dimen>
+    <dimen name="scale_4dp">4dp</dimen>
     <dimen name="scale_5dp">5dp</dimen>
     <dimen name="scale_8dp">8dp</dimen>
     <dimen name="scale_10dp">10dp</dimen>
@@ -18,4 +19,5 @@
     <dimen name="scale_44dp">44dp</dimen>
     <dimen name="scale_50dp">50dp</dimen>
     <dimen name="scale_100dp">100dp</dimen>
+    <dimen name="minus_scale_50dp">-50dp</dimen>
 </resources>

@@ -23,6 +23,12 @@
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
 
+        <action
+            android:id="@+id/action_fragment_main_to_profileFragment"
+            app:destination="@id/profile"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
     </fragment>
 
     <fragment
@@ -36,4 +42,10 @@
         android:name="com.moralabs.pet.newPost.presentation.ui.NewPostBottomSheetFragment"
         android:label="NewPostFragment"
         tools:layout="@layout/fragment_new_post_bottom_sheet"/>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.moralabs.pet.message.presentation.ui.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>

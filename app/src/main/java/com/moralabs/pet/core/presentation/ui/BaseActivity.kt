@@ -50,6 +50,7 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
     override fun onItemSelected(id: Int) {
         when (id) {
             R.id.img_back -> super.onBackPressed()
+            R.id.img_profile -> super.onBackPressed()
         }
     }
 
