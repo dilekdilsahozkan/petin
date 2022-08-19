@@ -16,11 +16,13 @@ import javax.inject.Singleton
 class RegisterDI {
     @Provides
     @Singleton
-    fun provideRegisterService(retrofit: Retrofit): RegisterService = retrofit.create(RegisterService::class.java)
+    fun provideRegisterService(retrofit: Retrofit): RegisterService =
+        retrofit.create(RegisterService::class.java)
 
     @Provides
     @Singleton
-    fun provideRegisterRepository(service: RegisterService): RegisterRepository = RegisterRepositoryImpl(service)
+    fun provideRegisterRepository(service: RegisterService): RegisterRepository =
+        RegisterRepositoryImpl(service)
 
     @Provides
     @Singleton

@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MessageFragment : BaseFragment<FragmentMessageBinding, MessageDto, MessageViewModel>(){
 
     override fun getLayoutId() = R.layout.fragment_message
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<MessageDto> {
         val viewModel: MessageViewModel by viewModels()

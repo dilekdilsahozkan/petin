@@ -32,6 +32,9 @@ open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewMod
                             latestEntity = baseResult.data as T
                             _state.value = ViewState.Success(baseResult.data as T)
                         }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error()
+                        }
                     }
                 }
         }
@@ -44,7 +47,7 @@ open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewMod
 
 sealed class ViewState<T> {
     data class Success<T>(val data:T): ViewState<T>()
-    data class Error<T>(val error: ErrorCode? = null, val message: String? = null): ViewState<T>()
+    data class Error<T>(val error: ErrorCode? = null, val message: String? = null ): ViewState<T>()
     class Idle<T> : ViewState<T>()
     class Loading<T> : ViewState<T>()
 }

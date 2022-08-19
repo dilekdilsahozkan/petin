@@ -23,6 +23,12 @@
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
 
+        <action
+            android:id="@+id/action_fragment_main_to_notificationFragment"
+            app:destination="@id/notification"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
     </fragment>
 
     <fragment
@@ -33,7 +39,14 @@
 
     <fragment
         android:id="@+id/addButton"
-        android:name="com.moralabs.pet.newPost.presentation.ui.NewPostBottomSheetFragment"
+        android:name="com.moralabs.pet.newPost.presentation.ui.ChooseTypeFragment"
+        android:label="ChooseTypeFragment"
+        tools:layout="@layout/fragment_choose_type"/>
+
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.moralabs.pet.notification.presentation.ui.NotificationFragment"
         android:label="NewPostFragment"
-        tools:layout="@layout/fragment_new_post_bottom_sheet"/>
+        tools:layout="@layout/fragment_notification"/>
+
 </navigation>

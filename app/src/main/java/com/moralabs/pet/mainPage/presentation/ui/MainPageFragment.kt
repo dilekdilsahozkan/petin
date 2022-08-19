@@ -9,21 +9,21 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMainPageBinding
-import com.moralabs.pet.mainPage.data.remote.dto.ContentDto
-import com.moralabs.pet.mainPage.data.remote.dto.MainPageDto
+import com.moralabs.pet.mainPage.data.remote.dto.ContentTypeDto
+import com.moralabs.pet.mainPage.data.remote.dto.PostDto
 import com.moralabs.pet.mainPage.presentation.adapter.MainPageListAdapter
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainPageFragment : BaseFragment<FragmentMainPageBinding, MainPageDto, MainPageViewModel>() {
+class MainPageFragment : BaseFragment<FragmentMainPageBinding, PostDto, MainPageViewModel>(){
 
     lateinit var postAdapter: MainPageListAdapter
-    var list = mutableListOf<ContentDto>()
+    var list = mutableListOf<ContentTypeDto>()
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun fragmentViewModel(): BaseViewModel<MainPageDto> {
+    override fun fragmentViewModel(): BaseViewModel<PostDto> {
         val viewModel: MainPageViewModel by viewModels()
         return viewModel
     }
@@ -37,10 +37,5 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, MainPageDto, Main
             adapter = postAdapter
             layoutManager = LinearLayoutManager(context)
         }
-    }
-
-    override fun addListeners() {
-        super.addListeners()
-
     }
 }

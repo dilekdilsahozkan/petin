@@ -1,22 +1,27 @@
 package com.moralabs.pet.onboarding.presentation.ui
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
+import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.databinding.FragmentLoginBinding
+import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
+import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AgreementFragment : Fragment() {
+class AgreementFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewModel>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_agreement, container, false)
+    override fun getLayoutId() = R.layout.fragment_agreement
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+
+    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
+        val viewModel: LoginViewModel by viewModels()
+        return viewModel
     }
 
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.agreement))
+    }
 }

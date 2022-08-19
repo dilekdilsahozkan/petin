@@ -16,11 +16,13 @@ import javax.inject.Singleton
 class WelcomeDI {
     @Provides
     @Singleton
-    fun provideWelcomeService(retrofit: Retrofit): WelcomeService = retrofit.create(WelcomeService::class.java)
+    fun provideWelcomeService(retrofit: Retrofit): WelcomeService =
+        retrofit.create(WelcomeService::class.java)
 
     @Provides
     @Singleton
-    fun provideWelcomeRepository(service: WelcomeService): WelcomeRepository = WelcomeRepositoryImpl(service)
+    fun provideWelcomeRepository(service: WelcomeService): WelcomeRepository =
+        WelcomeRepositoryImpl(service)
 
     @Provides
     @Singleton

@@ -9,7 +9,6 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.databinding.ActivityMainPageBinding
-import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,10 +19,6 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>() ,
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-   /* private val newPostBottomSheetDialog: NewPostBottomSheetFragment by lazy {
-        NewPostBottomSheetFragment(this)
-    }
-*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

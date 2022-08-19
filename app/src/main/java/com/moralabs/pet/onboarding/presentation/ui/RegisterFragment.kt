@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_login.password_edittext
 import kotlinx.android.synthetic.main.fragment_register.*
 
 @AndroidEntryPoint
-class RegisterFragment: BaseFragment<FragmentRegisterBinding, RegisterDto, RegisterViewModel>()  {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, RegisterViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_register
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -42,36 +42,46 @@ class RegisterFragment: BaseFragment<FragmentRegisterBinding, RegisterDto, Regis
         super.addListeners()
         setRegisterClickable()
         binding.registerButton.setOnClickListener {
-            if(binding.emailEdittext.text.toString().isNotEmpty() && binding.passwordEdittext.text.toString().isNotEmpty() &&
-                binding.nameSurnameEdittext.text.toString().isNotEmpty() && binding.usernameEdittext.text.toString().isNotEmpty() &&
-                binding.agreementRadioButton.isChecked){
-                startActivity(Intent(context, MainPageActivity::class.java))
+            if (binding.agreementRadioButton.isChecked) {
                 viewModel.register(
                     RegisterRequestDto(
-                    this.name_surname_edittext.text.toString(),
-                    this.username_edittext.text.toString(),
-                    this.email_edittext.text.toString(),
-                    this.password_edittext.text.toString()))
+                        this.name_surname_edittext.text.toString(),
+                        this.username_edittext.text.toString(),
+                        this.email_edittext.text.toString(),
+                        this.password_edittext.text.toString()
+                    )
+                )
             }
-
         }
         binding.agreementRead.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_register_to_agreementFragment)
         }
     }
-    fun setRegisterClickable(){
+
+    override fun stateSuccess(data: RegisterDto) {
+        super.stateSuccess(data)
+        startActivity(Intent(context, LoginActivity::class.java))
+    }
+
+    fun setRegisterClickable() {
         val spannableString = SpannableString(getString(R.string.haveAccount))
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 startActivity(Intent(context, LoginActivity::class.java))
             }
+
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.isUnderlineText = false
                 ds.color = Color.parseColor("#FF724C")
             }
         }
-        spannableString.setSpan(clickableSpan, spannableString.length-10, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(
+            clickableSpan,
+            spannableString.length - 10,
+            spannableString.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         binding.dontHaveAccountText.text = spannableString
         binding.dontHaveAccountText.movementMethod = LinkMovementMethod.getInstance()
     }

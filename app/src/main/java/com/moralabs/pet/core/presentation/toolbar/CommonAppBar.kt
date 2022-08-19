@@ -5,6 +5,7 @@ import android.content.ContextWrapper
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import com.google.android.material.appbar.MaterialToolbar
 import com.moralabs.pet.R
 import com.moralabs.pet.databinding.UiToolbarCommonBinding
@@ -32,13 +33,12 @@ class CommonAppBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         binding.toolbarTitle.text = title
     }
 
+    fun visibilityChange() {
+        binding.commonToolbar.visibility = View.GONE
+    }
+
     fun showLightColorBar() {
         binding.root.setBackgroundColor(context.getColor(R.color.white))
         binding.toolbarTitle.setTextColor(context.getColor(R.color.darkPrimary))
-    }
-
-    fun showDarkColorBar() {
-        binding.root.setBackgroundColor(context.getColor(R.color.mainColor))
-        binding.toolbarTitle.setTextColor(context.getColor(R.color.white))
     }
 }

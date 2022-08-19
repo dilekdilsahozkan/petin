@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface WelcomeService {
     @GET("test")
-    suspend fun getWelcomePage() : Response<BaseResponse<WelcomeDto>>
+    suspend fun getWelcomePage(): Response<BaseResponse<WelcomeDto>>
 }

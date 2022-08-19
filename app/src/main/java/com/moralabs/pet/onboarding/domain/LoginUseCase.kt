@@ -16,24 +16,18 @@ class LoginUseCase @Inject constructor(
 ) : BaseUseCase() {
     fun login(loginPet: LoginRequestDto): Flow<BaseResult<LoginDto>> {
         return flow {
-            val response = loginRepository.login(loginPet)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(
-                        BaseResult.Success(
-                            LoginDto(
-                                accessToken = it?.data?.accessToken,
-                                refreshToken = it?.data?.refreshToken,
-                                accessTokenExpiration = it?.data?.accessTokenExpiration,
-                                refreshTokenExpiration = it?.data?.refreshTokenExpiration,
-                                tokenType = it?.data?.tokenType
-                            )
-                        )
-                    )
-                } ?: run {
-                    emit(
-                        BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR))
-                    )
+            if (loginPet.email.isNullOrEmpty() && loginPet.password.isNullOrEmpty()) {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.EMPTY_BLANKS)))
+            } else {
+                val response = loginRepository.login(loginPet)
+                if (response.isSuccessful && response.code() == 200) {
+                    response.body()?.data?.let {
+                        emit(BaseResult.Success(it))
+                    } ?: run {
+                        emit(BaseResult.Error(ErrorResult(code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD)))
+                    }
+                } else {
+                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
                 }
             }
         }

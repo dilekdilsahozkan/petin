@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
-    <dimen name="notification_icon_width">24dp</dimen>
-    <dimen name="notification_icon_height">24dp</dimen>
     <dimen name="scale_0dp">0dp</dimen>
     <dimen name="scale_5dp">5dp</dimen>
     <dimen name="scale_8dp">8dp</dimen>
@@ -14,6 +12,7 @@
     <dimen name="scale_17dp">17dp</dimen>
     <dimen name="scale_18dp">18dp</dimen>
     <dimen name="scale_20dp">20dp</dimen>
+    <dimen name="scale_24dp">24dp</dimen>
     <dimen name="scale_25dp">25dp</dimen>
     <dimen name="scale_44dp">44dp</dimen>
     <dimen name="scale_50dp">50dp</dimen>

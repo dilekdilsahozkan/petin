@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_post_navigation"
+    app:startDestination="@id/chooseTypeFragment">
+
+    <fragment
+        android:id="@+id/chooseTypeFragment"
+        android:name="com.moralabs.pet.newPost.presentation.ui.ChooseTypeFragment"
+        android:label="fragment_choose_type"
+        tools:layout="@layout/fragment_choose_type" >
+
+        <action
+            android:id="@+id/action_fragment_choose_to_newPostFragment"
+            app:destination="@id/newPostFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="com.moralabs.pet.newPost.presentation.ui.NewPostFragment"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post" />
+
+</navigation>

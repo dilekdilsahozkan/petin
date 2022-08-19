@@ -63,7 +63,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_q_a"/>
+                android:src="@drawable/ic_qna"/>
 
             <TextView
                 android:layout_width="wrap_content"

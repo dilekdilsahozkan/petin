@@ -27,12 +27,10 @@
             android:exported="false" />
         <activity
             android:name=".newPost.presentation.ui.NewPostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:fitsSystemWindows="true"/>
         <activity
             android:name=".offer.presentation.ui.OfferActivity"
-            android:exported="false" />
-        <activity
-            android:name=".onboarding.presentation.ui.ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".onboarding.presentation.ui.RegisterActivity"

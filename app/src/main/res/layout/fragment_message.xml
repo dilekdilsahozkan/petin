@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,10 +24,10 @@
                 android:id="@+id/search_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Search"
-                android:fontFamily="@font/poppins_regular"
                 android:background="@drawable/background_gray"
                 android:drawableLeft="@drawable/ic_search"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Search"
                 android:padding="10dp"
                 android:textSize="15dp" />
 
@@ -33,9 +37,9 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_user_message"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/search_inputLayout"/>
+            app:layout_constraintTop_toBottomOf="@+id/search_inputLayout"
+            tools:listitem="@layout/item_user_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,5 +6,5 @@ interface PetToolbarListener {
     fun showTitleLogo()
     fun setNotification(count: Int, type: Int)
     fun showLightColorBar()
-    fun showDarkColorBar()
+    fun visibilityChange()
 }

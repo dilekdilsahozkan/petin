@@ -19,4 +19,5 @@
     <color name="mainPageTitle">#232323</color>
     <color name="grayBackground">#F3F3F6</color>
     <color name="transparent">#CC000000</color>
+    <color name="divider">#C6C6C8</color>
 </resources>

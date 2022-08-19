@@ -1,6 +1,7 @@
 package com.moralabs.pet.onboarding.presentation.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.moralabs.pet.R
@@ -31,5 +32,9 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() ,
 
     override fun showTitleText(title: String?) {
         binding.appBar.showTitleText(title)
+    }
+
+    override fun visibilityChange() {
+        binding.appBar.visibilityChange()
     }
 }

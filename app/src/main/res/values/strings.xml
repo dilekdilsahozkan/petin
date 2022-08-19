@@ -17,7 +17,7 @@
     <string name="username">Kullanıcı Adı</string>
     <string name="nameLastname">Ad Soyad</string>
     <string name="next">İleri</string>
-    <string name="agreement"><u>Kullanıcı sözleşmesini kabul ediyorum.</u></string>
+    <string name="agreementText"><u>Kullanıcı sözleşmesini kabul ediyorum.</u></string>
     <string name="enterEmail">Hesabınıza bağlı mail adresinizi giriniz.</string>
     <string name="findAccount">Hesabınızı Bulun</string>
     <string name="read">Okudum</string>
@@ -37,6 +37,11 @@
     <string name="adoption">Sahiplendirme</string>
     <string name="comment">Yorum yazınız</string>
     <string name="message">Mesajlar</string>
+    <string name="agreement">Sözleşme</string>
+    <string name="newPost">Yeni Gönderi</string>
+    <string name="publish">Paylaş</string>
+    <string name="explanation">Açıklama yazınız</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -11,17 +11,18 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 class LoginDI {
     @Provides
     @Singleton
-    fun provideLoginService(retrofit: Retrofit): LoginService = retrofit.create(LoginService::class.java)
+    fun provideLoginService(retrofit: Retrofit): LoginService =
+        retrofit.create(LoginService::class.java)
 
     @Provides
     @Singleton
-    fun provideLoginRepository(service: LoginService): LoginRepository = LoginRepositoryImpl(service)
+    fun provideLoginRepository(service: LoginService): LoginRepository =
+        LoginRepositoryImpl(service)
 
     @Provides
     @Singleton

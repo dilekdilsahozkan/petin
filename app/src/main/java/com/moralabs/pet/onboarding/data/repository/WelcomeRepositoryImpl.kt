@@ -7,7 +7,8 @@ import com.moralabs.pet.onboarding.data.remote.dto.WelcomeDto
 import retrofit2.Response
 import javax.inject.Inject
 
-class WelcomeRepositoryImpl@Inject constructor(private val service: WelcomeService)
-    : WelcomeRepository, BaseRepository {
-    override suspend fun getWelcomePage(): Response<BaseResponse<WelcomeDto>> = service.getWelcomePage()
+class WelcomeRepositoryImpl @Inject constructor(private val service: WelcomeService) :
+    WelcomeRepository, BaseRepository {
+    override suspend fun getWelcomePage(): Response<BaseResponse<WelcomeDto>> =
+        service.getWelcomePage()
 }

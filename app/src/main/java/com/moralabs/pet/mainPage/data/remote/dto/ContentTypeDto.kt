@@ -1,20 +1,20 @@
 package com.moralabs.pet.mainPage.data.remote.dto
 
-sealed class ContentDto {
-    data class PostDto(
+sealed class ContentTypeDto {
+    data class NormalPostDto(
         val media: List<String>? = null,
         val text: String? = null
-    ):ContentDto()
+    ):ContentTypeDto()
 
     data class QNADto(
         val image: Int? =null,
-    ):ContentDto()
+    ):ContentTypeDto()
 
     data class FindPartnerDto(
         val image: Int? =null,
-    ):ContentDto()
+    ):ContentTypeDto()
 
     data class AdoptionDto(
         val image: Int? =null,
-    ):ContentDto()
+    ):ContentTypeDto()
 }

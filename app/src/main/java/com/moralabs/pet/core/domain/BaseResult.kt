@@ -1,11 +1,11 @@
 package com.moralabs.pet.core.domain
 
 sealed class BaseResult<out T : Any> {
-    data class Success <T: Any>(val data : T) : BaseResult<T>()
-    data class Error(val error : ErrorResult) : BaseResult<Nothing>()
+    data class Success<T : Any>(val data: T) : BaseResult<T>()
+    data class Error(val error: ErrorResult) : BaseResult<Nothing>()
 }
 
-data class ErrorResult (
+data class ErrorResult(
     val code: ErrorCode,
     val message: String? = null
 )
@@ -13,6 +13,9 @@ data class ErrorResult (
 enum class ErrorCode {
     SERVER_ERROR,
     NO_DATA,
-    EMPTY_USERNAME,
-    EMPTY_EMAIL
+    EMPTY_BLANKS,
+    PASSWORD_LENGTH_LESS_THAN_EIGHT,
+    USERNAME_VALID,
+    EMAIL_VALID,
+    AUTH_WRONG_EMAIL_OR_PASSWORD
 }

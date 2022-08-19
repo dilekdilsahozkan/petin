@@ -1,33 +1,31 @@
 package com.moralabs.pet.newPost.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.moralabs.pet.R
-import com.moralabs.pet.databinding.NewPostBottomSheetDialogBinding
+import com.moralabs.pet.databinding.FragmentNewPostBottomSheetBinding
 
-class NewPostBottomSheetFragment(private val listener: NewPostBottomSheetListener?)
+class ChooseTypeBottomSheetFragment(private val listener: ChooseTypeBottomSheetListener?)
     : BottomSheetDialogFragment(),View.OnClickListener {
 
-    lateinit var binding: NewPostBottomSheetDialogBinding
+    lateinit var binding: FragmentNewPostBottomSheetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding = NewPostBottomSheetDialogBinding.inflate(inflater, container, false)
+       binding = FragmentNewPostBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.postButton.setOnClickListener(this)
-        binding.qnaButton.setOnClickListener(this)
-        binding.findPartnerButton.setOnClickListener(this)
-        binding.adoptionButton.setOnClickListener(this)
+        binding.postText.setOnClickListener(this)
+        binding.qnaText.setOnClickListener(this)
+        binding.findPartnerText.setOnClickListener(this)
+        binding.adoptionText.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -35,6 +33,6 @@ class NewPostBottomSheetFragment(private val listener: NewPostBottomSheetListene
         dismiss()
     }
 }
-interface NewPostBottomSheetListener {
+interface ChooseTypeBottomSheetListener {
     fun onItemClick(id:Int?)
 }

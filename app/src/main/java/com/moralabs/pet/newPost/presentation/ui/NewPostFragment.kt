@@ -13,9 +13,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewPostFragment :BaseFragment<FragmentNewPostBinding, NewPostDto, NewPostViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_new_post
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<NewPostDto> {
         val viewModel: NewPostViewModel by viewModels()
         return viewModel
+    }
+
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.newPost))
     }
 }

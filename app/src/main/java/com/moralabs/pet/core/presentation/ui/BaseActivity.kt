@@ -58,6 +58,7 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
     override fun showTitleText(title: String?) {
         (binding as? ActivityBaseBinding)?.appBar?.showTitleText(title)
     }
+    override fun visibilityChange() {}
 
     override fun showTitleLogo() {}
 
@@ -65,7 +66,4 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         (binding as? ActivityBaseBinding)?.appBar?.showLightColorBar()
     }
 
-    override fun showDarkColorBar() {
-        (binding as? ActivityBaseBinding)?.appBar?.showDarkColorBar()
-    }
 }

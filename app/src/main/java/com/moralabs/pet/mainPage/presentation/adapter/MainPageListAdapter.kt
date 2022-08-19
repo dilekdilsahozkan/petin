@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
-import com.moralabs.pet.mainPage.data.remote.dto.ContentDto
+import com.moralabs.pet.mainPage.data.remote.dto.ContentTypeDto
 
 class MainPageListAdapter : RecyclerView.Adapter<MainPageListAdapter.MainPageListAdapterViewHolder>() {
 
@@ -17,10 +17,10 @@ class MainPageListAdapter : RecyclerView.Adapter<MainPageListAdapter.MainPageLis
         viewType: Int
     ): MainPageListAdapterViewHolder {
         val layout = when(viewType){
-            TYPE_POST -> R.layout.item_main_page_post
-            TYPE_QNA -> R.layout.item_main_page_qna
-            TYPE_FIND_PARTNER -> R.layout.item_main_page_find_partner
-            TYPE_ADOPTION -> R.layout.item_main_page_adoption
+            TYPE_POST -> R.layout.item_post
+            TYPE_QNA -> R.layout.item_qna
+            TYPE_FIND_PARTNER -> R.layout.item_find_partner
+            TYPE_ADOPTION -> R.layout.item_adoption
             else -> throw IllegalArgumentException("Invalid type")
         }
 
@@ -37,12 +37,12 @@ class MainPageListAdapter : RecyclerView.Adapter<MainPageListAdapter.MainPageLis
         private const val TYPE_ADOPTION = 3
         lateinit var mContext : Context
     }
-    private val differCallback = object : DiffUtil.ItemCallback<ContentDto>(){
-        override fun areItemsTheSame(oldItem: ContentDto, newItem: ContentDto): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<ContentTypeDto>(){
+        override fun areItemsTheSame(oldItem: ContentTypeDto, newItem: ContentTypeDto): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ContentDto, newItem: ContentDto): Boolean {
+        override fun areContentsTheSame(oldItem: ContentTypeDto, newItem: ContentTypeDto): Boolean {
             return oldItem == newItem
         }
     }
@@ -58,24 +58,24 @@ class MainPageListAdapter : RecyclerView.Adapter<MainPageListAdapter.MainPageLis
     }
 
     class MainPageListAdapterViewHolder(itemView: View):  RecyclerView.ViewHolder(itemView){
-        private fun bindPost(item: ContentDto.PostDto){
+        private fun bindPost(item: ContentTypeDto.NormalPostDto){
 
         }
-        private fun bindQNA(item: ContentDto.QNADto){
+        private fun bindQNA(item: ContentTypeDto.QNADto){
 
         }
-        private fun bindFindPartner(item: ContentDto.FindPartnerDto){
+        private fun bindFindPartner(item: ContentTypeDto.FindPartnerDto){
 
         }
-        private fun bindAdoption(item: ContentDto.AdoptionDto){
+        private fun bindAdoption(item: ContentTypeDto.AdoptionDto){
 
         }
-        fun bind(model: ContentDto){
+        fun bind(model: ContentTypeDto){
             when(model){
-                is ContentDto.PostDto -> bindPost(model)
-                is ContentDto.QNADto -> bindQNA(model)
-                is ContentDto.FindPartnerDto -> bindFindPartner(model)
-                is ContentDto.AdoptionDto -> bindAdoption(model)
+                is ContentTypeDto.NormalPostDto -> bindPost(model)
+                is ContentTypeDto.QNADto -> bindQNA(model)
+                is ContentTypeDto.FindPartnerDto -> bindFindPartner(model)
+                is ContentTypeDto.AdoptionDto -> bindAdoption(model)
             }
         }
     }

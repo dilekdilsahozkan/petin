@@ -11,66 +11,111 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:gravity="bottom"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/scale_16dp"
-        android:background="@drawable/base_cardview">
+        android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            app:cardCornerRadius="0dp"
+            android:layout_height="290dp"
             android:gravity="bottom">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="9">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4.5"
+                    android:background="@drawable/background_bottom_sheet_top"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/chooseType"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <TextView
-                    android:id="@+id/reportText"
+                    android:id="@+id/postText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/chooseType"
-                    android:textSize="@dimen/scale_15dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/darkPrimary"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <RadioButton
-                    android:id="@+id/postButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/scale_16dp"
+                    android:layout_marginTop="@dimen/scale_16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/post"
-                    android:textSize="@dimen/scale_15dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:buttonTint="@color/darkPrimary"/>
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="@dimen/scale_15dp"/>
 
-                <RadioButton
-                    android:id="@+id/qnaButton"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginStart="@dimen/scale_16dp"
+                    android:layout_marginEnd="@dimen/scale_16dp"/>
+
+                <TextView
+                    android:id="@+id/qnaText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/scale_16dp"
+                    android:layout_marginTop="@dimen/scale_16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/qna"
-                    android:textSize="@dimen/scale_15dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:buttonTint="@color/darkPrimary"/>
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="@dimen/scale_15dp"/>
 
-                <RadioButton
-                    android:id="@+id/findPartnerButton"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginStart="@dimen/scale_16dp"
+                    android:layout_marginEnd="@dimen/scale_16dp"/>
+
+                <TextView
+                    android:id="@+id/findPartnerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/scale_16dp"
+                    android:layout_marginStart="@dimen/scale_16dp"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/findPartner"
-                    android:textSize="@dimen/scale_15dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:buttonTint="@color/darkPrimary"/>
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="@dimen/scale_15dp"/>
 
-                <RadioButton
-                    android:id="@+id/adoptionButton"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginStart="@dimen/scale_16dp"
+                    android:layout_marginEnd="@dimen/scale_16dp"/>
+
+                <TextView
+                    android:id="@+id/adoptionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/adoption"
-                    android:textSize="@dimen/scale_15dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/scale_16dp"
+                    android:layout_marginStart="@dimen/scale_16dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:buttonTint="@color/darkPrimary"/>
+                    android:text="@string/adoption"
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="@dimen/scale_15dp"/>
 
             </LinearLayout>
 
