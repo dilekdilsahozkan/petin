@@ -6,124 +6,94 @@
 
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottom_sheet">
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="290dp"
-            android:gravity="bottom">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="9">
+                android:layout_height="55dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/chooseType"
+                android:textAlignment="center"
+                android:background="@drawable/background_bottom_sheet_orange"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18dp"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="4.5"
-                    android:background="@drawable/background_bottom_sheet_top"
-                    android:clickable="true"
-                    android:focusable="true">
+            <TextView
+                android:id="@+id/postText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/post"
+                android:textSize="@dimen/scale_15dp"
+                android:textColor="@color/darkPrimary"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/chooseType"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="18dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/qnaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/qna"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"/>
 
-                <TextView
-                    android:id="@+id/postText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:layout_marginTop="@dimen/scale_16dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/post"
-                    android:textColor="@color/darkPrimary"
-                    android:textSize="@dimen/scale_15dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:layout_marginEnd="@dimen/scale_16dp"/>
+            <TextView
+                android:id="@+id/findPartnerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/findPartner"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"/>
 
-                <TextView
-                    android:id="@+id/qnaText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:layout_marginTop="@dimen/scale_16dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/qna"
-                    android:textColor="@color/darkPrimary"
-                    android:textSize="@dimen/scale_15dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:layout_marginEnd="@dimen/scale_16dp"/>
+            <TextView
+                android:id="@+id/adoptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/adoption"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"/>
 
-                <TextView
-                    android:id="@+id/findPartnerText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/scale_16dp"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:clickable="true"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/findPartner"
-                    android:textColor="@color/darkPrimary"
-                    android:textSize="@dimen/scale_15dp"/>
+        </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:layout_marginEnd="@dimen/scale_16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/adoptionText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/scale_16dp"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:clickable="true"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/adoption"
-                    android:textColor="@color/darkPrimary"
-                    android:textSize="@dimen/scale_15dp"/>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </RelativeLayout>
 </layout>

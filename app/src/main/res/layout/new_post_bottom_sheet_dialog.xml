@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4.5"
-                    android:background="@drawable/background_bottom_sheet_top"
+                    android:background="@drawable/background_bottom_sheet_orange"
                     android:clickable="true"
                     android:focusable="true">
 

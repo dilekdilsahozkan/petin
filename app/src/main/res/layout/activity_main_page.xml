@@ -11,18 +11,92 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:liftOnScroll="true">
+
+            <com.moralabs.pet.core.presentation.toolbar.CommonAppBar
+                android:id="@+id/app_bar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:contentInsetStart="@dimen/scale_0dp"
+                android:contentInsetLeft="@dimen/scale_0dp"
+                android:contentInsetEnd="@dimen/scale_0dp"
+                android:contentInsetRight="@dimen/scale_0dp"
+                app:contentInsetEnd="@dimen/scale_0dp"
+                app:contentInsetLeft="@dimen/scale_0dp"
+                app:contentInsetRight="@dimen/scale_0dp"
+                app:contentInsetStart="@dimen/scale_0dp" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_newPost"
+            android:id="@+id/nav_main_page"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="@dimen/scale_0dp"
             android:layout_height="@dimen/scale_0dp"
             app:defaultNavHost="true"
             app:navGraph="@navigation/mainpage_navigation"
-            android:layout_margin="@dimen/scale_16dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/scale_16dp"
+            android:layout_marginEnd="@dimen/scale_16dp"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/homePageFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/messageFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/newPostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/notificationFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/profileFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.moralabs.pet.core.presentation.ui.CurvedBottomNavigationView
             android:id="@+id/dashboard_navigation"
@@ -30,7 +104,8 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:elevation="@dimen/scale_12dp"
-            app:itemTextColor="@color/white"
+            app:itemTextColor="@color/tab_bottom_navigation"
+            app:itemIconTint="@color/tab_bottom_navigation"
             app:labelVisibilityMode="labeled"
             app:itemBackground="@null"
             app:itemHorizontalTranslationEnabled="false"
@@ -38,7 +113,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
-            android:id="@+id/to_watch_live"
+            android:id="@+id/addPostButton"
             android:layout_width="@dimen/scale_50dp"
             android:layout_height="@dimen/scale_50dp"
             android:layout_marginBottom="@dimen/scale_20dp"

@@ -3,10 +3,10 @@ package com.moralabs.pet.newPost.presentation.ui
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
-import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.ActivityNewPostBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +24,4 @@ PetToolbarListener{
         navController = navHostFragment.navController
     }
 
-    override fun showTitleText(title: String?) {
-        binding.appBar.showTitleText(title)
-    }
 }
