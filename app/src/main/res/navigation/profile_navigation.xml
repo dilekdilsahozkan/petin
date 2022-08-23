@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_navigation"
     app:startDestination="@id/profileFragment">
-
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
+        android:name="com.moralabs.pet.message.presentation.ui.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
-
 </navigation>
