@@ -1,4 +1,4 @@
-package com.moralabs.pet.message.presentation.ui
+package com.moralabs.pet.profile.presentation.ui
 
 import android.os.Bundle
 import androidx.navigation.NavController

@@ -60,13 +60,13 @@
         <entry key="app/src/main/res/layout/fragment_message.xml" value="0.2818796793619792" />
         <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_new_post_bottom_sheet.xml" value="0.15407999435827535" />
-        <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.2561576354679803" />
+        <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_offer.xml" value="0.316486116512093" />
         <entry key="app/src/main/res/layout/fragment_offer_user.xml" value="0.2532282511393229" />
         <entry key="app/src/main/res/layout/fragment_partner.xml" value="0.26927083333333335" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.30757700602213545" />
         <entry key="app/src/main/res/layout/fragment_post_report_bottom_sheet.xml" value="0.3619791666666667" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.49391937255859375" />
         <entry key="app/src/main/res/layout/fragment_qna.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.3441675821940104" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.2546875" />
@@ -84,6 +84,7 @@
         <entry key="app/src/main/res/layout/item_post.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/item_post_content.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/item_post_qna.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/item_profile_post.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/item_report_reasons.xml" value="0.44099695713164855" />
         <entry key="app/src/main/res/layout/item_user_comment.xml" value="0.2685022989908854" />
         <entry key="app/src/main/res/layout/item_user_info.xml" value="0.37604166666666666" />

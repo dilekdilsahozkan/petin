@@ -16,7 +16,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
     private val layoutId: Int,
     private val modelId: Int? = null,
     private val onRowClick: (result: Dto) -> Unit,
-    private val isSameEntity: (oldItem: Dto, newItem: Dto) -> Boolean,
+    private val isSameDto: (oldItem: Dto, newItem: Dto) -> Boolean,
     private val emptyString: String? = null
 ) :
     ListAdapter<Dto, BaseListAdapter.ViewHolder<Binding>>(object :
@@ -25,7 +25,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
             oldItem: Dto,
             newItem: Dto
         ): Boolean {
-            return isSameEntity(oldItem, newItem)
+            return isSameDto(oldItem, newItem)
         }
 
         @SuppressLint("DiffUtilEquals")

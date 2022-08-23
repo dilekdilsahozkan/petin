@@ -5,17 +5,17 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMessageBinding
-import com.moralabs.pet.message.data.remote.dto.MessageDto
+import com.moralabs.pet.message.data.remote.dto.ChatDto
 import com.moralabs.pet.message.presentation.viewmodel.MessageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MessageFragment : BaseFragment<FragmentMessageBinding, MessageDto, MessageViewModel>(){
+class MessageFragment : BaseFragment<FragmentMessageBinding, ChatDto, MessageViewModel>(){
 
     override fun getLayoutId() = R.layout.fragment_message
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun fragmentViewModel(): BaseViewModel<MessageDto> {
+    override fun fragmentViewModel(): BaseViewModel<ChatDto> {
         val viewModel: MessageViewModel by viewModels()
         return viewModel    }
 

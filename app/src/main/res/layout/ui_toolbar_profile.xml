@@ -26,8 +26,8 @@
         
         <ImageView
             android:id="@+id/img_profile"
-            android:layout_width="@dimen/notification_icon_width"
-            android:layout_height="@dimen/notification_icon_height"
+            android:layout_width="@dimen/scale_20dp"
+            android:layout_height="@dimen/scale_20dp"
             android:layout_marginEnd="@dimen/scale_16dp"
             android:src="@drawable/ic_filter"
             app:layout_constraintEnd_toEndOf="parent"

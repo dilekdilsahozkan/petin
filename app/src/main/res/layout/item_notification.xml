@@ -1,70 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/scale_16dp"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userPhoto"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:src="@drawable/user"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.moralabs.pet.notification.data.remote.dto.NotificationDto" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/scale_15dp"
-        app:layout_constraintStart_toEndOf="@id/userPhoto"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="@dimen/scale_16dp"
+        android:clickable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/userNameSurname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dilşah Özkan"
-                android:textColor="@color/darkPrimary"
-                android:textSize="@dimen/scale_15dp"
-                android:fontFamily="@font/poppins_medium"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userPhoto"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/user"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:id="@+id/notificationText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="commented your post"
-                android:textSize="13dp"
-                android:textColor="@color/darkGray"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_marginStart="4dp"/>
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/scale_15dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/userNameSurname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dilşah Özkan"
+                        android:textColor="@color/darkPrimary"
+                        android:textSize="@dimen/scale_15dp"
+                        android:fontFamily="@font/poppins_medium"/>
+
+                    <TextView
+                        android:id="@+id/notificationText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="commented your post"
+                        android:textSize="13dp"
+                        android:textColor="@color/darkGray"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/notificationTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/scale_12dp"
+                    android:text="16:24"
+                    android:textColor="@color/darkGray"
+                    android:fontFamily="@font/poppins_regular" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/notificationTime"
+
+        <ImageView
+            android:id="@+id/newNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/scale_12dp"
-            android:text="Hello! I have some questions about ..."
-            android:textColor="@color/darkGray"
-            android:fontFamily="@font/poppins_regular" />
+            android:src="@drawable/ic_orange_dot"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/newNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_orange_dot"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

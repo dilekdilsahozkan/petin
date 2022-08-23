@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.moralabs.pet.R
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.CurvedBottomNavigationView
@@ -24,7 +25,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var bottomNavigationView: CurvedBottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun getLayoutId() = R.layout.activity_main_page
 
@@ -39,7 +40,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
 
         bottomNavigationView = findViewById(R.id.dashboard_navigation)
 
-         initBottomNavigation()
+        initBottomNavigation()
 
         appBarConfiguration = AppBarConfiguration.Builder(
             R.id.home,

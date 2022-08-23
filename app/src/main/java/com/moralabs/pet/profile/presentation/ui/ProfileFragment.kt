@@ -1,4 +1,4 @@
-package com.moralabs.pet.message.presentation.ui
+package com.moralabs.pet.profile.presentation.ui
 
 import android.os.Bundle
 import android.view.View
@@ -20,10 +20,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileDto, ProfileViewModel>(){
 
+    override fun getLayoutId() = R.layout.fragment_profile
+
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+
+    override fun fragmentViewModel(): BaseViewModel<ProfileDto> {
+        val viewModel: ProfileViewModel by viewModels()
+        return viewModel
+    }
+
     private val profilePostsAdapter: BaseListAdapter<ProfilePostsDto, ItemProfilePostBinding> by lazy {
         BaseListAdapter(R.layout.item_profile_post, BR.item, onRowClick = {
 
-        }, isSameEntity = { oldItem, newItem ->
+        }, isSameDto = { oldItem, newItem ->
             oldItem.type == newItem.type
         })
     }
@@ -35,15 +44,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileDto, Profile
                 BaseViewPagerFragment(profilePostsAdapter)
             )
         )
-    }
-
-    override fun getLayoutId() = R.layout.fragment_profile
-
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
-
-    override fun fragmentViewModel(): BaseViewModel<ProfileDto> {
-        val viewModel: ProfileViewModel by viewModels()
-        return viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.moralabs.pet.message.presentation.ui.ProfileFragment"
+        android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
 </navigation>
