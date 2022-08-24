@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:navGraph="@navigation/new_post_navigation" />
+            app:navGraph="@navigation/message_navigation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

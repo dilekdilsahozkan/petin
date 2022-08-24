@@ -1,5 +1,7 @@
 package com.moralabs.pet.newPost.presentation.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,14 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewPostActivity : BaseActivity<ActivityNewPostBinding>(),
 PetToolbarListener{
 
-    override fun getLayoutId() = R.layout.activity_new_post
-
-    private lateinit var navController: NavController
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_message) as NavHostFragment
-        navController = navHostFragment.navController
+    companion object {
+        fun newIntent(context: Context) = Intent(context, NewPostActivity::class.java)
     }
+
+    override fun getLayoutId() = R.layout.activity_new_post
 
 }

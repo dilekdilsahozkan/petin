@@ -14,7 +14,7 @@ open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewMod
     protected var _state: MutableStateFlow<ViewState<T>> = MutableStateFlow(ViewState.Idle())
     val state: StateFlow<ViewState<T>> = _state
 
-    var latestEntity : T? = null
+    var latestDto : T? = null
 
     open fun fetch(){
         viewModelScope.launch {
@@ -29,7 +29,7 @@ open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewMod
                 .collect { baseResult ->
                     when(baseResult){
                         is BaseResult.Success -> {
-                            latestEntity = baseResult.data as T
+                            latestDto = baseResult.data as T
                             _state.value = ViewState.Success(baseResult.data as T)
                         }
                         is BaseResult.Error -> {

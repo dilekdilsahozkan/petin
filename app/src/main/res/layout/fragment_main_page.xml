@@ -38,11 +38,9 @@
                 android:id="@+id/search_inputLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:boxCornerRadiusBottomEnd="4dp"
-                app:boxCornerRadiusBottomStart="4dp"
-                app:boxCornerRadiusTopEnd="4dp"
-                app:boxCornerRadiusTopStart="4dp"
                 app:boxStrokeWidth="0dp"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/ic_search"
                 app:boxStrokeWidthFocused="0dp"
                 android:layout_weight="6">
 
@@ -51,9 +49,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Search"
+                    android:includeFontPadding="false"
                     android:fontFamily="@font/poppins_regular"
                     android:background="@drawable/background_gray"
-                    android:drawableLeft="@drawable/ic_search"
                     android:padding="10dp"
                     android:textSize="15dp" />
 

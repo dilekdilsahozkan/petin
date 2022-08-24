@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottom_sheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/chooseType"
+                android:textAlignment="center"
+                android:background="@drawable/background_bottom_sheet_orange"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/postText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/post"
+                android:textSize="@dimen/scale_15dp"
+                android:textColor="@color/darkPrimary"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"/>
+
+            <TextView
+                android:id="@+id/qnaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/qna"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"/>
+
+            <TextView
+                android:id="@+id/findPartnerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/findPartner"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"/>
+
+            <TextView
+                android:id="@+id/adoptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/adoption"
+                android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

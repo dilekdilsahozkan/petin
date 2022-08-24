@@ -38,6 +38,7 @@
             android:exported="false" />
         <activity
             android:name=".mainPage.presentation.ui.MainPageActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false" />
         <activity
             android:name=".onboarding.presentation.ui.LoginActivity"

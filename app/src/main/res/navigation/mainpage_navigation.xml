@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainpage_navigation"
     app:startDestination="@id/home">
 
@@ -15,25 +15,19 @@
             android:id="@+id/action_fragment_main_to_messagesFragment"
             app:destination="@id/messages"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
-
-        <action
-            android:id="@+id/action_fragment_main_to_newPostFragment"
-            app:destination="@id/addButton"
-            app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
 
         <action
             android:id="@+id/action_fragment_main_to_notificationFragment"
             app:destination="@id/notification"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
 
         <action
             android:id="@+id/action_fragment_main_to_profileFragment"
             app:destination="@id/profile"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
 
     </fragment>
 
@@ -41,23 +35,18 @@
         android:id="@+id/messages"
         android:name="com.moralabs.pet.message.presentation.ui.MessageFragment"
         android:label="CommentFragment"
-        tools:layout="@layout/fragment_message"/>
-
-    <fragment
-        android:id="@+id/addButton"
-        android:name="com.moralabs.pet.newPost.presentation.ui.ChooseTypeFragment"
-        android:label="ChooseTypeFragment"
-        tools:layout="@layout/fragment_choose_type"/>
+        tools:layout="@layout/fragment_message" />
 
     <fragment
         android:id="@+id/notification"
         android:name="com.moralabs.pet.notification.presentation.ui.NotificationFragment"
         android:label="NewPostFragment"
-        tools:layout="@layout/fragment_new_post_bottom_sheet"/>
+        tools:layout="@layout/fragment_new_post_bottom_sheet" />
 
     <fragment
         android:id="@+id/profile"
         android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
+
 </navigation>
