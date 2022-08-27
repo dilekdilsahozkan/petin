@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
     private val useCase: MainPageUseCase
-): BaseViewModel<PostDto>(useCase){
+): BaseViewModel<List<PostDto>>(useCase){
 
     fun feedPost(){
         viewModelScope.launch {
@@ -28,9 +28,8 @@ class MainPageViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success ->
-                            _state.value = ViewState.Success(baseResult.data)
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

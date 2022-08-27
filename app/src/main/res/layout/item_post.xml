@@ -100,9 +100,10 @@
                 android:id="@+id/post2Text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/scale_15dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Love ya"
+                android:textSize="@dimen/scale_15dp"
                 android:textColor="@color/darkPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -116,7 +117,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/offerImage"
+                    android:id="@+id/petImage"
                     android:layout_width="164dp"
                     android:layout_height="148dp"
                     style="@style/PetImageView.Round.8"
@@ -151,6 +152,7 @@
                         android:layout_height="match_parent"
                         android:text="Himalaya"
                         android:textSize="13dp"
+                        android:textColor="@color/darkGray"
                         android:fontFamily="@font/poppins_regular" />
 
                     <TextView
@@ -159,6 +161,7 @@
                         android:layout_height="match_parent"
                         android:text="2 y.o"
                         android:textSize="13dp"
+                        android:textColor="@color/darkGray"
                         android:fontFamily="@font/poppins_regular"/>
 
                     <TextView
@@ -167,6 +170,7 @@
                         android:layout_height="match_parent"
                         android:text="Male"
                         android:textSize="13dp"
+                        android:textColor="@color/darkGray"
                         android:fontFamily="@font/poppins_regular"/>
 
                     <Button
@@ -187,6 +191,7 @@
             android:id="@+id/post2Info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postContent2Linear">
 
@@ -210,6 +215,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="20"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/darkGray"
                     android:fontFamily="@font/poppins_regular"
                     android:layout_marginStart="2dp"
                     android:textSize="11dp"
@@ -221,9 +228,11 @@
                 android:id="@+id/post2ReleaseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/darkGray"
+                android:includeFontPadding="false"
                 android:text="1h ago"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

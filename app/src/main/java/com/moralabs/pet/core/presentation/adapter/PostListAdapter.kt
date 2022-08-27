@@ -24,6 +24,12 @@ class PostListAdapter(
                 return oldItem == newItem
             }
         }
+
+        private const val TYPE_POST = 0
+        private const val TYPE_QNA = 1
+        private const val TYPE_FINDPARTNER = 2
+        private const val TYPE_ADOPTION = 3
+
     }
 
     fun setItems(pet: List<PostDto>) {
@@ -50,6 +56,7 @@ class PostListAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(pet: PostDto) {
+
 
         }
     }

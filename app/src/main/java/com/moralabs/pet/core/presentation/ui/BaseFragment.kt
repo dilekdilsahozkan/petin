@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 
 abstract class BaseFragment<T : ViewDataBinding,
-        U : BaseDto,
+        U : Any,
         K : BaseViewModel<U>> : Fragment() {
 
     enum class UseCaseFetchStrategy {

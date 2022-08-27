@@ -10,6 +10,6 @@ import javax.inject.Inject
 
 class MainPageRepositoryImpl @Inject constructor(private val service: FeedService) :
     MainPageRepository, BaseRepository {
-    override suspend fun getFeed(): Response<BaseResponse<PostDto>> = service.getFeed()
+    override suspend fun getFeed(): Response<BaseResponse<List<PostDto>>> = service.getFeed()
 
 }
