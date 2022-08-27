@@ -1,5 +1,6 @@
 package com.moralabs.pet.onboarding.di
 
+import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.onboarding.data.remote.api.LoginService
 import com.moralabs.pet.onboarding.data.repository.LoginRepository
 import com.moralabs.pet.onboarding.data.repository.LoginRepositoryImpl
@@ -26,6 +27,9 @@ class LoginDI {
 
     @Provides
     @Singleton
-    fun provideLoginUseCase(loginRepository: LoginRepository): LoginUseCase =
-        LoginUseCase(loginRepository)
+    fun provideLoginUseCase(
+        loginRepository: LoginRepository,
+        authenticationRepository: AuthenticationRepository
+    ): LoginUseCase =
+        LoginUseCase(loginRepository, authenticationRepository)
 }

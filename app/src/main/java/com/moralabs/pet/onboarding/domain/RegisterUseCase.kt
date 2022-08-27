@@ -1,5 +1,6 @@
 package com.moralabs.pet.onboarding.domain
 
+import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
@@ -12,7 +13,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
-    private val registerRepository: RegisterRepository
+    private val registerRepository: RegisterRepository,
+    private val authenticationRepository: AuthenticationRepository
 ) : BaseUseCase() {
     fun register(registerPet: RegisterRequestDto): Flow<BaseResult<RegisterDto>> {
         return flow {
@@ -25,6 +27,10 @@ class RegisterUseCase @Inject constructor(
 
                 if (result.isSuccessful && result.code() == 200) {
                     result.body()?.data?.let {
+                        it.accessToken?.let { accessToken ->
+                            authenticationRepository.login(accessToken)
+                        }
+
                         emit(BaseResult.Success(it))
                     } ?: run {
                         emit(BaseResult.Error(ErrorResult(code = ErrorCode.NO_DATA)))

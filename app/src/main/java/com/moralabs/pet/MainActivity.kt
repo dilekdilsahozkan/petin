@@ -9,8 +9,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        var instance: MainActivity? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        instance = this
+
         setContentView(ActivityMainBinding.inflate(layoutInflater).root)
 
         startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
