@@ -21,10 +21,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(),
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_profile) as NavHostFragment
         navController = navHostFragment.navController
 
-        setSupportActionBar(binding.appBar)
     }
 
-    override fun showTitleText(title: String?) {
-        binding.appBar.showTitleText(title)
-    }
 }

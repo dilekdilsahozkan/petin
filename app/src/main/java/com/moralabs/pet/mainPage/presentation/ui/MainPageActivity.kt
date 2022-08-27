@@ -40,7 +40,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
 
         bottomNavigationView = findViewById(R.id.dashboard_navigation)
 
-        initBottomNavigation()
+        //initBottomNavigation()
 
         appBarConfiguration = AppBarConfiguration.Builder(
             R.id.home,
