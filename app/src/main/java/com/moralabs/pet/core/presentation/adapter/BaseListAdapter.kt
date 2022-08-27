@@ -1,4 +1,4 @@
-package com.softtech.imecemobil.presentation.common.adapter
+package com.moralabs.pet.core.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -45,7 +45,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
             UiItemBaseListEmptyBinding.inflate(LayoutInflater.from(parent.context)),
             this
         )
-        else -> ViewHolder.EntityViewHolder<Binding>(
+        else -> ViewHolder.DtoViewHolder<Binding>(
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutId, parent, false),
             this
         )
@@ -55,7 +55,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
         val item = getItem(position)
 
         when (holder) {
-            is ViewHolder.EntityViewHolder<*> -> {
+            is ViewHolder.DtoViewHolder<*> -> {
                 modelId?.let {
                     if (item is SimpleDto<*>) {
                         holder.binding.setVariable(it, item.value)
@@ -79,7 +79,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 
     sealed class ViewHolder<Binding : ViewDataBinding>(binding: Binding, listAdapter: BaseListAdapter<*, *>) :
         RecyclerView.ViewHolder(binding.root) {
-        class EntityViewHolder<Binding : ViewDataBinding>(
+        class DtoViewHolder<Binding : ViewDataBinding>(
             val binding: Binding,
             listAdapter: BaseListAdapter<*, *>
         ) : ViewHolder<Binding>(binding, listAdapter)
@@ -92,7 +92,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 
         init {
             when (this) {
-                is EntityViewHolder<*> -> {
+                is DtoViewHolder<*> -> {
                     binding.root.setOnClickListener {
                         if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                             listAdapter.selectItem(bindingAdapterPosition)

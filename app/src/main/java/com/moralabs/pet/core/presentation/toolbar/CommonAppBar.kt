@@ -22,6 +22,11 @@ class CommonAppBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         binding.imgBack.setOnClickListener {
             _listener?.onItemSelected(it.id)
         }
+
+        binding.imgSelect.setOnClickListener {
+            _listener?.onItemSelected(it.id)
+        }
+
         setBackgroundColor(Color.WHITE)
     }
 
@@ -40,5 +45,13 @@ class CommonAppBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     fun showLightColorBar() {
         binding.root.setBackgroundColor(context.getColor(R.color.white))
         binding.toolbarTitle.setTextColor(context.getColor(R.color.darkPrimary))
+    }
+
+    fun rightIcon(id: Int) {
+        if (id == R.layout.activity_new_post) {
+            binding.imgSelect.visibility = View.VISIBLE
+        } else {
+            binding.imgSelect.visibility = View.GONE
+        }
     }
 }

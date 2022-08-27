@@ -9,6 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewPostViewModel @Inject constructor(
     private val useCase: NewPostUseCase
-): BaseViewModel<NewPostDto>(useCase){
+) : BaseViewModel<NewPostDto>(useCase) {
 
 }
+

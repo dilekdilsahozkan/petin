@@ -1,5 +1,6 @@
 package com.moralabs.pet.core.presentation.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.databinding.ViewDataBinding
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.databinding.ActivityBaseBinding
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 
 abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), PetToolbarListener {
 
@@ -50,7 +52,8 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
     override fun onItemSelected(id: Int) {
         when (id) {
             R.id.img_back -> super.onBackPressed()
-            R.id.img_profile -> super.onBackPressed()
+            R.id.img_select -> startActivity(Intent(this, MainPageActivity::class.java))
+    //        R.id.img_menu -> startActivity(Intent(this, MainPageActivity::class.java))
         }
     }
 

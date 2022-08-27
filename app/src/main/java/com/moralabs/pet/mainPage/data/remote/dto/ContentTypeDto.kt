@@ -1,9 +1,15 @@
 package com.moralabs.pet.mainPage.data.remote.dto
 
+import com.moralabs.pet.core.data.remote.dto.CommentDto
+import com.moralabs.pet.core.data.remote.dto.ContentDto
+import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
+
 sealed class ContentTypeDto {
     data class NormalPostDto(
-        val media: List<String>? = null,
-        val text: String? = null
+        val user: List<UserInfoDto>? = null,
+        val dateTime: String? = null,
+        val content: List<ContentDto>? = null,
+        val comments: List<CommentDto>? = null,
     ):ContentTypeDto()
 
     data class QNADto(
@@ -17,4 +23,5 @@ sealed class ContentTypeDto {
     data class AdoptionDto(
         val image: Int? =null,
     ):ContentTypeDto()
+
 }

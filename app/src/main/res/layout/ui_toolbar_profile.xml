@@ -7,30 +7,31 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileToolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/mainColor">
 
         <TextView
-            android:id="@+id/profile_toolbar_title"
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/scale_16dp"
-            android:text="gokalp.okumus"
+            android:text=""
             android:textSize="@dimen/scale_17dp"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins_bold"
+            android:layout_margin="@dimen/scale_16dp"
+            android:fontFamily="@font/poppins_semibold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
         
         <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="@dimen/scale_20dp"
-            android:layout_height="@dimen/scale_20dp"
-            android:layout_marginEnd="@dimen/scale_16dp"
-            android:src="@drawable/ic_filter"
+            android:id="@+id/img_menu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_menu"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/scale_16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

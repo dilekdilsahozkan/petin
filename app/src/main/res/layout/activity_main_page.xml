@@ -6,109 +6,66 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:liftOnScroll="true">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.moralabs.pet.core.presentation.toolbar.CommonAppBar
-                android:id="@+id/app_bar"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:contentInsetStart="@dimen/scale_0dp"
-                android:contentInsetLeft="@dimen/scale_0dp"
-                android:contentInsetEnd="@dimen/scale_0dp"
-                android:contentInsetRight="@dimen/scale_0dp"
-                app:contentInsetEnd="@dimen/scale_0dp"
-                app:contentInsetLeft="@dimen/scale_0dp"
-                app:contentInsetRight="@dimen/scale_0dp"
-                app:contentInsetStart="@dimen/scale_0dp" />
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:liftOnScroll="true"
+                android:visibility="gone">
 
-        </com.google.android.material.appbar.AppBarLayout>
+                <com.moralabs.pet.core.presentation.toolbar.CommonAppBar
+                    android:id="@+id/app_bar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:contentInsetStart="@dimen/scale_0dp"
+                    android:contentInsetLeft="@dimen/scale_0dp"
+                    android:contentInsetEnd="@dimen/scale_0dp"
+                    android:contentInsetRight="@dimen/scale_0dp"
+                    app:contentInsetEnd="@dimen/scale_0dp"
+                    app:contentInsetLeft="@dimen/scale_0dp"
+                    app:contentInsetRight="@dimen/scale_0dp"
+                    app:contentInsetStart="@dimen/scale_0dp" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_main_page"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="@dimen/scale_0dp"
-            android:layout_height="@dimen/scale_0dp"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/mainpage_navigation"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/homePageFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_main_page"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="@dimen/scale_0dp"
+                android:layout_height="@dimen/scale_0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navGraph="@navigation/mainpage_navigation" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/messageFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.moralabs.pet.core.presentation.ui.CurvedBottomNavigationView
+                android:id="@+id/dashboard_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:elevation="@dimen/scale_12dp"
+                app:itemBackground="@null"
+                app:itemHorizontalTranslationEnabled="false"
+                app:itemIconTint="@color/tab_bottom_navigation"
+                app:itemTextColor="@color/tab_bottom_navigation"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:menu="@menu/bottom_nav_menu" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/newPostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/notificationFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/profileFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dashboard_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.moralabs.pet.core.presentation.ui.CurvedBottomNavigationView
-            android:id="@+id/dashboard_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:elevation="@dimen/scale_12dp"
-            app:itemTextColor="@color/tab_bottom_navigation"
-            app:itemIconTint="@color/tab_bottom_navigation"
-            app:labelVisibilityMode="labeled"
-            app:itemBackground="@null"
-            app:itemHorizontalTranslationEnabled="false"
-            app:menu="@menu/bottom_nav_menu"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
             android:id="@+id/addPostButton"
@@ -116,10 +73,9 @@
             android:layout_height="@dimen/scale_50dp"
             android:layout_marginBottom="@dimen/scale_20dp"
             android:background="@drawable/ic_add_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_anchor="@id/dashboard_navigation"
+            app:layout_anchorGravity="center_horizontal|center_vertical" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

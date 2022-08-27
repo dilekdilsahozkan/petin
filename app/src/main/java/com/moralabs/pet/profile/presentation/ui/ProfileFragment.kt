@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.BaseViewPagerAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.BaseViewPagerFragment

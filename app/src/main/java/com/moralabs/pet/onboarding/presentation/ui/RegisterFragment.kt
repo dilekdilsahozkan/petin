@@ -2,27 +2,22 @@ package com.moralabs.pet.onboarding.presentation.ui
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.databinding.FragmentRegisterBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
 import com.moralabs.pet.onboarding.presentation.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.email_edittext
 import kotlinx.android.synthetic.main.fragment_login.password_edittext
 import kotlinx.android.synthetic.main.fragment_register.*
