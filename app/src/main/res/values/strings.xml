@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">PET</string>
+    <string name="app_name">PETIN</string>
+    <string name="petin">PetIn</string>
     <string name="description">Pethousea Hoşgeldiniz</string>
     <string name="mainPageTitle">Ana Sayfa</string>
     <string name="messagesTitle">Mesajlar</string>
@@ -41,6 +42,8 @@
     <string name="newPost">Yeni Gönderi</string>
     <string name="publish">Paylaş</string>
     <string name="explanation">Açıklama yazınız</string>
+    <string name="selectPet">Evcil hayvanınızı seçiniz</string>
+    <string name="search">Ara</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

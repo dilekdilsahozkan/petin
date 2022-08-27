@@ -11,14 +11,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MessageActivity : BaseActivity<ActivityMessageBinding>(),
-      PetToolbarListener {
+    PetToolbarListener {
 
-    override fun getLayoutId() = R.layout.activity_message
     private lateinit var navController: NavController
+    override fun getLayoutId() = R.layout.activity_message
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_message) as NavHostFragment
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_message) as NavHostFragment
         navController = navHostFragment.navController
     }
 }

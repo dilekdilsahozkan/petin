@@ -18,13 +18,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_profile) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_profile) as NavHostFragment
         navController = navHostFragment.navController
-
-        setSupportActionBar(binding.appBar)
-    }
-
-    override fun showTitleText(title: String?) {
-        binding.appBar.showTitleText(title)
     }
 }

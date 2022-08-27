@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotificationActivity : BaseActivity<ActivityNotificationBinding>(),
-PetToolbarListener{
+    PetToolbarListener {
 
     private lateinit var navController: NavController
     override fun getLayoutId() = R.layout.activity_notification
@@ -25,9 +25,8 @@ PetToolbarListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_notification) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_notification) as NavHostFragment
         navController = navHostFragment.navController
-
-        setSupportActionBar(binding.appBar)
     }
 }

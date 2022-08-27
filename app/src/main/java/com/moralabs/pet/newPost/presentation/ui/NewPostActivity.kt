@@ -1,11 +1,6 @@
 package com.moralabs.pet.newPost.presentation.ui
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
@@ -14,12 +9,22 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewPostActivity : BaseActivity<ActivityNewPostBinding>(),
-PetToolbarListener{
+    PetToolbarListener {
 
     companion object {
-        fun newIntent(context: Context) = Intent(context, NewPostActivity::class.java)
+        var BUNDLE_CHOOSE_TYPE = "type"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding.appBar.rightIcon(R.layout.activity_new_post)
+
     }
 
     override fun getLayoutId() = R.layout.activity_new_post
 
+    override fun showTitleText(title: String?) {
+        binding.appBar.showTitleText(title)
+    }
 }

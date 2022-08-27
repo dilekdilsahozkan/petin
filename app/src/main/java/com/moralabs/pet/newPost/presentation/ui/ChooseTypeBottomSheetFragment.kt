@@ -1,6 +1,5 @@
 package com.moralabs.pet.newPost.presentation.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import com.moralabs.pet.R
 import com.moralabs.pet.databinding.ChooseTypeBottomSheetBinding
 
 class ChooseTypeBottomSheetFragment(
-    context: Context,
     var listener: ChooseTypeBottomSheetListener,
 ) : BottomSheetDialogFragment(),
     View.OnClickListener {
