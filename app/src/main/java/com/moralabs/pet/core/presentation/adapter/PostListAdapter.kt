@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.databinding.ItemAdoptionBinding
-import com.moralabs.pet.databinding.ItemFindPartnerBinding
-import com.moralabs.pet.databinding.ItemPostBinding
-import com.moralabs.pet.databinding.ItemQnaBinding
+import com.moralabs.pet.databinding.*
 
 class PostListAdapter(private var mList: List<Any>)  : RecyclerView.Adapter<PostListAdapterViewHolder>() {
 
@@ -40,6 +37,15 @@ class PostListAdapter(private var mList: List<Any>)  : RecyclerView.Adapter<Post
     override fun onBindViewHolder(holder: PostListAdapterViewHolder, position: Int) {
         when(holder){
             is PostListAdapterViewHolder.PostViewHolder -> {
+            }
+
+            is PostListAdapterViewHolder.QnAViewHolder -> {
+            }
+
+            is PostListAdapterViewHolder.FindPartnerViewHolder -> {
+            }
+
+            is PostListAdapterViewHolder.AdoptionViewHolder -> {
             }
         }
     }

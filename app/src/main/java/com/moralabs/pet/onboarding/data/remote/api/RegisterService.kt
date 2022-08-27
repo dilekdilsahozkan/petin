@@ -11,6 +11,5 @@ interface RegisterService {
     @POST("/auth/register")
     suspend fun register(
         @Body registerPet: RegisterRequestDto
-    )
-            : Response<BaseResponse<RegisterDto>>
+    ): Response<BaseResponse<RegisterDto>>
 }

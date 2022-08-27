@@ -2,10 +2,7 @@ package com.moralabs.pet.core.presentation.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.moralabs.pet.databinding.ItemAdoptionBinding
-import com.moralabs.pet.databinding.ItemFindPartnerBinding
-import com.moralabs.pet.databinding.ItemPostBinding
-import com.moralabs.pet.databinding.ItemQnaBinding
+import com.moralabs.pet.databinding.*
 
 sealed class PostListAdapterViewHolder(val binding: View) : RecyclerView.ViewHolder(binding) {
 
