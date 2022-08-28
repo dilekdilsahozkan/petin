@@ -1,4 +1,4 @@
-package com.moralabs.pet.mainPage.presentation.ui
+package com.moralabs.pet.profile.presentation.ui
 
 import android.os.Bundle
 import android.view.View
@@ -10,23 +10,21 @@ import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.databinding.FragmentMainPageBinding
-import com.moralabs.pet.mainPage.data.remote.dto.ContentTypeDto
-import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
+import com.moralabs.pet.databinding.FragmentProfilePostsBinding
+import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(){
+class ProfilePostFragment : BaseFragment<FragmentProfilePostsBinding, List<PostDto>, ProfilePostViewModel>() {
 
-    override fun getLayoutId() = R.layout.fragment_main_page
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+    override fun getLayoutId() = R.layout.fragment_profile_posts
 
     override fun fragmentViewModel(): BaseViewModel<List<PostDto>> {
-        val viewModel: MainPageViewModel by viewModels()
+        val viewModel: ProfilePostViewModel by viewModels()
         return viewModel
     }
 
-    private val postAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val profilePostAdapter by lazy(LazyThreadSafetyMode.NONE) {
         PostListAdapter(
             onRowClick = { post ->
             }
@@ -37,15 +35,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerview.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = postAdapter
+            adapter = profilePostAdapter
             setHasFixedSize(true)
         }
-        viewModel.feedPost()
+        viewModel.profilePost()
     }
 
     override fun stateSuccess(data: List<PostDto>) {
         super.stateSuccess(data)
 
-        postAdapter.submitList(data)
+        profilePostAdapter.submitList(data)
     }
 }

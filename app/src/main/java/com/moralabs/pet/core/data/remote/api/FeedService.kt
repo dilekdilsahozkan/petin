@@ -19,9 +19,6 @@ interface FeedService {
         @Body newPost: NewPostDto
     ): Response<BaseResponse<List<PostDto>>>
 
-    @GET("/feed/post")
-    suspend fun getPost(): Response<BaseResponse<List<PostDto>>>
-
     @POST("/feed/post/{postId}/{dateTime}")
     suspend fun postDateTime(): Response<BaseResponse<PostDto>>
 

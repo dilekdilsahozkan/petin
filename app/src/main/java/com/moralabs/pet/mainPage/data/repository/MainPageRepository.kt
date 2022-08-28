@@ -6,5 +6,4 @@ import retrofit2.Response
 
 interface MainPageRepository {
     suspend fun getFeed(): Response<BaseResponse<List<PostDto>>>
-
 }

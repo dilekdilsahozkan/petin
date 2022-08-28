@@ -14,26 +14,11 @@ class ProfileUseCase @Inject constructor(
 
     fun userInfo(): Flow<BaseResult<UserDto>>{
         return flow{
-            var userInfo = profileRepository.userInfo().body().let {
-                UserDto(
-                    id = it?.data?.id,
-                    image = it?.data?.image,
-                    userName = it?.data?.userName,
-                    fullName = it?.data?.fullName,
-                    email = it?.data?.email,
-                    phoneNumber = it?.data?.phoneNumber,
-                    birthDate = it?.data?.birthDate,
-                    followerCount = it?.data?.followerCount,
-                    followedCount = it?.data?.followedCount,
-                    postCount = it?.data?.postCount,
-                    pageIndex = it?.data?.pageIndex
-                )
-            }
-            emit(
+          /*  emit(
                 BaseResult.Success(
-                    userInfo
+                    profileRepository?.userInfo()?.body()?.data ?:
                 )
-            )
+            )*/
         }
     }
 }

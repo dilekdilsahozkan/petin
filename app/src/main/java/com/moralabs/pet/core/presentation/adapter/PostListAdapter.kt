@@ -9,15 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.presentation.Constants
-import com.moralabs.pet.core.presentation.loadImage
 import com.moralabs.pet.databinding.*
 
 class PostListAdapter(
-    private val onRowClick: (position: Int , post: PostDto) -> Unit
+    private val onRowClick: (post: PostDto) -> Unit
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
-
-    var base_url: String = Constants.MEDIA_BASE_URL
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostDto>() {
@@ -30,10 +26,6 @@ class PostListAdapter(
                 return oldItem == newItem
             }
         }
-    }
-
-    fun setItems(pet: List<PostDto>) {
-        submitList(pet)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
@@ -49,7 +41,7 @@ class PostListAdapter(
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onRowClick.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
+                    onRowClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
         }

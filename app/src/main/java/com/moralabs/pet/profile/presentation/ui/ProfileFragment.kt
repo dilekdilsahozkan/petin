@@ -4,12 +4,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
+import com.moralabs.pet.BR
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
+import com.moralabs.pet.core.presentation.adapter.PostListAdapter
+import com.moralabs.pet.core.presentation.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentProfileBinding
-import com.moralabs.pet.profile.data.remote.dto.ProfileDto
+import com.moralabs.pet.databinding.ItemPetCardBinding
+import com.moralabs.pet.profile.data.remote.dto.PetDto
+import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
+import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerFragment
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,16 +35,57 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewPager = binding.profileViewpager
-        val tabLayout = binding.tabLayout
-        val adapter = ProfileViewPagerAdapter(requireFragmentManager(), lifecycle)
-        viewPager.adapter = adapter
+        binding.viewpager.adapter = viewPagerAdapter
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        viewModel.userInfo()
+
+        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
             when(position) {
                 0 -> tab.setIcon(R.drawable.ic_posts)
                 1 -> tab.setIcon(R.drawable.ic_pet_house)
             }
         }.attach()
+    }
+
+    override fun stateSuccess(data: UserDto) {
+        super.stateSuccess(data)
+
+      //  petAdapter.submitList(data.pet)
+      //  postAdapter.submitList(data.post)
+
+        binding.userFullName.text = data.fullName
+        binding.username.text = data.userName
+        binding.toolbarUsername.text = data.userName
+        binding.totalPost.text = data.postCount.toString()
+        binding.followers.text = data.followerCount.toString()
+        binding.following.text = data.followedCount.toString()
+        binding.userPhoto.loadImage(data.image)
+
+    }
+
+    private val postAdapter: PostListAdapter by lazy {
+        PostListAdapter(onRowClick = {
+
+        })
+
+    }
+
+    private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
+        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
+
+        }, isSameDto = {oldItem, newItem ->
+            true
+        })
+
+    }
+
+    private val viewPagerAdapter: ProfileViewPagerAdapter by lazy {
+        ProfileViewPagerAdapter(
+            this,
+            listOf(
+                ProfileViewPagerFragment(postAdapter),
+                ProfileViewPagerFragment(petAdapter)
+            )
+        )
     }
 }

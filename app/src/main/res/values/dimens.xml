@@ -8,6 +8,7 @@
     <dimen name="scale_10dp">10dp</dimen>
     <dimen name="scale_11dp">11dp</dimen>
     <dimen name="scale_12dp">12dp</dimen>
+    <dimen name="scale_13dp">13dp</dimen>
     <dimen name="scale_15dp">15dp</dimen>
     <dimen name="scale_16dp">16dp</dimen>
     <dimen name="scale_17dp">17dp</dimen>
