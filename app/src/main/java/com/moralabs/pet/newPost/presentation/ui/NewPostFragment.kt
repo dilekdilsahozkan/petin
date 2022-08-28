@@ -2,7 +2,6 @@ package com.moralabs.pet.newPost.presentation.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel

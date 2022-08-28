@@ -14,17 +14,18 @@ import com.moralabs.pet.databinding.FragmentProfileBinding
 import com.moralabs.pet.databinding.ItemProfilePostBinding
 import com.moralabs.pet.profile.data.remote.dto.ProfileDto
 import com.moralabs.pet.profile.data.remote.dto.ProfilePostsDto
+import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileDto, ProfileViewModel>(){
+class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(){
 
     override fun getLayoutId() = R.layout.fragment_profile
 
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun fragmentViewModel(): BaseViewModel<ProfileDto> {
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: ProfileViewModel by viewModels()
         return viewModel
     }
@@ -52,20 +53,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileDto, Profile
         binding.profileViewpager.adapter = viewPagerAdapter
     }
 
-    override fun stateSuccess(data: ProfileDto) {
+    override fun stateSuccess(data: UserDto) {
         super.stateSuccess(data)
 
-        binding.item = data
-
-        profilePostsAdapter.submitList(
-            listOf(
-                ProfilePostsDto(
-                    type = 1,
-                    username = "gokalp.okumus",
-                    location = "Ankara",
-                    postText = "Selammm"
-                )
-            )
-        )
     }
 }

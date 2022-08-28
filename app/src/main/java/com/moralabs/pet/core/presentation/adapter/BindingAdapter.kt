@@ -52,3 +52,12 @@ fun ImageView.loadImage(src: String?) {
     Glide.with(context).load(src)
         .into(this)
 }
+
+@BindingAdapter("pet:listSrc")
+fun ImageView.loadListImage(src: List<String>?) {
+    Glide.with(context).clear(this)
+
+    val image = this
+    Glide.with(context).load(src)
+        .into(this)
+}
