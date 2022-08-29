@@ -32,7 +32,7 @@
             android:name=".newPost.presentation.ui.NewPostActivity"
             android:exported="false"
             android:fitsSystemWindows="true"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".offer.presentation.ui.OfferActivity"
             android:exported="false" />

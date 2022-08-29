@@ -45,6 +45,10 @@
     <string name="selectPet">Evcil hayvanınızı seçiniz</string>
     <string name="search">Ara</string>
     <string name="zero">0</string>
+    <string name="today">Bugün</string>
+    <string name="yesterday">Dün</string>
+
+
 
     <!-- Settings -->
 

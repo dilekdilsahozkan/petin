@@ -55,8 +55,6 @@ class PostListAdapter(
             binding.postText.text = pet.content?.text.toString()
             binding.likeCount.text = pet.likeCount.toString()
             binding.commentCount.text = pet.commentCount.toString()
-            binding.postReleaseTime.text = pet.dateTime.toString()
-            binding.post2ReleaseTime.text = pet.dateTime.toString()
             binding.userPhoto.loadImage(pet.user?.image)
             binding.postImage.loadImage(pet.content?.media?.get(0))
 
