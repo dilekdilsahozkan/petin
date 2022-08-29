@@ -1,5 +1,6 @@
 package com.moralabs.pet.profile.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -18,6 +19,8 @@ import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
 import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerFragment
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
+import com.moralabs.pet.settings.presentation.ui.SettingsActivity
+import com.softtech.imecemobil.presentation.common.adapter.BaseListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +33,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: ProfileViewModel by viewModels()
         return viewModel
+    }
+
+    override fun addListeners() {
+        super.addListeners()
+        binding.goToSettings.setOnClickListener {
+            startActivity(Intent(context, SettingsActivity::class.java))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
