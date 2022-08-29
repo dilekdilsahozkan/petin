@@ -13,10 +13,15 @@
     <dimen name="scale_17dp">17dp</dimen>
     <dimen name="scale_18dp">18dp</dimen>
     <dimen name="scale_20dp">20dp</dimen>
+    <dimen name="scale_21dp">21dp</dimen>
+    <dimen name="scale_22dp">22dp</dimen>
     <dimen name="scale_24dp">24dp</dimen>
     <dimen name="scale_25dp">25dp</dimen>
+    <dimen name="scale_32dp">32dp</dimen>
+    <dimen name="scale_40dp">40dp</dimen>
     <dimen name="scale_44dp">44dp</dimen>
     <dimen name="scale_50dp">50dp</dimen>
+    <dimen name="scale_88dp">88dp</dimen>
     <dimen name="scale_100dp">100dp</dimen>
     <dimen name="minus_scale_50dp">-50dp</dimen>
 </resources>
