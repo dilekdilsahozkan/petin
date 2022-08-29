@@ -1,4 +1,4 @@
-package com.moralabs.pet.profile.data.remote.dto
+package com.moralabs.pet.petProfile.data.remote.dto
 
 import com.moralabs.pet.core.domain.BaseDto
 

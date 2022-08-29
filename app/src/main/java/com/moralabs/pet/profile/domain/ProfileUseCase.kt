@@ -14,11 +14,12 @@ class ProfileUseCase @Inject constructor(
 
     fun userInfo(): Flow<BaseResult<UserDto>>{
         return flow{
-          /*  emit(
-                BaseResult.Success(
-                    profileRepository?.userInfo()?.body()?.data ?:
+            profileRepository?.userInfo()?.body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
                 )
-            )*/
+            }
+
         }
     }
 }

@@ -1,9 +1,9 @@
-package com.moralabs.pet.profile.di
+package com.moralabs.pet.petProfile.di
 
-import com.moralabs.pet.profile.data.remote.api.PetService
-import com.moralabs.pet.profile.data.repository.PetRepository
-import com.moralabs.pet.profile.data.repository.PetRepositoryImpl
-import com.moralabs.pet.profile.domain.PetUseCase
+import com.moralabs.pet.petProfile.data.remote.api.PetService
+import com.moralabs.pet.petProfile.data.repository.PetRepository
+import com.moralabs.pet.petProfile.data.repository.PetRepositoryImpl
+import com.moralabs.pet.petProfile.domain.PetUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

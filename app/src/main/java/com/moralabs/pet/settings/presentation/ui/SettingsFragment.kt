@@ -19,16 +19,13 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsDto, Sett
     override fun addListeners() {
         super.addListeners()
 
-        binding.icNavigateToAccount.setOnClickListener{
+        binding.icNavigateToAccount.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_settings_to_accountFragment)
         }
     }
-
-
 
     override fun fragmentViewModel(): BaseViewModel<SettingsDto> {
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
     }
-
 }

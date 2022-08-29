@@ -12,11 +12,4 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(),
 
     override fun getLayoutId() = R.layout.activity_profile
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_profile) as NavHostFragment
-        navController = navHostFragment.navController
-
-    }
-
 }
