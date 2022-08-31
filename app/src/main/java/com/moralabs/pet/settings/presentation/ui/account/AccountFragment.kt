@@ -1,9 +1,5 @@
 package com.moralabs.pet.settings.presentation.ui.account
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
@@ -11,7 +7,7 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAccountBinding
 import com.moralabs.pet.settings.data.remote.dto.SettingsDto
-import com.moralabs.pet.settings.presentation.ui.SettingsViewModel
+import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

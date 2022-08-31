@@ -8,8 +8,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/darkGray">
+        android:layout_height="match_parent">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/LoadingIcon"
@@ -17,7 +16,8 @@
             android:layout_height="130dp"
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/pet_loading"/>
 
     </FrameLayout>
 </layout>

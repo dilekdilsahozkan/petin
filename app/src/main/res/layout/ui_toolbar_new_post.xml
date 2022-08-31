@@ -7,8 +7,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/commonToolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/scale_16dp">
 
         <ImageView
@@ -16,32 +17,36 @@
             android:layout_width="@dimen/scale_24dp"
             android:layout_height="@dimen/scale_24dp"
             android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/darkPrimary"
-            android:text=""
-            android:textSize="@dimen/scale_17dp"
-            android:fontFamily="@font/poppins_semibold"
+            android:layout_margin="@dimen/scale_16dp"
             android:layout_centerInParent="true"
-            android:layout_marginStart="15dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/newPost"
+            android:textColor="@color/darkPrimary"
+            android:textSize="@dimen/scale_17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_close"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/publishText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/publish"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/scale_15dp"
+            android:fontFamily="@font/poppins_medium"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img_close"/>
-
-        <ImageView
-            android:id="@+id/img_select"
-            android:layout_width="@dimen/scale_20dp"
-            android:layout_height="@dimen/scale_20dp"
-            android:src="@drawable/ic_select"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

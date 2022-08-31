@@ -58,7 +58,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
         startActivity(Intent(context, LoginActivity::class.java))
     }
 
-    fun setRegisterClickable() {
+    private fun setRegisterClickable() {
         val spannableString = SpannableString(getString(R.string.haveAccount))
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {

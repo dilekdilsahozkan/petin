@@ -13,7 +13,7 @@ import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.databinding.*
 
 class PostListAdapter(
-    private val onRowClick: (post: PostDto) -> Unit
+    private val onCommentClick: (post: PostDto) -> Unit,
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -38,11 +38,11 @@ class PostListAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class PostListViewHolder(private val context: Context, private val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PostListViewHolder(private val context: Context, val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnClickListener {
+            binding.postCommentLinear.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onRowClick.invoke(getItem(bindingAdapterPosition))
+                    onCommentClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
         }
@@ -55,18 +55,22 @@ class PostListAdapter(
             binding.postText.text = pet.content?.text.toString()
             binding.likeCount.text = pet.likeCount.toString()
             binding.commentCount.text = pet.commentCount.toString()
+          //  binding.offerCount.text = pet.offerCount.toString()
             binding.userPhoto.loadImage(pet.user?.image)
-            binding.postImage.loadImage(pet.content?.media?.get(0))
+
+            if (pet.content?.media.isNullOrEmpty()){
+                binding.postImage.visibility = View.GONE
+            } else {
+                binding.postImage.loadImage(pet.content?.media?.get(0))
+            }
 
             when (pet.content?.type) {
                 0 -> {
-                  //  binding.postType.visibility = View.GONE
+                    binding.postType.visibility = View.GONE
                     binding.postContentLinear.visibility = View.VISIBLE
                     binding.postInfo.visibility = View.VISIBLE
                     binding.postContent2Linear.visibility = View.GONE
                     binding.post2Info.visibility = View.GONE
-                    binding.postIcon.setImageResource(R.drawable.ic_qna)
-                    binding.postTypeText.text = context.getString(R.string.qna)
                 }
                 1 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_qna)
@@ -83,6 +87,9 @@ class PostListAdapter(
                     binding.postInfo.visibility = View.GONE
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.post2Info.visibility = View.VISIBLE
+                    binding.offerButton.setOnClickListener {
+
+                    }
                 }
                 3 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_adoption)

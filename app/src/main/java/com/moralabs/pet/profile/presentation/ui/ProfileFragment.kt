@@ -70,8 +70,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         ProfileViewPagerAdapter(
             this,
             listOf(
-                //PostFragment(),
-                //PetFragment()
+                PostFragment(),
+                PetFragment()
             )
         )
     }

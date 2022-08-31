@@ -11,12 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/ui_toolbar_new_post" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
         <LinearLayout
             android:id="@+id/userInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:layout_margin="@dimen/scale_16dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -44,10 +55,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/postIcon"
@@ -77,7 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/explanation"
-            android:layout_marginTop="@dimen/scale_20dp"
             android:fontFamily="@font/poppins_regular"
             android:background="@color/white"
             android:textSize="@dimen/scale_15dp"
@@ -87,11 +94,19 @@
             app:layout_constraintTop_toBottomOf="@id/userInfo"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/explanationText"/>
+
         <LinearLayout
             android:id="@+id/petChooseLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/explanationText"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="vertical">
@@ -165,7 +180,6 @@
         </androidx.appcompat.widget.Toolbar>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

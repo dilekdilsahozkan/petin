@@ -1,7 +1,6 @@
 package com.moralabs.pet.mainPage.di
 
 import com.moralabs.pet.core.data.remote.api.FeedService
-import com.moralabs.pet.mainPage.data.remote.api.PostService
 import com.moralabs.pet.mainPage.data.repository.MainPageRepository
 import com.moralabs.pet.mainPage.data.repository.MainPageRepositoryImpl
 import com.moralabs.pet.mainPage.domain.MainPageUseCase

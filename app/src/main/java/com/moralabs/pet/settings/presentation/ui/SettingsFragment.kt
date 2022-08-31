@@ -7,7 +7,7 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentSettingsBinding
 import com.moralabs.pet.settings.data.remote.dto.SettingsDto
-import com.moralabs.pet.settings.data.remote.dto.SettingsRequestDto
+import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

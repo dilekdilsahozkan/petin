@@ -1,21 +1,21 @@
 package com.moralabs.pet.mainPage.presentation.ui
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
+import com.moralabs.pet.core.data.remote.dto.PostDto
+import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.databinding.FragmentCommentBinding
+import com.moralabs.pet.mainPage.presentation.viewmodel.CommentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CommentFragment : Fragment() {
+class CommentFragment : BaseFragment<FragmentCommentBinding, List<PostDto>, CommentViewModel>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comment, container, false)
+    override fun getLayoutId() = R.layout.fragment_comment
+
+    override fun fragmentViewModel(): BaseViewModel<List<PostDto>> {
+        val viewModel: CommentViewModel by viewModels()
+        return viewModel
     }
 }

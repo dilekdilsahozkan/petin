@@ -10,11 +10,14 @@ import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>() {
 
     private val postAdapter: PostListAdapter by lazy {
-        PostListAdapter(onRowClick = {
+        PostListAdapter(
+            onCommentClick = {
 
         })
     }

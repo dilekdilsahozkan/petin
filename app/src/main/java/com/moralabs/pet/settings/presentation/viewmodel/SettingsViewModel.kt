@@ -1,4 +1,4 @@
-package com.moralabs.pet.settings.presentation.ui
+package com.moralabs.pet.settings.presentation.viewmodel
 
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.settings.data.remote.dto.SettingsDto

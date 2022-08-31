@@ -12,7 +12,9 @@ import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_pet
