@@ -1,6 +1,10 @@
 package com.moralabs.pet.core.di
 
+import com.moralabs.pet.BuildConfig
+import com.moralabs.pet.MainActivity
 import com.moralabs.pet.core.data.remote.interceptor.HeaderInterceptor
+import com.moralabs.pet.core.data.repository.AuthenticationRepository
+import com.moralabs.pet.core.data.repository.impl.AuthenticationRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,8 +25,8 @@ class NetworkDI {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
             .addInterceptor(headerInterceptor)
+            .addInterceptor(loggingInterceptor)
             .build()
     } else OkHttpClient
         .Builder()
@@ -33,12 +37,17 @@ class NetworkDI {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
     ): Retrofit = Retrofit.Builder()
-        .baseUrl("https://server-test-be-petinder.azurewebsites.net/")
+        .baseUrl(BuildConfig.PET_BASEURL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     @Provides
     @Singleton
-    fun provideHeaderInterceptor(): HeaderInterceptor = HeaderInterceptor()
+    fun provideHeaderInterceptor(authenticationRepository: AuthenticationRepository): HeaderInterceptor =
+        HeaderInterceptor(authenticationRepository)
+
+    @Provides
+    @Singleton
+    fun provideAuthenticationRepository(): AuthenticationRepository = AuthenticationRepositoryImpl(MainActivity.instance)
 }

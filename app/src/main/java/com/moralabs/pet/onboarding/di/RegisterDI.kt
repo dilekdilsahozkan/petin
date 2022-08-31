@@ -1,5 +1,6 @@
 package com.moralabs.pet.onboarding.di
 
+import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.onboarding.data.remote.api.RegisterService
 import com.moralabs.pet.onboarding.data.repository.RegisterRepository
 import com.moralabs.pet.onboarding.data.repository.RegisterRepositoryImpl
@@ -26,6 +27,9 @@ class RegisterDI {
 
     @Provides
     @Singleton
-    fun provideRegisterUseCase(loginRepository: RegisterRepository): RegisterUseCase =
-        RegisterUseCase(loginRepository)
+    fun provideRegisterUseCase(
+        loginRepository: RegisterRepository,
+        authenticationRepository: AuthenticationRepository
+    ): RegisterUseCase =
+        RegisterUseCase(loginRepository, authenticationRepository)
 }
