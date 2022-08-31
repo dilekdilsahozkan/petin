@@ -1,8 +1,9 @@
 package com.moralabs.pet.mainPage.di
 
-import com.moralabs.pet.mainPage.data.remote.api.PostService
+import com.moralabs.pet.core.data.remote.api.FeedService
 import com.moralabs.pet.mainPage.data.repository.MainPageRepository
 import com.moralabs.pet.mainPage.data.repository.MainPageRepositoryImpl
+import com.moralabs.pet.mainPage.domain.MainPageUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,16 +16,16 @@ import javax.inject.Singleton
 class MainPageDI {
     @Provides
     @Singleton
-    fun provideMainPageService(retrofit: Retrofit): PostService =
-        retrofit.create(PostService::class.java)
+    fun provideMainPageService(retrofit: Retrofit): FeedService =
+        retrofit.create(FeedService::class.java)
 
     @Provides
     @Singleton
-    fun provideMainPageRepository(service: PostService): MainPageRepository =
+    fun provideMainPageRepository(service: FeedService): MainPageRepository =
         MainPageRepositoryImpl(service)
 
-    /* @Provides
+     @Provides
      @Singleton
      fun provideMainPageUseCase(mainPageRepository: MainPageRepository): MainPageUseCase =
-         MainPageUseCase(mainPageRepository)*/
+         MainPageUseCase(mainPageRepository)
 }

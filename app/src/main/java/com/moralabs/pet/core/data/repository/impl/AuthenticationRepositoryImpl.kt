@@ -65,6 +65,7 @@ class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository
 
     override fun requestHeaders() = authentication?.let {
         hashMapOf(
+            "Authorization" to if(it.bearerKey == null) null else "Bearer ${it.bearerKey}",
             "Accept-Language" to it.language,
             "Pet-Channel" to it.channel,
             "Pet-DeviceModel" to it.deviceModel,

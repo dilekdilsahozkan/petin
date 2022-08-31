@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_navigation"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_fragment_settings_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account">
+
+        <action
+            android:id="@+id/action_accountFragment_to_personalInformationsFragment"
+            app:destination="@id/personalInformationsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/personalInformationsFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.PersonalInformationsFragment"
+        android:label="fragment_personal_informations"
+        tools:layout="@layout/fragment_personal_informations">
+
+        <action
+            android:id="@+id/action_personalInformationsFragment_to_editPersonalInformationsFragment"
+            app:destination="@id/editPersonalInformationsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editPersonalInformationsFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.EditPersonalInformationsFragment"
+        android:label="EditPersonalInformationsFragment"
+        tools:layout="@layout/fragment_edit_personal_informations" />
+
+</navigation>

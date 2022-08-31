@@ -5,9 +5,9 @@ import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 
 data class PostDto(
     val id: String? = null,
-    val user: List<UserInfoDto>? = null,
+    val user: UserInfoDto? = null,
     val dateTime: String? = null,
-    val content: List<ContentDto>? = null,
+    val content: ContentDto? = null,
     val comments: List<CommentDto>? = null,
     val likeCount: Int? = null,
     val commentCount: Int? = null,
@@ -19,7 +19,7 @@ data class ContentDto(
     val media: List<String>? = null,
     val text: String? = null,
     val type: Int? = null,
-    val location: List<LocationDto>? = null
+    val location: LocationDto? = null
 ): BaseDto()
 
 data class LocationDto(

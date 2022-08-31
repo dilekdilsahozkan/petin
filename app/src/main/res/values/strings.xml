@@ -44,6 +44,28 @@
     <string name="explanation">Açıklama yazınız</string>
     <string name="selectPet">Evcil hayvanınızı seçiniz</string>
     <string name="search">Ara</string>
+    <string name="zero">0</string>
+    <string name="today">Bugün</string>
+    <string name="yesterday">Dün</string>
+
+
+
+    <!-- Settings -->
+
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_account">Hesap</string>
+    <string name="settings_privacy_and_settings">Gizlilik ve Güvenlik</string>
+    <string name="settings_about">Hakkımızda</string>
+    <string name="settings_log_out">Çıkış Yap</string>
+    <string name="settings_my_account">Hesabım</string>
+    <string name="settings_personal_informations">Kişisel Bilgilerim</string>
+    <string name="settings_my_favorites">Favorilerim</string>
+    <string name="settings_change_password">Şifremi Değiştir</string>
+    <string name="settings_delete_account">Hesabımı Sil</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_username">Kullanıcı Adı</string>
+    <string name="settings_phone_number">Telefon No</string>
+    <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

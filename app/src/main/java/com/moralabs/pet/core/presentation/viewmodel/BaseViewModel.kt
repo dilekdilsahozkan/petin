@@ -10,7 +10,7 @@ import com.moralabs.pet.core.domain.ErrorCode
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewModel(){
+open class BaseViewModel<T: Any>(private val useCase: BaseUseCase) : ViewModel(){
     protected var _state: MutableStateFlow<ViewState<T>> = MutableStateFlow(ViewState.Idle())
     val state: StateFlow<ViewState<T>> = _state
 

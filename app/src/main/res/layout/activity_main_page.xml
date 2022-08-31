@@ -19,9 +19,9 @@
                 android:id="@+id/app_bar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
-                app:liftOnScroll="true"
-                android:visibility="gone">
+                app:liftOnScroll="true">
 
                 <com.moralabs.pet.core.presentation.toolbar.CommonAppBar
                     android:id="@+id/app_bar"
@@ -74,7 +74,10 @@
             android:layout_marginBottom="@dimen/scale_20dp"
             android:background="@drawable/ic_add_button"
             app:layout_anchor="@id/dashboard_navigation"
-            app:layout_anchorGravity="center_horizontal|center_vertical" />
+            app:layout_anchorGravity="center_horizontal|center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -12,15 +12,12 @@ import retrofit2.http.POST
 interface FeedService {
 
     @GET("/feed")
-    suspend fun getFeed(): Response<BaseResponse<PostDto>>
+    suspend fun getFeed(): Response<BaseResponse<List<PostDto>>>
 
     @POST("/feed/post")
     suspend fun postPet(
         @Body newPost: NewPostDto
-    ): Response<BaseResponse<PostDto>>
-
-    @GET("/feed/post")
-    suspend fun getPost(): Response<BaseResponse<PostDto>>
+    ): Response<BaseResponse<List<PostDto>>>
 
     @POST("/feed/post/{postId}/{dateTime}")
     suspend fun postDateTime(): Response<BaseResponse<PostDto>>

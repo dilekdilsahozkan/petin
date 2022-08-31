@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/scale_16dp"
+        android:padding="@dimen/scale_16dp"
         android:background="@color/white">
 
         <TextView
@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/petin"
+            android:includeFontPadding="false"
             android:textColor="@color/secondaryColor"
             android:textSize="36dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,7 @@
             android:id="@+id/searchLinear"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:weightSum="6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,12 +74,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="0dp"
+            android:paddingTop="@dimen/scale_16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchLinear"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_post" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

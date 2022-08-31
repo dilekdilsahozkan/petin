@@ -1,70 +1,77 @@
 package com.moralabs.pet.profile.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import com.moralabs.pet.BR
+import com.google.android.material.tabs.TabLayoutMediator
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
-import com.moralabs.pet.core.presentation.adapter.BaseViewPagerAdapter
+import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.ui.BaseViewPagerFragment
 import com.moralabs.pet.databinding.FragmentProfileBinding
-import com.moralabs.pet.databinding.ItemProfilePostBinding
-import com.moralabs.pet.profile.data.remote.dto.ProfileDto
-import com.moralabs.pet.profile.data.remote.dto.ProfilePostsDto
+import com.moralabs.pet.profile.data.remote.dto.UserDto
+import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
+import com.moralabs.pet.settings.presentation.ui.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileDto, ProfileViewModel>(){
+class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(){
 
     override fun getLayoutId() = R.layout.fragment_profile
 
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun fragmentViewModel(): BaseViewModel<ProfileDto> {
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: ProfileViewModel by viewModels()
         return viewModel
     }
 
-    private val profilePostsAdapter: BaseListAdapter<ProfilePostsDto, ItemProfilePostBinding> by lazy {
-        BaseListAdapter(R.layout.item_profile_post, BR.item, onRowClick = {
-
-        }, isSameDto = { oldItem, newItem ->
-            oldItem.type == newItem.type
-        })
-    }
-
-    private val viewPagerAdapter: BaseViewPagerAdapter by lazy {
-        BaseViewPagerAdapter(
-            this,
-            listOf(
-                BaseViewPagerFragment(profilePostsAdapter)
-            )
-        )
+    override fun addListeners() {
+        super.addListeners()
+        binding.imgMenu.setOnClickListener {
+            startActivity(Intent(context, SettingsActivity::class.java))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.profileViewpager.adapter = viewPagerAdapter
+        binding.viewpager.adapter = viewPagerAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
+            when(position) {
+                0 -> tab.setIcon(R.drawable.ic_posts)
+                1 -> tab.setIcon(R.drawable.ic_pet_house)
+            }
+        }.attach()
+
+        viewModel.userInfo()
     }
 
-    override fun stateSuccess(data: ProfileDto) {
+    override fun stateSuccess(data: UserDto) {
         super.stateSuccess(data)
 
-        binding.item = data
+        binding.userFullName.text = data.fullName
+        binding.username.text = data.userName
+        binding.toolbarUsername.text = data.userName
+        binding.totalPost.text = data.postCount.toString()
+        if(data.postCount == null){
+            binding.totalPost.text = getString(R.string.zero)
+        }
+        binding.followers.text = data.followerCount.toString()
+        binding.following.text = data.followedCount.toString()
+        binding.userPhoto.loadImage(data.image)
 
-        profilePostsAdapter.submitList(
+    }
+
+    private val viewPagerAdapter: ProfileViewPagerAdapter by lazy {
+        ProfileViewPagerAdapter(
+            this,
             listOf(
-                ProfilePostsDto(
-                    type = 1,
-                    username = "gokalp.okumus",
-                    location = "Ankara",
-                    postText = "Selammm"
-                )
+                PostFragment(),
+                PetFragment()
             )
         )
     }
