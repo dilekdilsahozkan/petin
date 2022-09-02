@@ -20,6 +20,5 @@ class PetUseCase @Inject constructor(
                 )
             )
         }
-
     }
 }

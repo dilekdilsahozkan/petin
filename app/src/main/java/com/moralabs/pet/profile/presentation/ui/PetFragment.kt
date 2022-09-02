@@ -25,7 +25,6 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         }, isSameDto = { oldItem, newItem ->
             true
         })
-
     }
 
     override fun fragmentViewModel(): BaseViewModel<List<PetDto>> {

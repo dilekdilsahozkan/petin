@@ -10,6 +10,6 @@ data class NotificationDto(
     val text: String? = null,
     val type: Int? = null,
     val contentId: String? = null,
-    val dateTime: String? = null,
+    val dateTime: Long? = null,
     val pageIndex: Int? = null
 ) : BaseDto()

@@ -1,16 +1,18 @@
 package com.moralabs.pet.core.data.remote.dto
 
 import com.moralabs.pet.core.domain.BaseDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 
 data class PostDto(
     val id: String? = null,
     val user: UserInfoDto? = null,
-    val dateTime: String? = null,
+    val dateTime: Long? = null,
     val content: ContentDto? = null,
     val comments: List<CommentDto>? = null,
     val likeCount: Int? = null,
     val commentCount: Int? = null,
+    val offerCount: Int? = null,
     val isPostLikedByUser: Boolean? = null,
     val pageIndex: Int? = null
 ): BaseDto()
@@ -18,6 +20,7 @@ data class PostDto(
 data class ContentDto(
     val media: List<String>? = null,
     val text: String? = null,
+    val pet: PetDto? = null,
     val type: Int? = null,
     val location: LocationDto? = null
 ): BaseDto()

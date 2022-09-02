@@ -15,18 +15,24 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>() {
 
-    private val postAdapter: PostListAdapter by lazy {
-        PostListAdapter(
-            onCommentClick = {
-
-        })
-    }
-
     override fun getLayoutId() = R.layout.fragment_post
 
     override fun fragmentViewModel(): BaseViewModel<List<PostDto>> {
         val viewModel: ProfilePostViewModel by viewModels()
         return viewModel
+    }
+
+    private val postAdapter: PostListAdapter by lazy {
+        PostListAdapter(
+            onOfferClick = {
+
+            },
+            onLikeClick = {
+
+            },
+            onCommentClick = {
+
+            })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -9,5 +9,5 @@ interface CommentRepository {
     suspend fun writeComment(writeNewComment: CommentDto): Response<BaseResponse<List<PostDto>>>
     suspend fun commentPage(): Response<BaseResponse<List<PostDto>>>
     //  suspend fun likeComment(): Response<BaseResponse>
-  //  suspend fun unlikeComment(): Response<BaseResponse>
+   //  suspend fun unlikeComment(): Response<BaseResponse>
 }

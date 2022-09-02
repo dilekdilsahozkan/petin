@@ -2,22 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/offer_navigation"
-    app:startDestination="@id/offerFragment">
-
-    <fragment
-        android:id="@+id/offerFragment"
-        android:name="com.moralabs.pet.offer.presentation.ui.OfferFragment"
-        android:label="OfferFragment"
-        tools:layout="@layout/fragment_offer">
-
-        <action
-        android:id="@+id/action_fragment_offer_to_makeOfferFragment"
-        app:destination="@id/makeOfferFragment"
-        app:enterAnim="@anim/slide_in"
-        app:popEnterAnim="@anim/slide_out"/>
-
-    </fragment>
+    android:id="@+id/make_offer_navigation"
+    app:startDestination="@id/makeOfferFragment">
 
     <fragment
         android:id="@+id/makeOfferFragment"

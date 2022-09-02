@@ -5,19 +5,18 @@
 
     <data>
 
-        <variable
-            name="user"
-            type="com.moralabs.pet.profile.data.remote.dto.UserInfoDto" />
+        <import type="com.moralabs.pet.core.presentation.DateExtensionKt"/>
 
         <variable
-            name="content"
-            type="com.moralabs.pet.core.data.remote.dto.ContentDto" />
+            name="post"
+            type="com.moralabs.pet.core.data.remote.dto.PostDto" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale_20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@id/userInfoLinear"
@@ -50,7 +49,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text=""
                     android:textColor="@color/darkPrimary"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:textStyle="bold"
                     tools:text="dilsah.ozkan" />
 
@@ -102,7 +101,9 @@
             android:id="@+id/postContentLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userInfoLinear">
 
             <TextView
@@ -125,7 +126,7 @@
                 android:layout_height="250dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/background_image"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/pet"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,6 +138,7 @@
             android:id="@+id/postInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postContentLinear"
@@ -161,12 +163,13 @@
                     android:id="@+id/likeCount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="12"
-                    android:textSize="11dp" />
+                    android:text=""
+                    android:textSize="11dp"
+                    tools:text="12"/>
 
             </LinearLayout>
 
@@ -175,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="12dp"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="@dimen/scale_16dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postLikeLinear"
@@ -191,12 +194,13 @@
                     android:id="@+id/commentCount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="10"
-                    android:textSize="11dp" />
+                    android:text=""
+                    android:textSize="11dp"
+                    tools:text="10"/>
 
             </LinearLayout>
 
@@ -204,24 +208,23 @@
                 android:id="@+id/postReleaseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1h ago"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1h ago"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/postContent2Linear"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/userInfoLinear">
 
             <TextView
                 android:id="@+id/post2Text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/scale_15dp"
                 android:fontFamily="@font/poppins_regular"
@@ -234,7 +237,7 @@
 
             <LinearLayout
                 android:id="@+id/offerCard"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -246,13 +249,14 @@
                     android:layout_width="164dp"
                     android:layout_height="148dp"
                     android:layout_marginTop="8dp"
-                    android:scaleType="centerCrop"
+                    android:src="@drawable/pet"
+                    android:scaleType="fitCenter"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/post2Text" />
 
                 <LinearLayout
                     android:id="@+id/petInfo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -275,7 +279,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/poppins_regular"
-                        android:text=""
+                        android:text="himalaya"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/scale_13dp"
                         tools:text="Himalaya" />
@@ -285,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/poppins_regular"
-                        android:text=""
+                        android:text="1 year"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/scale_13dp"
                         tools:text="1 year old" />
@@ -295,7 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/poppins_regular"
-                        android:text=""
+                        android:text="Male"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/scale_13dp"
                         tools:text="Male" />
@@ -303,7 +307,7 @@
                     <Button
                         android:id="@+id/offerButton"
                         style="@style/PetButton"
-                        android:layout_width="163dp"
+                        android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/offer" />
@@ -318,7 +322,6 @@
             android:id="@+id/post2Info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/scale_18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postContent2Linear">
@@ -359,7 +362,6 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
-                android:text=""
                 android:textColor="@color/darkGray"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="1h ago" />

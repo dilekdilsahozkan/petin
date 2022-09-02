@@ -106,7 +106,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/explanationText"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="vertical">
@@ -121,10 +120,11 @@
                 android:fontFamily="@font/poppins_semibold"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/petList"
+                android:id="@+id/petCardList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/scale_10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_pet_card"/>
 
         </LinearLayout>
@@ -153,25 +153,21 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
+                android:id="@+id/galleryIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_camera"
-                android:layout_marginLeft="@dimen/scale_20dp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_galery"
+                android:src="@drawable/ic_gallery"
                 android:layout_marginLeft="@dimen/scale_20dp"/>
 
             <ImageView
+                android:id="@+id/locationIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_location"
                 android:layout_marginLeft="@dimen/scale_20dp"/>
 
             <ImageView
-                android:id="@+id/ic_pet_house"
+                android:id="@+id/petHouseIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_pet_house"

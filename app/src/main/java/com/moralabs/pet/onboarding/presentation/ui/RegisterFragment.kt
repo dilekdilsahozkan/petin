@@ -40,10 +40,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
             if (binding.agreementRadioButton.isChecked) {
                 viewModel.register(
                     RegisterRequestDto(
-                        this.name_surname_edittext.text.toString(),
-                        this.username_edittext.text.toString(),
-                        this.email_edittext.text.toString(),
-                        this.password_edittext.text.toString()
+                        fullName = binding.nameSurnameEdittext.text.toString(),
+                        username = binding.usernameEdittext.text.toString(),
+                        email = binding.emailEdittext.text.toString(),
+                        password = binding.passwordEdittext.text.toString()
                     )
                 )
             }

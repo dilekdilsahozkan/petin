@@ -17,6 +17,12 @@
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
 
+        <action
+            android:id="@+id/action_post_to_offer"
+            app:destination="@+id/makeOfferFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+
     </fragment>
 
     <fragment
@@ -42,5 +48,11 @@
         android:name="com.moralabs.pet.mainPage.presentation.ui.CommentFragment"
         android:label="CommentFragment"
         tools:layout="@layout/fragment_comment"/>
+
+    <fragment
+        android:id="@+id/makeOfferFragment"
+        android:name="com.moralabs.pet.offer.presentation.ui.MakeOfferFragment"
+        android:label="MakeOfferFragment"
+        tools:layout="@layout/fragment_make_offer"/>
 
 </navigation>

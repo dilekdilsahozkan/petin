@@ -21,6 +21,10 @@ class OfferActivity : BaseActivity<ActivityOfferBinding>(),
         setSupportActionBar(binding.appBar)
     }
 
+    override fun showTitleText(title: String?) {
+        binding.appBar.showTitleText(title)
+    }
+
     override fun onItemSelected(id: Int) {
         when (id) {
             R.id.img_back -> super.onBackPressed()

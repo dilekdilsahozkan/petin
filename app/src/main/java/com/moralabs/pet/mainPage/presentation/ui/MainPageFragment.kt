@@ -1,5 +1,6 @@
 package com.moralabs.pet.mainPage.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
+import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +30,12 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
 
     private val postAdapter by lazy(LazyThreadSafetyMode.NONE) {
         PostListAdapter(
+            onOfferClick = {
+                startActivity(Intent(context, OfferActivity::class.java))
+            },
+            onLikeClick = {
+
+            },
             onCommentClick = {
                 findNavController().navigate(R.id.action_post_to_comment)
             }
@@ -43,10 +51,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
         viewModel.feedPost()
     }
-
     override fun stateSuccess(data: List<PostDto>) {
         super.stateSuccess(data)
-
         postAdapter.submitList(data)
     }
 }

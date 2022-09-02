@@ -21,18 +21,13 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 ) :
     ListAdapter<Dto, BaseListAdapter.ViewHolder<Binding>>(object :
         DiffUtil.ItemCallback<Dto>() {
-        override fun areItemsTheSame(
-            oldItem: Dto,
-            newItem: Dto
-        ): Boolean {
+
+        override fun areItemsTheSame(oldItem: Dto, newItem: Dto): Boolean {
             return isSameDto(oldItem, newItem)
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(
-            oldItem: Dto,
-            newItem: Dto
-        ): Boolean {
+        override fun areContentsTheSame(oldItem: Dto, newItem: Dto): Boolean {
             return false
         }
     }) {
@@ -77,7 +72,10 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
         }
     }
 
-    sealed class ViewHolder<Binding : ViewDataBinding>(binding: Binding, listAdapter: BaseListAdapter<*, *>) :
+    sealed class ViewHolder<Binding : ViewDataBinding>(
+        binding: Binding,
+        listAdapter: BaseListAdapter<*, *>
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         class DtoViewHolder<Binding : ViewDataBinding>(
             val binding: Binding,

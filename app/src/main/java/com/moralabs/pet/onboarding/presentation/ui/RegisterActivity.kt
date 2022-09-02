@@ -18,6 +18,10 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() ,
         }
     }
 
+    override fun showTitleText(title: String?) {
+        binding.appBar.showTitleText(title)
+    }
+
     override fun visibilityChange() {
         binding.appBar.visibilityChange()
     }

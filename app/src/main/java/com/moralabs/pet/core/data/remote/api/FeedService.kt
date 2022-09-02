@@ -29,11 +29,11 @@ interface FeedService {
     suspend fun getLiked(): Response<BaseResponse<PostDto>>
 
     @POST("/feed/post/{postId}/like")
-    suspend fun likePost(): Response<BaseResponse<*>>
+    suspend fun likePost(): Response<BaseResponse<Nothing>>
 
     @PATCH("/feed/post/{postId}/unlike")
-    suspend fun unlikePost(): Response<BaseResponse<*>>
+    suspend fun unlikePost(): Response<BaseResponse<Nothing>>
 
     @PATCH("/feed/post/{postId}")
-    suspend fun deletePost(): Response<BaseResponse<*>>
+    suspend fun deletePost(): Response<BaseResponse<Nothing>>
 }

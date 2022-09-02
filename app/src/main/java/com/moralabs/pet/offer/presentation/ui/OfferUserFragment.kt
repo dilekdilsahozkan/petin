@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.moralabs.pet.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OfferUserFragment : Fragment() {
 
     override fun onCreateView(

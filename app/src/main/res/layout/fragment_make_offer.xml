@@ -28,7 +28,7 @@
             android:text="@string/choosePet"
             android:textSize="15dp"
             android:fontFamily="@font/poppins_medium"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="@dimen/scale_50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selectPartner"/>
 
@@ -36,11 +36,12 @@
             android:id="@+id/petList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_pet_card"
             app:layout_constraintTop_toBottomOf="@id/selectText" />
 
         <Button
-            android:id="@+id/offerButton"
+            android:id="@+id/makeOfferButton"
             android:layout_width="0dp"
             android:layout_height="44dp"
             style="@style/PetButton"

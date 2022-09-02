@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
+import com.moralabs.pet.core.presentation.toFullDate
 import com.moralabs.pet.databinding.*
 
 class PostListAdapter(
+    private val onOfferClick: (post: PostDto) -> Unit,
+    private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
@@ -45,6 +48,18 @@ class PostListAdapter(
                     onCommentClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
+
+            binding.postLikeLinear.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onLikeClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.offerButton.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onOfferClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
         }
 
         @SuppressLint("SetTextI18n")
@@ -55,8 +70,12 @@ class PostListAdapter(
             binding.postText.text = pet.content?.text.toString()
             binding.likeCount.text = pet.likeCount.toString()
             binding.commentCount.text = pet.commentCount.toString()
-          //  binding.offerCount.text = pet.offerCount.toString()
+            binding.offerCount.text = pet.offerCount.toString()
             binding.userPhoto.loadImage(pet.user?.image)
+            binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
+            binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
+            binding.petImage.loadImage(pet.content?.pet?.media?.get(0))
+            binding.petName.text = pet.content?.pet?.name
 
             if (pet.content?.media.isNullOrEmpty()){
                 binding.postImage.visibility = View.GONE
@@ -87,9 +106,6 @@ class PostListAdapter(
                     binding.postInfo.visibility = View.GONE
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.post2Info.visibility = View.VISIBLE
-                    binding.offerButton.setOnClickListener {
-
-                    }
                 }
                 3 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_adoption)

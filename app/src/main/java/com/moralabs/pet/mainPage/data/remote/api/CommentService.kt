@@ -15,10 +15,10 @@ interface CommentService {
 
     @GET("/feed/post/{postId}/comment")
     suspend fun commentPage(): Response<BaseResponse<List<PostDto>>>
-/*
+
     @POST("/feed/post/comment/{commentId}/like")
-    suspend fun likeComment():Response<BaseResponse<>>
+    suspend fun likeComment():Response<BaseResponse<Nothing>>
 
     @PATCH("/feed/post/comment/{commentId}/unlike")
-    suspend fun unlikeComment():Response<BaseResponse<>>*/
+    suspend fun unlikeComment():Response<BaseResponse<Nothing>>
 }
