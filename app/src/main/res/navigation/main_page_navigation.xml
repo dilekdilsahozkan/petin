@@ -9,21 +9,7 @@
         android:id="@+id/home"
         android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
         android:label="MainPageFragment"
-        tools:layout="@layout/fragment_main_page">
-
-        <action
-            android:id="@+id/action_post_to_comment"
-            app:destination="@+id/commentFragment"
-            app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out" />
-
-        <action
-            android:id="@+id/action_post_to_offer"
-            app:destination="@+id/makeOfferFragment"
-            app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out" />
-
-    </fragment>
+        tools:layout="@layout/fragment_main_page"/>
 
     <fragment
         android:id="@+id/messages"

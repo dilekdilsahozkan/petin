@@ -53,7 +53,6 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         when (id) {
             R.id.img_back -> super.onBackPressed()
             R.id.img_select -> startActivity(Intent(this, MainPageActivity::class.java))
-    //        R.id.img_menu -> startActivity(Intent(this, MainPageActivity::class.java))
         }
     }
 

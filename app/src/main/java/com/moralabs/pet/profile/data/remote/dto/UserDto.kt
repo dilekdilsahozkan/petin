@@ -3,7 +3,7 @@ package com.moralabs.pet.profile.data.remote.dto
 import com.moralabs.pet.core.domain.BaseDto
 
 data class UserDto(
-    val id: String?,
+    val id: String = "",
     val image: String? = null,
     val userName: String? = null,
     val fullName: String? = null,

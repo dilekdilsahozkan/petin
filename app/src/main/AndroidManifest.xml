@@ -17,6 +17,11 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".mainPage.presentation.ui.CommentActivity"
+            android:exported="false"
+            android:fitsSystemWindows="true"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
             android:name=".settings.presentation.ui.SettingsActivity"
             android:exported="false" />
         <activity
@@ -35,14 +40,15 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".offer.presentation.ui.OfferActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".onboarding.presentation.ui.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".mainPage.presentation.ui.MainPageActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".onboarding.presentation.ui.LoginActivity"
             android:exported="false" />
@@ -61,6 +67,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

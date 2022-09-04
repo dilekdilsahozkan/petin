@@ -74,8 +74,13 @@ class PostListAdapter(
             binding.userPhoto.loadImage(pet.user?.image)
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
-            binding.petImage.loadImage(pet.content?.pet?.media?.get(0))
             binding.petName.text = pet.content?.pet?.name
+
+            if (pet.content?.pet?.media.isNullOrEmpty()){
+                binding.petImage.visibility = View.GONE
+            } else {
+                binding.petImage.loadImage(pet.content?.pet?.media?.get(0))
+            }
 
             if (pet.content?.media.isNullOrEmpty()){
                 binding.postImage.visibility = View.GONE
@@ -115,7 +120,7 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.post2Info.visibility = View.VISIBLE
 
-                }else -> 0
+                }
             }
         }
     }

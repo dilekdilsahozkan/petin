@@ -215,14 +215,14 @@
                     android:id="@+id/haveAccountText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="68dp"
+                    android:layout_marginTop="60dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:text="@string/dontHaveAccount"
                     android:textSize="13dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/social_icon_linear" />
+                    app:layout_constraintTop_toBottomOf="@id/social_icon_linear"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
