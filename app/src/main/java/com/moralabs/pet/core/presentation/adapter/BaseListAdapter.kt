@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.BR
-import com.moralabs.pet.core.domain.SimpleDto
+import com.moralabs.pet.core.data.remote.dto.SimpleDto
 import com.moralabs.pet.databinding.UiItemBaseListEmptyBinding
 
 class BaseListAdapter<Dto, Binding : ViewDataBinding>(

@@ -16,44 +16,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
-            tools:listitem="@layout/item_user_comment"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_user_comment" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/keyboard_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/scale_16dp">
 
                 <EditText
                     android:id="@+id/writeComment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/comment"
                     android:layout_marginEnd="@dimen/scale_16dp"
                     android:layout_marginBottom="@dimen/scale_10dp"
+                    android:background="@drawable/background_gray"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/scale_18dp"
+                    android:hint="@string/comment"
                     android:padding="10dp"
-                    android:background="@drawable/background_gray" />
+                    android:textSize="@dimen/scale_18dp" />
 
                 <ImageView
                     android:id="@+id/commentSend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_send"
                     android:layout_marginEnd="@dimen/scale_20dp"
+                    android:src="@drawable/ic_send"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

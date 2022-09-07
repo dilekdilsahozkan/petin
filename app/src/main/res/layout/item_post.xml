@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.moralabs.pet.core.presentation.DateExtensionKt"/>
+        <import type="com.moralabs.pet.core.presentation.DateExtensionKt" />
 
         <variable
             name="post"
@@ -66,7 +66,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/postType"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -78,22 +78,25 @@
                     android:id="@+id/postIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_qna" />
+                    android:src="@drawable/ic_qna"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/postTypeText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
-                    android:includeFontPadding="false"
                     android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
+                    android:includeFontPadding="false"
                     android:text=""
                     android:textColor="@color/darkPrimary"
                     android:textSize="11dp"
-                    tools:text="QNA" />
+                    app:layout_constraintStart_toEndOf="@id/postIcon"
+                    tools:text="Soru - Cevap" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,8 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userInfoLinear">
 
             <TextView
@@ -113,11 +116,11 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text=""
-                android:textSize="@dimen/scale_15dp"
                 android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Love him."/>
+                tools:text="Love him." />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/postImage"
@@ -157,7 +160,7 @@
                     android:id="@+id/likeIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_like" />
+                    android:background="@{post.selected ? @drawable/ic_like_orange : @drawable/ic_like}" />
 
                 <TextView
                     android:id="@+id/likeCount"
@@ -169,7 +172,7 @@
                     android:includeFontPadding="false"
                     android:text=""
                     android:textSize="11dp"
-                    tools:text="12"/>
+                    tools:text="12" />
 
             </LinearLayout>
 
@@ -200,7 +203,7 @@
                     android:includeFontPadding="false"
                     android:text=""
                     android:textSize="11dp"
-                    tools:text="10"/>
+                    tools:text="10" />
 
             </LinearLayout>
 
@@ -211,7 +214,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="1h ago"/>
+                tools:text="1h ago" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,8 +258,8 @@
                     android:layout_width="164dp"
                     android:layout_height="148dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/pet"
                     android:scaleType="fitCenter"
+                    android:src="@drawable/pet"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/post2Text" />
 
@@ -365,6 +374,12 @@
                 android:textColor="@color/darkGray"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="1h ago" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

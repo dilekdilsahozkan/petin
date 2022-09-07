@@ -1,4 +1,4 @@
-package com.moralabs.pet.core.domain
+package com.moralabs.pet.core.data.remote.dto
 
 import androidx.annotation.Keep
 

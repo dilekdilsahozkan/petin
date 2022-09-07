@@ -17,7 +17,6 @@ class NewPostUseCase @Inject constructor(
     fun newPost(createNewPost: NewPostDto): Flow<BaseResult<CreatePostDto>> {
         return flow {
             val postValue = newPostRepository.createPost(createNewPost).body()?.data ?: listOf()
-
             emit(
                 BaseResult.Success(
                     CreatePostDto(
@@ -31,7 +30,6 @@ class NewPostUseCase @Inject constructor(
     fun petValue(): Flow<BaseResult<CreatePostDto>> {
         return flow {
             val getValue = petRepository.petPost().body()?.data ?: listOf()
-
             emit(
                 BaseResult.Success(
                     CreatePostDto(

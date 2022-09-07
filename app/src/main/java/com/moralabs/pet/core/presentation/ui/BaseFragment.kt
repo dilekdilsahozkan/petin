@@ -11,7 +11,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.moralabs.pet.core.domain.BaseDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener

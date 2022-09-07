@@ -20,7 +20,6 @@ import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
     NavigationView.OnNavigationItemSelectedListener {
@@ -33,17 +32,18 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         return viewModel
     }
 
-    private val postAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val postAdapter by lazy {
         PostListAdapter(
             onOfferClick = {
                 startActivity(Intent(context, OfferActivity::class.java))
             },
             onLikeClick = {
-
+                val postId = it.id
+                viewModel.likePost(postId)
             },
             onCommentClick = {
                 val bundle = bundleOf(
-                    CommentActivity.POST_ID to id
+                    CommentActivity.POST_ID to it.id
                 )
                 val intent = Intent(context, CommentActivity::class.java)
                 intent.putExtras(bundle)

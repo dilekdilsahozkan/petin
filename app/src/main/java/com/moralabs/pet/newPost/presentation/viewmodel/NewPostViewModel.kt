@@ -9,7 +9,6 @@ import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.domain.NewPostUseCase
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect

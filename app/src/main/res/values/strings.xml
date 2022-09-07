@@ -58,7 +58,8 @@
     <string name="type">Cins</string>
     <string name="breed">Tür</string>
     <string name="gender">Cinsiyet</string>
-    <string name="age">Para</string>
+    <string name="age">Yaş</string>
+    <string name="addPhoto">Fotoğraf Ekleyiniz</string>
 
     <!-- Settings -->
 
@@ -76,4 +77,6 @@
     <string name="settings_username">Kullanıcı Adı</string>
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

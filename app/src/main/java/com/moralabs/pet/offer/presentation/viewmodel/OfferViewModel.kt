@@ -8,7 +8,6 @@ import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.offer.data.remote.dto.OfferDto
 import com.moralabs.pet.offer.domain.OfferUseCase
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect

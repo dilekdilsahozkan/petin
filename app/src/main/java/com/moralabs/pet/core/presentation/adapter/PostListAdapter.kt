@@ -49,7 +49,7 @@ class PostListAdapter(
                 }
             }
 
-            binding.postLikeLinear.setOnClickListener {
+            binding.likeIcon.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onLikeClick.invoke(getItem(bindingAdapterPosition))
                 }
@@ -71,21 +71,21 @@ class PostListAdapter(
             binding.likeCount.text = pet.likeCount.toString()
             binding.commentCount.text = pet.commentCount.toString()
             binding.offerCount.text = pet.offerCount.toString()
-            binding.userPhoto.loadImage(pet.user?.image)
+            binding.userPhoto.loadImage(pet.user?.media?.url)
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.petName.text = pet.content?.pet?.name
 
-            if (pet.content?.pet?.media.isNullOrEmpty()){
+            if (pet.content?.pet?.media?.url.isNullOrEmpty()){
                 binding.petImage.visibility = View.GONE
             } else {
-                binding.petImage.loadImage(pet.content?.pet?.media?.get(0))
+                binding.petImage.loadImage(pet.content?.pet?.media?.url)
             }
 
             if (pet.content?.media.isNullOrEmpty()){
                 binding.postImage.visibility = View.GONE
             } else {
-                binding.postImage.loadImage(pet.content?.media?.get(0))
+                binding.postImage.loadImage(pet.content?.media?.get(0)?.url)
             }
 
             when (pet.content?.type) {

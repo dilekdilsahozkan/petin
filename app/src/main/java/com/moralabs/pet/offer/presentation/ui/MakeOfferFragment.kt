@@ -46,7 +46,7 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
 
     override fun stateSuccess(data: CreateOfferDto) {
         super.stateSuccess(data)
-        petAdapter.submitList(data.getValue)
+        petAdapter.submitList(data.getOffer)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

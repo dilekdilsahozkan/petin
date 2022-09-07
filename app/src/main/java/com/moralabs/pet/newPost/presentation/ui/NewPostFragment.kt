@@ -19,6 +19,7 @@ import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.LocationDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
+import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentNewPostBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
@@ -134,6 +135,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
     override fun stateSuccess(data: CreatePostDto) {
         super.stateSuccess(data)
+
         petCardAdapter.submitList(data.getValue)
     }
 

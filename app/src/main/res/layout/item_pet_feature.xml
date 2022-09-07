@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="@dimen/scale_17dp"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="15sp"
-        android:textColor="@color/darkGray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Breed"/>
+    <data>
 
-    <TextView
-        android:id="@+id/featureValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="@dimen/scale_17dp"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="15sp"
-        android:textColor="@color/darkPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Himalaya"/>
+        <variable
+            name="attribute"
+            type="com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto" />
 
-    <View
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/scale_15dp"
-        android:layout_marginStart="@dimen/scale_16dp"
-        android:layout_marginEnd="@dimen/scale_16dp"
-        android:background="@color/divider"
-        app:layout_constraintTop_toBottomOf="@id/featureValue"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="@dimen/scale_17dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/darkGray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Breed" />
+
+        <TextView
+            android:id="@+id/featureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/scale_17dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/darkPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Himalaya" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/scale_15dp"
+            android:layout_marginStart="@dimen/scale_16dp"
+            android:layout_marginEnd="@dimen/scale_16dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toBottomOf="@id/featureValue"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

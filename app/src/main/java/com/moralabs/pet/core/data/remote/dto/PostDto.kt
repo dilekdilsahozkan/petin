@@ -1,8 +1,7 @@
 package com.moralabs.pet.core.data.remote.dto
 
-import com.moralabs.pet.core.domain.BaseDto
+import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
-import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 
 data class PostDto(
@@ -15,32 +14,47 @@ data class PostDto(
     val commentCount: Int? = null,
     val offerCount: Int? = null,
     val isPostLikedByUser: Boolean? = null,
-    val pageIndex: Int? = null
+    val pageIndex: Int? = null,
+    var selected: Boolean = false
 ): BaseDto()
 
 data class ContentDto(
-    val media: List<String>? = null,
     val text: String? = null,
+    val media: List<MediaDto>? = null,
     val pet: PetDto? = null,
-    val type: Int? = null,
+    val type: Int? = null,  // 0 -> POST, 1 -> QNA, 2 -> FIND PARTNER, 3 -> ADOPTION
     val location: LocationDto? = null
 ): BaseDto()
 
 data class LocationDto(
     val latitude: Int? = null,
-    val longitude: Int? = null
+    val longitude: Int? = null,
+    val city: String? = null,
+    val district: String? = null
 ): BaseDto()
 
 data class CommentDto(
     val id: String = "",
-    val user: List<UserInfoDto>? = null,
+    val user: UserInfoDto? = null,
+    val dateTime: Long? = null,
     val text: String? = null,
-    val commentCount: Int? = null,
-    val isPostLikedByUser: Boolean? = null,
+    val comments: List<CommentsDto>? = null,
+    val likeCount: Int? = null,
+    val isCommentLikedByUser: Boolean? = null,
     val pageIndex: Int? = null
 ): BaseDto()
 
 data class CreateCommentDto(
     val commentValue: List<CommentDto>? = null,
-    val userCommentValue: List<CommentDto>? = null
-):BaseDto()
+    val userCommentValue: CommentDto? = null
+): BaseDto()
+
+data class CommentsDto(
+    val id: String = "",
+    val user: UserInfoDto? = null,
+    val dateTime: Long? = null,
+    val text: String? = null,
+    val likeCount: Int? = null,
+    val isCommentLikedByUser: Boolean? = null,
+    val pageIndex: Int? = null
+): BaseDto()

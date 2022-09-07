@@ -10,6 +10,7 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentProfileBinding
+import com.moralabs.pet.petProfile.presentation.ui.PetFragment
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
@@ -20,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(){
 
     override fun getLayoutId() = R.layout.fragment_profile
-
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
@@ -62,7 +62,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         }
         binding.followers.text = data.followerCount.toString()
         binding.following.text = data.followedCount.toString()
-        binding.userPhoto.loadImage(data.image)
+        binding.userPhoto.loadImage(data.media?.url)
 
     }
 

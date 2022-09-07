@@ -19,7 +19,6 @@ class ProfileUseCase @Inject constructor(
                     BaseResult.Success(it)
                 )
             }
-
         }
     }
 }

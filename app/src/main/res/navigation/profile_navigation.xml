@@ -4,9 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_navigation"
     app:startDestination="@id/profileFragment">
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
-        android:label="ProfileFragment"
+        android:label="ProfileFragment2"
         tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/petFragment"
+        android:name="com.moralabs.pet.petProfile.presentation.ui.PetFragment"
+        android:label="PetFragment"
+        tools:layout="@layout/fragment_pet">
+
+        <action
+            android:id="@+id/action_fragment_pet_to_addPetFragment"
+            app:destination="@id/addPetFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.moralabs.pet.profile.presentation.ui.PostFragment"
+        android:label="PostFragment"
+        tools:layout="@layout/fragment_post"/>
+
+    <fragment
+        android:id="@+id/addPetFragment"
+        android:name="com.moralabs.pet.petProfile.presentation.ui.AddPetFragment"
+        android:label="AddPetFragment"
+        tools:layout="@layout/fragment_add_pet"/>
+
 </navigation>

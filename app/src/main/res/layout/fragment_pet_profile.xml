@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="pet"
+            type="com.moralabs.pet.petProfile.data.remote.dto.PetDto" />
+
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -18,7 +22,6 @@
             android:layout_height="236dp"
             android:background="@drawable/background_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/pet"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +32,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="-25dp"
             android:background="@drawable/background_profile_page"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/petImage">
 
             <TextView
@@ -40,11 +43,11 @@
                 android:layout_marginStart="@dimen/scale_16dp"
                 android:layout_marginTop="@dimen/scale_32dp"
                 android:fontFamily="@font/poppins_semibold"
+                android:text="@{pet.name}"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Kara Firtina" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/locationIcon"
@@ -60,11 +63,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
+                android:text="Adana"
                 android:textColor="@color/darkGray"
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@id/locationIcon"
-                app:layout_constraintTop_toTopOf="@id/locationIcon"
-                android:text="Adana" />
+                app:layout_constraintTop_toTopOf="@id/locationIcon" />
 
             <ImageView
                 android:id="@+id/editIcon"
@@ -106,9 +109,9 @@
                             android:layout_marginTop="@dimen/scale_12dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_medium"
+                            android:text="Type"
                             android:textColor="@color/darkGray"
-                            android:textSize="12sp"
-                            android:text="Type" />
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -128,9 +131,9 @@
                         android:layout_marginStart="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
                         android:fontFamily="@font/poppins_medium"
+                        android:text="Cat"
                         android:textColor="@color/darkPrimary"
-                        android:textSize="15sp"
-                        android:text="Cat" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -155,9 +158,9 @@
                             android:layout_marginTop="@dimen/scale_12dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_medium"
+                            android:text="Gender"
                             android:textColor="@color/darkGray"
-                            android:textSize="12sp"
-                            android:text="Gender" />
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -177,9 +180,9 @@
                         android:layout_marginStart="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
                         android:fontFamily="@font/poppins_medium"
+                        android:text="Female"
                         android:textColor="@color/darkPrimary"
-                        android:textSize="15sp"
-                        android:text="Female" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -204,9 +207,9 @@
                             android:layout_marginTop="@dimen/scale_12dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_medium"
+                            android:text="Age"
                             android:textColor="@color/darkGray"
-                            android:textSize="12sp"
-                            android:text="Age" />
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -226,15 +229,16 @@
                         android:layout_marginStart="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
                         android:fontFamily="@font/poppins_medium"
+                        android:text="1-5 years"
                         android:textColor="@color/darkPrimary"
-                        android:textSize="15sp"
-                        android:text="1-5 years" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/attributeRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/scale_8dp"

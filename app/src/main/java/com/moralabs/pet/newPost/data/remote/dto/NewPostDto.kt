@@ -1,7 +1,7 @@
 package com.moralabs.pet.newPost.data.remote.dto
 
 import com.moralabs.pet.core.data.remote.dto.LocationDto
-import com.moralabs.pet.core.domain.BaseDto
+import com.moralabs.pet.core.data.remote.dto.BaseDto
 
 data class NewPostDto (
     val media: List<MediaDto>? = null,
@@ -9,7 +9,7 @@ data class NewPostDto (
     val type: Int? = null,
     val location: LocationDto? = null,
     val petId: String? = null
-):BaseDto()
+): BaseDto()
 
 data class MediaDto(
     val id: String? = null,

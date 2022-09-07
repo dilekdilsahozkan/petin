@@ -9,7 +9,7 @@
         android:id="@+id/home"
         android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
         android:label="MainPageFragment"
-        tools:layout="@layout/fragment_main_page"/>
+        tools:layout="@layout/fragment_main_page" />
 
     <fragment
         android:id="@+id/messages"
@@ -27,18 +27,32 @@
         android:id="@+id/profile"
         android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_fragment_pet_to_addPetFragment"
+            app:destination="@id/addPetFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addPetFragment"
+        android:name="com.moralabs.pet.petProfile.presentation.ui.AddPetFragment"
+        android:label="AddPetFragment"
+        tools:layout="@layout/fragment_add_pet"/>
 
     <fragment
         android:id="@+id/commentFragment"
         android:name="com.moralabs.pet.mainPage.presentation.ui.CommentFragment"
         android:label="CommentFragment"
-        tools:layout="@layout/fragment_comment"/>
+        tools:layout="@layout/fragment_comment" />
 
     <fragment
         android:id="@+id/makeOfferFragment"
         android:name="com.moralabs.pet.offer.presentation.ui.MakeOfferFragment"
         android:label="MakeOfferFragment"
-        tools:layout="@layout/fragment_make_offer"/>
+        tools:layout="@layout/fragment_make_offer" />
 
 </navigation>

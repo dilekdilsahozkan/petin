@@ -17,10 +17,13 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".petProfile.presentation.ui.PetProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".mainPage.presentation.ui.CommentActivity"
             android:exported="false"
             android:fitsSystemWindows="true"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".settings.presentation.ui.SettingsActivity"
             android:exported="false" />

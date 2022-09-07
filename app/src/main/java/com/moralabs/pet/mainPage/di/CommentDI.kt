@@ -27,6 +27,6 @@ class CommentDI {
 
     @Provides
     @Singleton
-    fun provideCommentUseCase(commentRepository: CommentRepository, userCommentRepository: CommentRepository): CommentUseCase =
-        CommentUseCase(commentRepository, userCommentRepository)
+    fun provideCommentUseCase(commentRepository: CommentRepository): CommentUseCase =
+        CommentUseCase(commentRepository)
 }

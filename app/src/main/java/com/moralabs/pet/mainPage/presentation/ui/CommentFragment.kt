@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.CommentDto
+import com.moralabs.pet.core.data.remote.dto.CommentsDto
 import com.moralabs.pet.core.data.remote.dto.CreateCommentDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
@@ -30,8 +31,8 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CreateCommentDto, C
         return viewModel
     }
 
-     private val commentAdapter: BaseListAdapter<CommentDto, ItemUserCommentBinding> by lazy {
-        BaseListAdapter(R.layout.item_user_comment, BR.item, onRowClick = {
+     private val commentAdapter: BaseListAdapter<CommentsDto, ItemUserCommentBinding> by lazy {
+        BaseListAdapter(R.layout.item_user_comment, BR.comment, onRowClick = {
 
         }, isSameDto = {oldItem, newItem ->
             true
@@ -49,7 +50,6 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CreateCommentDto, C
                 )
             )
         }
-
         viewModel.getComment(postId)
     }
 
@@ -61,6 +61,6 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CreateCommentDto, C
 
     override fun stateSuccess(data: CreateCommentDto) {
         super.stateSuccess(data)
-        commentAdapter.submitList(data.commentValue)
+        commentAdapter.submitList(data.userCommentValue?.comments)
     }
 }
