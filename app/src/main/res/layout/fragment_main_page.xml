@@ -7,26 +7,22 @@
 
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/scale_16dp">
 
-            <TextView
+            <ImageView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:text="@string/petin"
-                android:textColor="@color/secondaryColor"
-                android:textSize="36dp"
+                android:src="@drawable/ic_petin"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +30,7 @@
                 android:id="@+id/searchLinear"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:layout_marginTop="@dimen/scale_10dp"
+                android:layout_marginTop="@dimen/scale_12dp"
                 android:weightSum="6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +76,7 @@
                 android:id="@+id/recyclerview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/scale_10dp"
+                android:layout_marginTop="@dimen/scale_20dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -90,46 +86,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/filter_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header"
-            app:itemHorizontalPadding="@dimen/scale_10dp"
-            app:itemTextAppearance="@style/FontStyle"
-            app:itemVerticalPadding="20dp"
-            app:menu="@menu/filter_menu">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="53dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resetButton"
-                    style="@style/PetButtonOrange.Outlined"
-                    android:layout_width="120dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="@dimen/scale_16dp"
-                    android:text="@string/reset" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/filterButton"
-                    style="@style/PetButton"
-                    android:layout_width="120dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="@dimen/scale_16dp"
-                    android:text="@string/filter" />
-
-            </LinearLayout>
-
-        </com.google.android.material.navigation.NavigationView>
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

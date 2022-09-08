@@ -21,8 +21,7 @@ import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
-    NavigationView.OnNavigationItemSelectedListener {
+class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -55,13 +54,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     override fun addListeners() {
         super.addListeners()
 
-        val navBar: CurvedBottomNavigationView? = activity?.findViewById(R.id.dashboard_navigation)
-        val addButton: ImageButton? = activity?.findViewById(R.id.addPostButton)
-
         binding.filterIcon.setOnClickListener {
-            binding.drawerLayout.openDrawer(GravityCompat.END)
-            navBar?.visibility = View.GONE
-            addButton?.visibility = View.GONE
         }
     }
 
@@ -69,7 +62,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerview.adapter = postAdapter
-        binding.filterNavigation.setNavigationItemSelectedListener(this)
 
         viewModel.feedPost()
     }
@@ -78,11 +70,5 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-        }
-        return true
     }
 }

@@ -25,31 +25,23 @@ class PetUseCase @Inject constructor(
         }
     }
 
-    fun petInfo(petId: String?): Flow<BaseResult<PetAttributeDto>> {
+    fun petInfo(petId: String?): Flow<BaseResult<PetDto>> {
         return flow {
-            val result = petRepository.petInfo(petId).body()?.data.let {
-                PetAttributeDto(
-                    attributeId = it?.attributeId,
-                    attributeName = it?.attributeName,
-                    type = it?.type,
-                    choice = it?.choice
+            petRepository.petInfo(petId).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
                 )
             }
-            emit(
-                BaseResult.Success(
-                    result
-                )
-            )
         }
     }
 
-    fun addPet(addPet: PetRequestDto): Flow<BaseResult<List<PetDto>>> {
+    fun addPet(addPet: PetRequestDto): Flow<BaseResult<PetDto>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    petRepository.addPet(addPet).body()?.data ?: listOf()
+            petRepository.addPet(addPet).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
                 )
-            )
+            }
         }
     }
 }

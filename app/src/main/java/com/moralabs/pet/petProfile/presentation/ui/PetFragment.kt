@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
@@ -24,16 +23,14 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_card, BR.pet, onRowClick = {selected ->
-            petAdapter.currentList.forEach { pet ->
-                pet.selected = pet == selected
-                val bundle = bundleOf(
-                    PetProfileActivity.PET_ID to pet.id
-                )
-                val intent = Intent(context, PetProfileActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
-            }
+        BaseListAdapter(R.layout.item_pet_card, BR.pet, onRowClick = {
+            val bundle = bundleOf(
+                PetProfileActivity.PET_ID to it.id
+            )
+            val intent = Intent(context, PetProfileActivity::class.java)
+            intent.putExtras(bundle)
+            context?.startActivity(intent)
+
         }, isSameDto = { oldItem, newItem ->
             true
         })
@@ -49,9 +46,8 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
         binding.recyclerview.adapter = petAdapter
         binding.addPet.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_pet_to_addPetFragment)
+            startActivity(Intent(context, AddPetActivity::class.java))
         }
-
         viewModel.getPet()
     }
 

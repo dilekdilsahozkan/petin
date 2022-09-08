@@ -8,9 +8,13 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.moralabs.pet.R
+import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.databinding.ActivityBaseBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
+import com.moralabs.pet.onboarding.presentation.ui.LoginAction
+import com.moralabs.pet.onboarding.presentation.ui.LoginResultContract
+import javax.inject.Inject
 
 abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), PetToolbarListener {
 
@@ -69,4 +73,33 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         (binding as? ActivityBaseBinding)?.appBar?.showLightColorBar()
     }
 
+    // LOGIN AREA
+    @Inject
+    lateinit var authenticationUseCase: AuthenticationUseCase
+
+    private val loginResultLauncher =
+        registerForActivityResult(
+            LoginResultContract()
+        )
+        { result ->
+            when (result) {
+
+            }
+        }
+
+    fun loginIfNeeded(
+        action: LoginAction,
+    ) {
+        if (authenticationUseCase.isLoggedIn()) {
+            action.invoke()
+        } else {
+            PetWarningDialog(
+                binding.root.context,
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        loginResultLauncher.launch(action)
+                    }
+                }).show()
+        }
+    }
 }

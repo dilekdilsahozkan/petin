@@ -60,6 +60,8 @@
     <string name="gender">Cinsiyet</string>
     <string name="age">Yaş</string>
     <string name="addPhoto">Fotoğraf Ekleyiniz</string>
+    <string name="apply">Uygula</string>
+    <string name="save">Kaydet</string>
 
     <!-- Settings -->
 

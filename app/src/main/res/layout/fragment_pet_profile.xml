@@ -5,10 +5,6 @@
 
     <data>
 
-        <variable
-            name="pet"
-            type="com.moralabs.pet.petProfile.data.remote.dto.PetDto" />
-
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -36,38 +32,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/petImage">
 
-            <TextView
-                android:id="@+id/petName"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/petConstraint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/scale_16dp"
-                android:layout_marginTop="@dimen/scale_32dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@{pet.name}"
-                android:textColor="@color/black"
-                android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/locationIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/scale_21dp"
-                android:src="@drawable/ic_location"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petName" />
+                <TextView
+                    android:id="@+id/petName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/scale_32dp"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kara Fırtına"/>
 
-            <TextView
-                android:id="@+id/locationName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Adana"
-                android:textColor="@color/darkGray"
-                android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@id/locationIcon"
-                app:layout_constraintTop_toTopOf="@id/locationIcon" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/petName" >
+
+                    <ImageView
+                        android:id="@+id/locationIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location"/>
+
+                    <TextView
+                        android:id="@+id/locationName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Adana"
+                        android:textColor="@color/darkGray"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/editIcon"
@@ -87,7 +97,7 @@
                 android:orientation="horizontal"
                 android:weightSum="3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationIcon">
+                app:layout_constraintTop_toBottomOf="@id/petConstraint">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -186,7 +196,6 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -243,9 +252,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/scale_8dp"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/petMainFeatures"
-                tools:itemCount="3"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:listitem="@layout/item_pet_feature" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

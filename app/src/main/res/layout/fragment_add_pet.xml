@@ -35,10 +35,20 @@
             app:layout_constraintTop_toBottomOf="@id/addPhoto" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/scale_20dp"
-            app:layout_constraintTop_toBottomOf="@id/addPhotoText" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/addPhotoText"
+            tools:listitem="@layout/item_add_pet_feature"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PetButton"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

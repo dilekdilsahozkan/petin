@@ -79,6 +79,14 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/petCard" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

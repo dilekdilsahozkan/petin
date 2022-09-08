@@ -19,7 +19,6 @@ import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.LocationDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
-import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentNewPostBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
@@ -30,7 +29,6 @@ import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.item_pet_card.view.*
 import java.io.File
 
 @AndroidEntryPoint
@@ -77,6 +75,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 NewPostDto(
                     media = listOf(MediaDto()),
                     text = binding.explanationText.text.toString(),
+                    type = postType,
                     location = LocationDto(),
                     petId = pet?.id
                 )

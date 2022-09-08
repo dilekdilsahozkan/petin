@@ -17,7 +17,7 @@ class OfferUseCase @Inject constructor(
 
     fun newMakeOffer(newOffer: OfferDto): Flow<BaseResult<CreateOfferDto>> {
         return flow {
-            val offerValue = offerRepository.newMakeOffer(newOffer).body()?.data ?: listOf()
+            val offerValue = offerRepository.makeOffer(newOffer).body()?.data ?: listOf()
             emit(
                 BaseResult.Success(
                     CreateOfferDto(

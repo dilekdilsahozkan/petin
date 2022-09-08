@@ -53,9 +53,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     override fun stateSuccess(data: UserDto) {
         super.stateSuccess(data)
 
-        binding.userFullName.text = data.fullName
-        binding.username.text = data.userName
-        binding.toolbarUsername.text = data.userName
+        binding.userFullName.text = data.fullName.toString()
+        binding.username.text = data.userName.toString()
+        binding.toolbarUsername.text = data.userName.toString()
         binding.totalPost.text = data.postCount.toString()
         if(data.postCount == null){
             binding.totalPost.text = getString(R.string.zero)

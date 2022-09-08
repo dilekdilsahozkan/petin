@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_pet_navigation"
+    app:startDestination="@id/addPetFragment2">
+
+    <fragment
+        android:id="@+id/addPetFragment2"
+        android:name="com.moralabs.pet.petProfile.presentation.ui.AddPetFragment"
+        android:label="AddPetFragment"
+        tools:layout="@layout/fragment_add_pet"/>
+</navigation>

@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +34,8 @@ class PostListAdapter(
         }
     }
 
+    val differ = AsyncListDiffer(this, DIFF_CALLBACK)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostListViewHolder(parent.context, binding)
@@ -44,7 +48,7 @@ class PostListAdapter(
     inner class PostListViewHolder(private val context: Context, val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.postCommentLinear.setOnClickListener {
-                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                if (differ.currentList[bindingAdapterPosition] is PostDto) {
                     onCommentClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
@@ -66,8 +70,8 @@ class PostListAdapter(
         fun bind(pet: PostDto) {
 
             binding.username.text = pet.user?.userName.toString()
-            binding.location.text = pet.content?.location?.latitude.toString()
             binding.postText.text = pet.content?.text.toString()
+            binding.post2Text.text = pet.content?.text.toString()
             binding.likeCount.text = pet.likeCount.toString()
             binding.commentCount.text = pet.commentCount.toString()
             binding.offerCount.text = pet.offerCount.toString()
@@ -82,6 +86,12 @@ class PostListAdapter(
                 binding.petImage.loadImage(pet.content?.pet?.media?.url)
             }
 
+            if(pet.content?.location?.city.isNullOrEmpty()){
+                binding.location.visibility = View.GONE
+            } else {
+                binding.location.text = pet.content?.location?.city.toString()
+            }
+
             if (pet.content?.media.isNullOrEmpty()){
                 binding.postImage.visibility = View.GONE
             } else {
@@ -92,34 +102,37 @@ class PostListAdapter(
                 0 -> {
                     binding.postType.visibility = View.GONE
                     binding.postContentLinear.visibility = View.VISIBLE
-                    binding.postInfo.visibility = View.VISIBLE
                     binding.postContent2Linear.visibility = View.GONE
-                    binding.post2Info.visibility = View.GONE
+                    binding.empty2.visibility = View.GONE
+
+                    binding.empty.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
                 }
                 1 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_qna)
                     binding.postTypeText.text = context.getString(R.string.qna)
                     binding.postContentLinear.visibility = View.VISIBLE
-                    binding.postInfo.visibility = View.VISIBLE
                     binding.postContent2Linear.visibility = View.GONE
-                    binding.post2Info.visibility = View.GONE
+                    binding.empty2.visibility = View.GONE
+
+                    binding.empty.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
                 }
                 2 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_partner)
-                    binding.postTypeText.text = context.getString(R.string.findPartner)
+                    binding.postTypeText.text = context.getString(R.string.adoption)
                     binding.postContentLinear.visibility = View.GONE
-                    binding.postInfo.visibility = View.GONE
                     binding.postContent2Linear.visibility = View.VISIBLE
-                    binding.post2Info.visibility = View.VISIBLE
+                    binding.empty.visibility = View.GONE
+
+                    binding.empty2.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
                 }
                 3 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_adoption)
                     binding.postTypeText.text = context.getString(R.string.adoption)
                     binding.postContentLinear.visibility = View.GONE
-                    binding.postInfo.visibility = View.GONE
                     binding.postContent2Linear.visibility = View.VISIBLE
-                    binding.post2Info.visibility = View.VISIBLE
+                    binding.empty.visibility = View.GONE
 
+                    binding.empty2.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
                 }
             }
         }

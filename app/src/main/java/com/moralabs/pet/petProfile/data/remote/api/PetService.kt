@@ -15,8 +15,8 @@ interface PetService {
     suspend fun getPet(): Response<BaseResponse<List<PetDto>>>
 
     @GET("/pet/{petId}")
-    suspend fun petInfo(@Path("petId") petId: String?): Response<BaseResponse<PetAttributeDto>>
+    suspend fun petInfo(@Path("petId") petId: String?): Response<BaseResponse<PetDto>>
 
     @POST("/pet")
-    suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<List<PetDto>>>
+    suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<PetDto>>
 }

@@ -8,6 +8,6 @@ import retrofit2.Response
 
 interface PetRepository {
     suspend fun petPost(): Response<BaseResponse<List<PetDto>>>
-    suspend fun petInfo(petId: String?): Response<BaseResponse<PetAttributeDto>>
-    suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<List<PetDto>>>
+    suspend fun petInfo(petId: String?): Response<BaseResponse<PetDto>>
+    suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<PetDto>>
 }

@@ -10,7 +10,7 @@ data class UserDto(
     val fullName: String? = null,
     val email: String? = null,
     val phoneNumber: String? = null,
-    val birthDate: Int? = null,
+    val birthDate: Long? = null,
     val followerCount: Int? = null,
     val followedCount: Int? = null,
     val postCount: Int? = null,

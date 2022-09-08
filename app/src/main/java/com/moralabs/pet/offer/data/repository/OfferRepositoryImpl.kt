@@ -10,5 +10,5 @@ import javax.inject.Inject
 
 class OfferRepositoryImpl @Inject constructor(private val service: OfferService) :
     OfferRepository, BaseRepository {
-    override suspend fun newMakeOffer(newOffer: OfferDto): Response<BaseResponse<List<PetDto>>> = service.newOffer(newOffer)
+    override suspend fun makeOffer(newOffer: OfferDto): Response<BaseResponse<List<PetDto>>> = service.newOffer(newOffer)
 }

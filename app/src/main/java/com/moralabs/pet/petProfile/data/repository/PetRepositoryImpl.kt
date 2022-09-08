@@ -12,6 +12,6 @@ import javax.inject.Inject
 class PetRepositoryImpl  @Inject constructor(private val service: PetService) :
     PetRepository, BaseRepository {
     override suspend fun petPost(): Response<BaseResponse<List<PetDto>>> = service.getPet()
-    override suspend fun petInfo(petId: String?): Response<BaseResponse<PetAttributeDto>> =service.petInfo(petId)
-    override suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<List<PetDto>>> = service.addPet(addPet)
+    override suspend fun petInfo(petId: String?): Response<BaseResponse<PetDto>> =service.petInfo(petId)
+    override suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<PetDto>> = service.addPet(addPet)
 }

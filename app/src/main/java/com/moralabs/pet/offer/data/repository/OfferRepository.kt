@@ -6,5 +6,5 @@ import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import retrofit2.Response
 
 interface OfferRepository {
-    suspend fun newMakeOffer(newOffer: OfferDto): Response<BaseResponse<List<PetDto>>>
+    suspend fun makeOffer(newOffer: OfferDto): Response<BaseResponse<List<PetDto>>>
 }
