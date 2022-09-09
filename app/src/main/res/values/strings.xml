@@ -81,6 +81,7 @@
     <string name="settings_username">Kullanıcı Adı</string>
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="write_a_message">Mesajınızı yazın</string>
+    <string name="new_message">Yeni Mesaj</string>
 </resources>

@@ -16,15 +16,18 @@ import com.moralabs.pet.databinding.UiItemBaseListEmptyBinding
 class BaseListAdapter<Dto, Binding : ViewDataBinding>(
     private val layoutId: Int,
     private val modelId: Int? = null,
-    private val onRowClick: (result: Dto) -> Unit,
-    private val isSameDto: (oldItem: Dto, newItem: Dto) -> Boolean,
+    private val onRowClick: ((result: Dto) -> Unit)? = null,
+    private val isSameDto: ((oldItem: Dto, newItem: Dto) -> Boolean)? = null,
     private val emptyString: String? = null
 ) :
     ListAdapter<Dto, BaseListAdapter.ViewHolder<Binding>>(object :
         DiffUtil.ItemCallback<Dto>() {
 
         override fun areItemsTheSame(oldItem: Dto, newItem: Dto): Boolean {
-            return isSameDto(oldItem, newItem)
+            isSameDto?.let {
+                return it(oldItem, newItem)
+            }
+            return false
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -104,7 +107,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
     }
 
     fun selectItem(position: Int) {
-        onRowClick.invoke(getItem(position))
+        onRowClick?.invoke(getItem(position))
     }
 
     override fun getItemViewType(position: Int): Int {

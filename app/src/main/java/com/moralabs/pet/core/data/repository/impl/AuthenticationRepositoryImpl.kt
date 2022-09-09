@@ -8,7 +8,7 @@ import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 
-class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository {
+class AuthenticationRepositoryImpl(private val context: Context?) : AuthenticationRepository {
 
     companion object {
         private const val USER_KEY = "user"
@@ -43,7 +43,9 @@ class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository
         }
     }
 
-    override fun isLoggedIn() = authentication?.bearerKey == null
+    override fun isLoggedIn(): Boolean {
+        return authentication?.bearerKey != null
+    }
 
     override fun logout(): Boolean {
         authentication?.apply {
@@ -59,7 +61,7 @@ class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository
         authentication?.apply {
             this.bearerKey = bearerToken
 
-            preferences?.edit()?.putString(USER_KEY, Gson().toJson(authentication))
+            preferences?.edit()?.putString(USER_KEY, Gson().toJson(authentication))?.commit()
         }
 
         return true
