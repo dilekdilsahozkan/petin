@@ -18,22 +18,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferViewModel>() {
 
     private val offerId: String? by lazy {
-        activity?.intent?.getStringExtra(OfferActivity.OFFER_ID)
+        arguments?.getString(OfferActivity.OFFER_ID)
+    }
+    private val userName: String? by lazy {
+        arguments?.getString(OfferUserActivity.USER_NAME)
+    }
+    private val offerText: String? by lazy {
+        arguments?.getString(OfferUserActivity.OFFER_TEXT)
     }
     private val petImage: String? by lazy {
-        activity?.intent?.getStringExtra(OfferUserActivity.PET_IMAGE)
+        arguments?.getString(OfferUserActivity.PET_IMAGE)
     }
     private val petName: String? by lazy {
-        activity?.intent?.getStringExtra(OfferUserActivity.PET_NAME)
+        arguments?.getString(OfferUserActivity.PET_NAME)
     }
     private val petAge: String? by lazy {
-        activity?.intent?.getStringExtra(OfferUserActivity.PET_AGE)
+        arguments?.getString(OfferUserActivity.PET_AGE)
     }
     private val petGender: String? by lazy {
-        activity?.intent?.getStringExtra(OfferUserActivity.PET_GENDER)
+        arguments?.getString(OfferUserActivity.PET_GENDER)
     }
     private val petKind: String? by lazy {
-        activity?.intent?.getStringExtra(OfferUserActivity.PET_KIND)
+        arguments?.getString(OfferUserActivity.PET_KIND)
     }
 
     override fun getLayoutId() = R.layout.fragment_offer
@@ -53,6 +59,8 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getOffer(offerId)
+        binding.offerText.text = offerText
+        binding.userInfo.text = userName
         binding.petKind.text = petKind
         binding.petAge.text = petAge
         binding.petGender.text = petGender

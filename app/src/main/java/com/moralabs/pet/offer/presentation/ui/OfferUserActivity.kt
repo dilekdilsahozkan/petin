@@ -13,6 +13,8 @@ class OfferUserActivity :BaseActivity<ActivityOfferUserBinding>(),
 
     companion object {
         const val POST_ID = "postId"
+        const val OFFER_TEXT = "offerText"
+        const val USER_NAME = "userName"
         const val PET_IMAGE = "petImage"
         const val PET_NAME = "petName"
         const val PET_AGE = "petAge"

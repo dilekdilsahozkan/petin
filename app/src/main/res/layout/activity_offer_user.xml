@@ -28,6 +28,11 @@
                 app:contentInsetRight="@dimen/scale_0dp"
                 app:contentInsetStart="@dimen/scale_0dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView
