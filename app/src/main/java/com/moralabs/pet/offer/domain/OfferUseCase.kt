@@ -1,5 +1,6 @@
 package com.moralabs.pet.offer.domain
 
+import com.moralabs.pet.core.data.remote.dto.EmptyDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
@@ -52,6 +53,26 @@ class OfferUseCase @Inject constructor(
                         )
                     )
                 )
+        }
+    }
+
+    fun declineOffer(offerId : String?): Flow<BaseResult<Boolean>>  {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    offerRepository.declineOffer(offerId).isSuccessful
+                )
+            )
+        }
+    }
+
+    fun acceptOffer(offerId : String?): Flow<BaseResult<Boolean>>   {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    offerRepository.acceptOffer(offerId).isSuccessful
+                )
+            )
         }
     }
 

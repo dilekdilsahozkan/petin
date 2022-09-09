@@ -24,7 +24,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_card, BR.pet, onRowClick = {
+        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
             val bundle = bundleOf(
                 PetProfileActivity.PET_ID to it.id
             )

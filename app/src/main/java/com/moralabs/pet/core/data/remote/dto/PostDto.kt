@@ -37,7 +37,7 @@ data class CommentDto(
     val id: String = "",
     val user: UserInfoDto? = null,
     val dateTime: Long? = null,
-    val text: String? = null,
+    val content: ContentDto? = null,
     val comments: List<CommentsDto>? = null,
     val likeCount: Int? = null,
     val isCommentLikedByUser: Boolean? = null,

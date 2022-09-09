@@ -55,7 +55,6 @@
                     android:id="@+id/petKind"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@{pet.name}"
                     android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular" />
 
@@ -63,7 +62,6 @@
                     android:id="@+id/petAge"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@{pet.name}"
                     android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular" />
 
@@ -71,7 +69,6 @@
                     android:id="@+id/petGender"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@{pet.name}"
                     android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular" />
 

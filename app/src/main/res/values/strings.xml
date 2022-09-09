@@ -25,10 +25,10 @@
     <string name="read">Okudum</string>
     <string name="passwordSended">Yeni şifrenizi kayıtlı <font color="#FF724C"> e-mail adresinize</font> gönderildi.</string>
     <string name="choosePet">Evcil hayvanınızı seçiniz.</string>
-    <string name="choosePetEditText">Neden seçtiğiniz evcil hayvanla kendi evcil hayvanınızın partner olmasını istediğinizi açıklayınız.</string>
+    <string name="choosePetEditText">Neden evcil hayvanınızın partner olarak seçilmesini istediğinizi açıklayınız.</string>
+    <string name="chooseAdoption">Neden bu evcil hayvanı sahiplenmek istediğinizi açıklayınız.</string>
     <string name="offer">Teklif</string>
     <string name="allOffers">Teklifler</string>
-
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
     <string name="accept">Kabul Et</string>
@@ -81,6 +81,13 @@
     <string name="settings_username">Kullanıcı Adı</string>
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- TOAST MESSAGES -->
+
+    <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
+    <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
+
+
+
 </resources>

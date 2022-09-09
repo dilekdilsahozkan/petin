@@ -23,6 +23,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <EditText
+            android:id="@+id/selectAdoption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/chooseAdoption"
+            android:textSize="15dp"
+            android:visibility="gone"
+            android:imeOptions="actionDone"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/darkGray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/selectText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <TextView
             android:id="@+id/selectText"
             android:layout_width="0dp"

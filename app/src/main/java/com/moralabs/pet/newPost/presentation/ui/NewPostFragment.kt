@@ -57,7 +57,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     }
 
     private val petCardAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_card, BR.pet, onRowClick = { selected ->
+        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = { selected ->
             petCardAdapter.currentList.forEach { pet ->
                 pet.selected = pet == selected
             }
