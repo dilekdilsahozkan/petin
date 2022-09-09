@@ -62,6 +62,12 @@
     <string name="settings_username">Kullanıcı Adı</string>
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
+    <string name="settings_favorites_title">Favorilerim</string>
+    <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
+    <string name="settings_current_password">Mevcut Şifre</string>
+    <string name="settings_new_password">Yeni Şifre</string>
+    <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
+    <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -17,7 +17,6 @@ import com.moralabs.pet.profile.data.remote.dto.ProfileDto
 import com.moralabs.pet.profile.data.remote.dto.ProfilePostsDto
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 import com.moralabs.pet.settings.presentation.ui.SettingsActivity
-import com.softtech.imecemobil.presentation.common.adapter.BaseListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

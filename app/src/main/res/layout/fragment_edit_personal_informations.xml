@@ -39,7 +39,7 @@
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/settings_change_profile_photo"
             android:textColor="@color/mainColor"
             android:textSize="15dp"

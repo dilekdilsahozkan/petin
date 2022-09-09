@@ -9,23 +9,38 @@
         android:id="@+id/settingsFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
 
         <action
             android:id="@+id/action_fragment_settings_to_accountFragment"
             app:destination="@id/accountFragment"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
 
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" >
+        tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_accountFragment_to_personalInformationsFragment"
             app:destination="@id/personalInformationsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_accountFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_accountFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+        <action
+            android:id="@+id/action_accountFragment_to_deleteAccountFragment"
+            app:destination="@id/deleteAccountFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
     </fragment>
@@ -33,15 +48,27 @@
         android:id="@+id/personalInformationsFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.PersonalInformationsFragment"
         android:label="fragment_personal_informations"
-        tools:layout="@layout/fragment_personal_informations" >
+        tools:layout="@layout/fragment_personal_informations">
         <action
             android:id="@+id/action_personalInformationsFragment_to_editPersonalInformationsFragment"
             app:destination="@id/editPersonalInformationsFragment"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/editPersonalInformationsFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.EditPersonalInformationsFragment"
         android:label="EditPersonalInformationsFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.FavoritesFragment"
+        android:label="FavoritesFragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.DeleteAccountFragment"
+        android:label="DeleteAccountFragment" />
 </navigation>

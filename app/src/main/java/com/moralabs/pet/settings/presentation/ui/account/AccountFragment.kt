@@ -26,6 +26,15 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, SettingsDto, Settin
         binding.icNavigateToPersonalInfo.setOnClickListener{
             findNavController().navigate(R.id.action_accountFragment_to_personalInformationsFragment)
         }
+        binding.icNavigateToFavorites.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_favoritesFragment)
+        }
+        binding.icNavigateToChangePassw.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_changePasswordFragment)
+        }
+        binding.icNavigateToDeleteAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_deleteAccountFragment)
+        }
     }
 
     override fun setToolbar() {
