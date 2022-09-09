@@ -12,6 +12,7 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
+import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +47,8 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
         binding.recyclerview.adapter = petAdapter
         binding.addPet.setOnClickListener {
-            startActivity(Intent(context, AddPetActivity::class.java))
+            val intent = Intent(context, AddPetActivity::class.java)
+            context?.startActivity(intent)
         }
         viewModel.getPet()
     }

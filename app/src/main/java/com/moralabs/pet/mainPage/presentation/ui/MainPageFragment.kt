@@ -2,22 +2,19 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
 import androidx.core.os.bundleOf
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
-import com.google.android.material.navigation.NavigationView
+import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.ui.CurvedBottomNavigationView
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
+import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +31,12 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     private val postAdapter by lazy {
         PostListAdapter(
             onOfferClick = {
-                startActivity(Intent(context, OfferActivity::class.java))
+                val bundle = bundleOf(
+                    OfferActivity.POST_ID to it.id
+                )
+                val intent = Intent(context, OfferActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
             },
             onLikeClick = {
                 val postId = it.id
@@ -47,15 +49,16 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 val intent = Intent(context, CommentActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
+            },
+            onOfferUserClick = {
+                val bundle = bundleOf(
+                    OfferUserActivity.POST_ID to it.id
+                )
+                val intent = Intent(context, OfferUserActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
             }
         )
-    }
-
-    override fun addListeners() {
-        super.addListeners()
-
-        binding.filterIcon.setOnClickListener {
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

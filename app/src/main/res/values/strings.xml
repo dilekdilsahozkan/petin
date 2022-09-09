@@ -27,6 +27,8 @@
     <string name="choosePet">Evcil hayvanınızı seçiniz.</string>
     <string name="choosePetEditText">Neden seçtiğiniz evcil hayvanla kendi evcil hayvanınızın partner olmasını istediğinizi açıklayınız.</string>
     <string name="offer">Teklif</string>
+    <string name="allOffers">Teklifler</string>
+
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
     <string name="accept">Kabul Et</string>

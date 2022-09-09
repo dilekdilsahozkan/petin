@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
-import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
+import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.domain.OfferUseCase
+import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -15,13 +16,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OfferViewModel @Inject constructor(
+class MakeOfferViewModel @Inject constructor(
     private val useCase: OfferUseCase
-): BaseViewModel<OfferDetailDto>(useCase){
+): BaseViewModel<CreateOfferDto>(useCase) {
 
-    fun usersOffer(postId : String?) {
+    fun newOffer(newOfferRequest: OfferRequestDto) {
         viewModelScope.launch {
-            useCase.usersOffer(postId)
+            useCase.newMakeOffer(newOfferRequest)
                 .onStart {
                     _state.value = ViewState.Loading()
                 }
@@ -37,9 +38,9 @@ class OfferViewModel @Inject constructor(
         }
     }
 
-    fun getOffer(offerId : String?) {
+    fun petValue() {
         viewModelScope.launch {
-            useCase.getOffer(offerId)
+            useCase.petValue()
                 .onStart {
                     _state.value = ViewState.Loading()
                 }

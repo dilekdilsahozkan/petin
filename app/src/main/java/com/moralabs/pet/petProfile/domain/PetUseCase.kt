@@ -2,8 +2,6 @@ package com.moralabs.pet.petProfile.domain
 
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
-import com.moralabs.pet.petProfile.data.remote.dto.CreatePetDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import com.moralabs.pet.petProfile.data.repository.PetRepository

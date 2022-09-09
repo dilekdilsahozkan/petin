@@ -5,12 +5,6 @@
 
     <data>
 
-        <import type="com.moralabs.pet.core.presentation.DateExtensionKt" />
-
-        <variable
-            name="post"
-            type="com.moralabs.pet.core.data.remote.dto.PostDto" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -332,7 +326,7 @@
                 android:layout_marginVertical="12dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petImage">
+                app:layout_constraintTop_toBottomOf="@id/petInfo">
 
                 <ImageView
                     android:id="@+id/offerCountIcon"

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/offer_user_navigation"
+    app:startDestination="@id/offerUserFragment2">
+
+    <fragment
+        android:id="@+id/offerUserFragment2"
+        android:name="com.moralabs.pet.offer.presentation.ui.OfferUserFragment"
+        android:label="OfferUserFragment"
+        tools:layout="@layout/fragment_offer_user">
+
+        <action
+            android:id="@+id/action_fragment_offerUser_to_offerFragment"
+            app:destination="@id/offerFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/offerFragment"
+        android:name="com.moralabs.pet.offer.presentation.ui.OfferFragment"
+        android:label="OfferFragment"
+        tools:layout="@layout/fragment_offer"/>
+
+</navigation>

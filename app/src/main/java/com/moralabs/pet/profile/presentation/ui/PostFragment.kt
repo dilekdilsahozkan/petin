@@ -33,6 +33,8 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
             onLikeClick = {
             },
             onCommentClick = {
+            },
+            onOfferUserClick = {
             }
         )
     }

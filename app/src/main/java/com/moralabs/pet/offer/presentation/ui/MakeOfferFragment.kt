@@ -3,9 +3,8 @@ package com.moralabs.pet.offer.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
@@ -14,21 +13,25 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMakeOfferBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.offer.data.remote.dto.OfferDto
-import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
+import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
+import com.moralabs.pet.offer.presentation.viewmodel.MakeOfferViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto, OfferViewModel>() {
+class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto, MakeOfferViewModel>() {
+
+    private val postType: String? by lazy {
+        activity?.intent?.getStringExtra(OfferActivity.POST_ID)
+    }
 
     override fun getLayoutId() = R.layout.fragment_make_offer
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<CreateOfferDto> {
-        val viewModel: OfferViewModel by viewModels()
-        return viewModel
+        val viewModelMake: MakeOfferViewModel by viewModels()
+        return viewModelMake
     }
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
@@ -60,11 +63,15 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
     override fun addListeners() {
         super.addListeners()
         binding.makeOfferButton.setOnClickListener {
+            val pet = petAdapter.currentList?.filter { it.selected }?.firstOrNull()
             viewModel.newOffer(
-                OfferDto(
-                    text = binding.selectPartner.text.toString()
+                OfferRequestDto(
+                    postId = postType,
+                    text = binding.selectPartner.text.toString(),
+                    petId = pet?.id
                 )
             )
+            Toast.makeText(context, "Teklifiniz Gönderilidi", Toast.LENGTH_SHORT).show()
             startActivity(Intent(context, MainPageActivity::class.java))
         }
         viewModel.petValue()

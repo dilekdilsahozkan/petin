@@ -2,10 +2,10 @@ package com.moralabs.pet.core.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,11 +14,13 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.toFullDate
 import com.moralabs.pet.databinding.*
+import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
 
 class PostListAdapter(
     private val onOfferClick: (post: PostDto) -> Unit,
     private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
+    private val onOfferUserClick: (post: PostDto) -> Unit,
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -64,6 +66,12 @@ class PostListAdapter(
                     onOfferClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
+
+            binding.postOfferLinear.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onOfferUserClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
         }
 
         @SuppressLint("SetTextI18n")
@@ -79,6 +87,10 @@ class PostListAdapter(
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.petName.text = pet.content?.pet?.name
+
+            if(binding.likeIcon.isSelected){
+                binding.likeIcon.setBackgroundResource(R.drawable.ic_like_orange)
+            }
 
             if (pet.content?.pet?.media?.url.isNullOrEmpty()){
                 binding.petImage.visibility = View.GONE

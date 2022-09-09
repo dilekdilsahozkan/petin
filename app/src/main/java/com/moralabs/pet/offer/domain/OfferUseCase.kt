@@ -2,7 +2,8 @@ package com.moralabs.pet.offer.domain
 
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
-import com.moralabs.pet.offer.data.remote.dto.OfferDto
+import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
+import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.data.repository.OfferRepository
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
 import com.moralabs.pet.petProfile.data.repository.PetRepository
@@ -15,9 +16,9 @@ class OfferUseCase @Inject constructor(
     private val petRepository: PetRepository
 ) : BaseUseCase() {
 
-    fun newMakeOffer(newOffer: OfferDto): Flow<BaseResult<CreateOfferDto>> {
+    fun newMakeOffer(newOfferRequest: OfferRequestDto): Flow<BaseResult<CreateOfferDto>> {
         return flow {
-            val offerValue = offerRepository.makeOffer(newOffer).body()?.data ?: listOf()
+            val offerValue = offerRepository.makeOffer(newOfferRequest).body()?.data ?: listOf()
             emit(
                 BaseResult.Success(
                     CreateOfferDto(
@@ -25,6 +26,32 @@ class OfferUseCase @Inject constructor(
                     )
                 )
             )
+        }
+    }
+
+    fun getOffer(offerId: String?): Flow<BaseResult<OfferDetailDto>>  {
+        return flow {
+           val readOffer = offerRepository.getOffer(offerId).body()?.data
+                emit(
+                    BaseResult.Success(
+                        OfferDetailDto(
+                            readOffer = readOffer
+                        )
+                    )
+                )
+        }
+    }
+
+    fun usersOffer(postId : String?): Flow<BaseResult<OfferDetailDto>>  {
+        return flow {
+           val allOffers =  offerRepository.usersOffer(postId).body()?.data ?: listOf()
+                emit(
+                    BaseResult.Success(
+                        OfferDetailDto(
+                            allOffers = allOffers
+                        )
+                    )
+                )
         }
     }
 

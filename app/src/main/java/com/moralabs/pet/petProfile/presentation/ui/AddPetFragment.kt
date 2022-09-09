@@ -49,8 +49,6 @@ class AddPetFragment : BaseFragment<FragmentAddPetBinding, PetDto, PetProfileVie
 
         viewModel.addPet(
             PetRequestDto(
-                media = listOf(MediaDto()),
-                petAttributes = listOf(PetAttributeDto())
             )
         )
     }

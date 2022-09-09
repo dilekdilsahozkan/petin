@@ -30,24 +30,24 @@
             android:id="@+id/userInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/scale_16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            android:layout_margin="@dimen/scale_16dp">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userPhoto"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:src="@{item.media.url}"/>
+                android:src="@{item.media.url}" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/otherUser"
+                    android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -57,28 +57,16 @@
                     android:textSize="15dp"
                     app:layout_constraintStart_toEndOf="@id/otherUserPhoto" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/location"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/postIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp" />
-
-                    <TextView
-                        android:id="@+id/postText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/darkPrimary"
-                        android:includeFontPadding="false"
-                        android:textSize="11dp"
-                        android:gravity="center"
-                        android:fontFamily="@font/poppins_regular"
-                        android:layout_marginStart="4dp"/>
-
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="11dp" />
 
             </LinearLayout>
 
@@ -88,40 +76,40 @@
             android:id="@+id/explanationText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/explanation"
-            android:fontFamily="@font/poppins_regular"
-            android:background="@color/white"
-            android:textSize="@dimen/scale_15dp"
-            android:imeOptions="actionDone"
             android:layout_margin="@dimen/scale_16dp"
+            android:background="@color/white"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/explanation"
+            android:imeOptions="actionDone"
             android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@id/userInfo"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textSize="@dimen/scale_15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userInfo" />
 
         <ImageView
             android:id="@+id/postImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explanationText"/>
+            app:layout_constraintTop_toBottomOf="@id/explanationText" />
 
         <LinearLayout
             android:id="@+id/petChooseLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
-            app:layout_constraintTop_toBottomOf="@id/explanationText"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@id/explanationText">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/selectPet"
                 android:layout_marginTop="64dp"
-                android:textSize="@dimen/scale_15dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/selectPet"
                 android:textColor="@color/secondaryColor"
-                android:fontFamily="@font/poppins_semibold"/>
+                android:textSize="@dimen/scale_15dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/petCardList"
@@ -129,57 +117,57 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/scale_10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_pet_card"/>
+                tools:listitem="@layout/item_pet_card" />
 
         </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/keyboard_constraint"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/keyboard_constraint"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginStart="@dimen/scale_16dp"
-            android:layout_marginEnd="@dimen/scale_16dp"
-            app:layout_constraintBottom_toTopOf="@id/keyboard_toolbar"/>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/keyboard_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/galleryIcon"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/scale_16dp"
+                android:layout_marginEnd="@dimen/scale_16dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toTopOf="@id/keyboard_toolbar" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/keyboard_toolbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_gallery"
-                android:layout_marginLeft="@dimen/scale_20dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/locationIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_location"
-                android:layout_marginLeft="@dimen/scale_20dp"/>
+                <ImageView
+                    android:id="@+id/galleryIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scale_20dp"
+                    android:src="@drawable/ic_gallery" />
 
-            <ImageView
-                android:id="@+id/petHouseIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_pet_house"
-                android:layout_marginLeft="@dimen/scale_20dp"/>
+                <ImageView
+                    android:id="@+id/locationIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scale_20dp"
+                    android:src="@drawable/ic_location" />
 
-        </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/petHouseIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scale_20dp"
+                    android:src="@drawable/ic_pet_house" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

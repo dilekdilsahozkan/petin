@@ -30,8 +30,3 @@ data class CreateOfferDto(
     val getOffer: List<PetDto>? = null,
     val offerValue: List<PetDto>? = null
 )
-
-data class CreatePetDto(
-    val getPet: PetDto? = null,
-    val addPet: List<PetDto>? = null
-)

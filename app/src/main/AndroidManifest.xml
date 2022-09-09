@@ -17,6 +17,9 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".offer.presentation.ui.OfferUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".petProfile.presentation.ui.AddPetActivity"
             android:exported="false" />
         <activity
