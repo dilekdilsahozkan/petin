@@ -9,7 +9,7 @@ import com.moralabs.pet.databinding.FragmentEditPersonalInformationsBinding
 import com.moralabs.pet.databinding.FragmentFavoritesBinding
 import com.moralabs.pet.databinding.FragmentPersonalInformationsBinding
 import com.moralabs.pet.settings.data.remote.dto.SettingsDto
-import com.moralabs.pet.settings.presentation.ui.SettingsViewModel
+import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
