@@ -18,6 +18,7 @@
             app:popEnterAnim="@anim/slide_out" />
 
     </fragment>
+
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.AccountFragment"
@@ -28,6 +29,7 @@
             app:destination="@id/personalInformationsFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
+
         <action
             android:id="@+id/action_accountFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
@@ -44,21 +46,27 @@
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
     </fragment>
+
     <fragment
         android:id="@+id/personalInformationsFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.PersonalInformationsFragment"
         android:label="fragment_personal_informations"
         tools:layout="@layout/fragment_personal_informations">
+
         <action
             android:id="@+id/action_personalInformationsFragment_to_editPersonalInformationsFragment"
             app:destination="@id/editPersonalInformationsFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
+
     </fragment>
+
     <fragment
         android:id="@+id/editPersonalInformationsFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.EditPersonalInformationsFragment"
-        android:label="EditPersonalInformationsFragment" />
+        android:label="EditPersonalInformationsFragment"
+        tools:layout="@layout/fragment_edit_personal_informations" />
+
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.FavoritesFragment"

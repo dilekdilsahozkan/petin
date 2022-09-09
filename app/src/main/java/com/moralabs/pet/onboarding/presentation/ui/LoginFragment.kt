@@ -59,7 +59,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
         binding.errorLinear.visibility = View.VISIBLE
     }
 
-    fun setRegisterClickable() {
+    private fun setRegisterClickable() {
         val spannableString = SpannableString(getString(R.string.dontHaveAccount))
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {

@@ -1,72 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp">
+    xmlns:pet="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/petCard"
+    <data>
+
+        <variable
+            name="pet"
+            type="com.moralabs.pet.petProfile.data.remote.dto.PetDto" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/background_gray"
-        android:clickable="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/offerImage"
-            android:layout_width="132dp"
-            android:layout_height="120dp"
-            style="@style/PetImageView.PetCard"
-            android:scaleType="centerCrop"
-            android:src="@drawable/pet"/>
+        android:layout_marginBottom="@dimen/scale_15dp">
 
         <LinearLayout
-            android:id="@+id/petInfo"
-            android:layout_width="wrap_content"
+            android:id="@+id/petCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp">
+            android:orientation="horizontal"
+            android:background="@{pet.selected ? @drawable/background_stroke_soft_orange : @drawable/background_gray}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/petName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Kara Fırtına"
-                android:textSize="17dp"
-                android:textColor="@color/darkPrimary"
-                android:fontFamily="@font/poppins_regular" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/offerImage"
+                android:layout_width="132dp"
+                android:layout_height="120dp"
+                style="@style/PetImageView.PetCard"
+                android:scaleType="centerCrop"
+                pet:src="@{pet.media.url}"
+                android:src="@drawable/pet"/>
 
-            <TextView
-                android:id="@+id/petKind"
+            <LinearLayout
+                android:id="@+id/petInfo"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Himalaya"
-                android:textSize="13dp"
-                android:fontFamily="@font/poppins_regular" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp">
 
-            <TextView
-                android:id="@+id/petAge"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="2 y.o"
-                android:textSize="13dp"
-                android:fontFamily="@font/poppins_regular"/>
+                <TextView
+                    android:id="@+id/petName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_17dp"
+                    android:textColor="@color/darkPrimary"
+                    android:fontFamily="@font/poppins_semibold" />
 
-            <TextView
-                android:id="@+id/petGender"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Male"
-                android:textSize="13dp"
-                android:fontFamily="@font/poppins_regular"/>
+                <TextView
+                    android:id="@+id/petKind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_13dp"
+                    android:fontFamily="@font/poppins_regular" />
+
+                <TextView
+                    android:id="@+id/petAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_13dp"
+                    android:fontFamily="@font/poppins_regular" />
+
+                <TextView
+                    android:id="@+id/petGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_13dp"
+                    android:fontFamily="@font/poppins_regular" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <View
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/petCard" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -3,14 +3,13 @@ package com.moralabs.pet.core.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moralabs.pet.core.domain.BaseDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-open class BaseViewModel<T: BaseDto>(private val useCase: BaseUseCase) : ViewModel(){
+open class BaseViewModel<T: Any>(private val useCase: BaseUseCase) : ViewModel(){
     protected var _state: MutableStateFlow<ViewState<T>> = MutableStateFlow(ViewState.Idle())
     val state: StateFlow<ViewState<T>> = _state
 

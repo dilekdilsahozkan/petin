@@ -17,7 +17,7 @@
     <color name="darkSecondary">#535B5B</color>
     <color name="darkGrayTransparent">#336A6B74</color>
     <color name="mainPageTitle">#232323</color>
-    <color name="grayBackground">#F3F3F6</color>
+    <color name="grayBackground">#F7F7F9</color>
     <color name="transparent">#CC000000</color>
-    <color name="divider">#C6C6C8</color>
+    <color name="divider">#D7D7D7</color>
 </resources>

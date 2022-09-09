@@ -2,203 +2,210 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/register_title"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:gravity="center"
-                android:text="@string/register"
-                android:textColor="@color/mainColor"
-                android:textSize="34dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/name_surname_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="57dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/nameLastname"
-                android:textColor="@color/darkSecondary"
-                android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/register_title" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/name_surname_edittext"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:background="@drawable/background_edit"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/name_surname_title"
-                app:layout_constraintTop_toBottomOf="@id/name_surname_title" />
-
-            <TextView
-                android:id="@+id/username_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/username"
-                android:textColor="@color/darkSecondary"
-                android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_surname_edittext" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username_edittext"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:background="@drawable/background_edit"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/username_title"
-                app:layout_constraintTop_toBottomOf="@id/username_title" />
-
-            <TextView
-                android:id="@+id/email_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/email"
-                android:textColor="@color/darkSecondary"
-                android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username_edittext" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edittext"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:background="@drawable/background_edit"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/email_title"
-                app:layout_constraintTop_toBottomOf="@id/email_title" />
-
-            <TextView
-                android:id="@+id/password_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/password"
-                android:textColor="@color/darkSecondary"
-                android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_edittext" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password_inputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/password_title"
-                app:layout_constraintTop_toBottomOf="@id/password_title"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_edit"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:textSize="15dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/agreement_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password_inputLayout">
-
-                <CheckBox
-                    android:id="@+id/agreement_radio_button"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:buttonTint="@color/mainColor" />
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/agreementRead"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/register_title"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:clickable="true"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/register"
+                    android:textColor="@color/mainColor"
+                    android:textSize="34dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/name_surname_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="57dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/agreementText"
-                    android:textColor="@color/darkSecondary" />
+                    android:text="@string/nameLastname"
+                    android:textColor="@color/darkSecondary"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/register_title" />
 
-            </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_surname_edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/background_edit"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/name_surname_title"
+                    app:layout_constraintTop_toBottomOf="@id/name_surname_title" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/register_button"
-                style="@style/PetButton"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="46dp"
-                android:text="@string/register"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/agreement_layout"
-                app:layout_constraintTop_toBottomOf="@id/agreement_layout" />
+                <TextView
+                    android:id="@+id/username_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/username"
+                    android:textColor="@color/darkSecondary"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name_surname_edittext" />
 
-            <TextView
-                android:id="@+id/dontHaveAccountText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/poppins_regular"
-                android:gravity="center"
-                android:text="@string/haveAccount"
-                android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/register_button"
-                app:layout_constraintTop_toBottomOf="@id/register_button" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username_edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/background_edit"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/username_title"
+                    app:layout_constraintTop_toBottomOf="@id/username_title" />
+
+                <TextView
+                    android:id="@+id/email_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/email"
+                    android:textColor="@color/darkSecondary"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/username_edittext" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/background_edit"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/email_title"
+                    app:layout_constraintTop_toBottomOf="@id/email_title" />
+
+                <TextView
+                    android:id="@+id/password_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/password"
+                    android:textColor="@color/darkSecondary"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_edittext" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_inputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/password_title"
+                    app:layout_constraintTop_toBottomOf="@id/password_title"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textSize="15dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/agreement_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/password_inputLayout">
+
+                    <CheckBox
+                        android:id="@+id/agreement_radio_button"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:buttonTint="@color/mainColor" />
+
+                    <TextView
+                        android:id="@+id/agreementRead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:clickable="true"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/agreementText"
+                        android:textColor="@color/darkSecondary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/register_button"
+                    style="@style/PetButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="46dp"
+                    android:text="@string/register"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/agreement_layout"
+                    app:layout_constraintTop_toBottomOf="@id/agreement_layout" />
+
+                <TextView
+                    android:id="@+id/dontHaveAccountText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="@dimen/scale_20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/haveAccount"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/register_button"
+                    app:layout_constraintTop_toBottomOf="@id/register_button" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>
 

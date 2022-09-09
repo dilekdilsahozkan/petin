@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingsActivity : BaseActivity<ActivitySettingsBinding>(),
     PetToolbarListener {
 
-
     override fun getLayoutId() = R.layout.activity_settings
     private lateinit var navController: NavController
 

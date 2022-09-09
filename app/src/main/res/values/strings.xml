@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">PETIN</string>
     <string name="petin">PetIn</string>
-    <string name="description">Pethousea Hoşgeldiniz</string>
+    <string name="description">Hayvan severlerin buluştuğu platform</string>
     <string name="mainPageTitle">Ana Sayfa</string>
     <string name="messagesTitle">Mesajlar</string>
     <string name="notificationTitle">Bildirimler</string>
     <string name="profileTitle">Profil</string>
     <string name="addPostTitle"> </string>
+    <string name="guest">Misafir</string>
     <string name="login">Giriş Yap</string>
     <string name="register">Kayıt Ol</string>
     <string name="forgotPassword">Şifremi Unuttum?</string>
@@ -26,6 +27,8 @@
     <string name="choosePet">Evcil hayvanınızı seçiniz.</string>
     <string name="choosePetEditText">Neden seçtiğiniz evcil hayvanla kendi evcil hayvanınızın partner olmasını istediğinizi açıklayınız.</string>
     <string name="offer">Teklif</string>
+    <string name="allOffers">Teklifler</string>
+
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
     <string name="accept">Kabul Et</string>
@@ -44,7 +47,23 @@
     <string name="explanation">Açıklama yazınız</string>
     <string name="selectPet">Evcil hayvanınızı seçiniz</string>
     <string name="search">Ara</string>
-
+    <string name="zero">0</string>
+    <string name="today">Bugün</string>
+    <string name="yesterday">Dün</string>
+    <string name="takePhoto">Fotoğraf Çek</string>
+    <string name="chooseGallery">Galeriden Seç</string>
+    <string name="cancel">İptal</string>
+    <string name="allPosts">Tüm Gönderiler</string>
+    <string name="filter">Filtrele</string>
+    <string name="reset">Temizle</string>
+    <string name="location">Konum</string>
+    <string name="type">Cins</string>
+    <string name="breed">Tür</string>
+    <string name="gender">Cinsiyet</string>
+    <string name="age">Yaş</string>
+    <string name="addPhoto">Fotoğraf Ekleyiniz</string>
+    <string name="apply">Uygula</string>
+    <string name="save">Kaydet</string>
 
     <!-- Settings -->
 

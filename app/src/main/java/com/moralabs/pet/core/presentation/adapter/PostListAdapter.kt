@@ -1,69 +1,152 @@
 package com.moralabs.pet.core.presentation.adapter
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
+import com.moralabs.pet.core.presentation.toFullDate
 import com.moralabs.pet.databinding.*
+import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
 
-class PostListAdapter(private var mList: List<Any>)  : RecyclerView.Adapter<PostListAdapterViewHolder>() {
+class PostListAdapter(
+    private val onOfferClick: (post: PostDto) -> Unit,
+    private val onLikeClick: (post: PostDto) -> Unit,
+    private val onCommentClick: (post: PostDto) -> Unit,
+    private val onOfferUserClick: (post: PostDto) -> Unit,
+) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapterViewHolder {
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostDto>() {
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: PostDto, newItem: PostDto): Boolean {
+                return oldItem == newItem
+            }
 
-        when(viewType){
-            R.layout.item_post -> {
-                val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return PostListAdapterViewHolder.PostViewHolder(binding)
-            }
-            R.layout.item_qna -> {
-                val binding = ItemQnaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return PostListAdapterViewHolder.QnAViewHolder(binding)
-            }
-            R.layout.item_find_partner -> {
-                val binding = ItemFindPartnerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return PostListAdapterViewHolder.FindPartnerViewHolder(binding)
-            }
-            R.layout.item_adoption -> {
-                val binding = ItemAdoptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return PostListAdapterViewHolder.AdoptionViewHolder(binding)
+            override fun areItemsTheSame(oldItem: PostDto, newItem: PostDto): Boolean {
+                return oldItem == newItem
             }
         }
+    }
 
+    val differ = AsyncListDiffer(this, DIFF_CALLBACK)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostListAdapterViewHolder.PostViewHolder(binding)
+        return PostListViewHolder(parent.context, binding)
     }
 
-    override fun onBindViewHolder(holder: PostListAdapterViewHolder, position: Int) {
-        when(holder){
-            is PostListAdapterViewHolder.PostViewHolder -> {
+    override fun onBindViewHolder(holder: PostListViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    inner class PostListViewHolder(private val context: Context, val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.postCommentLinear.setOnClickListener {
+                if (differ.currentList[bindingAdapterPosition] is PostDto) {
+                    onCommentClick.invoke(getItem(bindingAdapterPosition))
+                }
             }
 
-            is PostListAdapterViewHolder.QnAViewHolder -> {
+            binding.likeIcon.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onLikeClick.invoke(getItem(bindingAdapterPosition))
+                }
             }
 
-            is PostListAdapterViewHolder.FindPartnerViewHolder -> {
+            binding.offerButton.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onOfferClick.invoke(getItem(bindingAdapterPosition))
+                }
             }
 
-            is PostListAdapterViewHolder.AdoptionViewHolder -> {
+            binding.postOfferLinear.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onOfferUserClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+        }
+
+        @SuppressLint("SetTextI18n")
+        fun bind(pet: PostDto) {
+
+            binding.username.text = pet.user?.userName.toString()
+            binding.postText.text = pet.content?.text.toString()
+            binding.post2Text.text = pet.content?.text.toString()
+            binding.likeCount.text = pet.likeCount.toString()
+            binding.commentCount.text = pet.commentCount.toString()
+            binding.offerCount.text = pet.offerCount.toString()
+            binding.userPhoto.loadImage(pet.user?.media?.url)
+            binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
+            binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
+            binding.petName.text = pet.content?.pet?.name
+
+            if(binding.likeIcon.isSelected){
+                binding.likeIcon.setBackgroundResource(R.drawable.ic_like_orange)
+            }
+
+            if (pet.content?.pet?.media?.url.isNullOrEmpty()){
+                binding.petImage.visibility = View.GONE
+            } else {
+                binding.petImage.loadImage(pet.content?.pet?.media?.url)
+            }
+
+            if(pet.content?.location?.city.isNullOrEmpty()){
+                binding.location.visibility = View.GONE
+            } else {
+                binding.location.text = pet.content?.location?.city.toString()
+            }
+
+            if (pet.content?.media.isNullOrEmpty()){
+                binding.postImage.visibility = View.GONE
+            } else {
+                binding.postImage.loadImage(pet.content?.media?.get(0)?.url)
+            }
+
+            when (pet.content?.type) {
+                0 -> {
+                    binding.postType.visibility = View.GONE
+                    binding.postContentLinear.visibility = View.VISIBLE
+                    binding.postContent2Linear.visibility = View.GONE
+                    binding.empty2.visibility = View.GONE
+
+                    binding.empty.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                }
+                1 -> {
+                    binding.postIcon.setImageResource(R.drawable.ic_qna)
+                    binding.postTypeText.text = context.getString(R.string.qna)
+                    binding.postContentLinear.visibility = View.VISIBLE
+                    binding.postContent2Linear.visibility = View.GONE
+                    binding.empty2.visibility = View.GONE
+
+                    binding.empty.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                }
+                2 -> {
+                    binding.postIcon.setImageResource(R.drawable.ic_partner)
+                    binding.postTypeText.text = context.getString(R.string.adoption)
+                    binding.postContentLinear.visibility = View.GONE
+                    binding.postContent2Linear.visibility = View.VISIBLE
+                    binding.empty.visibility = View.GONE
+
+                    binding.empty2.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                }
+                3 -> {
+                    binding.postIcon.setImageResource(R.drawable.ic_adoption)
+                    binding.postTypeText.text = context.getString(R.string.adoption)
+                    binding.postContentLinear.visibility = View.GONE
+                    binding.postContent2Linear.visibility = View.VISIBLE
+                    binding.empty.visibility = View.GONE
+
+                    binding.empty2.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                }
             }
         }
     }
-
-    override fun getItemCount(): Int {
-        return mList.size
-    }
-
-    override fun getItemViewType(position: Int): Int {
-
-        when(mList[position]){
-            is PostDto -> return R.layout.item_post
-            is PostDto -> return R.layout.item_qna
-            is PostDto -> return R.layout.item_find_partner
-            is PostDto -> return R.layout.item_adoption
-        }
-        return R.layout.item_post
-    }
-
-
 }
