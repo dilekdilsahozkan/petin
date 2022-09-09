@@ -35,7 +35,7 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
     }
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_card, BR.pet, onRowClick = {selected ->
+        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {selected ->
             petAdapter.currentList.forEach { pet ->
                 pet.selected = pet == selected
             }

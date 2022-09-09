@@ -78,12 +78,12 @@ class PostListAdapter(
         fun bind(pet: PostDto) {
 
             binding.username.text = pet.user?.userName.toString()
+            binding.userPhoto.loadImage(pet.user?.media?.url)
             binding.postText.text = pet.content?.text.toString()
             binding.post2Text.text = pet.content?.text.toString()
             binding.likeCount.text = pet.likeCount.toString()
             binding.commentCount.text = pet.commentCount.toString()
             binding.offerCount.text = pet.offerCount.toString()
-            binding.userPhoto.loadImage(pet.user?.media?.url)
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.petName.text = pet.content?.pet?.name

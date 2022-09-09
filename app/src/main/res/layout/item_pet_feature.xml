@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="attribute"
+            name="item"
             type="com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto" />
 
     </data>
@@ -24,7 +24,7 @@
             android:textColor="@color/darkGray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="{Breed}" />
+            android:text="@{item.type}" />
 
         <TextView
             android:id="@+id/featureValue"

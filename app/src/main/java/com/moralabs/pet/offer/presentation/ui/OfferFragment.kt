@@ -1,18 +1,24 @@
 package com.moralabs.pet.offer.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentOfferBinding
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
+import com.moralabs.pet.message.presentation.ui.MessageActivity
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
-import com.moralabs.pet.offer.presentation.viewmodel.MakeOfferViewModel
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
-import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
+import kotlinx.coroutines.flow.collect
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferViewModel>() {
@@ -55,6 +61,41 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         toolbarListener?.showTitleText(getString(R.string.offer))
     }
 
+    override fun addObservers() {
+        super.addObservers()
+
+        lifecycleScope.launch {
+            viewModel.deleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<*> -> {
+                        startActivity(Intent(context, MainPageActivity::class.java))
+                    }
+                    is ViewState.Error<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.error_decline_offer), Toast.LENGTH_LONG).show()
+                        stopLoading()
+                    }
+                }
+            }
+            viewModel.acceptState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<*> -> {
+                        startActivity(Intent(context, MainPageActivity::class.java))
+                    }
+                    is ViewState.Error<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.error_accept_offer), Toast.LENGTH_LONG).show()
+                        stopLoading()
+                    }
+                }
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,5 +107,12 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         binding.petGender.text = petGender
         binding.offerImage.loadImage(petImage)
         binding.petName.text = petName
+
+        binding.acceptButton.setOnClickListener {
+            viewModel.acceptOffer(offerId)
+        }
+        binding.declineButton.setOnClickListener {
+            viewModel.declineOffer(offerId)
+        }
     }
 }
