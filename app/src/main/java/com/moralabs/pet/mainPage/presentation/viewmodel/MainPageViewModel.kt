@@ -15,9 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
     private val useCase: MainPageUseCase
-): BaseViewModel<List<PostDto>>(useCase){
+) : BaseViewModel<List<PostDto>>(useCase) {
 
-    fun feedPost(){
+    fun feedPost() {
         viewModelScope.launch {
             useCase.getFeed()
                 .onStart {
@@ -31,6 +31,22 @@ class MainPageViewModel @Inject constructor(
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
                     }
+                }
+        }
+    }
+
+    fun likePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.likePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    _state.value = ViewState.Idle()
                 }
         }
     }

@@ -6,6 +6,7 @@ import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
+import com.moralabs.pet.profile.data.remote.dto.UserDto
 
 class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository {
 
@@ -14,6 +15,7 @@ class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository
     }
 
     private var authentication: AuthenticationDto? = null
+    private var _user: UserDto = UserDto()
 
     private val preferences by lazy {
         context?.let {
@@ -62,6 +64,8 @@ class AuthenticationRepositoryImpl(context: Context?) : AuthenticationRepository
 
         return true
     }
+
+    override fun getUser() = _user
 
     override fun requestHeaders() = authentication?.let {
         hashMapOf(

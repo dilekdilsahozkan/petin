@@ -2,6 +2,7 @@ package com.moralabs.pet.core.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.BR
-import com.moralabs.pet.core.domain.SimpleDto
+import com.moralabs.pet.core.data.remote.dto.SimpleDto
 import com.moralabs.pet.databinding.UiItemBaseListEmptyBinding
 
 class BaseListAdapter<Dto, Binding : ViewDataBinding>(
@@ -21,18 +22,13 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 ) :
     ListAdapter<Dto, BaseListAdapter.ViewHolder<Binding>>(object :
         DiffUtil.ItemCallback<Dto>() {
-        override fun areItemsTheSame(
-            oldItem: Dto,
-            newItem: Dto
-        ): Boolean {
+
+        override fun areItemsTheSame(oldItem: Dto, newItem: Dto): Boolean {
             return isSameDto(oldItem, newItem)
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(
-            oldItem: Dto,
-            newItem: Dto
-        ): Boolean {
+        override fun areContentsTheSame(oldItem: Dto, newItem: Dto): Boolean {
             return false
         }
     }) {
@@ -77,7 +73,10 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
         }
     }
 
-    sealed class ViewHolder<Binding : ViewDataBinding>(binding: Binding, listAdapter: BaseListAdapter<*, *>) :
+    sealed class ViewHolder<Binding : ViewDataBinding>(
+        binding: Binding,
+        listAdapter: BaseListAdapter<*, *>
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         class DtoViewHolder<Binding : ViewDataBinding>(
             val binding: Binding,

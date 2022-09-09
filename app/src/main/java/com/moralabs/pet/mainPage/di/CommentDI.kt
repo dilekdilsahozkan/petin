@@ -4,6 +4,7 @@ import com.moralabs.pet.mainPage.data.remote.api.CommentService
 import com.moralabs.pet.mainPage.data.repository.CommentRepository
 import com.moralabs.pet.mainPage.data.repository.CommentRepositoryImpl
 import com.moralabs.pet.mainPage.domain.CommentUseCase
+import com.moralabs.pet.profile.data.repository.ProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pet="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="item"
+            name="pet"
             type="com.moralabs.pet.petProfile.data.remote.dto.PetDto" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale_15dp">
 
         <LinearLayout
             android:id="@+id/petCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/background_gray"
-            android:clickable="true"
+            android:background="@{pet.selected ? @drawable/background_stroke_soft_orange : @drawable/background_gray}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -31,7 +31,8 @@
                 android:layout_height="120dp"
                 style="@style/PetImageView.PetCard"
                 android:scaleType="centerCrop"
-                android:src="@drawable/pet" />
+                pet:src="@{pet.media.url}"
+                android:src="@drawable/pet"/>
 
             <LinearLayout
                 android:id="@+id/petInfo"
@@ -45,38 +46,47 @@
                     android:id="@+id/petName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Kara Fırtına"
-                    android:textSize="17dp"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_17dp"
                     android:textColor="@color/darkPrimary"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:fontFamily="@font/poppins_semibold" />
 
                 <TextView
                     android:id="@+id/petKind"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Himalaya"
-                    android:textSize="13dp"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular" />
 
                 <TextView
                     android:id="@+id/petAge"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="2 y.o"
-                    android:textSize="13dp"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular" />
 
                 <TextView
                     android:id="@+id/petGender"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Male"
-                    android:textSize="13dp"
+                    android:text="@{pet.name}"
+                    android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular" />
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/petCard" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

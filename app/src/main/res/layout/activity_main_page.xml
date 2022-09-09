@@ -49,7 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:navGraph="@navigation/mainpage_navigation" />
+                app:navGraph="@navigation/main_page_navigation" />
 
             <com.moralabs.pet.core.presentation.ui.CurvedBottomNavigationView
                 android:id="@+id/dashboard_navigation"
@@ -58,6 +58,7 @@
                 android:background="@null"
                 android:elevation="@dimen/scale_12dp"
                 app:itemBackground="@null"
+                app:itemTextAppearance="@style/FontStyleBottom"
                 app:itemHorizontalTranslationEnabled="false"
                 app:itemIconTint="@color/tab_bottom_navigation"
                 app:itemTextColor="@color/tab_bottom_navigation"

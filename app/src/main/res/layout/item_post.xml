@@ -5,19 +5,12 @@
 
     <data>
 
-        <variable
-            name="user"
-            type="com.moralabs.pet.profile.data.remote.dto.UserInfoDto" />
-
-        <variable
-            name="content"
-            type="com.moralabs.pet.core.data.remote.dto.ContentDto" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale_20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@id/userInfoLinear"
@@ -39,6 +32,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="3dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/userPhoto"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -50,7 +44,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text=""
                     android:textColor="@color/darkPrimary"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:textStyle="bold"
                     tools:text="dilsah.ozkan" />
 
@@ -67,7 +61,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/postType"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -79,22 +73,25 @@
                     android:id="@+id/postIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_qna" />
+                    android:src="@drawable/ic_qna"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/postTypeText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
-                    android:includeFontPadding="false"
                     android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
+                    android:includeFontPadding="false"
                     android:text=""
                     android:textColor="@color/darkPrimary"
                     android:textSize="11dp"
-                    tools:text="QNA" />
+                    app:layout_constraintStart_toEndOf="@id/postIcon"
+                    tools:text="Soru - Cevap" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,6 +99,8 @@
             android:id="@+id/postContentLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userInfoLinear">
 
@@ -112,11 +111,11 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text=""
-                android:textSize="@dimen/scale_15dp"
                 android:textColor="@color/darkPrimary"
+                android:textSize="@dimen/scale_15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Love him."/>
+                tools:text="Love him." />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/postImage"
@@ -131,17 +130,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/postText" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/postInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postContentLinear"
-            app:layout_constraintVertical_bias="1.0">
-
             <LinearLayout
                 android:id="@+id/postLikeLinear"
                 android:layout_width="wrap_content"
@@ -149,24 +137,25 @@
                 android:layout_marginVertical="12dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/postImage">
 
                 <ImageView
                     android:id="@+id/likeIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_like" />
+                    android:background="@drawable/ic_like" />
 
                 <TextView
                     android:id="@+id/likeCount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="12"
-                    android:textSize="11dp" />
+                    android:text=""
+                    android:textSize="11dp"
+                    tools:text="12" />
 
             </LinearLayout>
 
@@ -175,11 +164,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="12dp"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="@dimen/scale_16dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postLikeLinear"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/postImage">
 
                 <ImageView
                     android:id="@+id/commentIcon"
@@ -191,12 +179,13 @@
                     android:id="@+id/commentCount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="10"
-                    android:textSize="11dp" />
+                    android:text=""
+                    android:textSize="11dp"
+                    tools:text="10" />
 
             </LinearLayout>
 
@@ -204,24 +193,40 @@
                 android:id="@+id/postReleaseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1h ago"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/postImage"
+                tools:text="1h ago" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/divider"
+                app:layout_constraintTop_toBottomOf="@id/postReleaseTime" />
+
+            <View
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/postContent2Linear"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userInfoLinear">
+            app:layout_constraintTop_toBottomOf="@+id/userInfoLinear">
 
             <TextView
                 android:id="@+id/post2Text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/scale_15dp"
                 android:fontFamily="@font/poppins_regular"
@@ -232,110 +237,101 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Love him." />
 
-            <LinearLayout
-                android:id="@+id/offerCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/petImage"
+                style="@style/PetImageView.Round.8"
+                android:layout_width="164dp"
+                android:layout_height="148dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pet"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post2Text" />
+
+            <LinearLayout
+                android:id="@+id/petInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/petImage"
                 app:layout_constraintTop_toBottomOf="@id/post2Text">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/petImage"
-                    style="@style/PetImageView.Round.8"
-                    android:layout_width="164dp"
-                    android:layout_height="148dp"
-                    android:layout_marginTop="8dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/post2Text" />
-
-                <LinearLayout
-                    android:id="@+id/petInfo"
+                <TextView
+                    android:id="@+id/petName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toEndOf="@+id/offerImage"
-                    app:layout_constraintTop_toBottomOf="@+id/post2Text">
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text=""
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="@dimen/scale_17dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kara Fırtına" />
 
-                    <TextView
-                        android:id="@+id/petName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text=""
-                        android:textColor="@color/darkPrimary"
-                        android:textSize="@dimen/scale_17dp"
-                        tools:text="Kara Fırtına" />
+                <TextView
+                    android:id="@+id/petKind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="himalaya"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/scale_13dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petName"
+                    tools:text="Himalaya" />
 
-                    <TextView
-                        android:id="@+id/petKind"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text=""
-                        android:textColor="@color/darkGray"
-                        android:textSize="@dimen/scale_13dp"
-                        tools:text="Himalaya" />
+                <TextView
+                    android:id="@+id/petAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="1 year"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/scale_13dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petKind"
+                    tools:text="1 year old" />
 
-                    <TextView
-                        android:id="@+id/petAge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text=""
-                        android:textColor="@color/darkGray"
-                        android:textSize="@dimen/scale_13dp"
-                        tools:text="1 year old" />
+                <TextView
+                    android:id="@+id/petGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Male"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/scale_13dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petAge"
+                    tools:text="Male" />
 
-                    <TextView
-                        android:id="@+id/petGender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text=""
-                        android:textColor="@color/darkGray"
-                        android:textSize="@dimen/scale_13dp"
-                        tools:text="Male" />
-
-                    <Button
-                        android:id="@+id/offerButton"
-                        style="@style/PetButton"
-                        android:layout_width="163dp"
-                        android:layout_height="44dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/offer" />
-
-                </LinearLayout>
+                <Button
+                    android:id="@+id/offerButton"
+                    style="@style/PetButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/offer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petGender" />
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/post2Info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/scale_18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postContent2Linear">
-
             <LinearLayout
                 android:id="@+id/postOfferLinear"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="12dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/petInfo">
 
                 <ImageView
                     android:id="@+id/offerCountIcon"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_offer" />
 
                 <TextView
@@ -357,12 +353,28 @@
                 android:id="@+id/post2ReleaseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:text=""
-                android:textColor="@color/darkGray"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/petInfo"
                 tools:text="1h ago" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/divider"
+                app:layout_constraintTop_toBottomOf="@+id/post2ReleaseTime"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <View
+                android:id="@+id/empty2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

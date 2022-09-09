@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainpage_navigation"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
+        android:label="MainPageFragment"
+        tools:layout="@layout/fragment_main_page" />
+
+    <fragment
+        android:id="@+id/messages"
+        android:name="com.moralabs.pet.message.presentation.ui.MessageFragment"
+        android:label="CommentFragment"
+        tools:layout="@layout/fragment_message" />
+
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.moralabs.pet.notification.presentation.ui.NotificationFragment"
+        android:label="NewPostFragment"
+        tools:layout="@layout/fragment_new_post_bottom_sheet" />
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.moralabs.pet.mainPage.presentation.ui.CommentFragment"
+        android:label="CommentFragment"
+        tools:layout="@layout/fragment_comment" />
+
+    <fragment
+        android:id="@+id/makeOfferFragment"
+        android:name="com.moralabs.pet.offer.presentation.ui.MakeOfferFragment"
+        android:label="MakeOfferFragment"
+        tools:layout="@layout/fragment_make_offer" />
+
+    <fragment
+        android:id="@+id/offerUserFragment"
+        android:name="com.moralabs.pet.offer.presentation.ui.OfferUserFragment"
+        android:label="OfferUserFragment"
+        tools:layout="@layout/fragment_offer_user"/>
+
+</navigation>

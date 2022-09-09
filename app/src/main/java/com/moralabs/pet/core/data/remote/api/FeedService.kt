@@ -4,36 +4,39 @@ import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface FeedService {
 
+    // GET all feeds
     @GET("/feed")
     suspend fun getFeed(): Response<BaseResponse<List<PostDto>>>
 
+    // POST new feeds
     @POST("/feed/post")
-    suspend fun postPet(
+    suspend fun postFeed(
         @Body newPost: NewPostDto
     ): Response<BaseResponse<List<PostDto>>>
 
-    @POST("/feed/post/{postId}/{dateTime}")
-    suspend fun postDateTime(): Response<BaseResponse<PostDto>>
+    // GET posts of a user
+    @GET("/feed/post")
+    suspend fun profilePost(): Response<BaseResponse<List<PostDto>>>
+
+    // gönderi beğenme
+    @POST("/feed/post/{postId}/like")
+    suspend fun likePost(@Path("postId") postId: String?): Response<BaseResponse<List<PostDto>>>
+
+    // gönderi beğenmesini geri çekme
+    @PATCH("/feed/post/{postId}/unlike")
+    suspend fun unlikePost(@Path("postId") postId: String?): Response<BaseResponse<List<PostDto>>>
 
     @GET("/feed/post/user/{userId}")
     suspend fun getPostAnotherUser(): Response<BaseResponse<PostDto>>
 
+    // beğenilen gönderiler
     @GET("/feed/liked")
     suspend fun getLiked(): Response<BaseResponse<PostDto>>
 
-    @POST("/feed/post/{postId}/like")
-    suspend fun likePost(): Response<BaseResponse<*>>
-
-    @PATCH("/feed/post/{postId}/unlike")
-    suspend fun unlikePost(): Response<BaseResponse<*>>
-
-    @PATCH("/feed/post/{postId}")
-    suspend fun deletePost(): Response<BaseResponse<*>>
+    @DELETE("/feed/post/{postId}")
+    suspend fun deletePost(): Response<BaseResponse<Nothing>>
 }

@@ -1,10 +1,10 @@
 package com.moralabs.pet.newPost.di
 
-import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.newPost.data.remote.api.NewPostService
 import com.moralabs.pet.newPost.data.repository.NewPostRepository
 import com.moralabs.pet.newPost.data.repository.NewPostRepositoryImpl
 import com.moralabs.pet.newPost.domain.NewPostUseCase
+import com.moralabs.pet.petProfile.data.repository.PetRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +28,7 @@ class NewPostDI {
     @Provides
     @Singleton
     fun provideNewPostUseCase(
-        newPostRepository: NewPostRepository
+        newPostRepository: NewPostRepository, petRepository: PetRepository
     ): NewPostUseCase =
-        NewPostUseCase(newPostRepository)
+        NewPostUseCase(newPostRepository, petRepository)
 }

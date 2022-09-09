@@ -53,8 +53,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:textSize="15dp"
                     android:text="noyan.kabakci@moralabs.com"
+                    android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/email_title"
                     app:layout_constraintTop_toBottomOf="@id/email_title" />
@@ -204,13 +204,6 @@
                         android:src="@drawable/ic_google_logo" />
 
                     <ImageView
-                        android:id="@+id/apple"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="40dp"
-                        android:src="@drawable/ic_apple_logo" />
-
-                    <ImageView
                         android:id="@+id/facebook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -222,7 +215,8 @@
                     android:id="@+id/haveAccountText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="68dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="@dimen/scale_20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:text="@string/dontHaveAccount"

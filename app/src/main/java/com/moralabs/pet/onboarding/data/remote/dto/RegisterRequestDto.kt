@@ -1,6 +1,6 @@
 package com.moralabs.pet.onboarding.data.remote.dto
 
-import com.moralabs.pet.core.domain.BaseDto
+import com.moralabs.pet.core.data.remote.dto.BaseDto
 
 data class RegisterRequestDto (
     val fullName: String? = null,

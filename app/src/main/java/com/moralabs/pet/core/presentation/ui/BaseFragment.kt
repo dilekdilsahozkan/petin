@@ -11,12 +11,15 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.moralabs.pet.core.domain.BaseDto
+import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
+import com.moralabs.pet.onboarding.presentation.ui.LoginAction
+import com.moralabs.pet.onboarding.presentation.ui.LoginResultContract
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 abstract class BaseFragment<T : ViewDataBinding,
         U : Any,
@@ -130,6 +133,34 @@ abstract class BaseFragment<T : ViewDataBinding,
     protected abstract fun getLayoutId(): Int
 
     protected abstract fun fragmentViewModel(): BaseViewModel<U>
+    // LOGIN AREA
+    @Inject
+    lateinit var authenticationUseCase: AuthenticationUseCase
 
+    private val loginResultLauncher =
+        registerForActivityResult(
+            LoginResultContract()
+        )
+        { result ->
+            when (result) {
+
+            }
+        }
+
+    fun loginIfNeeded(
+        action: LoginAction,
+    ) {
+        if (authenticationUseCase.isLoggedIn()) {
+            action.invoke()
+        } else {
+            PetWarningDialog(
+                binding.root.context,
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        loginResultLauncher.launch(action)
+                    }
+                }).show()
+        }
+    }
 
 }
