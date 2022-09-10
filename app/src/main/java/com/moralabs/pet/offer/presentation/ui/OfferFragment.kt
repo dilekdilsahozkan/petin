@@ -13,7 +13,6 @@ import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentOfferBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.message.presentation.ui.MessageActivity
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
 import kotlinx.coroutines.flow.collect

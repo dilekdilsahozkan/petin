@@ -86,7 +86,7 @@
 
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
-
-    <string name="write_a_message">Mesajınızı yazın</string>
+    <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
+
 </resources>
