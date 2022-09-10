@@ -17,6 +17,6 @@ fun ImageView.loadImage(src: String?) {
 
 @BindingAdapter("pet:attributes")
 fun TextView.attributes(list: List<PetAttributeDto>?){
-    text = list?.filter { it.type == 8 }?.get(0)?.choice
+    text = list?.filter { it.type == tag.toString().toInt() }?.get(0)?.choice
 }
 

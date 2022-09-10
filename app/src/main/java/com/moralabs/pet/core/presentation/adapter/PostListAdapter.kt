@@ -50,7 +50,7 @@ class PostListAdapter(
     inner class PostListViewHolder(private val context: Context, val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.postCommentLinear.setOnClickListener {
-                if (differ.currentList[bindingAdapterPosition] is PostDto) {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onCommentClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
