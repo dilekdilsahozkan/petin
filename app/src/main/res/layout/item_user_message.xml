@@ -1,78 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/scale_16dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pet="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userPhoto"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:src="@drawable/user"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <data>
+        <import type="android.view.View" />
+        <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt" />
+        <variable
+            name="item"
+            type="com.moralabs.pet.message.data.remote.dto.ChatDto" />
+    </data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/scale_15dp"
-        app:layout_constraintStart_toEndOf="@id/userPhoto"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="@dimen/scale_16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/userNameSurname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dilşah Özkan"
-                android:textColor="@color/darkPrimary"
-                android:textSize="@dimen/scale_15dp"
-                android:fontFamily="@font/poppins_medium"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_dot"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/scale_8dp"/>
-
-            <TextView
-                android:id="@+id/messageTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="16:24"
-                android:textSize="@dimen/scale_11dp"
-                android:textColor="@color/darkGray"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_marginStart="4dp"/>
-
-        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_photo"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            pet:src="@{item.to.media.url}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/messageText"
+            android:id="@+id/user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{item.to.userName}"
+            tools:text="adsasdasd"
+            android:textColor="@color/darkPrimary"
+            android:textSize="@dimen/scale_15dp"
+            android:layout_marginStart="@dimen/scale_12dp"
+            android:fontFamily="@font/poppins_medium"
+            app:layout_constraintStart_toEndOf="@id/user_photo"
+            app:layout_constraintTop_toTopOf="@id/user_photo"/>
+
+        <TextView
+            android:id="@+id/message_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/scale_12dp"
-            android:text="Hello! I have some questions about ..."
+            android:text="@{DateExtensionKt.toFullDate(item.messages.get(0).dateTime, context)}"
+            tools:text="teasdasda sda"
+            android:textSize="@dimen/scale_11dp"
             android:textColor="@color/darkGray"
-            android:fontFamily="@font/poppins_regular" />
+            android:fontFamily="@font/poppins_regular"
+            app:layout_constraintStart_toEndOf="@id/user_name"
+            app:layout_constraintBaseline_toBaselineOf="@id/user_name"
+            android:layout_marginStart="4dp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/scale_12dp"
+            android:text="@{item.messages.get(0).text.toString()}"
+            tools:text="sadasdas"
+            android:textColor="@color/darkGray"
+            android:fontFamily="@font/poppins_regular"
+            app:layout_constraintTop_toBottomOf="@id/user_name"
+            app:layout_constraintStart_toStartOf="@id/user_name"
+            app:layout_constraintEnd_toStartOf="@id/new_message"/>
 
-    <ImageView
-        android:id="@+id/newMessagge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_orange_dot"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/new_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_orange_dot"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/scale_4dp"
+            android:visibility="@{item.unreadMessages > 0 ? View.VISIBLE : View.GONE}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

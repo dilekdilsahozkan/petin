@@ -40,7 +40,10 @@
             android:name=".notification.presentation.ui.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".message.presentation.ui.MessageActivity"
+            android:name=".message.presentation.ui.MessageDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".message.presentation.ui.MessageUserSearchActivity"
             android:exported="false" />
         <activity
             android:name=".newPost.presentation.ui.NewPostActivity"

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ChatMessageOutgoingCard" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Outgoing.Cut</item>
+        <item name="cardBackgroundColor">@color/mainColor</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Outgoing.Cut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/scale_24dp</item>
+        <item name="cornerSizeTopLeft">@dimen/scale_24dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/scale_24dp</item>
+    </style>
+
+    <style name="ChatMessageIncomingCard" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Incoming.Cut</item>
+        <item name="cardBackgroundColor">@color/grayBackground</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Incoming.Cut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/scale_24dp</item>
+        <item name="cornerSizeTopLeft">@dimen/scale_24dp</item>
+        <item name="cornerSizeBottomRight">@dimen/scale_24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+</resources>

@@ -27,8 +27,8 @@ data class ContentDto(
 ): BaseDto()
 
 data class LocationDto(
-    val latitude: Int? = null,
-    val longitude: Int? = null,
+    val latitude: Float? = null,
+    val longitude: Float? = null,
     val city: String? = null,
     val district: String? = null
 ): BaseDto()
