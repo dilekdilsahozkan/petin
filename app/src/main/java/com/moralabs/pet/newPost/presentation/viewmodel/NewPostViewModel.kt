@@ -9,6 +9,7 @@ import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.domain.NewPostUseCase
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
+import com.moralabs.pet.profile.data.remote.dto.UserDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -23,6 +24,7 @@ class NewPostViewModel @Inject constructor(
 ) : BaseViewModel<CreatePostDto>(useCase) {
 
     var files: MutableLiveData<MutableList<File>> = MutableLiveData(mutableListOf())
+    var userInfo: MutableLiveData<UserDto> =  MutableLiveData()
 
     fun createPost(createNewPost: NewPostDto) {
         viewModelScope.launch {

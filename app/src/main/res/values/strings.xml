@@ -31,6 +31,7 @@
     <string name="allOffers">Teklifler</string>
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
+    <string name="delete">Kaldır</string>
     <string name="accept">Kabul Et</string>
     <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
     <string name="wrongLogin">Yanlış email ya da şifre</string>
@@ -40,6 +41,7 @@
     <string name="findPartner">Arkadaş Bulma</string>
     <string name="adoption">Sahiplendirme</string>
     <string name="comment">Yorum yazınız</string>
+    <string name="comments">Yorumlar</string>
     <string name="message">Mesajlar</string>
     <string name="agreement">Sözleşme</string>
     <string name="newPost">Yeni Gönderi</string>
@@ -86,6 +88,7 @@
 
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
+    <string name="error_pet_delete">Pet silinirken bir sorun oluştu</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
 

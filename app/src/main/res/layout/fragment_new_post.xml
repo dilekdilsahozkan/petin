@@ -5,9 +5,6 @@
 
     <data>
 
-        <variable
-            name="item"
-            type="com.moralabs.pet.profile.data.remote.dto.UserInfoDto" />
 
     </data>
 
@@ -37,8 +34,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userPhoto"
                 android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@{item.media.url}" />
+                android:layout_height="44dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -52,7 +48,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="@{item.userName}"
                     android:textColor="@color/darkPrimary"
                     android:textSize="15dp"
                     app:layout_constraintStart_toEndOf="@id/otherUserPhoto" />

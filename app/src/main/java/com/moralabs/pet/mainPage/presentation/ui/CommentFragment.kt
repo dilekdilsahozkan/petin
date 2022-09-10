@@ -31,6 +31,11 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CreateCommentDto, C
         return viewModel
     }
 
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.comments))
+    }
+
      private val commentAdapter: BaseListAdapter<CommentsDto, ItemUserCommentBinding> by lazy {
         BaseListAdapter(R.layout.item_user_comment, BR.comment, onRowClick = {
 

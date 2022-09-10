@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel

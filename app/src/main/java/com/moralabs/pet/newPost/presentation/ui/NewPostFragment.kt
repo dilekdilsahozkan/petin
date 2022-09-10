@@ -16,7 +16,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
-import com.moralabs.pet.core.data.remote.dto.LocationDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
@@ -24,7 +23,6 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentNewPostBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
@@ -100,6 +98,10 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
             binding.postImage.isVisible = it.size > 0
 
+        }
+        viewModel.userInfo.observe(viewLifecycleOwner){ user ->
+            binding.userPhoto.loadImage(user.media?.url)
+            binding.userName.text = user.userName
         }
     }
 

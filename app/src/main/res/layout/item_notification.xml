@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt"/>
+
         <variable
             name="item"
             type="com.moralabs.pet.notification.data.remote.dto.NotificationDto" />
@@ -14,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/scale_16dp"
+        android:layout_marginBottom="@dimen/scale_16dp"
         android:clickable="true">
 
         <LinearLayout
@@ -56,7 +58,7 @@
                         android:id="@+id/notificationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="commented your post"
+                        android:text="@{item.text}"
                         android:textSize="13dp"
                         android:textColor="@color/darkGray"
                         android:fontFamily="@font/poppins_regular"
@@ -68,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/scale_12dp"
-                    android:text="16:24"
+                    android:text="@{DateExtensionKt.toFullDate(item.dateTime, context)}"
                     android:textColor="@color/darkGray"
                     android:fontFamily="@font/poppins_regular" />
 

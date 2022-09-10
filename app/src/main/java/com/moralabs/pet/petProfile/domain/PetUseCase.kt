@@ -42,4 +42,14 @@ class PetUseCase @Inject constructor(
             }
         }
     }
+
+    fun deletePet(petId : String?): Flow<BaseResult<Boolean>>  {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    petRepository.deletePet(petId).isSuccessful
+                )
+            )
+        }
+    }
 }
