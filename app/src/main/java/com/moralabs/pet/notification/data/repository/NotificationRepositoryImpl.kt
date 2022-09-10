@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class NotificationRepositoryImpl @Inject constructor(private val service: NotificationService) :
     NotificationRepository, BaseRepository {
-    override suspend fun notificationPet(): Response<BaseResponse<NotificationDto>> =
+    override suspend fun notificationPet(): Response<BaseResponse<List<NotificationDto>>> =
         service.notificationPet()
 
-    override suspend fun notificationDateTime(): Response<BaseResponse<NotificationDto>> =
-        service.notificationDateTime()
+    override suspend fun notificationDateTime(dateTime : String?): Response<BaseResponse<List<NotificationDto>>> =
+        service.notificationDateTime(dateTime)
 }

@@ -74,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_qna"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -81,13 +82,15 @@
                 <TextView
                     android:id="@+id/postTypeText"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_regular"
                     android:includeFontPadding="false"
                     android:text=""
                     android:textColor="@color/darkPrimary"
                     android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@id/postIcon"
                     tools:text="Soru - Cevap" />
 

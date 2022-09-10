@@ -113,20 +113,14 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         }
         if (postType == TabTextType.QAN_TYPE.type) {
             binding.petChooseLinear.visibility = View.GONE
-           /* binding.postIcon.setImageResource(R.drawable.ic_qna)
-            binding.postText.text = getString(R.string.qna)*/
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petChooseLinear.visibility = View.VISIBLE
-           /* binding.postIcon.setImageResource(R.drawable.ic_partner)
-            binding.postText.text = getString(R.string.findPartner)*/
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petChooseLinear.visibility = View.VISIBLE
-            /*binding.postIcon.setImageResource(R.drawable.ic_adoption)
-            binding.postText.text = getString(R.string.adoption)*/
         }
     }
 

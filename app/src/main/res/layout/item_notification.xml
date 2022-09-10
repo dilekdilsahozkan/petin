@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="item"
             type="com.moralabs.pet.notification.data.remote.dto.NotificationDto" />

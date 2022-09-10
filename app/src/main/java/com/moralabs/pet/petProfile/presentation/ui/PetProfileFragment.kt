@@ -48,7 +48,6 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         super.onViewCreated(view, savedInstanceState)
 
         binding.attributeRecycler.adapter = attributeAdapter
-        addObservers()
     }
 
     override fun addListeners() {

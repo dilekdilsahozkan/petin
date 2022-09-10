@@ -12,17 +12,9 @@ class NotificationUseCase @Inject constructor(
     private val notificationRepository: NotificationRepository
 ) : BaseUseCase() {
 
-    fun notificationPet(): Flow<BaseResult<NotificationDto>> {
+    fun notificationPet(): Flow<BaseResult<List<NotificationDto>>>{
         return flow {
-            var notification = notificationRepository.notificationPet().body().let {
-                NotificationDto(
-                    text = it?.data?.text,
-                    type = it?.data?.type,
-                    contentId = it?.data?.contentId,
-                    dateTime = it?.data?.dateTime,
-                    pageIndex = it?.data?.pageIndex
-                )
-            }
+            var notification = notificationRepository.notificationPet().body()?.data ?: listOf()
             emit(
                 BaseResult.Success(
                     notification
@@ -31,17 +23,9 @@ class NotificationUseCase @Inject constructor(
         }
     }
 
-    fun notificationDateTime(): Flow<BaseResult<NotificationDto>> {
+    fun notificationDateTime(dateTime : String?): Flow<BaseResult<List<NotificationDto>>> {
         return flow {
-            var notificationTime = notificationRepository.notificationDateTime().body().let {
-                NotificationDto(
-                    text = it?.data?.text,
-                    type = it?.data?.type,
-                    contentId = it?.data?.contentId,
-                    dateTime = it?.data?.dateTime,
-                    pageIndex = it?.data?.pageIndex
-                )
-            }
+            var notificationTime = notificationRepository.notificationDateTime(dateTime).body()?.data ?: listOf()
             emit(
                 BaseResult.Success(
                     notificationTime

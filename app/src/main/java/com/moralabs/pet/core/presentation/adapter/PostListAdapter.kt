@@ -103,20 +103,21 @@ class PostListAdapter(
             if (pet.content?.location?.city.isNullOrEmpty()) {
                 binding.location.visibility = View.GONE
             } else {
-                binding.petImage.visibility = View.VISIBLE
+                binding.location.visibility = View.VISIBLE
                 binding.location.text = pet.content?.location?.city.toString()
             }
 
             if (pet.content?.media.isNullOrEmpty()) {
                 binding.postImage.visibility = View.GONE
             } else {
-                binding.petImage.visibility = View.VISIBLE
+                binding.postImage.visibility = View.VISIBLE
                 binding.postImage.loadImage(pet.content?.media?.get(0)?.url)
             }
 
             when (pet.content?.type) {
                 0 -> {
-                    binding.postType.visibility = View.GONE
+                    binding.postIcon.setImageResource(R.drawable.ic_posts)
+                    binding.postTypeText.text = context.getString(R.string.post)
                     binding.postContentLinear.visibility = View.VISIBLE
                     binding.postContent2Linear.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
@@ -134,7 +135,7 @@ class PostListAdapter(
                 }
                 2 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_partner)
-                    binding.postTypeText.text = context.getString(R.string.adoption)
+                    binding.postTypeText.text = context.getString(R.string.findPartner)
                     binding.postContentLinear.visibility = View.GONE
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
