@@ -15,6 +15,7 @@ import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.presentation.BaseViewModel
@@ -72,6 +73,8 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     override fun addListeners() {
         super.addListeners()
 
+        viewModel.petValue()
+
         binding.toolbar.publishText.setOnClickListener {
             val pet = petCardAdapter.currentList?.filter { it.selected }?.firstOrNull()
             viewModel.createPost(
@@ -84,10 +87,12 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
             startActivity(Intent(context, MainPageActivity::class.java))
         }
 
-        viewModel.petValue()
-
         binding.toolbar.imgClose.setOnClickListener {
             startActivity(Intent(context, MainPageActivity::class.java))
+        }
+
+        binding.locationIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_post_to_addLocationFragment)
         }
 
         binding.galleryIcon.setOnClickListener {

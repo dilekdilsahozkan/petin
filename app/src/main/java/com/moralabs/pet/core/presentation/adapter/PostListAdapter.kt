@@ -87,12 +87,6 @@ class PostListAdapter(
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.petName.text = pet.content?.pet?.name
 
-            if (binding.likeIcon.isSelected) {
-                binding.likeIcon.setBackgroundResource(R.drawable.ic_like_orange)
-            } else {
-                binding.likeIcon.setBackgroundResource(R.drawable.ic_like)
-            }
-
             if (pet.content?.pet?.media?.url.isNullOrEmpty()) {
                 binding.petImage.visibility = View.GONE
             } else {
@@ -116,7 +110,7 @@ class PostListAdapter(
 
             when (pet.content?.type) {
                 0 -> {
-                    binding.postIcon.setImageResource(R.drawable.ic_posts)
+                    binding.postIcon.setImageResource(R.drawable.ic_post)
                     binding.postTypeText.text = context.getString(R.string.post)
                     binding.postContentLinear.visibility = View.VISIBLE
                     binding.postContent2Linear.visibility = View.GONE

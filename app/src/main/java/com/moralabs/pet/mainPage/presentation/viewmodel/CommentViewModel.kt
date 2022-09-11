@@ -18,9 +18,9 @@ class CommentViewModel @Inject constructor(
     private val useCase: CommentUseCase
 ) : BaseViewModel<CreateCommentDto>(useCase) {
 
-    fun writeComment(postId: String?, writeNewComment: CommentRequestDto) {
+    fun writeComments(postId: String?, comment: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
-            useCase.writeComment(postId, writeNewComment)
+            useCase.writeComment(postId, CommentRequestDto(text = comment))
                 .onStart {
                     _state.value = ViewState.Loading()
                 }
@@ -29,8 +29,13 @@ class CommentViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            onSuccess()
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(message = baseResult.error.message)
+                        }
                     }
                 }
         }

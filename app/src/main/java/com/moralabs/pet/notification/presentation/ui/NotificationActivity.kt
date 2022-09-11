@@ -10,12 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class NotificationActivity : BaseActivity<ActivityNotificationBinding>(),
     PetToolbarListener {
 
-    companion object {
-        const val NOTIFICATION_TEXT = "text"
-        const val NOTIFICATION_TYPE = "type"
-        const val NOTIFICATION_DATETIME = "dateTime"
-    }
-
     override fun getLayoutId() = R.layout.activity_notification
     
 }

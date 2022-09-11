@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/scale_16dp">
+        android:padding="@dimen/scale_16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/userInfo"

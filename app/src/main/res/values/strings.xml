@@ -63,6 +63,7 @@
     <string name="breed">Tür</string>
     <string name="gender">Cinsiyet</string>
     <string name="age">Yaş</string>
+    <string name="chooseLocation">Konum Seçiniz</string>
     <string name="addPhoto">Fotoğraf Ekleyiniz</string>
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>

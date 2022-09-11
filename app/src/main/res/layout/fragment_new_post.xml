@@ -163,13 +163,6 @@
                     android:layout_marginStart="@dimen/scale_20dp"
                     android:src="@drawable/ic_location" />
 
-                <ImageView
-                    android:id="@+id/petHouseIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/scale_20dp"
-                    android:src="@drawable/ic_pet_house" />
-
             </androidx.appcompat.widget.Toolbar>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

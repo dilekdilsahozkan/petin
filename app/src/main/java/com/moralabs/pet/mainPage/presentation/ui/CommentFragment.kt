@@ -5,15 +5,15 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
-import com.moralabs.pet.core.data.remote.dto.CommentDto
 import com.moralabs.pet.core.data.remote.dto.CommentsDto
 import com.moralabs.pet.core.data.remote.dto.CreateCommentDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
+import com.moralabs.pet.core.presentation.extension.hideKeyboard
+import com.moralabs.pet.core.presentation.extension.isNotEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentCommentBinding
 import com.moralabs.pet.databinding.ItemUserCommentBinding
-import com.moralabs.pet.mainPage.data.remote.dto.CommentRequestDto
 import com.moralabs.pet.mainPage.presentation.viewmodel.CommentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,32 +36,31 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CreateCommentDto, C
         toolbarListener?.showTitleText(getString(R.string.comments))
     }
 
-     private val commentAdapter: BaseListAdapter<CommentsDto, ItemUserCommentBinding> by lazy {
-        BaseListAdapter(R.layout.item_user_comment, BR.comment, onRowClick = {
-
-        }, isSameDto = {oldItem, newItem ->
-            true
-        })
+    private val commentAdapter: BaseListAdapter<CommentsDto, ItemUserCommentBinding> by lazy {
+        BaseListAdapter(R.layout.item_user_comment, BR.comment)
     }
 
     override fun addListeners() {
         super.addListeners()
 
-        binding.commentSend.setOnClickListener {
-            viewModel.writeComment(
-                postId,
-                CommentRequestDto(
-                    text = binding.writeComment.text.toString()
-                )
-            )
+        binding.commentSend.setEndIconOnClickListener {
+            if (binding.writeComment.text.toString().isNotEmptyOrBlank()) {
+                viewModel.writeComments(postId, binding.writeComment.text.toString()) {
+                    binding.writeComment.text = null
+                    binding.writeComment.clearFocus()
+                    hideKeyboard()
+                    viewModel.getComment(postId)
+                }
+            }
         }
-        viewModel.getComment(postId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.adapter = commentAdapter
+
+        viewModel.getComment(postId)
     }
 
     override fun stateSuccess(data: CreateCommentDto) {

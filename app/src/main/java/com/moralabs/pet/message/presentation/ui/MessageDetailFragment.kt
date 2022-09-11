@@ -70,7 +70,7 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
     override fun stateSuccess(data: ChatDto) {
         super.stateSuccess(data)
 
-        var uiList = mutableListOf<UiChatMessageDto>()
+        val uiList = mutableListOf<UiChatMessageDto>()
 
         data.messages?.groupBy {
             it.dateTime.toDbDate()

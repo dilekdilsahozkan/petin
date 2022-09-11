@@ -40,6 +40,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             onLikeClick = {
                 val postId = it.id
                 viewModel.likePost(postId)
+                viewModel.feedPost()
             },
             onCommentClick = {
                 val bundle = bundleOf(
