@@ -28,9 +28,8 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success ->
-                            _state.value = ViewState.Success(baseResult.data)
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

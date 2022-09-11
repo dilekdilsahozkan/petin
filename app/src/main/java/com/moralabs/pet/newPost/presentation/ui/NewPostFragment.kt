@@ -14,9 +14,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
@@ -28,6 +30,8 @@ import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -99,9 +103,18 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
             binding.postImage.isVisible = it.size > 0
 
         }
-        viewModel.userInfo.observe(viewLifecycleOwner){ user ->
-            binding.userPhoto.loadImage(user.media?.url)
-            binding.userName.text = user.userName
+
+        lifecycleScope.launch {
+            viewModel.getUser.collect {
+                when(it) {
+                    is ViewState.Success -> {
+                        binding.userPhoto.loadImage(it.data.media?.url)
+                        binding.userName.text = it.data.userName.toString()
+                    }
+
+                    else -> {}
+                }
+            }
         }
     }
 
@@ -109,6 +122,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         super.onViewCreated(view, savedInstanceState)
 
         binding.petCardList.adapter = petCardAdapter
+        viewModel.userInfo()
 
         if (postType == TabTextType.POST_TYPE.type) {
             binding.petChooseLinear.visibility = View.GONE

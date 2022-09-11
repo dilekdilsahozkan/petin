@@ -63,6 +63,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
                     }
                 }
             }
+            else -> {}
         }
 
     }

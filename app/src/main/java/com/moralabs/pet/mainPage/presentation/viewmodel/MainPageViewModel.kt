@@ -46,7 +46,9 @@ class MainPageViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    _state.value = ViewState.Idle()
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
                 }
         }
     }

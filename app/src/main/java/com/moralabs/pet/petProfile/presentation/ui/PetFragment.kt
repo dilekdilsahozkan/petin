@@ -15,10 +15,7 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
-import com.moralabs.pet.petProfile.presentation.adapter.PetAdapter
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -34,15 +31,17 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
     override fun getLayoutId() = R.layout.fragment_pet
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    private val petAdapter by lazy {
-       PetAdapter(
-           onPetClick = {
-
-           },
-           onDeleteClick = {
-
-           }
-       )
+    private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
+        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
+            val bundle = bundleOf(
+                PetProfileActivity.PET_ID to it.id
+            )
+            val intent = Intent(context, PetProfileActivity::class.java)
+            intent.putExtras(bundle)
+            context?.startActivity(intent)
+        }, isSameDto = { oldItem, newItem ->
+            true
+        })
     }
 
     override fun fragmentViewModel(): BaseViewModel<List<PetDto>> {

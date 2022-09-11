@@ -50,10 +50,8 @@ class PetViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success -> {
-                            _deleteState.value = ViewState.Success(baseResult.data)
-                        }
+                    if (baseResult is BaseResult.Success) {
+                        _deleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

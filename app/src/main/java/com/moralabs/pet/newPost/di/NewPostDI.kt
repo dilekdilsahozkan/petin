@@ -5,6 +5,7 @@ import com.moralabs.pet.newPost.data.repository.NewPostRepository
 import com.moralabs.pet.newPost.data.repository.NewPostRepositoryImpl
 import com.moralabs.pet.newPost.domain.NewPostUseCase
 import com.moralabs.pet.petProfile.data.repository.PetRepository
+import com.moralabs.pet.profile.data.repository.ProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +29,7 @@ class NewPostDI {
     @Provides
     @Singleton
     fun provideNewPostUseCase(
-        newPostRepository: NewPostRepository, petRepository: PetRepository
+        newPostRepository: NewPostRepository, petRepository: PetRepository, userRepository: ProfileRepository
     ): NewPostUseCase =
-        NewPostUseCase(newPostRepository, petRepository)
+        NewPostUseCase(newPostRepository, petRepository, userRepository)
 }

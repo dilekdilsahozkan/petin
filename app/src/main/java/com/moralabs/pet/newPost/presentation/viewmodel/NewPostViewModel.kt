@@ -11,9 +11,7 @@ import com.moralabs.pet.newPost.domain.NewPostUseCase
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -24,7 +22,9 @@ class NewPostViewModel @Inject constructor(
 ) : BaseViewModel<CreatePostDto>(useCase) {
 
     var files: MutableLiveData<MutableList<File>> = MutableLiveData(mutableListOf())
-    var userInfo: MutableLiveData<UserDto> =  MutableLiveData()
+
+    protected var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())
+    val getUser: StateFlow<ViewState<UserDto>> = _userInfo
 
     fun createPost(createNewPost: NewPostDto) {
         viewModelScope.launch {
@@ -57,6 +57,25 @@ class NewPostViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun userInfo() {
+        viewModelScope.launch {
+            useCase.userInfo()
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _userInfo.value = ViewState.Success(baseResult.data)
+                        _state.value = ViewState.Idle()
                     }
                 }
         }

@@ -6,13 +6,16 @@ import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.data.repository.NewPostRepository
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.repository.PetRepository
+import com.moralabs.pet.profile.data.remote.dto.UserDto
+import com.moralabs.pet.profile.data.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class NewPostUseCase @Inject constructor(
     private val newPostRepository: NewPostRepository,
-    private val petRepository: PetRepository
+    private val petRepository: PetRepository,
+    private val userRepository: ProfileRepository
 ) : BaseUseCase() {
     fun newPost(createNewPost: NewPostDto): Flow<BaseResult<CreatePostDto>> {
         return flow {
@@ -37,6 +40,16 @@ class NewPostUseCase @Inject constructor(
                     )
                 )
             )
+        }
+    }
+
+    fun userInfo(): Flow<BaseResult<UserDto>> {
+        return flow {
+            userRepository.userInfo().body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
         }
     }
 }
