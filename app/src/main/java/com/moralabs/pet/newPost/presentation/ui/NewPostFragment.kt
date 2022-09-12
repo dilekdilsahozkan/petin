@@ -112,21 +112,22 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         (viewModel as? NewPostViewModel)?.files?.observe(viewLifecycleOwner) {
 
 //            binding.postImage.isVisible = it.size > 0
-            if(it.size > 0){
+            if (it.size > 0) {
                 Glide.with(requireContext()).load(it.get(0)).into(binding.postImage)
-            }else{
+            } else {
 
-        }
+            }
 
-        lifecycleScope.launch {
-            viewModel.getUser.collect {
-                when(it) {
-                    is ViewState.Success -> {
-                        binding.userPhoto.loadImage(it.data.media?.url)
-                        binding.userName.text = it.data.userName.toString()
+            lifecycleScope.launch {
+                viewModel.getUser.collect {
+                    when (it) {
+                        is ViewState.Success -> {
+                            binding.userPhoto.loadImage(it.data.media?.url)
+                            binding.userName.text = it.data.userName.toString()
+                        }
+
+                        else -> {}
                     }
-
-                    else -> {}
                 }
             }
         }
@@ -174,7 +175,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                     return@forEach
                 }
             }
-            if(canDialogBeOpened){
+            if (canDialogBeOpened) {
                 openDialog()
             }
         }

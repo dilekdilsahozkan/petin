@@ -9,5 +9,6 @@ data class NotificationDto(
     val type: Int? = null,
     val contentId: String? = null,
     val dateTime: Long? = null,
-    val pageIndex: Int? = null
+    val pageIndex: Int? = null,
+    val isRead: Boolean? = false
 ) : BaseDto()
