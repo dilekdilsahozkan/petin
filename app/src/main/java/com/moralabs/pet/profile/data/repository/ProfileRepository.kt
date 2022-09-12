@@ -6,4 +6,5 @@ import retrofit2.Response
 
 interface ProfileRepository {
     suspend fun userInfo(): Response<BaseResponse<UserDto>>
+    suspend fun otherUsersInfo(userId: String?): Response<BaseResponse<UserDto>>
 }

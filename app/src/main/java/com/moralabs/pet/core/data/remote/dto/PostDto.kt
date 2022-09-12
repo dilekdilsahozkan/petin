@@ -14,6 +14,7 @@ data class PostDto(
     val commentCount: Int? = null,
     val offerCount: Int? = null,
     val isPostLikedByUser: Boolean? = null,
+    val isPostOwnedByUser: Boolean? = null,
     val pageIndex: Int? = null,
     var selected: Boolean = false
 ): BaseDto()
@@ -56,5 +57,6 @@ data class CommentsDto(
     val text: String? = null,
     val likeCount: Int? = null,
     val isCommentLikedByUser: Boolean? = null,
+    val isCommentOwnedByUser: Boolean? = null,
     val pageIndex: Int? = null
 ): BaseDto()

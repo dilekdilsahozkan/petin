@@ -21,4 +21,16 @@ class ProfilePostUseCase @Inject constructor(
             )
         }
     }
+
+    fun getPostAnotherUser(userId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    postRepository.getPostAnotherUser(userId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+
 }

@@ -1,7 +1,9 @@
 package com.moralabs.pet.mainPage.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
@@ -15,6 +17,7 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentCommentBinding
 import com.moralabs.pet.databinding.ItemUserCommentBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.CommentViewModel
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +40,16 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CreateCommentDto, C
     }
 
     private val commentAdapter: BaseListAdapter<CommentsDto, ItemUserCommentBinding> by lazy {
-        BaseListAdapter(R.layout.item_user_comment, BR.comment)
+        BaseListAdapter(R.layout.item_user_comment, BR.comment, onRowClick = {
+            if (it.isCommentOwnedByUser != true) {
+                val bundle = bundleOf(
+                    ProfileActivity.OTHER_USER_ID to it.user?.userId
+                )
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
+            }
+        })
     }
 
     override fun addListeners() {

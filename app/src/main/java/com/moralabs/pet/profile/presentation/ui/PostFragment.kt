@@ -19,6 +19,9 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
     override fun getLayoutId() = R.layout.fragment_post
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+    private val otherUserId: String? by lazy {
+        activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
+    }
 
     override fun fragmentViewModel(): BaseViewModel<List<PostDto>> {
         val viewModel: ProfilePostViewModel by viewModels()
@@ -35,6 +38,8 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
             onCommentClick = {
             },
             onOfferUserClick = {
+            },
+            onUserPhotoClick = {
             }
         )
     }
@@ -44,7 +49,12 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
         binding.recyclerview.adapter = postAdapter
 
-        viewModel.profilePost()
+        if(!otherUserId.isNullOrEmpty()){
+            viewModel.getPostAnotherUser(otherUserId)
+        }
+        else {
+            viewModel.profilePost()
+        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {
