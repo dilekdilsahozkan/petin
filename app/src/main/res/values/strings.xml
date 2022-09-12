@@ -93,4 +93,6 @@
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
 
+    <string name="delete">Sil</string>
+
 </resources>

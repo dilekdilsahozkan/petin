@@ -77,26 +77,60 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/explanationText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scale_16dp"
-            android:background="@color/white"
-            android:fontFamily="@font/poppins_regular"
+            android:minHeight="100dp"
             android:hint="@string/explanation"
-            android:imeOptions="actionDone"
-            android:inputType="textMultiLine"
-            android:textSize="@dimen/scale_15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userInfoLinear" />
+            app:layout_constraintTop_toBottomOf="@id/userInfo">
 
-        <ImageView
-            android:id="@+id/postImage"
+            <EditText
+                android:id="@+id/explanationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_16dp"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:textSize="@dimen/scale_15dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPostImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
+            app:cardCornerRadius="@dimen/scale_8dp"
+            android:layout_marginHorizontal="@dimen/scale_16dp"
+            android:layout_marginTop="@dimen/scale_8dp"
+            app:cardElevation="@dimen/scale_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explanationText" />
+            app:layout_constraintTop_toBottomOf="@id/tl_explanation">
+
+            <ImageView
+                android:id="@+id/postImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:src="@drawable/ic_filter"
+            android:background="@color/softOrange"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@+id/cardPostImage"
+            app:layout_constraintEnd_toEndOf="@id/cardPostImage"
+            app:tint="@color/black" />
 
         <LinearLayout
             android:id="@+id/petChooseLinear"
@@ -104,8 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explanationText">
+            app:layout_constraintTop_toBottomOf="@id/tl_explanation">
 
             <TextView
                 android:layout_width="match_parent"
