@@ -14,8 +14,7 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
         private const val USER_KEY = "user"
     }
 
-    private var authentication: AuthenticationDto? = null
-    private var _user: UserDto = UserDto()
+    private var _authentication: AuthenticationDto? = null
 
     private val preferences by lazy {
         context?.let {
@@ -33,43 +32,44 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
 
     init {
         preferences?.getString(USER_KEY, null)?.let {
-            authentication = Gson().fromJson(it, AuthenticationDto::class.java)
+            _authentication = Gson().fromJson(it, AuthenticationDto::class.java)
         }
 
-        if(authentication == null) {
-            authentication = AuthenticationDto()
+        if(_authentication == null) {
+            _authentication = AuthenticationDto()
 
-            preferences?.edit()?.putString(USER_KEY, Gson().toJson(authentication))?.commit()
+            preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }
     }
 
     override fun isLoggedIn(): Boolean {
-        return authentication?.bearerKey != null
+        return _authentication?.bearerKey != null
     }
 
     override fun logout(): Boolean {
-        authentication?.apply {
+        _authentication?.apply {
             this.bearerKey = null
+            this.userId = null
 
-            preferences?.edit()?.putString(USER_KEY, Gson().toJson(authentication))?.commit()
+            preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }
 
         return true
     }
 
-    override fun login(bearerToken: String): Boolean {
-        authentication?.apply {
+    override fun login(userId: String?, bearerToken: String): Boolean {
+        _authentication?.apply {
             this.bearerKey = bearerToken
 
-            preferences?.edit()?.putString(USER_KEY, Gson().toJson(authentication))?.commit()
+            preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }
 
         return true
     }
 
-    override fun getUser() = _user
+    override fun getAuthentication() = _authentication
 
-    override fun requestHeaders() = authentication?.let {
+    override fun requestHeaders() = _authentication?.let {
         hashMapOf(
             "Authorization" to if(it.bearerKey == null) null else "Bearer ${it.bearerKey}",
             "Accept-Language" to it.language,

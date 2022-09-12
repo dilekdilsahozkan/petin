@@ -13,9 +13,12 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.extension.toFullDate
 import com.moralabs.pet.databinding.*
+import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
+import javax.inject.Inject
 
 class PostListAdapter(
-    private val onOfferClick: (post: PostDto) -> Unit,
+    private val getUserId: (() -> String)? = null,
+    private val onOfferClick: ((post: PostDto) -> Unit)? = null,
     private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
     private val onOfferUserClick: (post: PostDto) -> Unit,
@@ -57,12 +60,13 @@ class PostListAdapter(
             binding.likeIcon.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onLikeClick.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
                 }
             }
 
             binding.offerButton.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onOfferClick.invoke(getItem(bindingAdapterPosition))
+                    onOfferClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
 
@@ -86,6 +90,14 @@ class PostListAdapter(
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.petName.text = pet.content?.pet?.name
+
+            val userId = getUserId?.invoke()
+
+             if(pet.user?.userId.toString() == userId.toString()) {
+                 binding.offerButton.visibility = View.GONE
+             } else {
+                 binding.offerButton.visibility = View.VISIBLE
+             }
 
             if (pet.content?.pet?.media?.url.isNullOrEmpty()) {
                 binding.petImage.visibility = View.GONE
@@ -116,7 +128,8 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
 
-                    binding.empty.visibility = if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    binding.empty.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
                 1 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_qna)
@@ -125,7 +138,8 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
 
-                    binding.empty.visibility = if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    binding.empty.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
                 2 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_partner)
@@ -134,7 +148,8 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
 
-                    binding.empty2.visibility = if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    binding.empty2.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
                 3 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_adoption)
@@ -143,7 +158,8 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
 
-                    binding.empty2.visibility = if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    binding.empty2.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
             }
         }

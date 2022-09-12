@@ -44,11 +44,6 @@ data class CommentDto(
     val pageIndex: Int? = null
 ): BaseDto()
 
-data class CreateCommentDto(
-    val commentValue: List<CommentDto>? = null,
-    val userCommentValue: CommentDto? = null
-): BaseDto()
-
 data class CommentsDto(
     val id: String = "",
     val user: UserInfoDto? = null,

@@ -2,7 +2,7 @@ package com.moralabs.pet.mainPage.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.moralabs.pet.core.data.remote.dto.CreateCommentDto
+import com.moralabs.pet.core.data.remote.dto.CommentDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CommentViewModel @Inject constructor(
     private val useCase: CommentUseCase
-) : BaseViewModel<CreateCommentDto>(useCase) {
+) : BaseViewModel<CommentDto>(useCase) {
 
     fun writeComments(postId: String?, comment: String, onSuccess: () -> Unit) {
         viewModelScope.launch {

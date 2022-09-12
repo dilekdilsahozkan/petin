@@ -1,6 +1,6 @@
 package com.moralabs.pet.mainPage.domain
 
-import com.moralabs.pet.core.data.remote.dto.CreateCommentDto
+import com.moralabs.pet.core.data.remote.dto.CommentDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.mainPage.data.remote.dto.CommentRequestDto
@@ -16,30 +16,23 @@ class CommentUseCase @Inject constructor(
     fun writeComment(
         postId: String?,
         writeNewComment: CommentRequestDto
-    ): Flow<BaseResult<CreateCommentDto>> {
+    ): Flow<BaseResult<CommentDto>> {
         return flow {
-            val commentValue =
-                commentRepository.writeComment(postId, writeNewComment).body()?.data ?: listOf()
-            emit(
-                BaseResult.Success(
-                    CreateCommentDto(
-                        commentValue = commentValue
-                    )
-                )
-            )
+                commentRepository.writeComment(postId, writeNewComment).body()?.data?.let {
+                    emit(BaseResult.Success(it))
+                }
+
         }
     }
 
-    fun getComments(postId: String?): Flow<BaseResult<CreateCommentDto>> {
+    fun getComments(postId: String?): Flow<BaseResult<CommentDto>> {
         return flow {
-            val userCommentValue = commentRepository.getComment(postId).body()?.data
-            emit(
-                BaseResult.Success(
-                    CreateCommentDto(
-                        userCommentValue = userCommentValue
-                    )
-                )
-            )
+             commentRepository.getComment(postId).body()?.data?.let {
+                 emit(
+                     BaseResult.Success(it)
+                 )
+             }
+
         }
     }
 }

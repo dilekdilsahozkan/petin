@@ -7,5 +7,6 @@ data class LoginDto (
     val refreshToken: String? = null,
     val accessTokenExpiration: String? = null,
     val refreshTokenExpiration: String? = null,
-    val tokenType: String? = null
+    val tokenType: String? = null,
+    val userId: String? = null
 ): BaseDto()

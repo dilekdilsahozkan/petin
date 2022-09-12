@@ -15,9 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfilePostViewModel @Inject constructor(
     private val useCase: ProfilePostUseCase
-): BaseViewModel<List<PostDto>>(useCase){
+) : BaseViewModel<List<PostDto>>(useCase) {
 
-    fun profilePost(){
+    fun profilePost() {
         viewModelScope.launch {
             useCase.profilePost()
                 .onStart {
@@ -34,4 +34,25 @@ class ProfilePostViewModel @Inject constructor(
                 }
         }
     }
+
+    fun likePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.likePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
+
+    fun getUserId() = useCase.authentication()?.userId.toString()
+
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pet="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt"/>
+        <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt" />
 
         <variable
             name="item"
@@ -16,8 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/scale_16dp"
-        android:clickable="true">
+        android:layout_marginBottom="@dimen/scale_16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,63 +28,47 @@
                 android:id="@+id/userPhoto"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:src="@drawable/user"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                pet:src="@{item.userMedia.url}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="@dimen/scale_15dp"
+                android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/notificationText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/userNameSurname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dilşah Özkan"
-                        android:textColor="@color/darkPrimary"
-                        android:textSize="@dimen/scale_15dp"
-                        android:fontFamily="@font/poppins_medium"/>
-
-                    <TextView
-                        android:id="@+id/notificationText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{item.text}"
-                        android:textSize="13dp"
-                        android:textColor="@color/darkGray"
-                        android:fontFamily="@font/poppins_regular"
-                        android:layout_marginStart="4dp"/>
-                </LinearLayout>
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{item.text}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/scale_13dp" />
 
                 <TextView
                     android:id="@+id/notificationTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/scale_12dp"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@{DateExtensionKt.toFullDate(item.dateTime, context)}"
                     android:textColor="@color/darkGray"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:textSize="@dimen/scale_12dp" />
 
             </LinearLayout>
-        </LinearLayout>
 
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/newNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_orange_dot"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
