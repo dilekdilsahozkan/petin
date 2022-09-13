@@ -4,6 +4,7 @@ import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.data.repository.PostRepository
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,6 +21,14 @@ class MainPageUseCase @Inject constructor(
                     postRepository.getFeed().body()?.data ?: listOf()
                 )
             )
+        }
+    }
+
+    fun getPetProfile(petId: String?, userId: String?): Flow<BaseResult<PetDto>> {
+        return flow {
+            postRepository.getPetProfile(petId, userId).body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
         }
     }
 

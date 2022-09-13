@@ -3,6 +3,7 @@ package com.moralabs.pet.core.data.remote.api
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -32,6 +33,9 @@ interface FeedService {
 
     @GET("/feed/post/user/{userId}")
     suspend fun getPostAnotherUser(): Response<BaseResponse<PostDto>>
+
+    @GET("/pet/{petId}/user/{userId}")
+    suspend fun getPetProfile(@Path("petId") petId: String?, @Path("userId") userId: String?): Response<BaseResponse<PetDto>>
 
     // beğenilen gönderiler
     @GET("/feed/liked")

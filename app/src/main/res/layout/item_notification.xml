@@ -4,6 +4,7 @@
     xmlns:pet="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt" />
 
@@ -66,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_orange_dot"
+            android:visibility="@{item.isRead == true ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

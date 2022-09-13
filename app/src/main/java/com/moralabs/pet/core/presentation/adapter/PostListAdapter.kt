@@ -19,6 +19,7 @@ import javax.inject.Inject
 class PostListAdapter(
     private val getUserId: (() -> String)? = null,
     private val onOfferClick: ((post: PostDto) -> Unit)? = null,
+    private val onPetProfile: (post: PostDto) -> Unit,
     private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
     private val onOfferUserClick: (post: PostDto) -> Unit,
@@ -54,6 +55,13 @@ class PostListAdapter(
             binding.postCommentLinear.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onCommentClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.petImage.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onPetProfile.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
                 }
             }
 
@@ -95,8 +103,12 @@ class PostListAdapter(
 
              if(pet.user?.userId.toString() == userId.toString()) {
                  binding.offerButton.visibility = View.GONE
+                 binding.postType.visibility = View.GONE
+                 binding.postSetting.visibility = View.VISIBLE
              } else {
                  binding.offerButton.visibility = View.VISIBLE
+                 binding.postType.visibility = View.VISIBLE
+                 binding.postSetting.visibility = View.GONE
              }
 
             if (pet.content?.pet?.media?.url.isNullOrEmpty()) {

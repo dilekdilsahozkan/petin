@@ -33,6 +33,9 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
             getUserId = {
                 viewModel.getUserId()
             },
+            onPetProfile = {
+
+            },
             onLikeClick = {
                 val postId = it.id
                 viewModel.likePost(postId)
