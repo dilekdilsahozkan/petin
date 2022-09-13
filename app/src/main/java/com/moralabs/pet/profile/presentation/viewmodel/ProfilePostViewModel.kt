@@ -73,6 +73,21 @@ class ProfilePostViewModel @Inject constructor(
         }
     }
 
-    fun getUserId() = useCase.authentication()?.userId.toString()
-
+    fun unlikePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.unlikePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
 }

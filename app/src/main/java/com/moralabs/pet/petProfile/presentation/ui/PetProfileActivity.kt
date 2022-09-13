@@ -8,7 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PetProfileActivity : BaseActivity<ActivityPetProfileBinding>() {
 
-    companion object{
+    companion object {
         const val PET_ID = "petId"
         const val OTHER_USER_ID = "otherUserId"
     }

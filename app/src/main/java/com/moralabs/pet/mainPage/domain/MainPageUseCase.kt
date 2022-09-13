@@ -24,19 +24,21 @@ class MainPageUseCase @Inject constructor(
         }
     }
 
-    fun getPetProfile(petId: String?, userId: String?): Flow<BaseResult<PetDto>> {
-        return flow {
-            postRepository.getPetProfile(petId, userId).body()?.data?.let {
-                emit(BaseResult.Success(it))
-            }
-        }
-    }
-
     fun likePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
         return flow {
             emit(
                 BaseResult.Success(
                     postRepository.likePost(postId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+    fun unlikePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    postRepository.unlikePost(postId).body()?.data ?: listOf()
                 )
             )
         }

@@ -70,8 +70,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 pet.selected = pet == selected
             }
             petCardAdapter.notifyDataSetChanged()
-        }, isSameDto = { oldItem, newItem ->
-            true
         })
     }
 

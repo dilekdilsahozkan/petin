@@ -34,8 +34,6 @@ class ProfilePostUseCase @Inject constructor(
         }
     }
 
-
-
     fun likePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
         return flow {
             emit(
@@ -46,5 +44,13 @@ class ProfilePostUseCase @Inject constructor(
         }
     }
 
-    fun authentication() = authenticationRepository.getAuthentication()
+    fun unlikePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    postRepository.unlikePost(postId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
 }

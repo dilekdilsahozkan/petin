@@ -51,7 +51,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 context?.startActivity(intent)
             },
             onPetProfile = {
-             //    viewModel.getPetProfile(petId, userId)
+                if (it.isPostOwnedByUser != true) {
+                    val bundle = bundleOf(
+                        PetProfileActivity.PET_ID to it.content?.pet?.id,
+                        PetProfileActivity.OTHER_USER_ID to it.user?.userId
+                    )
+                    val intent = Intent(context, PetProfileActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
             },
             onLikeClick = {
                 val postId = it.id
@@ -66,12 +74,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 context?.startActivity(intent)
             },
             onOfferUserClick = {
-                val bundle = bundleOf(
-                    OfferUserActivity.POST_ID to it.id
-                )
-                val intent = Intent(context, OfferUserActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
+                if (it.isPostOwnedByUser == true) {
+                    val bundle = bundleOf(
+                        OfferUserActivity.POST_ID to it.id
+                    )
+                    val intent = Intent(context, OfferUserActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
             },
             onUserPhotoClick = {
                 if (it.isPostOwnedByUser != true) {
@@ -92,27 +102,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         binding.recyclerview.adapter = postAdapter
 
         viewModel.feedPost()
-    }
-
-    override fun addObservers() {
-        super.addObservers()
-
-        lifecycleScope.launch {
-            viewModel.getPetState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        startActivity(Intent(context, PetProfileActivity::class.java))
-                    }
-                    is ViewState.Error<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.error_decline_offer), Toast.LENGTH_LONG).show()
-                        stopLoading()
-                    }
-                }
-            }
-        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {

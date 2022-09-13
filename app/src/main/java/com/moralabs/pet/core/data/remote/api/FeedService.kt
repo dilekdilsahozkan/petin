@@ -25,11 +25,11 @@ interface FeedService {
 
     // gönderi beğenme
     @POST("/feed/post/{postId}/like")
-    suspend fun likePost(@Path("postId") postId: String?): Response<BaseResponse<List<PostDto>>>
+    suspend fun likePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>
 
     // gönderi beğenmesini geri çekme
     @PATCH("/feed/post/{postId}/unlike")
-    suspend fun unlikePost(@Path("postId") postId: String?): Response<BaseResponse<List<PostDto>>>
+    suspend fun unlikePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>
 
     @GET("/feed/post/user/{userId}")
     suspend fun getPostAnotherUser(@Path("userId") userId: String?): Response<BaseResponse<List<PostDto>>>

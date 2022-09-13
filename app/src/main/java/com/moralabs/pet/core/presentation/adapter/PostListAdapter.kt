@@ -13,11 +13,8 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.extension.toFullDate
 import com.moralabs.pet.databinding.*
-import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
-import javax.inject.Inject
 
 class PostListAdapter(
-    private val getUserId: (() -> String)? = null,
     private val onOfferClick: ((post: PostDto) -> Unit)? = null,
     private val onPetProfile: (post: PostDto) -> Unit,
     private val onLikeClick: (post: PostDto) -> Unit,
@@ -104,18 +101,25 @@ class PostListAdapter(
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.petName.text = pet.content?.pet?.name
+     /*       binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.type == 6.toString().toInt() }?.get(0)?.choice
+            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.type == 7.toString().toInt() }?.get(0)?.choice
+            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.type == 8.toString().toInt() }?.get(0)?.choice*/
 
-            val userId = getUserId?.invoke()
+            if (pet.isPostLikedByUser == true) {
+                binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.ic_like)
+            }
 
-             if(pet.user?.userId.toString() == userId.toString()) {
-                 binding.offerButton.visibility = View.GONE
-                 binding.postType.visibility = View.GONE
-                 binding.postSetting.visibility = View.VISIBLE
-             } else {
-                 binding.offerButton.visibility = View.VISIBLE
-                 binding.postType.visibility = View.VISIBLE
-                 binding.postSetting.visibility = View.GONE
-             }
+            if (pet.isPostOwnedByUser == true) {
+                binding.offerButton.visibility = View.GONE
+                binding.postType.visibility = View.GONE
+                binding.postSetting.visibility = View.VISIBLE
+            } else {
+                binding.offerButton.visibility = View.VISIBLE
+                binding.postType.visibility = View.VISIBLE
+                binding.postSetting.visibility = View.GONE
+            }
 
             if (pet.content?.pet?.media?.url.isNullOrEmpty()) {
                 binding.petImage.visibility = View.GONE

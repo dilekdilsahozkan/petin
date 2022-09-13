@@ -62,63 +62,60 @@
                 android:id="@+id/petCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:background="@{item.selected ? @drawable/background_stroke_soft_orange : @drawable/background_gray}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/offerImage"
+                    style="@style/PetImageView.PetCard"
                     android:layout_width="132dp"
                     android:layout_height="120dp"
-                    style="@style/PetImageView.PetCard"
                     android:scaleType="centerCrop"
-                    pet:src="@{item.media.url}"
-                    android:src="@drawable/pet"/>
+                    android:src="@drawable/pet"
+                    pet:src="@{item.media.url}" />
 
                 <LinearLayout
                     android:id="@+id/petInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp">
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/petName"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_semibold"
                         android:text="@{item.name}"
-                        android:textSize="@dimen/scale_17dp"
                         android:textColor="@color/darkPrimary"
-                        android:fontFamily="@font/poppins_semibold" />
+                        android:textSize="@dimen/scale_17dp" />
 
                     <TextView
                         android:id="@+id/petKind"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="@dimen/scale_13dp"
+                        android:fontFamily="@font/poppins_regular"
                         android:tag="7"
-                        pet:attributes="@{item.petAttributes}"
-                        android:fontFamily="@font/poppins_regular" />
+                        android:textSize="@dimen/scale_13dp" />
 
                     <TextView
-                        android:id="@+id/petAge"
+                        android:id="@+id/petLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="@dimen/scale_13dp"
-                        android:tag="8"
-                        pet:attributes="@{item.petAttributes}"
-                        android:fontFamily="@font/poppins_regular" />
+                        android:fontFamily="@font/poppins_regular"
+                        android:tag="5"
+                        android:textSize="@dimen/scale_13dp"/>
 
                     <TextView
                         android:id="@+id/petGender"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_regular"
                         android:tag="8"
-                        pet:attributes="@{item.petAttributes}"
-                        android:textSize="@dimen/scale_13dp"
-                        android:fontFamily="@font/poppins_regular" />
+                        android:textSize="@dimen/scale_13dp" />
 
                 </LinearLayout>
 

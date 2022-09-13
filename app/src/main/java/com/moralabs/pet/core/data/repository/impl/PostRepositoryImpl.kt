@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(private val service: FeedService) :
     PostRepository, BaseRepository {
-    override suspend fun getFeed(): Response<BaseResponse<List<PostDto>>> = service.getFeed()
-    override suspend fun postFeed(newPost: NewPostDto): Response<BaseResponse<List<PostDto>>> = service.postFeed(newPost)
-    override suspend fun getPetProfile(petId: String?, userId: String?): Response<BaseResponse<PetDto>> = service.getPetProfile(petId, userId)
-    override suspend fun likePost(postId: String?): Response<BaseResponse<List<PostDto>>> = service.likePost(postId)
-    override suspend fun unlikePost(postId: String?): Response<BaseResponse<List<PostDto>>> = service.unlikePost(postId)
-    override suspend fun profilePost(): Response<BaseResponse<List<PostDto>>> = service.profilePost()
-    override suspend fun getPostAnotherUser(userId: String?): Response<BaseResponse<List<PostDto>>> = service.getPostAnotherUser(userId)
+    override suspend fun getFeed()= service.getFeed()
+    override suspend fun postFeed(newPost: NewPostDto) = service.postFeed(newPost)
+    override suspend fun getPetProfile(petId: String?, userId: String?) = service.getPetProfile(petId, userId)
+    override suspend fun likePost(postId: String?) = service.likePost(postId)
+    override suspend fun unlikePost(postId: String?) = service.unlikePost(postId)
+    override suspend fun profilePost() = service.profilePost()
+    override suspend fun getPostAnotherUser(userId: String?) = service.getPostAnotherUser(userId)
 }

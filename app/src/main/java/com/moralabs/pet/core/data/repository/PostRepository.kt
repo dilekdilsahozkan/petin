@@ -10,8 +10,8 @@ interface PostRepository {
     suspend fun getFeed(): Response<BaseResponse<List<PostDto>>>
     suspend fun postFeed(newPost: NewPostDto): Response<BaseResponse<List<PostDto>>>
     suspend fun getPetProfile(petId: String?, userId: String?): Response<BaseResponse<PetDto>>
-    suspend fun likePost(postId: String?): Response<BaseResponse<List<PostDto>>>
-    suspend fun unlikePost(postId: String?): Response<BaseResponse<List<PostDto>>>
+    suspend fun likePost(postId: String?): Response<BaseResponse<Nothing>>
+    suspend fun unlikePost(postId: String?): Response<BaseResponse<Nothing>>
     suspend fun profilePost(): Response<BaseResponse<List<PostDto>>>
     suspend fun getPostAnotherUser(userId: String?): Response<BaseResponse<List<PostDto>>>
 }

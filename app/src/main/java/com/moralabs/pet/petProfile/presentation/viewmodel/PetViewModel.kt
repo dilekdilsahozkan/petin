@@ -17,9 +17,6 @@ class PetViewModel @Inject constructor(
     private val useCase: PetUseCase
 ): BaseViewModel<List<PetDto>>(useCase){
 
-    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> =
-        MutableStateFlow(ViewState.Idle())
-    val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
     fun getPet(){
         viewModelScope.launch {
@@ -34,24 +31,6 @@ class PetViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
-                    }
-                }
-        }
-    }
-
-    fun deletePet(petId: String?) {
-        viewModelScope.launch {
-            useCase.deletePet(petId)
-                .onStart {
-                    _deleteState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _deleteState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _deleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

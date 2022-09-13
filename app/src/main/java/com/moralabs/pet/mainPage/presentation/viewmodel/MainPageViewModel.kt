@@ -18,12 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
-    private val useCase: MainPageUseCase,
-    private val authUseCase: AuthenticationUseCase
+    private val useCase: MainPageUseCase
 ) : BaseViewModel<List<PostDto>>(useCase) {
-
-    protected var _getPetState: MutableStateFlow<ViewState<PetDto>> = MutableStateFlow(ViewState.Idle())
-    val getPetState: StateFlow<ViewState<PetDto>> = _getPetState
 
     fun feedPost() {
         viewModelScope.launch {
@@ -43,27 +39,27 @@ class MainPageViewModel @Inject constructor(
         }
     }
 
-    fun getPetProfile(petId: String?, userId: String?) {
+    fun likePost(postId: String?) {
         viewModelScope.launch {
-            useCase.getPetProfile(petId, userId)
+            useCase.likePost(postId)
                 .onStart {
-                    _getPetState.value = ViewState.Loading()
+                    _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _getPetState.value = ViewState.Error(message = exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _getPetState.value = ViewState.Idle()
+                        _state.value = ViewState.Idle()
                     }
                 }
         }
     }
 
-    fun likePost(postId: String?) {
+    fun unlikePost(postId: String?) {
         viewModelScope.launch {
-            useCase.likePost(postId)
+            useCase.unlikePost(postId)
                 .onStart {
                     _state.value = ViewState.Loading()
                 }

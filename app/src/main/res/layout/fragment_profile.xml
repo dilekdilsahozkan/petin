@@ -149,7 +149,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Posts"
+                                android:text="Gönderiler"
                                 android:textColor="@color/darkGray"
                                 android:textSize="@dimen/scale_11dp" />
                         </LinearLayout>
@@ -175,7 +175,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Followers"
+                                android:text="Takipçiler"
                                 android:textColor="@color/darkGray"
                                 android:textSize="@dimen/scale_11dp" />
                         </LinearLayout>
@@ -200,7 +200,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Following"
+                                android:text="Takip Edilenler"
                                 android:textColor="@color/darkGray"
                                 android:textSize="@dimen/scale_11dp" />
                         </LinearLayout>

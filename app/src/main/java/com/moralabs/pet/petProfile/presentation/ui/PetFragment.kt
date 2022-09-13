@@ -44,8 +44,6 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
             val intent = Intent(context, PetProfileActivity::class.java)
             intent.putExtras(bundle)
             context?.startActivity(intent)
-        }, isSameDto = { oldItem, newItem ->
-            true
         })
     }
 
@@ -69,30 +67,6 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         }
         else {
             viewModel.getPet()
-        }
-    }
-
-    override fun addObservers() {
-        super.addObservers()
-        lifecycleScope.launch {
-            viewModel.deleteState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        viewModel.deletePet(petId)
-                    }
-                    is ViewState.Error<*> -> {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_pet_delete),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        stopLoading()
-                    }
-                }
-            }
         }
     }
 

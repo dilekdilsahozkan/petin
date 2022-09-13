@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPostBinding
@@ -16,6 +18,8 @@ import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>() {
@@ -33,16 +37,12 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
     private val postAdapter by lazy {
         PostListAdapter(
-            getUserId = {
-                viewModel.getUserId()
-            },
             onPetProfile = {
 
             },
             onLikeClick = {
                 val postId = it.id
                 viewModel.likePost(postId)
-                viewModel.profilePost()
             },
             onCommentClick = {
                 val bundle = bundleOf(

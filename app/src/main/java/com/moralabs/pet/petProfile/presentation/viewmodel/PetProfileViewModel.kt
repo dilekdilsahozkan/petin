@@ -9,9 +9,7 @@ import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import com.moralabs.pet.petProfile.domain.PetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +17,10 @@ import javax.inject.Inject
 class PetProfileViewModel @Inject constructor(
     private val useCase: PetUseCase
 ): BaseViewModel<PetDto>(useCase){
+
+    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> =
+        MutableStateFlow(ViewState.Idle())
+    val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
     fun petInfo(petId: String?){
         viewModelScope.launch {
@@ -51,6 +53,25 @@ class PetProfileViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+
+    fun deletePet(petId: String?) {
+        viewModelScope.launch {
+            useCase.deletePet(petId)
+                .onStart {
+                    _deleteState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _deleteState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _deleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

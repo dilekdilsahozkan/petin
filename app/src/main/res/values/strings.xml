@@ -67,6 +67,7 @@
     <string name="addPhoto">Fotoğraf Ekleyiniz</string>
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
+    <string name="deletePost">Gönderiyi Kaldır</string>
 
     <!-- Settings -->
 
@@ -89,8 +90,11 @@
 
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
-    <string name="error_pet_delete">Pet silinirken bir sorun oluştu</string>
+    <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>
+    <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

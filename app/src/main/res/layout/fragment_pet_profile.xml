@@ -73,7 +73,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Adana"
                         android:textColor="@color/darkGray"
                         android:textSize="15sp"/>
                 </LinearLayout>
@@ -87,6 +86,16 @@
                 android:layout_marginTop="@dimen/scale_40dp"
                 android:layout_marginEnd="@dimen/scale_22dp"
                 android:src="@drawable/ic_edit_gray"
+                app:layout_constraintEnd_toStartOf="@+id/deleteIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/deleteIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scale_40dp"
+                android:layout_marginEnd="@dimen/scale_22dp"
+                android:src="@drawable/ic_close"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +129,7 @@
                             android:layout_marginTop="@dimen/scale_12dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Type"
+                            android:text="Tür"
                             android:textColor="@color/darkGray"
                             android:textSize="12sp" />
 
@@ -142,7 +151,6 @@
                         android:layout_marginStart="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Cat"
                         android:textColor="@color/darkPrimary"
                         android:textSize="15sp" />
 
@@ -169,7 +177,7 @@
                             android:layout_marginTop="@dimen/scale_12dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Gender"
+                            android:text="Cinsiyet"
                             android:textColor="@color/darkGray"
                             android:textSize="12sp" />
 
@@ -191,7 +199,6 @@
                         android:layout_marginStart="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Female"
                         android:textColor="@color/darkPrimary"
                         android:textSize="15sp" />
 
@@ -217,7 +224,7 @@
                             android:layout_marginTop="@dimen/scale_12dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Age"
+                            android:text="Yaş"
                             android:textColor="@color/darkGray"
                             android:textSize="12sp" />
 
@@ -239,7 +246,6 @@
                         android:layout_marginStart="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="1-5 years"
                         android:textColor="@color/darkPrimary"
                         android:textSize="15sp" />
 
