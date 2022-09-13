@@ -10,6 +10,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(),
     PetToolbarListener {
 
-    override fun getLayoutId() = R.layout.activity_profile
+    companion object {
+        const val OTHER_USER_ID = "otherUserId"
+    }
 
+    override fun getLayoutId() = R.layout.activity_profile
 }

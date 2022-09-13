@@ -27,6 +27,9 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
     private val petId: String? by lazy {
         activity?.intent?.getStringExtra(PetProfileActivity.PET_ID)
     }
+    private val otherUserId: String? by lazy {
+        activity?.intent?.getStringExtra(PetProfileActivity.OTHER_USER_ID)
+    }
 
     override fun getLayoutId() = R.layout.fragment_pet_profile
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -48,12 +51,12 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         super.onViewCreated(view, savedInstanceState)
 
         binding.attributeRecycler.adapter = attributeAdapter
-    }
-
-    override fun addListeners() {
-        super.addListeners()
-
-        viewModel.petInfo(petId)
+        if (!otherUserId.isNullOrBlank()) {
+            viewModel.getAnotherUserPetInfo(petId, otherUserId)
+            binding.editIcon.visibility = View.GONE
+        } else {
+            viewModel.petInfo(petId)
+        }
     }
 
     override fun stateSuccess(data: PetDto) {

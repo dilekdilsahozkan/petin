@@ -18,4 +18,5 @@ class PostRepositoryImpl @Inject constructor(private val service: FeedService) :
     override suspend fun likePost(postId: String?): Response<BaseResponse<List<PostDto>>> = service.likePost(postId)
     override suspend fun unlikePost(postId: String?): Response<BaseResponse<List<PostDto>>> = service.unlikePost(postId)
     override suspend fun profilePost(): Response<BaseResponse<List<PostDto>>> = service.profilePost()
+    override suspend fun getPostAnotherUser(userId: String?): Response<BaseResponse<List<PostDto>>> = service.getPostAnotherUser(userId)
 }

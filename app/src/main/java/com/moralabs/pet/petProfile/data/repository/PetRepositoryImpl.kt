@@ -16,4 +16,6 @@ class PetRepositoryImpl  @Inject constructor(private val service: PetService) :
     override suspend fun petInfo(petId: String?): Response<BaseResponse<PetDto>> =service.petInfo(petId)
     override suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<PetDto>> = service.addPet(addPet)
     override suspend fun deletePet(petId: String?): Response<EmptyDto> = service.deletePet(petId)
-}
+    override suspend fun getAnotherUserPet(userId: String?): Response<BaseResponse<List<PetDto>>> = service.getAnotherUserPet(userId)
+    override suspend fun getAnotherUserPetInfo(petId: String?, userId: String?): Response<BaseResponse<PetDto>> =service.getAnotherUserPetInfo(petId, userId)
+    }

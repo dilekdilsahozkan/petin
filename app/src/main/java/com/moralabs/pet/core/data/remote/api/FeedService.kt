@@ -32,7 +32,7 @@ interface FeedService {
     suspend fun unlikePost(@Path("postId") postId: String?): Response<BaseResponse<List<PostDto>>>
 
     @GET("/feed/post/user/{userId}")
-    suspend fun getPostAnotherUser(): Response<BaseResponse<PostDto>>
+    suspend fun getPostAnotherUser(@Path("userId") userId: String?): Response<BaseResponse<List<PostDto>>>
 
     @GET("/pet/{petId}/user/{userId}")
     suspend fun getPetProfile(@Path("petId") petId: String?, @Path("userId") userId: String?): Response<BaseResponse<PetDto>>

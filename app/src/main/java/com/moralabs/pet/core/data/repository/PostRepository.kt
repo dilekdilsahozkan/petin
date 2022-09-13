@@ -13,4 +13,5 @@ interface PostRepository {
     suspend fun likePost(postId: String?): Response<BaseResponse<List<PostDto>>>
     suspend fun unlikePost(postId: String?): Response<BaseResponse<List<PostDto>>>
     suspend fun profilePost(): Response<BaseResponse<List<PostDto>>>
+    suspend fun getPostAnotherUser(userId: String?): Response<BaseResponse<List<PostDto>>>
 }

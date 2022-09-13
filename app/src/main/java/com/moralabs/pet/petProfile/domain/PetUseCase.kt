@@ -52,4 +52,26 @@ class PetUseCase @Inject constructor(
             )
         }
     }
+
+    fun getAnotherUserPet(userId: String?): Flow<BaseResult<List<PetDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    petRepository.getAnotherUserPet(userId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+    fun getAnotherUserPetInfo(petId: String?, userId: String?): Flow<BaseResult<PetDto>> {
+        return flow {
+            petRepository.getAnotherUserPetInfo(petId, userId).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
+        }
+    }
+
+
 }

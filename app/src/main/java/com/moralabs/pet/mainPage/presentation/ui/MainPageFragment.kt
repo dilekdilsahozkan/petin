@@ -6,6 +6,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
@@ -18,9 +22,12 @@ import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.activity_base.*
+import kotlinx.android.synthetic.main.activity_main_page.*
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>() {
@@ -65,6 +72,16 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 val intent = Intent(context, OfferUserActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
+            },
+            onUserPhotoClick = {
+                if (it.isPostOwnedByUser != true) {
+                    val bundle = bundleOf(
+                        ProfileActivity.OTHER_USER_ID to it.user?.userId
+                    )
+                    val intent = Intent(context, ProfileActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
             }
         )
     }

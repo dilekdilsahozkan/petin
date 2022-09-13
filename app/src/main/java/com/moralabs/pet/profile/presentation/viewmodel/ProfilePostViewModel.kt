@@ -35,6 +35,26 @@ class ProfilePostViewModel @Inject constructor(
         }
     }
 
+    fun getPostAnotherUser(userId: String?){
+        viewModelScope.launch {
+            useCase.getPostAnotherUser(userId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+
+
     fun likePost(postId: String?) {
         viewModelScope.launch {
             useCase.likePost(postId)

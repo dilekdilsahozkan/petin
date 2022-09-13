@@ -16,6 +16,7 @@ import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_profile.view.*
 
 @AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),

@@ -10,4 +10,5 @@ import javax.inject.Inject
 class ProfileRepositoryImpl @Inject constructor(private val service: UserService) :
     ProfileRepository, BaseRepository {
     override suspend fun userInfo(): Response<BaseResponse<UserDto>> = service.userInfo()
+    override suspend fun otherUsersInfo(userId: String?): Response<BaseResponse<UserDto>> = service.otherUsersInfo(userId)
 }
