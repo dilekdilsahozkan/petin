@@ -99,9 +99,11 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
 
                     8 -> binding.petGender.text = it.choice.toString()
 
-                    4 -> binding.locationName.text = it.choice.toString()
+                    5 -> binding.locationName.text = it.choice.toString()
 
                     7 -> binding.petType.text = it.choice.toString()
+
+                    9 -> binding.petAge.text = it.choice.toString()
                 }
         }
     }

@@ -20,7 +20,8 @@ class PostListAdapter(
     private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
     private val onOfferUserClick: (post: PostDto) -> Unit,
-    private val onUserPhotoClick: (user: PostDto) -> Unit
+    private val onUserPhotoClick: (user: PostDto) -> Unit,
+    private val onPostSettingClick: ((user: PostDto) -> Unit)? = null
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -86,6 +87,13 @@ class PostListAdapter(
                     onUserPhotoClick.invoke(getItem(bindingAdapterPosition))
                 }
             }
+
+            binding.postSetting.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onPostSettingClick?.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
+                }
+            }
         }
 
         @SuppressLint("SetTextI18n")
@@ -100,10 +108,11 @@ class PostListAdapter(
             binding.offerCount.text = pet.offerCount.toString()
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
+
             binding.petName.text = pet.content?.pet?.name
-     /*       binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.type == 6.toString().toInt() }?.get(0)?.choice
-            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.type == 7.toString().toInt() }?.get(0)?.choice
-            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.type == 8.toString().toInt() }?.get(0)?.choice*/
+            binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.type == 7 }?.getOrNull(0)?.choice
+            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.type == 5 }?.getOrNull(0)?.choice
+            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.type == 8 }?.getOrNull(0)?.choice
 
             if (pet.isPostLikedByUser == true) {
                 binding.likeIcon.setImageResource(R.drawable.ic_like_orange)

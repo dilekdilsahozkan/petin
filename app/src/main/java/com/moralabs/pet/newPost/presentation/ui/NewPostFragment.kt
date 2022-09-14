@@ -79,7 +79,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         viewModel.petValue()
 
         binding.toolbar.publishText.setOnClickListener {
-            val pet = petCardAdapter.currentList?.filter { it.selected }?.firstOrNull()
+            val pet = petCardAdapter.currentList.filter { it.selected }.firstOrNull()
             viewModel.createPost(
                 NewPostDto(
                     text = binding.explanationText.text.toString(),
@@ -139,17 +139,25 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
         if (postType == TabTextType.POST_TYPE.type) {
             binding.petChooseLinear.visibility = View.GONE
+            binding.cardPostImage.visibility = View.VISIBLE
+            binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
             binding.petChooseLinear.visibility = View.GONE
+            binding.cardPostImage.visibility = View.VISIBLE
+            binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petChooseLinear.visibility = View.VISIBLE
+            binding.cardPostImage.visibility = View.GONE
+            binding.deleteImage.visibility = View.GONE
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petChooseLinear.visibility = View.VISIBLE
+            binding.cardPostImage.visibility = View.GONE
+            binding.deleteImage.visibility = View.GONE
         }
     }
 

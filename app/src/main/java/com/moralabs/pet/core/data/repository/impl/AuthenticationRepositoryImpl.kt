@@ -6,7 +6,6 @@ import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
-import com.moralabs.pet.profile.data.remote.dto.UserDto
 
 class AuthenticationRepositoryImpl(private val context: Context?) : AuthenticationRepository {
 

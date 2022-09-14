@@ -43,4 +43,14 @@ class MainPageUseCase @Inject constructor(
             )
         }
     }
+
+    fun deletePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    postRepository.deletePost(postId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
 }

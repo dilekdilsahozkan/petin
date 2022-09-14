@@ -42,5 +42,5 @@ interface FeedService {
     suspend fun getLiked(): Response<BaseResponse<PostDto>>
 
     @DELETE("/feed/post/{postId}")
-    suspend fun deletePost(): Response<BaseResponse<Nothing>>
+    suspend fun deletePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>
 }

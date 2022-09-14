@@ -82,7 +82,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="100dp"
-            android:hint="@string/explanation"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +91,8 @@
                 android:id="@+id/explanationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/scale_16dp"
+                android:hint="@string/explanation"
+                android:layout_marginTop="@dimen/scale_10dp"
                 android:background="@color/white"
                 android:fontFamily="@font/poppins_regular"
                 android:imeOptions="actionDone"
@@ -121,10 +121,11 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ImageButton
+            android:id="@+id/deleteImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:src="@drawable/ic_filter"
+            android:src="@drawable/ic_bold_close"
             android:background="@color/softOrange"
             android:fontFamily="@font/poppins_regular"
             android:textSize="12sp"

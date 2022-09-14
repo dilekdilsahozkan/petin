@@ -12,3 +12,9 @@ fun Activity.hideKeyboard() = hideKeyboard(currentFocus ?: View(this))
 
 fun Context.hideKeyboard(view: View) =
     (getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(view.windowToken, 0)
+
+internal inline fun <reified T : Any> Fragment.argument(key: String): Lazy<T?> {
+    return lazy(LazyThreadSafetyMode.NONE) {
+        arguments?.get(key) as? T
+    }
+}

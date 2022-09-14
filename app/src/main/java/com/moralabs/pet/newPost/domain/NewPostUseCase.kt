@@ -26,25 +26,6 @@ class NewPostUseCase @Inject constructor(
     fun newPost(newPost: NewPostDto): Flow<BaseResult<CreatePostDto>> {
         return flow {
 
-            var paths = mutableListOf<String>()
-            val surveyImagesParts = mutableListOf<MultipartBody.Part>()
-
-            var surveyBody = RequestBody.create("image/*".toMediaTypeOrNull(), newPost.files!!.get(0))
-            surveyImagesParts.add(MultipartBody.Part.createFormData("PetImage", newPost?.files?.get(0)!!.name, surveyBody))
-
-            val postImage = newPostRepository.upload(
-//                MultipartBody.Part.createFormData(
-//                    name = "pet_image",
-//                    filename = newPost.files?.get(0)?.name,
-//                    body = newPost?.files?.get(0)?.asRequestBody()!!
-//                ), "pet_key_hehe"
-            surveyImagesParts, ""
-            )
-
-            if (postImage.isSuccessful) {
-
-            }
-
             val postValue = newPostRepository.createPost(newPost).body()?.data ?: listOf()
             emit(
                 BaseResult.Success(

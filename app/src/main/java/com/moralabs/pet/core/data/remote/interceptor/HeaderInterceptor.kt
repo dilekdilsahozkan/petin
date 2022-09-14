@@ -10,10 +10,6 @@ class HeaderInterceptor(private val userRepository: AuthenticationRepository) : 
         val originalRequest = chain.request()
         var requestBuilder = originalRequest.newBuilder()
 
-        if(originalRequest.headers["Content-Type"]?.length == 0){
-            requestBuilder.addHeader("Content-Type", "application/json")
-        }
-
         userRepository.requestHeaders().forEach {
             it.value?.let { value ->
                 requestBuilder.header(it.key, value)

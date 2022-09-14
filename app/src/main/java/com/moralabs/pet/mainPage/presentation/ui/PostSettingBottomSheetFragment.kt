@@ -10,7 +10,8 @@ import com.moralabs.pet.R
 import com.moralabs.pet.databinding.FragmentPostSettingBottomSheetBinding
 
 class PostSettingBottomSheetFragment(
-    val listener: PostSettingBottomSheetListener
+    val listener: PostSettingBottomSheetListener,
+    val postId: String?
 ) : BottomSheetDialogFragment(),
     View.OnClickListener {
 
@@ -20,7 +21,7 @@ class PostSettingBottomSheetFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
             R.layout.fragment_post_setting_bottom_sheet, null, false
@@ -32,9 +33,15 @@ class PostSettingBottomSheetFragment(
     }
 
     override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.deletePost -> {
+                listener.onItemClick(postId)
+                dismiss()
+            }
+        }
     }
 }
 
 interface PostSettingBottomSheetListener {
-    fun onItemClick(type: Int)
+    fun onItemClick(postId: String?)
 }

@@ -30,6 +30,7 @@ class NetworkDI {
             .build()
     } else OkHttpClient
         .Builder()
+        .addInterceptor(headerInterceptor)
         .build()
 
     @Provides

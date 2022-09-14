@@ -10,15 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_bottom_sheet"
+        android:padding="@dimen/scale_16dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/deletePost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scale_16dp"
+            android:layout_height="match_parent"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/deletePost"
+            android:layout_marginVertical="@dimen/scale_16dp"
             android:textColor="@color/darkPrimary"
             android:textSize="@dimen/scale_15dp"
             app:layout_constraintTop_toTopOf="parent"
