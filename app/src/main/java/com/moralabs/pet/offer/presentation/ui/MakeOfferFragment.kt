@@ -20,10 +20,15 @@ import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto, MakeOfferViewModel>() {
+class MakeOfferFragment :
+    BaseFragment<FragmentMakeOfferBinding, CreateOfferDto, MakeOfferViewModel>() {
 
-    private val postType: String? by lazy {
-        activity?.intent?.getStringExtra(OfferActivity.POST_ID)
+    private val postId: String? by lazy {
+        activity?.intent?.getStringExtra(MakeOfferActivity.POST_ID)
+    }
+
+    private val offerType: Int? by lazy {
+        activity?.intent?.getIntExtra(MakeOfferActivity.OFFER_TYPE, 0)
     }
 
     override fun getLayoutId() = R.layout.fragment_make_offer
@@ -35,13 +40,11 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
     }
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {selected ->
+        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = { selected ->
             petAdapter.currentList.forEach { pet ->
                 pet.selected = pet == selected
             }
             petAdapter.notifyDataSetChanged()
-        }, isSameDto = { oldItem, newItem ->
-            true
         })
     }
 
@@ -58,6 +61,19 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.petList.adapter = petAdapter
+
+        if (offerType == 3) {
+            binding.petList.visibility = View.GONE
+            binding.selectText.visibility = View.GONE
+            binding.selectPartner.visibility = View.GONE
+            binding.selectAdoption.visibility = View.VISIBLE
+        } else if (offerType == 2) {
+            binding.petList.visibility = View.VISIBLE
+            binding.selectText.visibility = View.VISIBLE
+            binding.selectPartner.visibility = View.VISIBLE
+            binding.selectAdoption.visibility = View.GONE
+
+        }
     }
 
     override fun addListeners() {
@@ -66,7 +82,7 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
             val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
             viewModel.newOffer(
                 OfferRequestDto(
-                    postId = postType,
+                    postId = postId,
                     text = binding.selectPartner.text.toString(),
                     petId = pet?.id
                 )
@@ -76,4 +92,11 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
         }
         viewModel.petValue()
     }
+}
+
+internal enum class OfferType(val type: Int) {
+    POST_TYPE(0),
+    QAN_TYPE(1),
+    FIND_PARTNER_TYPE(2),
+    ADOPTION_TYPE(3)
 }

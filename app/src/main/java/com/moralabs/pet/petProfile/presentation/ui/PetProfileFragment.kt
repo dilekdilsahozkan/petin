@@ -42,11 +42,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
     }
 
     private val attributeAdapter: BaseListAdapter<PetAttributeDto, ItemPetFeatureBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_feature, BR.item, onRowClick = {
-
-        }, isSameDto = { oldItem, newItem ->
-            true
-        })
+        BaseListAdapter(R.layout.item_pet_feature, BR.item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

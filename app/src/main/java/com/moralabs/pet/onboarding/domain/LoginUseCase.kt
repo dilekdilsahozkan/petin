@@ -1,15 +1,17 @@
 package com.moralabs.pet.onboarding.domain
 
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
+import com.moralabs.pet.onboarding.data.remote.dto.ForgotPasswordDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
+import com.moralabs.pet.onboarding.data.remote.dto.NewPasswordDto
 import com.moralabs.pet.onboarding.data.repository.LoginRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class LoginUseCase @Inject constructor(
@@ -38,4 +40,22 @@ class LoginUseCase @Inject constructor(
             }
         }
     }
+
+    fun forgotPassword(sendEmail: ForgotPasswordDto): Flow<BaseResult<LoginDto>> {
+        return flow {
+            loginRepository.forgotPassword(sendEmail).body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
+        }
+    }
+
+    fun newPassword(getCode: NewPasswordDto): Flow<BaseResult<LoginDto>> {
+        return flow {
+            loginRepository.newPassword(getCode).body()?.data?.let {
+                emit(BaseResult.Success(it))
+
+            }
+        }
+    }
+
 }

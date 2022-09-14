@@ -36,7 +36,7 @@ class OfferUserFragment :
     private val userAdapter: BaseListAdapter<OfferDto, ItemUserInfoBinding> by lazy {
         BaseListAdapter(R.layout.item_user_info, BR.item, onRowClick = { offer ->
             var bundle = bundleOf(
-                OfferActivity.OFFER_ID to offer.id,
+                MakeOfferActivity.OFFER_ID to offer.id,
                 OfferUserActivity.OFFER_TEXT to offer.text,
                 OfferUserActivity.USER_NAME to offer.user?.fullName,
                 OfferUserActivity.PET_IMAGE to offer.pet?.media?.url,

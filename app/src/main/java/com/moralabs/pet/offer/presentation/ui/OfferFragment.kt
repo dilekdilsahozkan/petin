@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferViewModel>() {
 
     private val offerId: String? by lazy {
-        arguments?.getString(OfferActivity.OFFER_ID)
+        arguments?.getString(MakeOfferActivity.OFFER_ID)
     }
     private val userName: String? by lazy {
         arguments?.getString(OfferUserActivity.USER_NAME)

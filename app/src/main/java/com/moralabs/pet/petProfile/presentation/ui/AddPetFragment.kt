@@ -21,18 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddPetFragment : BaseFragment<FragmentAddPetBinding, PetDto, PetProfileViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_add_pet
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<PetDto> {
         val viewModel: PetProfileViewModel by viewModels()
         return viewModel
     }
 
-    private val attributeAdapter : BaseListAdapter<PetAttributeDto, ItemAddPetFeatureBinding> by lazy{
-        BaseListAdapter(R.layout.item_add_pet_feature, BR.attribute, onRowClick = {
-
-        }, isSameDto = {oldItem, newItem ->
-            true
-        })
+    private val attributeAdapter: BaseListAdapter<PetAttributeDto, ItemAddPetFeatureBinding> by lazy {
+        BaseListAdapter(R.layout.item_add_pet_feature, BR.attribute)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,9 +44,5 @@ class AddPetFragment : BaseFragment<FragmentAddPetBinding, PetDto, PetProfileVie
 
         attributeAdapter.submitList(data.petAttributes)
 
-        viewModel.addPet(
-            PetRequestDto(
-            )
-        )
     }
 }

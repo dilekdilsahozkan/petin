@@ -10,14 +10,14 @@ import com.moralabs.pet.databinding.ActivityOfferBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OfferActivity : BaseActivity<ActivityOfferBinding>(),
+class MakeOfferActivity : BaseActivity<ActivityOfferBinding>(),
     PetToolbarListener {
 
     companion object {
         const val POST_ID = "postId"
         const val OFFER_ID = "offerId"
+        const val OFFER_TYPE = "offer_type"
     }
-
     override fun getLayoutId() = R.layout.activity_offer
 
     override fun onCreate(savedInstanceState: Bundle?) {

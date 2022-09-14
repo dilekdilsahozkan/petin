@@ -40,9 +40,9 @@ class PetProfileViewModel @Inject constructor(
         }
     }
 
-    fun addPet(addPet: PetRequestDto){
+    fun editPet(editPet: PetRequestDto, petId: String?){
         viewModelScope.launch {
-            useCase.addPet(addPet)
+            useCase.editPet(editPet, petId)
                 .onStart {
                     _state.value = ViewState.Loading()
                 }
@@ -57,7 +57,6 @@ class PetProfileViewModel @Inject constructor(
                 }
         }
     }
-
 
     fun deletePet(petId: String?) {
         viewModelScope.launch {

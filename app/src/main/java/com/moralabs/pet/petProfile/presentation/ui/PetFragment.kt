@@ -15,6 +15,7 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
@@ -67,6 +68,29 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         }
         else {
             viewModel.getPet()
+        }
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+
+        lifecycleScope.launch {
+            viewModel.addState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.add_pet), Toast.LENGTH_LONG).show()
+                        startActivity(Intent(context, MainPageActivity::class.java))
+                    }
+                    is ViewState.Error<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.error_add_pet), Toast.LENGTH_LONG).show()
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
         }
     }
 

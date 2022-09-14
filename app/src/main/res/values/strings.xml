@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PETIN</string>
     <string name="petin">PetIn</string>
+    <string name="pets">Evcil Hayvanlarım</string>
     <string name="description">Hayvan severlerin buluştuğu platform</string>
     <string name="mainPageTitle">Ana Sayfa</string>
     <string name="messagesTitle">Mesajlar</string>
@@ -92,14 +93,16 @@
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
     <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>
     <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
+    <string name="add_pet">Evcil hayvanınızın profili başarıyla kaydedildi</string>
+    <string name="error_add_pet">Evcil hayvanınızın profili kaydedilemedi.</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
-
-    <string name="settings_favorites_title">Favorilerim</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
     <string name="settings_current_password">Mevcut Şifre</string>
     <string name="settings_new_password">Yeni Şifre</string>
     <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
     <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

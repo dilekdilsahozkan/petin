@@ -43,6 +43,16 @@ class PetUseCase @Inject constructor(
         }
     }
 
+    fun editPet(editPet: PetRequestDto, petId: String?): Flow<BaseResult<PetDto>> {
+        return flow {
+            petRepository.editPet(editPet, petId).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
+        }
+    }
+
     fun deletePet(petId : String?): Flow<BaseResult<Boolean>>  {
         return flow {
             emit(
