@@ -1,5 +1,6 @@
 package com.moralabs.pet.newPost.di
 
+import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.newPost.data.remote.api.NewPostService
 import com.moralabs.pet.newPost.data.repository.NewPostRepository
 import com.moralabs.pet.newPost.data.repository.NewPostRepositoryImpl
@@ -29,7 +30,10 @@ class NewPostDI {
     @Provides
     @Singleton
     fun provideNewPostUseCase(
-        newPostRepository: NewPostRepository, petRepository: PetRepository, userRepository: ProfileRepository
+        newPostRepository: NewPostRepository,
+        petRepository: PetRepository,
+        userRepository: ProfileRepository,
+        mediaRepository: MediaRepository
     ): NewPostUseCase =
-        NewPostUseCase(newPostRepository, petRepository, userRepository)
+        NewPostUseCase(newPostRepository, petRepository, userRepository, mediaRepository)
 }

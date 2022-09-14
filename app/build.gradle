@@ -4,15 +4,17 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("androidx.navigation.safeargs.kotlin")
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.moralabs.pet"
+        applicationId "com.moralabs.petin"
         minSdk 23
         targetSdk 32
         versionCode 1
@@ -111,5 +113,15 @@ dependencies {
 
     // Secure Key
     implementation "androidx.security:security-crypto:1.0.0-rc02"
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.google.firebase:firebase-messaging'
 
 }

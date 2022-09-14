@@ -5,6 +5,8 @@ import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
+import com.moralabs.pet.notification.data.repository.NotificationRepository
+import com.moralabs.pet.notification.domain.NotificationUseCase
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
 import com.moralabs.pet.onboarding.data.repository.RegisterRepository
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
     private val registerRepository: RegisterRepository,
-    private val authenticationRepository: AuthenticationRepository
+    private val authenticationRepository: AuthenticationRepository,
+    private val notificationRepository: NotificationRepository
 ) : BaseUseCase() {
     fun register(registerPet: RegisterRequestDto): Flow<BaseResult<RegisterDto>> {
         return flow {
@@ -30,6 +33,8 @@ class RegisterUseCase @Inject constructor(
                         it.accessToken?.let { accessToken ->
                             authenticationRepository.login(it.userId, accessToken)
                         }
+
+                        notificationRepository.sendToken(notificationRepository.getFirebaseToken())
 
                         emit(BaseResult.Success(it))
                     } ?: run {

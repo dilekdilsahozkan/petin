@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MainPageUseCase @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
 ) : BaseUseCase() {
 
-    fun getFeed(): Flow<BaseResult<List<PostDto>>> {
+    fun getFeed(searchQuery: String? = null): Flow<BaseResult<List<PostDto>>> {
         return flow {
             emit(
                 BaseResult.Success(
-                    postRepository.getFeed().body()?.data ?: listOf()
+                    postRepository.getFeed(searchQuery).body()?.data ?: listOf()
                 )
             )
         }

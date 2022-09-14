@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
+import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
@@ -107,6 +109,18 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+    }
+
+    override fun addListeners() {
+        super.addListeners()
+
+        binding.searchEdittext.addTextChangedListener {
+            if(it.toString().isEmptyOrBlank()){
+                viewModel.feedPost()
+            }else{
+                viewModel.feedPost(it.toString())
+            }
+        }
     }
 
     override fun onItemClick(postId: String?) {

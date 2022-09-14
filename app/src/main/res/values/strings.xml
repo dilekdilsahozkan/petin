@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">PETIN</string>
-    <string name="petin">PetIn</string>
+    <string name="app_name">Petin</string>
     <string name="pets">Evcil Hayvanlarım</string>
     <string name="description">Hayvan severlerin buluştuğu platform</string>
     <string name="mainPageTitle">Ana Sayfa</string>
