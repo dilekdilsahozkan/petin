@@ -43,7 +43,7 @@
                 android:layout_margin="@dimen/scale_16dp"/>
 
             <TextView
-                android:id="@+id/follow_user"
+                android:id="@+id/follow_unfollow_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -51,8 +51,7 @@
                 android:textSize="@dimen/scale_15dp"
                 android:visibility="gone"
                 android:fontFamily="@font/poppins_medium"
-                android:layout_margin="@dimen/scale_16dp"
-                android:text = "Follow"/>
+                android:layout_margin="@dimen/scale_16dp" />
 
         </LinearLayout>
 
