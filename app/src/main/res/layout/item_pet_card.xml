@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="pet"
+            name="item"
             type="com.moralabs.pet.petProfile.data.remote.dto.PetDto" />
 
     </data>
@@ -16,73 +16,79 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/scale_15dp">
 
-        <LinearLayout
-            android:id="@+id/petCard"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@{pet.selected ? @drawable/background_stroke_soft_orange : @drawable/background_gray}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/offerImage"
-                android:layout_width="132dp"
-                android:layout_height="120dp"
-                style="@style/PetImageView.PetCard"
-                android:scaleType="centerCrop"
-                pet:src="@{pet.media.url}"
-                android:src="@drawable/pet"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/petInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp">
+                android:id="@+id/petCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@{item.selected ? @drawable/background_stroke_soft_orange : @drawable/background_gray}"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/petName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@{pet.name}"
-                    android:textSize="@dimen/scale_17dp"
-                    android:textColor="@color/darkPrimary"
-                    android:fontFamily="@font/poppins_semibold" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/offerImage"
+                    style="@style/PetImageView.PetCard"
+                    android:layout_width="132dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pet"
+                    pet:src="@{item.media.url}" />
 
-                <TextView
-                    android:id="@+id/petKind"
+                <LinearLayout
+                    android:id="@+id/petInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/scale_13dp"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/petAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/scale_13dp"
-                    android:fontFamily="@font/poppins_regular" />
+                    <TextView
+                        android:id="@+id/petName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@{item.name}"
+                        android:textColor="@color/darkPrimary"
+                        android:textSize="@dimen/scale_17dp" />
 
-                <TextView
-                    android:id="@+id/petGender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/scale_13dp"
-                    android:fontFamily="@font/poppins_regular" />
+                    <TextView
+                        android:id="@+id/petKind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_regular"
+                        android:tag="7"
+                        android:textSize="@dimen/scale_13dp"
+                        pet:attributes="@{item.petAttributes}" />
+
+                    <TextView
+                        android:id="@+id/petLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_regular"
+                        android:tag="5"
+                        android:textSize="@dimen/scale_13dp"
+                        pet:attributes="@{item.petAttributes}" />
+
+                    <TextView
+                        android:id="@+id/petGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_regular"
+                        android:tag="8"
+                        android:textSize="@dimen/scale_13dp"
+                        pet:attributes="@{item.petAttributes}" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <View
-            android:id="@+id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/petCard" />
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

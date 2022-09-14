@@ -63,7 +63,7 @@ class MakeOfferFragment : BaseFragment<FragmentMakeOfferBinding, CreateOfferDto,
     override fun addListeners() {
         super.addListeners()
         binding.makeOfferButton.setOnClickListener {
-            val pet = petAdapter.currentList?.filter { it.selected }?.firstOrNull()
+            val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
             viewModel.newOffer(
                 OfferRequestDto(
                     postId = postType,

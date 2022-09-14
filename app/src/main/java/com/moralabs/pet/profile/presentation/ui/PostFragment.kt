@@ -3,22 +3,32 @@ package com.moralabs.pet.profile.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPostBinding
+import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
+import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_post
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+    private val otherUserId: String? by lazy {
+        activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
+    }
 
     override fun fragmentViewModel(): BaseViewModel<List<PostDto>> {
         val viewModel: ProfilePostViewModel by viewModels()
@@ -27,14 +37,30 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
     private val postAdapter by lazy {
         PostListAdapter(
-            onOfferClick = {
-                startActivity(Intent(context, OfferActivity::class.java))
+            onPetProfile = {
+
             },
             onLikeClick = {
+                val postId = it.id
+                viewModel.likePost(postId)
             },
             onCommentClick = {
+                val bundle = bundleOf(
+                    CommentActivity.POST_ID to it.id
+                )
+                val intent = Intent(context, CommentActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
             },
             onOfferUserClick = {
+            },
+            onUserPhotoClick = {
+                val bundle = bundleOf(
+                    OfferUserActivity.POST_ID to it.id
+                )
+                val intent = Intent(context, OfferUserActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
             }
         )
     }
@@ -44,7 +70,12 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
         binding.recyclerview.adapter = postAdapter
 
-        viewModel.profilePost()
+        if(!otherUserId.isNullOrEmpty()){
+            viewModel.getPostAnotherUser(otherUserId)
+        }
+        else {
+            viewModel.profilePost()
+        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {

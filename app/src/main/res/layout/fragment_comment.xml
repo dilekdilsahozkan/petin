@@ -14,51 +14,42 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scale_16dp"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/commentSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_user_comment" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/keyboard_toolbar"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/commentSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            android:layout_margin="@dimen/scale_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:endIconDrawable="@drawable/ic_send"
+            app:endIconTint="@color/gray_tint"
+            app:endIconMode="custom">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/writeComment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/scale_16dp">
+                android:background="@drawable/background_gray"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/comment"
+                android:includeFontPadding="false"
+                android:inputType="textLongMessage"
+                android:padding="@dimen/scale_10dp"
+                android:textSize="@dimen/scale_15dp" />
 
-                <EditText
-                    android:id="@+id/writeComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/scale_16dp"
-                    android:layout_marginBottom="@dimen/scale_10dp"
-                    android:background="@drawable/background_gray"
-                    android:fontFamily="@font/poppins_regular"
-                    android:hint="@string/comment"
-                    android:padding="10dp"
-                    android:textSize="@dimen/scale_18dp" />
-
-                <ImageView
-                    android:id="@+id/commentSend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/scale_20dp"
-                    android:src="@drawable/ic_send"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

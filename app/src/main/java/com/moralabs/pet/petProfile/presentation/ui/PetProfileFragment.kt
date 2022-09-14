@@ -1,7 +1,9 @@
 package com.moralabs.pet.petProfile.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
@@ -13,12 +15,12 @@ import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetProfileBinding
 import com.moralabs.pet.databinding.ItemPetFeatureBinding
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetProfileViewModel
-import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,6 +28,9 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
 
     private val petId: String? by lazy {
         activity?.intent?.getStringExtra(PetProfileActivity.PET_ID)
+    }
+    private val otherUserId: String? by lazy {
+        activity?.intent?.getStringExtra(PetProfileActivity.OTHER_USER_ID)
     }
 
     override fun getLayoutId() = R.layout.fragment_pet_profile
@@ -48,13 +53,34 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         super.onViewCreated(view, savedInstanceState)
 
         binding.attributeRecycler.adapter = attributeAdapter
-        addObservers()
+        if (!otherUserId.isNullOrBlank()) {
+            viewModel.getAnotherUserPetInfo(petId, otherUserId)
+            binding.editIcon.visibility = View.GONE
+        } else {
+            viewModel.petInfo(petId)
+        }
     }
 
-    override fun addListeners() {
-        super.addListeners()
-
-        viewModel.petInfo(petId)
+    override fun addObservers() {
+        super.addObservers()
+        lifecycleScope.launch {
+            viewModel.deleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.pet_delete), Toast.LENGTH_LONG).show()
+                        startActivity(Intent(context, MainPageActivity::class.java))
+                    }
+                    is ViewState.Error<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.error_pet_delete), Toast.LENGTH_LONG).show()
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     override fun stateSuccess(data: PetDto) {
@@ -64,15 +90,20 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
 
         binding.petName.text = data.name.toString()
         binding.petImage.loadImage(data.media?.url)
+        binding.deleteIcon.setOnClickListener {
+            viewModel.deletePet(petId)
+        }
 
         data.petAttributes?.forEach {
                 when(it.type){
 
                     8 -> binding.petGender.text = it.choice.toString()
 
-                    4 -> binding.locationName.text = it.choice.toString()
+                    5 -> binding.locationName.text = it.choice.toString()
 
                     7 -> binding.petType.text = it.choice.toString()
+
+                    9 -> binding.petAge.text = it.choice.toString()
                 }
         }
     }

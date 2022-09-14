@@ -31,6 +31,7 @@
     <string name="allOffers">Teklifler</string>
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
+    <string name="delete">Kaldır</string>
     <string name="accept">Kabul Et</string>
     <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
     <string name="wrongLogin">Yanlış email ya da şifre</string>
@@ -40,6 +41,7 @@
     <string name="findPartner">Arkadaş Bulma</string>
     <string name="adoption">Sahiplendirme</string>
     <string name="comment">Yorum yazınız</string>
+    <string name="comments">Yorumlar</string>
     <string name="message">Mesajlar</string>
     <string name="agreement">Sözleşme</string>
     <string name="newPost">Yeni Gönderi</string>
@@ -61,9 +63,11 @@
     <string name="breed">Tür</string>
     <string name="gender">Cinsiyet</string>
     <string name="age">Yaş</string>
+    <string name="chooseLocation">Konum Seçiniz</string>
     <string name="addPhoto">Fotoğraf Ekleyiniz</string>
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
+    <string name="deletePost">Gönderiyi Kaldır</string>
 
     <!-- Settings -->
 
@@ -82,13 +86,16 @@
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
 
-
     <!-- TOAST MESSAGES -->
 
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
-
-
+    <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>
+    <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
+    <string name="write_a_message">Mesajınızı yazınız</string>
+    <string name="new_message">Yeni Mesaj</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="settings_favorites_title">Favorilerim</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>

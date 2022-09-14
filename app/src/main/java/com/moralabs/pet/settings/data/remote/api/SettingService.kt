@@ -8,5 +8,5 @@ import retrofit2.http.POST
 
 interface SettingService {
     @POST("/auth/logout")
-    suspend fun logOut(@Body logOut: SettingsRequestDto): Response<SettingsDto>
+    suspend fun logout(@Body logout: SettingsRequestDto): Response<SettingsDto>
 }

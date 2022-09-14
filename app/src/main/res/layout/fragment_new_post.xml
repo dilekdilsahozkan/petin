@@ -5,9 +5,6 @@
 
     <data>
 
-        <variable
-            name="item"
-            type="com.moralabs.pet.profile.data.remote.dto.UserInfoDto" />
 
     </data>
 
@@ -26,11 +23,12 @@
             android:background="@color/divider"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <LinearLayout
-            android:id="@+id/userInfo"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@id/userInfoLinear"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scale_16dp"
+            android:paddingTop="@dimen/scale_16dp"
+            android:layout_marginHorizontal="@dimen/scale_16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -38,60 +36,103 @@
                 android:id="@+id/userPhoto"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:src="@{item.media.url}" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:orientation="vertical">
+                android:layout_marginTop="3dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/userPhoto"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/userName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="@{item.userName}"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text=""
                     android:textColor="@color/darkPrimary"
-                    android:textSize="15dp"
-                    app:layout_constraintStart_toEndOf="@id/otherUserPhoto" />
+                    android:textSize="@dimen/scale_13dp"
+                    android:textStyle="bold"
+                    tools:text="dilsah.ozkan" />
 
                 <TextView
                     android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/darkPrimary"
-                    android:textSize="11dp" />
+                    android:text=""
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/scale_11dp"
+                    tools:text="Ankara" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/explanationText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scale_16dp"
-            android:background="@color/white"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/explanation"
-            android:imeOptions="actionDone"
-            android:inputType="textMultiLine"
-            android:textSize="@dimen/scale_15dp"
+            android:minHeight="100dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userInfo" />
+            app:layout_constraintTop_toBottomOf="@id/userInfoLinear">
 
-        <ImageView
-            android:id="@+id/postImage"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/explanationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/explanation"
+                android:layout_marginTop="@dimen/scale_10dp"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:textSize="@dimen/scale_15dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPostImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
+            app:cardCornerRadius="@dimen/scale_8dp"
+            android:layout_marginHorizontal="@dimen/scale_16dp"
+            android:layout_marginTop="@dimen/scale_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explanationText" />
+            app:layout_constraintTop_toBottomOf="@id/tl_explanation">
+
+            <ImageView
+                android:id="@+id/postImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageButton
+            android:id="@+id/deleteImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:src="@drawable/ic_bold_close"
+            android:background="@color/softOrange"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@+id/cardPostImage"
+            app:layout_constraintEnd_toEndOf="@id/cardPostImage"
+            app:tint="@color/black" />
 
         <LinearLayout
             android:id="@+id/petChooseLinear"
@@ -99,8 +140,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explanationText">
+            app:layout_constraintTop_toBottomOf="@id/tl_explanation">
 
             <TextView
                 android:layout_width="match_parent"
@@ -148,22 +190,15 @@
                     android:id="@+id/galleryIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/scale_20dp"
+                    android:layout_marginStart="@dimen/scale_20dp"
                     android:src="@drawable/ic_gallery" />
 
                 <ImageView
                     android:id="@+id/locationIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/scale_20dp"
+                    android:layout_marginStart="@dimen/scale_20dp"
                     android:src="@drawable/ic_location" />
-
-                <ImageView
-                    android:id="@+id/petHouseIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/scale_20dp"
-                    android:src="@drawable/ic_pet_house" />
 
             </androidx.appcompat.widget.Toolbar>
 

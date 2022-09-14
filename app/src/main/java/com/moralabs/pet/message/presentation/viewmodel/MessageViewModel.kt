@@ -9,6 +9,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MessageViewModel  @Inject constructor(
     private val useCase: MessageUseCase
-): BaseViewModel<ChatDto>(useCase){
+): BaseViewModel<List<ChatDto>>(useCase){
 
 }

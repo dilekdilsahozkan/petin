@@ -9,5 +9,20 @@
         android:id="@+id/newPostFragment"
         android:name="com.moralabs.pet.newPost.presentation.ui.NewPostFragment"
         android:label="NewPostFragment"
-        tools:layout="@layout/fragment_new_post"/>
+        tools:layout="@layout/fragment_new_post">
+
+        <action
+            android:id="@+id/action_fragment_post_to_addLocationFragment"
+            app:destination="@id/addLocationFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addLocationFragment"
+        android:name="com.moralabs.pet.newPost.presentation.ui.AddLocationFragment"
+        android:label="AddLocationFragment"
+        tools:layout="@layout/fragment_add_location"/>
+
 </navigation>

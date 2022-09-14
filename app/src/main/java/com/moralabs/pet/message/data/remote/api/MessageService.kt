@@ -9,18 +9,22 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface MessageService {
 
     @GET("/chat")
-    suspend fun chat(): Response<BaseResponse<ChatDto>>
+    suspend fun chat(): Response<BaseResponse<List<ChatDto>>>
 
-    @POST("/chat/{userId}")
+    @GET("/chat/user/{userId}")
+    suspend fun getChatDetail(@Path("userId") userId: String?): Response<BaseResponse<ChatDto>>
+
+    @POST("/chat/user/{userId}")
     suspend fun newChat(): Response<BaseResponse<ChatDto>>
 
-    @POST("/chat/{userId}/message")
-    suspend fun sendNewChat(@Body sendChat : ChatRequestDto): Response<ChatResponse>
+    @POST("/chat/user/{userId}/message")
+    suspend fun sendNewChat(@Path("userId") userId: String?, @Body sendChat: ChatRequestDto): Response<BaseResponse<Nothing>>
 
-    @POST("/chat/{chatId}/{dateTime}")
+    @POST("/chat/user/{chatId}/{dateTime}")
     suspend fun chatDateTime(): Response<BaseResponse<MessageDto>>
 }

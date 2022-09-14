@@ -18,10 +18,13 @@ import com.moralabs.pet.settings.presentation.ui.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(){
+class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_profile
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+    private val otherUserId: String? by lazy {
+        activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
+    }
 
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: ProfileViewModel by viewModels()
@@ -41,13 +44,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.viewpager.adapter = viewPagerAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
-            when(position) {
+            when (position) {
                 0 -> tab.setIcon(R.drawable.ic_posts)
                 1 -> tab.setIcon(R.drawable.ic_pet_house)
             }
         }.attach()
 
-        viewModel.userInfo()
+        if (!otherUserId.isNullOrBlank()) {
+            viewModel.otherUsersInfo(otherUserId)
+            binding.imgMenu.visibility = View.GONE
+            binding.followUser.visibility = View.VISIBLE
+        } else {
+            viewModel.userInfo()
+        }
     }
 
     override fun stateSuccess(data: UserDto) {
@@ -57,7 +66,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.username.text = data.userName.toString()
         binding.toolbarUsername.text = data.userName.toString()
         binding.totalPost.text = data.postCount.toString()
-        if(data.postCount == null){
+        if (data.postCount == null) {
             binding.totalPost.text = getString(R.string.zero)
         }
         binding.followers.text = data.followerCount.toString()

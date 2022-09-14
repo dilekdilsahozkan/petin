@@ -28,7 +28,7 @@ class RegisterUseCase @Inject constructor(
                 if (result.isSuccessful && result.code() == 200) {
                     result.body()?.data?.let {
                         it.accessToken?.let { accessToken ->
-                            authenticationRepository.login(accessToken)
+                            authenticationRepository.login(it.userId, accessToken)
                         }
 
                         emit(BaseResult.Success(it))

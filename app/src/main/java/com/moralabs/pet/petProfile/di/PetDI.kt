@@ -21,7 +21,7 @@ class PetDI {
 
     @Provides
     @Singleton
-    fun petRepositoryprovidePetRepository(service: PetService): PetRepository =
+    fun providePetRepository(service: PetService): PetRepository =
         PetRepositoryImpl(service)
 
     @Provides

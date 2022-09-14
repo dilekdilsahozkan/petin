@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_navigation"
+    app:startDestination="@id/message_detail_fragment">
+
+    <fragment
+        android:id="@+id/message_detail_fragment"
+        android:name="com.moralabs.pet.message.presentation.ui.MessageUserSearchFragment"
+        android:label="MessageUserSearchFragment"
+        tools:layout="@layout/fragment_message_user_search"/>
+</navigation>

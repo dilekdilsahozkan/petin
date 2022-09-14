@@ -15,9 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfilePostViewModel @Inject constructor(
     private val useCase: ProfilePostUseCase
-): BaseViewModel<List<PostDto>>(useCase){
+) : BaseViewModel<List<PostDto>>(useCase) {
 
-    fun profilePost(){
+    fun profilePost() {
         viewModelScope.launch {
             useCase.profilePost()
                 .onStart {
@@ -30,6 +30,62 @@ class ProfilePostViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun getPostAnotherUser(userId: String?){
+        viewModelScope.launch {
+            useCase.getPostAnotherUser(userId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+
+
+    fun likePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.likePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
+
+    fun unlikePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.unlikePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
                     }
                 }
         }

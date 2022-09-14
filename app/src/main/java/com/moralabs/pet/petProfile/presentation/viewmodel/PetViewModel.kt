@@ -17,6 +17,7 @@ class PetViewModel @Inject constructor(
     private val useCase: PetUseCase
 ): BaseViewModel<List<PetDto>>(useCase){
 
+
     fun getPet(){
         viewModelScope.launch {
             useCase.petPost()
@@ -34,4 +35,23 @@ class PetViewModel @Inject constructor(
                 }
         }
     }
+
+    fun getAnotherUserPet(userId: String?){
+        viewModelScope.launch {
+            useCase.getAnotherUserPet(userId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
 }

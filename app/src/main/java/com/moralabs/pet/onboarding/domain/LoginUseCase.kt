@@ -25,7 +25,7 @@ class LoginUseCase @Inject constructor(
                 if (response.isSuccessful && response.code() == 200) {
                     response.body()?.data?.let {
                         it.accessToken?.let { accessToken ->
-                            authenticationRepository.login(accessToken)
+                            authenticationRepository.login(it.userId, accessToken)
                         }
 
                         emit(BaseResult.Success(it))

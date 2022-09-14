@@ -24,7 +24,7 @@
             android:textColor="@color/darkGray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.type}" />
+            android:text="@{item.attributeName}" />
 
         <TextView
             android:id="@+id/featureValue"
@@ -37,7 +37,7 @@
             android:textColor="@color/darkPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="" />
+            android:text="@{item.choice}" />
 
         <View
             android:layout_width="match_parent"

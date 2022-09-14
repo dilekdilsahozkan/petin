@@ -12,6 +12,8 @@ class NewPostActivity : BaseActivity<ActivityNewPostBinding>(),
 
     companion object {
         var BUNDLE_CHOOSE_TYPE = "type"
+        var USER_IMAGE = "userImage"
+        var USER_NAME = "userName"
     }
     override fun getLayoutId() = R.layout.activity_new_post
 }

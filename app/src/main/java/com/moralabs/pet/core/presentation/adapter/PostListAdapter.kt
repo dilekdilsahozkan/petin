@@ -2,7 +2,6 @@ package com.moralabs.pet.core.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.presentation.toFullDate
+import com.moralabs.pet.core.presentation.extension.toFullDate
 import com.moralabs.pet.databinding.*
-import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
 
 class PostListAdapter(
-    private val onOfferClick: (post: PostDto) -> Unit,
+    private val onOfferClick: ((post: PostDto) -> Unit)? = null,
+    private val onPetProfile: (post: PostDto) -> Unit,
     private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
     private val onOfferUserClick: (post: PostDto) -> Unit,
+    private val onUserPhotoClick: (user: PostDto) -> Unit,
+    private val onPostSettingClick: ((user: PostDto) -> Unit)? = null
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -47,29 +48,50 @@ class PostListAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class PostListViewHolder(private val context: Context, val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PostListViewHolder(private val context: Context, val binding: ItemPostBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.postCommentLinear.setOnClickListener {
-                if (differ.currentList[bindingAdapterPosition] is PostDto) {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onCommentClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.petImage.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onPetProfile.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
                 }
             }
 
             binding.likeIcon.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onLikeClick.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
                 }
             }
 
             binding.offerButton.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onOfferClick.invoke(getItem(bindingAdapterPosition))
+                    onOfferClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
 
             binding.postOfferLinear.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onOfferUserClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+            binding.userPhoto.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onUserPhotoClick.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.postSetting.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onPostSettingClick?.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
                 }
             }
         }
@@ -86,38 +108,59 @@ class PostListAdapter(
             binding.offerCount.text = pet.offerCount.toString()
             binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
-            binding.petName.text = pet.content?.pet?.name
 
-            if(binding.likeIcon.isSelected){
-                binding.likeIcon.setBackgroundResource(R.drawable.ic_like_orange)
+            binding.petName.text = pet.content?.pet?.name
+            binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.type == 7 }?.getOrNull(0)?.choice
+            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.type == 5 }?.getOrNull(0)?.choice
+            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.type == 8 }?.getOrNull(0)?.choice
+
+            if (pet.isPostLikedByUser == true) {
+                binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.ic_like)
             }
 
-            if (pet.content?.pet?.media?.url.isNullOrEmpty()){
+            if (pet.isPostOwnedByUser == true) {
+                binding.offerButton.visibility = View.GONE
+                binding.postType.visibility = View.GONE
+                binding.postSetting.visibility = View.VISIBLE
+            } else {
+                binding.offerButton.visibility = View.VISIBLE
+                binding.postType.visibility = View.VISIBLE
+                binding.postSetting.visibility = View.GONE
+            }
+
+            if (pet.content?.pet?.media?.url.isNullOrEmpty()) {
                 binding.petImage.visibility = View.GONE
             } else {
+                binding.petImage.visibility = View.VISIBLE
                 binding.petImage.loadImage(pet.content?.pet?.media?.url)
             }
 
-            if(pet.content?.location?.city.isNullOrEmpty()){
+            if (pet.content?.location?.city.isNullOrEmpty()) {
                 binding.location.visibility = View.GONE
             } else {
+                binding.location.visibility = View.VISIBLE
                 binding.location.text = pet.content?.location?.city.toString()
             }
 
-            if (pet.content?.media.isNullOrEmpty()){
+            if (pet.content?.media.isNullOrEmpty()) {
                 binding.postImage.visibility = View.GONE
             } else {
+                binding.postImage.visibility = View.VISIBLE
                 binding.postImage.loadImage(pet.content?.media?.get(0)?.url)
             }
 
             when (pet.content?.type) {
                 0 -> {
-                    binding.postType.visibility = View.GONE
+                    binding.postIcon.setImageResource(R.drawable.ic_post)
+                    binding.postTypeText.text = context.getString(R.string.post)
                     binding.postContentLinear.visibility = View.VISIBLE
                     binding.postContent2Linear.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
 
-                    binding.empty.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                    binding.empty.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
                 1 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_qna)
@@ -126,16 +169,18 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
 
-                    binding.empty.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                    binding.empty.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
                 2 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_partner)
-                    binding.postTypeText.text = context.getString(R.string.adoption)
+                    binding.postTypeText.text = context.getString(R.string.findPartner)
                     binding.postContentLinear.visibility = View.GONE
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
 
-                    binding.empty2.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                    binding.empty2.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
                 3 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_adoption)
@@ -144,7 +189,8 @@ class PostListAdapter(
                     binding.postContent2Linear.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
 
-                    binding.empty2.visibility = if(bindingAdapterPosition == currentList.size-1) View.VISIBLE else View.GONE
+                    binding.empty2.visibility =
+                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
                 }
             }
         }

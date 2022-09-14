@@ -8,8 +8,7 @@ class HeaderInterceptor(private val userRepository: AuthenticationRepository) : 
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val originalRequest = chain.request()
-        val requestBuilder = originalRequest.newBuilder()
-            .header("Content-Type", "application/json")
+        var requestBuilder = originalRequest.newBuilder()
 
         userRepository.requestHeaders().forEach {
             it.value?.let { value ->

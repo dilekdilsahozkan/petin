@@ -34,20 +34,18 @@ class OfferUserFragment :
     }
 
     private val userAdapter: BaseListAdapter<OfferDto, ItemUserInfoBinding> by lazy {
-        BaseListAdapter(R.layout.item_user_info, BR.item, onRowClick = {
+        BaseListAdapter(R.layout.item_user_info, BR.item, onRowClick = { offer ->
             var bundle = bundleOf(
-                OfferActivity.OFFER_ID to it.id,
-                OfferUserActivity.OFFER_TEXT to it.text,
-                OfferUserActivity.USER_NAME to it.user?.fullName,
-                OfferUserActivity.PET_IMAGE to it.pet?.media?.url,
-                OfferUserActivity.PET_NAME to it.pet?.name,
-                OfferUserActivity.PET_KIND to it.pet?.petAttributes?.filter { it.type == 7 }?.get(0)?.choice,
-                OfferUserActivity.PET_GENDER to it.pet?.petAttributes?.filter { it.type == 8 }?.get(0)?.choice
-               // OfferUserActivity.PET_AGE to it.pet?.petAttributes?.filter { it.type == 9 }?.get(0)?.choice,
+                OfferActivity.OFFER_ID to offer.id,
+                OfferUserActivity.OFFER_TEXT to offer.text,
+                OfferUserActivity.USER_NAME to offer.user?.fullName,
+                OfferUserActivity.PET_IMAGE to offer.pet?.media?.url,
+                OfferUserActivity.PET_NAME to offer.pet?.name,
+                OfferUserActivity.PET_KIND to offer.pet?.petAttributes?.filter { it.type == 7 }?.getOrNull(0)?.choice,
+                OfferUserActivity.PET_GENDER to offer.pet?.petAttributes?.filter { it.type == 8 }?.getOrNull(0)?.choice,
+                OfferUserActivity.PET_AGE to offer.pet?.petAttributes?.filter { it.type == 9 }?.getOrNull(0)?.choice
                 )
             findNavController().navigate(R.id.action_fragment_offerUser_to_offerFragment, bundle)
-        }, isSameDto = { oldItem, newItem ->
-            true
         })
     }
 

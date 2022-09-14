@@ -74,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_qna"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -81,17 +82,29 @@
                 <TextView
                     android:id="@+id/postTypeText"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_regular"
                     android:includeFontPadding="false"
                     android:text=""
                     android:textColor="@color/darkPrimary"
                     android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@id/postIcon"
                     tools:text="Soru - Cevap" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/postSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_post_setting"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -255,16 +268,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/post2ReleaseTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/petImage"
-                app:layout_constraintTop_toBottomOf="@id/post2Text">
+                app:layout_constraintTop_toTopOf="@id/post2Text">
 
                 <TextView
                     android:id="@+id/petName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_regular"
-                    android:text=""
                     android:textColor="@color/darkPrimary"
                     android:textSize="@dimen/scale_17dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -276,7 +289,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="himalaya"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/scale_13dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -284,23 +296,21 @@
                     tools:text="Himalaya" />
 
                 <TextView
-                    android:id="@+id/petAge"
+                    android:id="@+id/petLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="1 year"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/scale_13dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/petKind"
-                    tools:text="1 year old" />
+                    tools:text="Ankara" />
 
                 <TextView
                     android:id="@+id/petGender"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Male"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/scale_13dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -326,7 +336,7 @@
                 android:layout_marginVertical="12dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petInfo">
+                app:layout_constraintTop_toBottomOf="@id/petImage">
 
                 <ImageView
                     android:id="@+id/offerCountIcon"
@@ -356,7 +366,7 @@
                 android:layout_marginVertical="15dp"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petInfo"
+                app:layout_constraintTop_toBottomOf="@id/petImage"
                 tools:text="1h ago" />
 
             <View

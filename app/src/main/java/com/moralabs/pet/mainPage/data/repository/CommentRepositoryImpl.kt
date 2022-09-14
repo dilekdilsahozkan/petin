@@ -10,6 +10,6 @@ import javax.inject.Inject
 
 class CommentRepositoryImpl @Inject constructor(private val service: CommentService) :
     CommentRepository, BaseRepository {
-    override suspend fun writeComment(postId: String?, writeNewComment: CommentRequestDto): Response<BaseResponse<List<CommentDto>>> = service.writeComment(postId, writeNewComment)
+    override suspend fun writeComment(postId: String?, writeNewComment: CommentRequestDto): Response<BaseResponse<CommentDto>> = service.writeComment(postId, writeNewComment)
     override suspend fun getComment(postId: String?): Response<BaseResponse<CommentDto>> = service.getComments(postId)
 }

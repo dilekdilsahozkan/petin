@@ -22,4 +22,14 @@ class ProfileUseCase @Inject constructor(
             }
         }
     }
+
+    fun otherUsersInfo(userId: String?): Flow<BaseResult<UserDto>> {
+        return flow {
+            profileRepository.otherUsersInfo(userId).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
+        }
+    }
 }

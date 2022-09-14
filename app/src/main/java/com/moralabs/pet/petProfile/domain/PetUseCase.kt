@@ -42,4 +42,36 @@ class PetUseCase @Inject constructor(
             }
         }
     }
+
+    fun deletePet(petId : String?): Flow<BaseResult<Boolean>>  {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    petRepository.deletePet(petId).isSuccessful
+                )
+            )
+        }
+    }
+
+    fun getAnotherUserPet(userId: String?): Flow<BaseResult<List<PetDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    petRepository.getAnotherUserPet(userId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+    fun getAnotherUserPetInfo(petId: String?, userId: String?): Flow<BaseResult<PetDto>> {
+        return flow {
+            petRepository.getAnotherUserPetInfo(petId, userId).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
+        }
+    }
+
+
 }

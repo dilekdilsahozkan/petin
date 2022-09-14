@@ -14,6 +14,7 @@ data class PostDto(
     val commentCount: Int? = null,
     val offerCount: Int? = null,
     val isPostLikedByUser: Boolean? = null,
+    val isPostOwnedByUser: Boolean? = null,
     val pageIndex: Int? = null,
     var selected: Boolean = false
 ): BaseDto()
@@ -27,8 +28,8 @@ data class ContentDto(
 ): BaseDto()
 
 data class LocationDto(
-    val latitude: Int? = null,
-    val longitude: Int? = null,
+    val latitude: Float? = null,
+    val longitude: Float? = null,
     val city: String? = null,
     val district: String? = null
 ): BaseDto()
@@ -44,11 +45,6 @@ data class CommentDto(
     val pageIndex: Int? = null
 ): BaseDto()
 
-data class CreateCommentDto(
-    val commentValue: List<CommentDto>? = null,
-    val userCommentValue: CommentDto? = null
-): BaseDto()
-
 data class CommentsDto(
     val id: String = "",
     val user: UserInfoDto? = null,
@@ -56,5 +52,6 @@ data class CommentsDto(
     val text: String? = null,
     val likeCount: Int? = null,
     val isCommentLikedByUser: Boolean? = null,
+    val isCommentOwnedByUser: Boolean? = null,
     val pageIndex: Int? = null
 ): BaseDto()

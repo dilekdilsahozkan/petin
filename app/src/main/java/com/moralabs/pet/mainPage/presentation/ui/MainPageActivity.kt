@@ -21,6 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
+    companion object {
+        const val POST_ID = "postId"
+    }
+
     override fun getLayoutId() = R.layout.activity_main_page
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +74,5 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
                 )
             )
         })
-
     }
 }

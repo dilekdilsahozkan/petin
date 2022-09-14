@@ -17,5 +17,5 @@ interface CommentService {
     suspend fun writeComment(
         @Path("postId") postId: String?,
         @Body writeNewComment: CommentRequestDto
-    ): Response<BaseResponse<List<CommentDto>>>
+    ): Response<BaseResponse<CommentDto>>
 }

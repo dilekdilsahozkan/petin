@@ -4,7 +4,9 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentUris
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
@@ -14,22 +16,28 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.LocationDto
+import com.moralabs.pet.core.data.remote.interceptor.HeaderInterceptor
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentNewPostBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -62,30 +70,33 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 pet.selected = pet == selected
             }
             petCardAdapter.notifyDataSetChanged()
-        }, isSameDto = { oldItem, newItem ->
-            true
         })
     }
 
     override fun addListeners() {
         super.addListeners()
 
+        viewModel.petValue()
+
         binding.toolbar.publishText.setOnClickListener {
-            val pet = petCardAdapter.currentList?.filter { it.selected }?.firstOrNull()
+            val pet = petCardAdapter.currentList.filter { it.selected }.firstOrNull()
             viewModel.createPost(
                 NewPostDto(
                     text = binding.explanationText.text.toString(),
                     type = postType,
-                    petId = pet?.id
+                    petId = pet?.id,
+                    files = viewModel.files.value
                 )
             )
             startActivity(Intent(context, MainPageActivity::class.java))
         }
 
-        viewModel.petValue()
-
         binding.toolbar.imgClose.setOnClickListener {
             startActivity(Intent(context, MainPageActivity::class.java))
+        }
+
+        binding.locationIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_post_to_addLocationFragment)
         }
 
         binding.galleryIcon.setOnClickListener {
@@ -98,8 +109,25 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
         (viewModel as? NewPostViewModel)?.files?.observe(viewLifecycleOwner) {
 
-            binding.postImage.isVisible = it.size > 0
+//            binding.postImage.isVisible = it.size > 0
+            if (it.size > 0) {
+                Glide.with(requireContext()).load(it.get(0)).into(binding.postImage)
+            } else {
 
+            }
+
+            lifecycleScope.launch {
+                viewModel.getUser.collect {
+                    when (it) {
+                        is ViewState.Success -> {
+                            binding.userPhoto.loadImage(it.data.media?.url)
+                            binding.userName.text = it.data.userName.toString()
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
         }
     }
 
@@ -107,26 +135,29 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         super.onViewCreated(view, savedInstanceState)
 
         binding.petCardList.adapter = petCardAdapter
+        viewModel.userInfo()
 
         if (postType == TabTextType.POST_TYPE.type) {
             binding.petChooseLinear.visibility = View.GONE
+            binding.cardPostImage.visibility = View.VISIBLE
+            binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
             binding.petChooseLinear.visibility = View.GONE
-           /* binding.postIcon.setImageResource(R.drawable.ic_qna)
-            binding.postText.text = getString(R.string.qna)*/
+            binding.cardPostImage.visibility = View.VISIBLE
+            binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petChooseLinear.visibility = View.VISIBLE
-           /* binding.postIcon.setImageResource(R.drawable.ic_partner)
-            binding.postText.text = getString(R.string.findPartner)*/
+            binding.cardPostImage.visibility = View.GONE
+            binding.deleteImage.visibility = View.GONE
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petChooseLinear.visibility = View.VISIBLE
-            /*binding.postIcon.setImageResource(R.drawable.ic_adoption)
-            binding.postText.text = getString(R.string.adoption)*/
+            binding.cardPostImage.visibility = View.GONE
+            binding.deleteImage.visibility = View.GONE
         }
     }
 
@@ -142,11 +173,15 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         )
         { permissions ->
             // Handle Permission granted/rejected
+            var canDialogBeOpened = true
             permissions.entries.forEach {
                 if (it.value.not()) {
+                    // TODO : Error
+                    canDialogBeOpened = false
                     return@forEach
                 }
-
+            }
+            if (canDialogBeOpened) {
                 openDialog()
             }
         }
@@ -167,11 +202,33 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     private val galleryResultLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                getImagePath(it)?.let { filePath ->
+                getRealPathFromURI(requireContext(), it)?.let { filePath ->
                     (viewModel as? NewPostViewModel)?.addFile(File(filePath))
                 }
             }
         }
+
+    private fun getRealPathFromURI(context: Context, uri: Uri?): String? {
+        var filePath = ""
+        val wholeID = DocumentsContract.getDocumentId(uri)
+
+        // Split at colon, use second item in the array
+        val id = wholeID.split(":").toTypedArray()[1]
+        val column = arrayOf(MediaStore.Images.Media.DATA)
+
+        // where id is equal to
+        val sel = MediaStore.Images.Media._ID + "=?"
+        val cursor: Cursor? = context.contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            column, sel, arrayOf(id), null
+        )
+        val columnIndex = cursor?.getColumnIndex(column[0])
+        if (cursor?.moveToFirst() == true) {
+            filePath = columnIndex?.let { cursor?.getString(it) }.toString()
+        }
+        cursor?.close()
+        return filePath
+    }
 
     private fun openDialog() {
         val builder = AlertDialog.Builder(context)

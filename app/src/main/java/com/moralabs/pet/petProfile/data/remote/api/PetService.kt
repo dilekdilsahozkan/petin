@@ -1,10 +1,11 @@
 package com.moralabs.pet.petProfile.data.remote.api
 
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
-import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
+import com.moralabs.pet.core.data.remote.dto.EmptyDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -19,4 +20,17 @@ interface PetService {
 
     @POST("/pet")
     suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<PetDto>>
+
+    @DELETE("/pet/{petId}")
+    suspend fun deletePet(@Path("petId") petId: String?): Response<EmptyDto>
+
+    @GET("/pet/user/{userId}")
+    suspend fun getAnotherUserPet(@Path("userId") userId: String?): Response<BaseResponse<List<PetDto>>>
+
+    @GET("/pet/{petId}/user/{userId}")
+    suspend fun getAnotherUserPetInfo(
+        @Path("petId") petId: String?,
+        @Path("userId") userId: String?
+    ): Response<BaseResponse<PetDto>>
+
 }
