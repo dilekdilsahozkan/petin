@@ -87,6 +87,11 @@
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
 
+    <!-- Profile -->
+
+    <string name="follow_user">Takip et</string>
+    <string name="unfollow_user">Takipten çıkar</string>
+
     <!-- TOAST MESSAGES -->
 
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
