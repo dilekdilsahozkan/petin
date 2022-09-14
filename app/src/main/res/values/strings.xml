@@ -94,8 +94,6 @@
     <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="settings_favorites_title">Favorilerim</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
@@ -104,7 +102,4 @@
     <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
     <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
