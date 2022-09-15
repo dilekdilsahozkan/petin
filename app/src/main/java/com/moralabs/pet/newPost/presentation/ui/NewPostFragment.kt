@@ -14,15 +14,12 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
-import com.moralabs.pet.core.data.remote.dto.LocationDto
-import com.moralabs.pet.core.data.remote.interceptor.HeaderInterceptor
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
@@ -46,6 +43,10 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
     private val postType: Int? by lazy {
         activity?.intent?.getIntExtra(NewPostActivity.BUNDLE_CHOOSE_TYPE, 0)
+    }
+
+    private val location: String? by lazy {
+        activity?.intent?.getStringExtra(NewPostActivity.LOCATION)
     }
 
     private var currentPhotoFile: File? = null
@@ -73,6 +74,37 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         })
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.location.text = location.toString()
+        binding.petCardList.adapter = petCardAdapter
+        viewModel.userInfo()
+
+        if (postType == TabTextType.POST_TYPE.type) {
+            binding.petChooseLinear.visibility = View.GONE
+            binding.cardPostImage.visibility = View.VISIBLE
+            binding.deleteImage.visibility = View.VISIBLE
+        }
+        if (postType == TabTextType.QAN_TYPE.type) {
+            binding.petChooseLinear.visibility = View.GONE
+            binding.cardPostImage.visibility = View.VISIBLE
+            binding.deleteImage.visibility = View.VISIBLE
+        }
+        if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
+            binding.keyboardConstraint.visibility = View.GONE
+            binding.petChooseLinear.visibility = View.VISIBLE
+            binding.cardPostImage.visibility = View.GONE
+            binding.deleteImage.visibility = View.GONE
+        }
+        if (postType == TabTextType.ADOPTION_TYPE.type) {
+            binding.keyboardConstraint.visibility = View.GONE
+            binding.petChooseLinear.visibility = View.VISIBLE
+            binding.cardPostImage.visibility = View.GONE
+            binding.deleteImage.visibility = View.GONE
+        }
+    }
+
     override fun addListeners() {
         super.addListeners()
 
@@ -84,6 +116,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 NewPostDto(
                     text = binding.explanationText.text.toString(),
                     type = postType,
+                //    locationId = location,
                     petId = pet?.id,
                     files = viewModel.files.value
                 )
@@ -112,8 +145,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 //            binding.postImage.isVisible = it.size > 0
             if (it.size > 0) {
                 Glide.with(requireContext()).load(it.get(0)).into(binding.postImage)
-            } else {
-
             }
 
             lifecycleScope.launch {
@@ -128,36 +159,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                     }
                 }
             }
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.petCardList.adapter = petCardAdapter
-        viewModel.userInfo()
-
-        if (postType == TabTextType.POST_TYPE.type) {
-            binding.petChooseLinear.visibility = View.GONE
-            binding.cardPostImage.visibility = View.VISIBLE
-            binding.deleteImage.visibility = View.VISIBLE
-        }
-        if (postType == TabTextType.QAN_TYPE.type) {
-            binding.petChooseLinear.visibility = View.GONE
-            binding.cardPostImage.visibility = View.VISIBLE
-            binding.deleteImage.visibility = View.VISIBLE
-        }
-        if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
-            binding.keyboardConstraint.visibility = View.GONE
-            binding.petChooseLinear.visibility = View.VISIBLE
-            binding.cardPostImage.visibility = View.GONE
-            binding.deleteImage.visibility = View.GONE
-        }
-        if (postType == TabTextType.ADOPTION_TYPE.type) {
-            binding.keyboardConstraint.visibility = View.GONE
-            binding.petChooseLinear.visibility = View.VISIBLE
-            binding.cardPostImage.visibility = View.GONE
-            binding.deleteImage.visibility = View.GONE
         }
     }
 

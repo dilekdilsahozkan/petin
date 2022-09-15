@@ -66,6 +66,7 @@
     <string name="age">Yaş</string>
     <string name="chooseLocation">Konum Seçiniz</string>
     <string name="addPhoto">Fotoğraf Ekleyiniz</string>
+    <string name="changePhoto">Fotoğrafınzı Değiştiriniz</string>
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
     <string name="deletePost">Gönderiyi Kaldır</string>
@@ -88,7 +89,9 @@
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
 
     <!-- Profile -->
-
+    <string name="feed">Gönderiler</string>
+    <string name="follower">Takipçiler</string>
+    <string name="followed">Takip edilenler</string>
     <string name="follow_user">Takip et</string>
     <string name="unfollow_user">Takipten çıkar</string>
 
@@ -119,7 +122,5 @@
     <string name="warning">Uyarı</string>
     <string name="ask_sure">Emin misiniz?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

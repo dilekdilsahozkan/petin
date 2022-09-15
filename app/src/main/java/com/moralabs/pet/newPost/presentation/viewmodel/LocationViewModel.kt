@@ -1,6 +1,7 @@
 package com.moralabs.pet.newPost.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.domain.BaseResult
@@ -16,6 +17,8 @@ import javax.inject.Inject
 class LocationViewModel @Inject constructor(
     private val useCase: NewPostUseCase
 ) : BaseViewModel<List<PostLocationDto>>(useCase) {
+
+    var city : MutableLiveData<PostLocationDto?> = MutableLiveData(null)
 
     fun getLocation(){
         viewModelScope.launch {
