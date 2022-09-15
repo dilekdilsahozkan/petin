@@ -18,7 +18,21 @@ data class PetAttributeDto(
     val type: Int? = null,
     val choice: String? = null,
     var isLoading: Boolean = false
+) : BaseDto()
 
+data class AttributeDto(
+    val id: String? = "",
+    val type: Int? = null,
+    val parentAttributeId: String? = null,
+    val name: String? = null,
+    val isRequired: Boolean? = false,
+    val choices: List<ChoicesDto>? = null,
+) : BaseDto()
+
+data class ChoicesDto(
+    val id: String? = "",
+    val parentAttributeChoiceId: String? = null,
+    val choice: String? = null,
 ) : BaseDto()
 
 data class CreatePostDto(

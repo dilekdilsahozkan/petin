@@ -2,6 +2,7 @@ package com.moralabs.pet.petProfile.data.remote.api
 
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.remote.dto.EmptyDto
+import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import retrofit2.Response
@@ -26,6 +27,9 @@ interface PetService {
 
     @GET("/pet/user/{userId}")
     suspend fun getAnotherUserPet(@Path("userId") userId: String?): Response<BaseResponse<List<PetDto>>>
+
+    @GET("/pet/attribute")
+    suspend fun petAttributes(): Response<BaseResponse<List<AttributeDto>>>
 
     @GET("/pet/{petId}/user/{userId}")
     suspend fun getAnotherUserPetInfo(

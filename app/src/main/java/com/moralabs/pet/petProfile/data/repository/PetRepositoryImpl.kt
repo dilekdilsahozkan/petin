@@ -13,5 +13,6 @@ class PetRepositoryImpl @Inject constructor(private val service: PetService) :
     override suspend fun editPet(editPet: PetRequestDto?, petId: String?) = service.editPet(editPet, petId)
     override suspend fun deletePet(petId: String?) = service.deletePet(petId)
     override suspend fun getAnotherUserPet(userId: String?) = service.getAnotherUserPet(userId)
+    override suspend fun petAttributes() = service.petAttributes()
     override suspend fun getAnotherUserPetInfo(petId: String?, userId: String?) = service.getAnotherUserPetInfo(petId, userId)
 }

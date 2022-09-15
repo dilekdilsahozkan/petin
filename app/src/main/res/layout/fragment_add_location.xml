@@ -67,7 +67,7 @@
             android:layout_margin="@dimen/scale_16dp">
 
             <AutoCompleteTextView
-                android:id="@+id/dropdown_location"
+                android:id="@+id/cities"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/scale_50dp"
                 android:hint="@string/chooseLocation"
