@@ -11,7 +11,7 @@ interface FeedService {
 
     // GET all feeds
     @GET("/feed")
-    suspend fun getFeed(): Response<BaseResponse<List<PostDto>>>
+    suspend fun getFeed(@Query("searchQuery") searchQuery: String? = null): Response<BaseResponse<List<PostDto>>>
 
     // POST new feeds
     @POST("/feed/post")

@@ -9,5 +9,4 @@ import java.io.File
 
 interface NewPostRepository {
     suspend fun createPost(createNewPost: NewPostDto): Response<BaseResponse<List<PetDto>>>
-    suspend fun upload(file: List<MultipartBody.Part>, key: String) : Response<BaseResponse<Any>>
 }

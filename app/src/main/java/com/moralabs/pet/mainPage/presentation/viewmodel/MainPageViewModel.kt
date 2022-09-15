@@ -12,6 +12,7 @@ import com.moralabs.pet.onboarding.domain.LoginUseCase
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,11 +22,15 @@ class MainPageViewModel @Inject constructor(
     private val useCase: MainPageUseCase
 ) : BaseViewModel<List<PostDto>>(useCase) {
 
-    fun feedPost() {
-        viewModelScope.launch {
-            useCase.getFeed()
+    private var job: Job? = null
+
+    fun feedPost(searchQuery: String? = null) {
+        job?.cancel()
+
+        job = viewModelScope.launch {
+            useCase.getFeed(searchQuery)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    if(searchQuery == null) _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
                     _state.value = ViewState.Error(message = exception.message)

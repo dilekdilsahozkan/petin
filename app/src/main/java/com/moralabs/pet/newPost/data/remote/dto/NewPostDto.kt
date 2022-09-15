@@ -7,7 +7,7 @@ import java.io.File
 import kotlinx.android.parcel.Parcelize
 
 data class NewPostDto (
-    val media: List<MediaDto>? = null,
+    var media: List<MediaDto>? = null,
     val text : String? = null,
     val type: Int? = null,
     val location: LocationDto? = null,
