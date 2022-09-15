@@ -16,7 +16,7 @@ import com.moralabs.pet.databinding.*
 
 class PostListAdapter(
     private val onOfferClick: ((post: PostDto) -> Unit)? = null,
-    private val onPetProfile: (post: PostDto) -> Unit,
+    private val onPetProfile: ((post: PostDto) -> Unit)? = null,
     private val onLikeClick: (post: PostDto) -> Unit,
     private val onCommentClick: (post: PostDto) -> Unit,
     private val onOfferUserClick: (post: PostDto) -> Unit,
@@ -59,7 +59,7 @@ class PostListAdapter(
 
             binding.petImage.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onPetProfile.invoke(getItem(bindingAdapterPosition))
+                    onPetProfile?.invoke(getItem(bindingAdapterPosition))
                     notifyDataSetChanged()
                 }
             }

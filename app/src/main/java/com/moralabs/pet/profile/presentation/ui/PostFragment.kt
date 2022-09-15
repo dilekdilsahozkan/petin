@@ -12,12 +12,15 @@ import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
+import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetFragment
+import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetListener
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>() {
+class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>(),
+    PostSettingBottomSheetListener {
 
     override fun getLayoutId() = R.layout.fragment_post
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -34,28 +37,32 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
         PostListAdapter(
             onPetProfile = {
 
-            },
-            onLikeClick = {
+            }, onLikeClick = {
                 val postId = it.id
                 viewModel.likePost(postId)
-            },
-            onCommentClick = {
+            }, onCommentClick = {
                 val bundle = bundleOf(
                     CommentActivity.POST_ID to it.id
                 )
                 val intent = Intent(context, CommentActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
-            },
-            onOfferUserClick = {
-            },
-            onUserPhotoClick = {
+            }, onOfferUserClick = {
+
+            }, onUserPhotoClick = {
                 val bundle = bundleOf(
                     OfferUserActivity.POST_ID to it.id
                 )
                 val intent = Intent(context, OfferUserActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
+            }, onPostSettingClick = {
+                fragmentManager?.let { it1 ->
+                    PostSettingBottomSheetFragment(
+                        this,
+                        it.id
+                    ).show(it1, "")
+                }
             }
         )
     }
@@ -65,10 +72,9 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
         binding.recyclerview.adapter = postAdapter
 
-        if(!otherUserId.isNullOrEmpty()){
+        if (!otherUserId.isNullOrEmpty()) {
             viewModel.getPostAnotherUser(otherUserId)
-        }
-        else {
+        } else {
             viewModel.profilePost()
         }
     }
@@ -77,5 +83,9 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+    }
+
+    override fun onItemClick(postId: String?) {
+        viewModel.deletePost(postId)
     }
 }

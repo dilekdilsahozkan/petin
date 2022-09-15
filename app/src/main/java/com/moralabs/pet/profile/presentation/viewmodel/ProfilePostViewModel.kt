@@ -90,4 +90,22 @@ class ProfilePostViewModel @Inject constructor(
                 }
         }
     }
+
+    fun deletePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.deletePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
 }

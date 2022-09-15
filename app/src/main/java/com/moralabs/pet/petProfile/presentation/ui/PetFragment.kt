@@ -26,9 +26,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>() {
 
-    private val petId: String? by lazy {
-        activity?.intent?.getStringExtra(PetProfileActivity.PET_ID)
-    }
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
@@ -68,29 +65,6 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         }
         else {
             viewModel.getPet()
-        }
-    }
-
-    override fun addObservers() {
-        super.addObservers()
-
-        lifecycleScope.launch {
-            viewModel.addState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.add_pet), Toast.LENGTH_LONG).show()
-                        startActivity(Intent(context, MainPageActivity::class.java))
-                    }
-                    is ViewState.Error<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.error_add_pet), Toast.LENGTH_LONG).show()
-                        stopLoading()
-                    }
-                    else -> {}
-                }
-            }
         }
     }
 

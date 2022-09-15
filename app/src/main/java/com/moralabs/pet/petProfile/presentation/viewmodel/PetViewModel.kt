@@ -18,10 +18,6 @@ class PetViewModel @Inject constructor(
     private val useCase: PetUseCase
 ): BaseViewModel<List<PetDto>>(useCase){
 
-    protected var _addState: MutableStateFlow<ViewState<PetDto>> =
-        MutableStateFlow(ViewState.Idle())
-    val addState: StateFlow<ViewState<PetDto>> = _addState
-
     fun getPet(){
         viewModelScope.launch {
             useCase.petPost()
@@ -53,24 +49,6 @@ class PetViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
-                    }
-                }
-        }
-    }
-
-    fun addPet(addPet: PetRequestDto){
-        viewModelScope.launch {
-            useCase.addPet(addPet)
-                .onStart {
-                    _addState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _addState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _addState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
