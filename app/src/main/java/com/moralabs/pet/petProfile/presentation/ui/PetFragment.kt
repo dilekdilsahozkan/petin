@@ -61,7 +61,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
         if(!otherUserId.isNullOrBlank()) {
             viewModel.getAnotherUserPet(otherUserId)
-            binding.addPet.visibility = View.GONE
+            binding.addPetTitleAndIcon.visibility = View.GONE
         }
         else {
             viewModel.getPet()

@@ -15,4 +15,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(),
     }
 
     override fun getLayoutId() = R.layout.activity_profile
+
+    override fun startLoading() {
+    }
+
+    override fun stopLoading() {
+    }
 }
