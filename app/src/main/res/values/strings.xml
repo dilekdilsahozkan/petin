@@ -88,6 +88,10 @@
     <string name="settings_privacy_and_security">Gizlilik ve Güvenlik</string>
     <string name="settings_blocked_accounts">Engellenen Hesaplar</string>
     <string name="settings_blocked_accounts_unblock">ENGELLEMEYİ KALDIR</string>
+    <string name="settings_what_is_pet">Pet nedir?</string>
+    <string name="settings_who_we_are">Biz kimiz?</string>
+    <string name="settings_our_purpose">Amacımız</string>
+    <string name="settings_bout">Hakkımızda</string>
 
     <!-- TOAST MESSAGES -->
 
@@ -104,5 +108,7 @@
     <string name="settings_new_password">Yeni Şifre</string>
     <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
     <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
