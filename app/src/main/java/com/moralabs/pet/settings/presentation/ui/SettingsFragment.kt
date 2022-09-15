@@ -31,6 +31,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsDto, Sett
         binding.icNavigateToAccount.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_settings_to_accountFragment)
         }
+        binding.icNavigateToPrivacyAndSec.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_privacyAndSecurityFragment)
+        }
     }
 
     override fun fragmentViewModel(): BaseViewModel<SettingsDto> {

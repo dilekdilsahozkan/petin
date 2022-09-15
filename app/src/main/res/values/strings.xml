@@ -85,6 +85,9 @@
     <string name="settings_username">Kullanıcı Adı</string>
     <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
+    <string name="settings_privacy_and_security">Gizlilik ve Güvenlik</string>
+    <string name="settings_blocked_accounts">Engellenen Hesaplar</string>
+    <string name="settings_blocked_accounts_unblock">ENGELLEMEYİ KALDIR</string>
 
     <!-- TOAST MESSAGES -->
 

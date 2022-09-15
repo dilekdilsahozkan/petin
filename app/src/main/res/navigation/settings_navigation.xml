@@ -16,6 +16,11 @@
             app:destination="@id/accountFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_settingsFragment_to_privacyAndSecurityFragment"
+            app:destination="@id/privacyAndSecurityFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
 
     </fragment>
 
@@ -79,4 +84,16 @@
         android:id="@+id/deleteAccountFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.DeleteAccountFragment"
         android:label="DeleteAccountFragment" />
+    <fragment
+        android:id="@+id/privacyAndSecurityFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.privacyAndSecurity.PrivacyAndSecurityFragment"
+        android:label="PrivacyAndSecurityFragment" >
+        <action
+            android:id="@+id/action_privacyAndSecurityFragment_to_blockedAccountsFragment"
+            app:destination="@id/blockedAccountsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blockedAccountsFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.privacyAndSecurity.BlockedAccountsFragment"
+        android:label="BlockedAccountsFragment" />
 </navigation>

@@ -9,5 +9,7 @@ import javax.inject.Inject
 
 class SettingRepositoryImpl @Inject constructor(private val service: SettingService) :
     SettingRepository, BaseRepository {
-    override suspend fun logout(logout: SettingsRequestDto): Response<SettingsDto>  = service.logout(logout)
+    override suspend fun logout(logout: SettingsRequestDto): Response<SettingsDto> = service.logout(logout)
+    override suspend fun getBlockedAccounts() = service.getBlockedAccounts()
+
 }
