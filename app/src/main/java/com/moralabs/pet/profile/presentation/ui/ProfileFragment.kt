@@ -3,18 +3,16 @@ package com.moralabs.pet.profile.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.moralabs.pet.R
-import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentProfileBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetFragment
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
@@ -30,9 +28,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
     override fun getLayoutId() = R.layout.fragment_profile
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
+
     private var isUserFollowed: Boolean = false
 
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
@@ -55,6 +55,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     viewModel.followUser(otherUserId)
                 }
             }
+        }
+
+        binding.followedLinear.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_profile_to_followedFragment)
+        }
+
+        binding.followerLinear.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
         }
     }
 
@@ -105,15 +113,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                         }
                         binding.followUnfollowUser.visibility = View.VISIBLE
                         if (isUserFollowed == true) {
-                            binding.followUnfollowUser.text = context?.getString(R.string.unfollow_user)
+                            binding.followUnfollowUser.text =
+                                context?.getString(R.string.unfollow_user)
                         } else {
-                            binding.followUnfollowUser.text = context?.getString(R.string.follow_user)
+                            binding.followUnfollowUser.text =
+                                context?.getString(R.string.follow_user)
                         }
                         stopLoading()
                     }
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }
@@ -131,6 +142,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }
@@ -148,6 +160,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }

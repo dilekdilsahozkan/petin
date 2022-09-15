@@ -2,11 +2,9 @@ package com.moralabs.pet.core.data.repository.impl
 
 import com.moralabs.pet.core.data.remote.api.FeedService
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
-import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.data.repository.BaseRepository
 import com.moralabs.pet.core.data.repository.PostRepository
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import retrofit2.Response
 import javax.inject.Inject
 

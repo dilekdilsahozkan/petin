@@ -12,6 +12,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import com.moralabs.pet.R
 import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
@@ -166,7 +167,12 @@ abstract class BaseFragment<T : ViewDataBinding,
             action.invoke()
         } else {
             PetWarningDialog(
-                binding.root.context,
+                requireContext(),
+                PetWarningDialogType.LOGIN,
+                getString(R.string.register),
+                okey = getString(R.string.ok),
+                description = getString(R.string.loginNeeded),
+                positiveButton = getString(R.string.login),
                 onResult = {
                     if (PetWarningDialogResult.OK == it) {
                         loginResultLauncher.launch(action)
@@ -174,5 +180,4 @@ abstract class BaseFragment<T : ViewDataBinding,
                 }).show()
         }
     }
-
 }

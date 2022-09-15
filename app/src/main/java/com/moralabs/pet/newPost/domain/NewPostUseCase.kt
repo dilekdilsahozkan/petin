@@ -1,5 +1,6 @@
 package com.moralabs.pet.newPost.domain
 
+import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
@@ -20,17 +21,18 @@ class NewPostUseCase @Inject constructor(
     private val userRepository: ProfileRepository,
     private val mediaRepository: MediaRepository
 ) : BaseUseCase() {
+
     fun newPost(newPost: NewPostDto): Flow<BaseResult<CreatePostDto>> {
         return flow {
 
-            var postDto = NewPostDto(
+            val postDto = NewPostDto(
                 text = newPost.text,
                 type = newPost.type,
-                location = newPost.location,
+                locationId = newPost.locationId,
                 petId = newPost.petId,
             )
 
-            var medias = mutableListOf<MediaDto>()
+            val medias = mutableListOf<MediaDto>()
 
             newPost.files?.forEach {
                 val media = mediaRepository.uploadPhoto(newPost.type ?: 0, it)
@@ -65,6 +67,15 @@ class NewPostUseCase @Inject constructor(
                     )
                 )
             )
+        }
+    }
+
+    fun getLocation(): Flow<BaseResult<List<PostLocationDto>>> {
+        return flow {
+            newPostRepository.getLocation().body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
+
         }
     }
 

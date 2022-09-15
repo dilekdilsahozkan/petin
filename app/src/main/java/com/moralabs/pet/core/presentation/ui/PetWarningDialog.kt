@@ -3,15 +3,33 @@ package com.moralabs.pet.core.presentation.ui
 import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
+import android.view.View
+import androidx.core.view.isVisible
+import com.moralabs.pet.R
 import com.moralabs.pet.databinding.UiPetWarningDialogBinding
 
+enum class PetWarningDialogType {
+    WARNING,
+    CONFIRMATION,
+    SUCCESS,
+    ERROR,
+    LOGIN
+}
+
 enum class PetWarningDialogResult {
-    OK
+    OK,
+    CANCEL
 }
 
 class PetWarningDialog (
     context: Context,
+    type: PetWarningDialogType,
+    title: String,
+    okey: String,
+    description: String,
     onResult: ((result: PetWarningDialogResult) -> Unit)? = null,
+    positiveButton: String? = null,
+    negativeButton: String? = null
 ) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen), Animator.AnimatorListener {
 
     private var binding = UiPetWarningDialogBinding.inflate(layoutInflater)
@@ -24,11 +42,72 @@ class PetWarningDialog (
         binding.dialogBackground.animate().setDuration(ANIMATION_DURATION).alpha(0.6f).start()
         binding.dialogRoot.animate().translationY(0f).setDuration(ANIMATION_DURATION).start()
 
-        binding.icon.setOnClickListener{
+        when(type){
+            PetWarningDialogType.WARNING -> {
+                setCancelable(true)
+                binding.icon.setImageResource(R.drawable.ic_add_photo)
+            }
+            PetWarningDialogType.CONFIRMATION -> {
+                setCancelable(false)
+                binding.icon.setImageResource(R.drawable.ic_add_photo)
+            }
+            PetWarningDialogType.SUCCESS -> {
+                setCancelable(false)
+                binding.icon.setImageResource(R.drawable.ic_add_photo)
+            }
+            PetWarningDialogType.ERROR -> {
+                setCancelable(false)
+                binding.icon.setImageResource(R.drawable.ic_add_photo)
+            }
+            PetWarningDialogType.LOGIN -> {
+                setCancelable(false)
+                binding.icon.setImageResource(R.drawable.ic_add_photo)
+            }
+        }
+
+        binding.text.text = title
+        binding.description.text = description
+        binding.okey.text = okey
+
+        if(title.equals(context.getString(R.string.register))){
+            binding.icon.visibility = View.GONE
+        } else {
+            binding.icon.visibility = View.VISIBLE
+        }
+
+        binding.okey.setOnClickListener{
             onResult?.let {
                 onResult(PetWarningDialogResult.OK)
             }
             dismiss()
+        }
+
+        binding.discard.setOnClickListener{
+            onResult?.let {
+                onResult(PetWarningDialogResult.CANCEL)
+            }
+            dismiss()
+        }
+
+        binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
+
+        binding.login.setOnClickListener{
+            onResult?.let {
+                onResult(PetWarningDialogResult.OK)
+            }
+            dismiss()
+        }
+
+        binding.login.isVisible = type == PetWarningDialogType.LOGIN
+        binding.discard.isVisible = type == PetWarningDialogType.LOGIN
+        binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
+
+        positiveButton?.let{
+            binding.okey.text = it
+        }
+
+        negativeButton?.let{
+            binding.discard.text = it
         }
     }
 

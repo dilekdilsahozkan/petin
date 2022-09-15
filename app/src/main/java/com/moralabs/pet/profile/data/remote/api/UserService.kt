@@ -24,6 +24,9 @@ interface UserService {
     @GET("/user/followed")
     suspend fun getFollowedList() : Response<BaseResponse<List<UserInfoDto>>>
 
+    @GET("/user/follower")
+    suspend fun getFollowerList() : Response<BaseResponse<List<UserInfoDto>>>
+
     @POST("/user/{userId}/follow")
     suspend fun followUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
 

@@ -2,8 +2,6 @@ package com.moralabs.pet.profile.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.moralabs.pet.core.data.remote.dto.BaseDto
-import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState

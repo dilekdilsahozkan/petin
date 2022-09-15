@@ -9,40 +9,40 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAddPetBinding
 import com.moralabs.pet.databinding.ItemAddPetFeatureBinding
-import com.moralabs.pet.newPost.data.remote.dto.MediaDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.BR
-import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
-import com.moralabs.pet.petProfile.presentation.viewmodel.PetProfileViewModel
+import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
+import com.moralabs.pet.petProfile.presentation.viewmodel.AddPetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddPetFragment : BaseFragment<FragmentAddPetBinding, PetDto, PetProfileViewModel>() {
+class AddPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, AddPetViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_add_pet
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun fragmentViewModel(): BaseViewModel<PetDto> {
-        val viewModel: PetProfileViewModel by viewModels()
+    override fun fragmentViewModel(): BaseViewModel<List<AttributeDto>> {
+        val viewModel: AddPetViewModel by viewModels()
         return viewModel
     }
 
-    private val attributeAdapter: BaseListAdapter<PetAttributeDto, ItemAddPetFeatureBinding> by lazy {
-        BaseListAdapter(R.layout.item_add_pet_feature, BR.attribute)
+    private val attributeAdapter: BaseListAdapter<AttributeDto, ItemAddPetFeatureBinding> by lazy {
+        BaseListAdapter(R.layout.item_add_pet_feature, BR.item)
+    }
+
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.addPet))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.adapter = attributeAdapter
-
     }
 
-    override fun stateSuccess(data: PetDto) {
+    override fun stateSuccess(data: List<AttributeDto>) {
         super.stateSuccess(data)
 
-        attributeAdapter.submitList(data.petAttributes)
-
+        attributeAdapter.submitList(data)
     }
 }
