@@ -55,8 +55,12 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onLikeClick = {
-                val postId = it.id
-                viewModel.likePost(postId)
+                if (it.isPostLikedByUser == true) {
+                    viewModel.unlikePost(it.id)
+                } else {
+                    viewModel.likePost(it.id)
+                }
+
             },
             onCommentClick = {
                 val bundle = bundleOf(
