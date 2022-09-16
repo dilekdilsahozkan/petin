@@ -95,6 +95,11 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         } else {
             PetWarningDialog(
                 binding.root.context,
+                PetWarningDialogType.CONFIRMATION,
+                getString(R.string.register),
+                okey = getString(R.string.ok),
+                description = getString(R.string.loginNeeded),
+                positiveButton = getString(R.string.login),
                 onResult = {
                     if (PetWarningDialogResult.OK == it) {
                         loginResultLauncher.launch(action)

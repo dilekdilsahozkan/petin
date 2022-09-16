@@ -15,6 +15,7 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
@@ -25,9 +26,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>() {
 
-    private val petId: String? by lazy {
-        activity?.intent?.getStringExtra(PetProfileActivity.PET_ID)
-    }
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
@@ -63,7 +61,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
         if(!otherUserId.isNullOrBlank()) {
             viewModel.getAnotherUserPet(otherUserId)
-            binding.addPet.visibility = View.GONE
+            binding.addPetTitleAndIcon.visibility = View.GONE
         }
         else {
             viewModel.getPet()

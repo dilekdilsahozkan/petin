@@ -34,6 +34,13 @@ data class LocationDto(
     val district: String? = null
 ): BaseDto()
 
+data class PostLocationDto(
+    val id: String? = "",
+    val name: String? = null,
+    val latitude: Float? = null,
+    val longitude: Float? = null
+): BaseDto()
+
 data class CommentDto(
     val id: String = "",
     val user: UserInfoDto? = null,

@@ -7,7 +7,6 @@ import com.moralabs.pet.offer.data.remote.api.OfferService
 import com.moralabs.pet.offer.data.remote.dto.OfferDto
 import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
-import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 import retrofit2.Response
 import javax.inject.Inject
 

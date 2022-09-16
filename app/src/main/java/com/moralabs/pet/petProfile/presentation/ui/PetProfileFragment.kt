@@ -13,6 +13,9 @@ import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentPetProfileBinding
 import com.moralabs.pet.databinding.ItemPetFeatureBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
@@ -42,11 +45,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
     }
 
     private val attributeAdapter: BaseListAdapter<PetAttributeDto, ItemPetFeatureBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_feature, BR.item, onRowClick = {
-
-        }, isSameDto = { oldItem, newItem ->
-            true
-        })
+        BaseListAdapter(R.layout.item_pet_feature, BR.item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +60,26 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         }
     }
 
+    override fun addListeners() {
+        super.addListeners()
+
+        binding.deleteIcon.setOnClickListener {
+            PetWarningDialog(
+                requireContext(),
+                PetWarningDialogType.CONFIRMATION,
+                resources.getString(R.string.ask_sure),
+                okey = getString(R.string.yes),
+                description = resources.getString(R.string.delete_pet_warning),
+                negativeButton = resources.getString(R.string.no),
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        viewModel.deletePet(petId)
+                    }
+                }
+            ).show()
+        }
+    }
+
     override fun addObservers() {
         super.addObservers()
         lifecycleScope.launch {
@@ -70,11 +89,19 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                         startLoading()
                     }
                     is ViewState.Success<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.pet_delete), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.pet_delete),
+                            Toast.LENGTH_LONG
+                        ).show()
                         startActivity(Intent(context, MainPageActivity::class.java))
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.error_pet_delete), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_pet_delete),
+                            Toast.LENGTH_LONG
+                        ).show()
                         stopLoading()
                     }
                     else -> {}
@@ -90,21 +117,18 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
 
         binding.petName.text = data.name.toString()
         binding.petImage.loadImage(data.media?.url)
-        binding.deleteIcon.setOnClickListener {
-            viewModel.deletePet(petId)
-        }
 
         data.petAttributes?.forEach {
-                when(it.type){
+            when (it.type) {
 
-                    8 -> binding.petGender.text = it.choice.toString()
+                8 -> binding.petGender.text = it.choice.toString()
 
-                    5 -> binding.locationName.text = it.choice.toString()
+                5 -> binding.locationName.text = it.choice.toString()
 
-                    7 -> binding.petType.text = it.choice.toString()
+                7 -> binding.petType.text = it.choice.toString()
 
-                    9 -> binding.petAge.text = it.choice.toString()
-                }
+                9 -> binding.petAge.text = it.choice.toString()
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.moralabs.pet.core.di
 
 import com.moralabs.pet.core.data.remote.api.FeedService
-import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.data.repository.PostRepository
 import com.moralabs.pet.core.data.repository.impl.PostRepositoryImpl
 import com.moralabs.pet.mainPage.domain.MainPageUseCase
@@ -33,6 +32,6 @@ class FeedDI {
 
     @Provides
     @Singleton
-    fun provideProfilePostUseCase(postRepository: PostRepository, authenticationRepository: AuthenticationRepository): ProfilePostUseCase =
-        ProfilePostUseCase(postRepository, authenticationRepository)
+    fun provideProfilePostUseCase(postRepository: PostRepository): ProfilePostUseCase =
+        ProfilePostUseCase(postRepository)
 }

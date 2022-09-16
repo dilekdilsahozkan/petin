@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.onboarding.data.remote.dto.ForgotPasswordDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
+import com.moralabs.pet.onboarding.data.remote.dto.NewPasswordDto
 import com.moralabs.pet.onboarding.domain.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -33,6 +35,42 @@ class LoginViewModel @Inject constructor(
                             _state.value = ViewState.Success(baseResult.data)
                         is BaseResult.Error ->
                             _state.value = ViewState.Error()
+                    }
+                }
+        }
+    }
+
+    fun forgotPassword(sendEmail: ForgotPasswordDto) {
+        viewModelScope.launch {
+            useCase.forgotPassword(sendEmail)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
+
+    fun newPassword(getCode: NewPasswordDto) {
+        viewModelScope.launch {
+            useCase.newPassword(getCode)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
                     }
                 }
         }

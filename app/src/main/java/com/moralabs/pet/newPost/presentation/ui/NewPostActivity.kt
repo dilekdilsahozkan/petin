@@ -1,7 +1,8 @@
 package com.moralabs.pet.newPost.presentation.ui
 
  import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
+ import com.moralabs.pet.core.data.remote.dto.PostLocationDto
+ import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityNewPostBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,8 +13,8 @@ class NewPostActivity : BaseActivity<ActivityNewPostBinding>(),
 
     companion object {
         var BUNDLE_CHOOSE_TYPE = "type"
-        var USER_IMAGE = "userImage"
-        var USER_NAME = "userName"
+        var LOCATION = "location"
+        var LOCATION_ID = "location_id"
     }
     override fun getLayoutId() = R.layout.activity_new_post
 }

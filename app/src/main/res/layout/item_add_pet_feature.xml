@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="attribute"
+            name="item"
             type="com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto" />
 
     </data>
@@ -15,18 +16,18 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/email_title"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/email"
             android:textColor="@color/darkSecondary"
             android:textSize="13dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="İsim"/>
 
         <EditText
-            android:id="@+id/email_edittext"
+            android:id="@+id/choice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_edit"
@@ -34,8 +35,9 @@
             android:padding="10dp"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/email_title"
-            app:layout_constraintTop_toBottomOf="@id/email_title" />
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

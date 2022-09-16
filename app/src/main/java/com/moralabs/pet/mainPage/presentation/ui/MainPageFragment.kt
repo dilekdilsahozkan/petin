@@ -4,25 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
-import com.moralabs.pet.core.presentation.extension.argument
+import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
-import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
-import com.moralabs.pet.newPost.presentation.ui.TabTextType
-import com.moralabs.pet.offer.presentation.ui.OfferActivity
+import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(), PostSettingBottomSheetListener {
+class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
+    PostSettingBottomSheetListener {
 
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -36,9 +36,10 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         PostListAdapter(
             onOfferClick = {
                 val bundle = bundleOf(
-                    OfferActivity.POST_ID to it.id
+                    MakeOfferActivity.POST_ID to it.id,
+                    MakeOfferActivity.OFFER_TYPE to it.content?.type
                 )
-                val intent = Intent(context, OfferActivity::class.java)
+                val intent = Intent(context, MakeOfferActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
             },
@@ -108,6 +109,18 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+    }
+
+    override fun addListeners() {
+        super.addListeners()
+
+        binding.searchEdittext.addTextChangedListener {
+            if(it.toString().isEmptyOrBlank()){
+                viewModel.feedPost()
+            }else{
+                viewModel.feedPost(it.toString())
+            }
+        }
     }
 
     override fun onItemClick(postId: String?) {

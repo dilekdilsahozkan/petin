@@ -5,8 +5,12 @@ import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
+import com.moralabs.pet.notification.data.repository.NotificationRepository
+import com.moralabs.pet.notification.domain.NotificationUseCase
+import com.moralabs.pet.onboarding.data.remote.dto.ForgotPasswordDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
+import com.moralabs.pet.onboarding.data.remote.dto.NewPasswordDto
 import com.moralabs.pet.onboarding.data.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +18,8 @@ import javax.inject.Inject
 
 class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
-    private val authenticationRepository: AuthenticationRepository
+    private val authenticationRepository: AuthenticationRepository,
+    private val notificationRepository: NotificationRepository
 ) : BaseUseCase() {
     fun login(loginPet: LoginRequestDto): Flow<BaseResult<LoginDto>> {
         return flow {
@@ -28,6 +33,8 @@ class LoginUseCase @Inject constructor(
                             authenticationRepository.login(it.userId, accessToken)
                         }
 
+                        notificationRepository.sendToken(notificationRepository.getFirebaseToken())
+
                         emit(BaseResult.Success(it))
                     } ?: run {
                         emit(BaseResult.Error(ErrorResult(code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD)))
@@ -38,4 +45,22 @@ class LoginUseCase @Inject constructor(
             }
         }
     }
+
+    fun forgotPassword(sendEmail: ForgotPasswordDto): Flow<BaseResult<LoginDto>> {
+        return flow {
+            loginRepository.forgotPassword(sendEmail).body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
+        }
+    }
+
+    fun newPassword(getCode: NewPasswordDto): Flow<BaseResult<LoginDto>> {
+        return flow {
+            loginRepository.newPassword(getCode).body()?.data?.let {
+                emit(BaseResult.Success(it))
+
+            }
+        }
+    }
+
 }

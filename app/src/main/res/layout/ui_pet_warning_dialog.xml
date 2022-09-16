@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,7 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dialog_root"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:layout_marginHorizontal="@dimen/scale_20dp"
             android:background="@drawable/base_cardview"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,6 +37,7 @@
                 android:id="@+id/icon"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
+                android:layout_marginTop="@dimen/scale_20dp"
                 android:src="@drawable/ic_add_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,22 +47,67 @@
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scale_16dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
+                android:textSize="@dimen/scale_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/icon"
-                android:text="İlerleyebilmek için giriş yapınız." />
+                tools:text="Başarılı" />
 
             <TextView
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
+                android:layout_marginTop="@dimen/scale_16dp"
+                android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/mainColor"
-                app:layout_constraintTop_toBottomOf="@id/text"/>
+                android:textSize="@dimen/scale_16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text"
+                tools:text="Kaydetme işlemi başarıyla gerçekleştirildi." />
 
+            <TextView
+                android:id="@+id/okey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scale_25dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="@string/ok"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/scale_18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description" />
+
+            <TextView
+                android:id="@+id/discard"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/scale_20dp"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textSize="@dimen/scale_18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/okey" />
+
+            <TextView
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/member_check"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@id/discard" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

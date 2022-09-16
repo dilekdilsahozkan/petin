@@ -28,8 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         if (authenticationRepository.isLoggedIn()) {
             startActivity(Intent(this, MainPageActivity::class.java))
+            finish()
         } else {
             startActivity(Intent(this, WelcomeActivity::class.java))
+            finish()
         }
     }
 }

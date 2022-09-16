@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">PETIN</string>
-    <string name="petin">PetIn</string>
+    <string name="app_name">Petin</string>
+    <string name="pets">Evcil Hayvanlarım</string>
     <string name="description">Hayvan severlerin buluştuğu platform</string>
     <string name="mainPageTitle">Ana Sayfa</string>
     <string name="messagesTitle">Mesajlar</string>
@@ -29,6 +29,7 @@
     <string name="chooseAdoption">Neden bu evcil hayvanı sahiplenmek istediğinizi açıklayınız.</string>
     <string name="offer">Teklif</string>
     <string name="allOffers">Teklifler</string>
+    <string name="addPet">Evcil Hayvan Ekle</string>
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
     <string name="delete">Kaldır</string>
@@ -65,6 +66,7 @@
     <string name="age">Yaş</string>
     <string name="chooseLocation">Konum Seçiniz</string>
     <string name="addPhoto">Fotoğraf Ekleyiniz</string>
+    <string name="changePhoto">Fotoğrafınzı Değiştiriniz</string>
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
     <string name="deletePost">Gönderiyi Kaldır</string>
@@ -93,16 +95,23 @@
     <string name="settings_our_purpose">Amacımız</string>
     <string name="settings_bout">Hakkımızda</string>
 
+    <!-- Profile -->
+    <string name="feed">Gönderiler</string>
+    <string name="follower">Takipçiler</string>
+    <string name="followed">Takip edilenler</string>
+    <string name="follow_user">Takip et</string>
+    <string name="unfollow_user">Takipten çıkar</string>
+
     <!-- TOAST MESSAGES -->
 
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
     <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>
     <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
+    <string name="add_pet">Evcil hayvanınızın profili başarıyla kaydedildi</string>
+    <string name="error_add_pet">Evcil hayvanınızın profili kaydedilemedi.</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
-
-    <string name="settings_favorites_title">Favorilerim</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
     <string name="settings_current_password">Mevcut Şifre</string>
     <string name="settings_new_password">Yeni Şifre</string>
@@ -110,5 +119,17 @@
     <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- PetWarningDialogs -->
+
+    <string name="ok">Tamam</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="member_check"><u>Üye iseniz giriş yapmak için tıklayın</u></string>
+    <string name="loginNeeded">Petin\'i kullanmak için kayıt olun</string>
+    <string name="warning">Uyarı</string>
+    <string name="ask_sure">Emin misiniz?</string>
+    <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
 
 </resources>

@@ -53,7 +53,7 @@
             android:fitsSystemWindows="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".offer.presentation.ui.OfferActivity"
+            android:name=".offer.presentation.ui.MakeOfferActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
@@ -91,6 +91,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/image_paths" />
         </provider>
+
+        <service
+            android:name=".common.presentation.PetFirebaseService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

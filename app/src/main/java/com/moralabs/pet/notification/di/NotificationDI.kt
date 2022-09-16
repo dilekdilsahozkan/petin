@@ -1,5 +1,6 @@
 package com.moralabs.pet.notification.di
 
+import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.notification.data.remote.api.NotificationService
 import com.moralabs.pet.notification.data.repository.NotificationRepository
 import com.moralabs.pet.notification.data.repository.NotificationRepositoryImpl
@@ -26,6 +27,9 @@ class NotificationDI {
 
     @Provides
     @Singleton
-    fun provideNotificationUseCase(notificationRepository: NotificationRepository): NotificationUseCase =
-        NotificationUseCase(notificationRepository)
+    fun provideNotificationUseCase(
+        notificationRepository: NotificationRepository,
+        authenticationRepository: AuthenticationRepository
+    ): NotificationUseCase =
+        NotificationUseCase(notificationRepository, authenticationRepository)
 }

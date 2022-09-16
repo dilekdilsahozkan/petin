@@ -17,73 +17,85 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mainColor"
-            app:layout_constraintTop_toTopOf="parent"
-            android:weightSum="2">
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/profile_fragment_main_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/toolbarUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="@dimen/scale_17dp"
-                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/scale_16dp"
-                android:fontFamily="@font/poppins_semibold"
                 android:layout_weight="2"
+                android:fontFamily="@font/poppins_semibold"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/scale_17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/img_menu"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="@dimen/scale_16dp"
                 android:src="@drawable/ic_menu"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="@dimen/scale_16dp"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
-                android:id="@+id/follow_user"
+                android:id="@+id/follow_unfollow_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:textSize="@dimen/scale_15dp"
-                android:visibility="gone"
-                android:fontFamily="@font/poppins_medium"
                 android:layout_margin="@dimen/scale_16dp"
-                android:text = "Follow"/>
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scale_15dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/profile_fragment_main_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/mainColor"
+            app:layoutDescription="@xml/fragment_profile_scene"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_top"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/background_profile_page" />
-
-            <LinearLayout
-                android:id="@+id/profile_frag_inside_linear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/layout_bottom">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/background_profile_page"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/user_photo_constraint"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/background_profile_image_white">
+                    android:background="@drawable/background_profile_image_white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/userPhoto"
@@ -98,10 +110,15 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
+                    android:id="@+id/linear_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_photo_constraint">
 
                     <TextView
                         android:id="@+id/userFullName"
@@ -124,8 +141,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="@dimen/scale_8dp"
+                        android:orientation="horizontal"
                         android:weightSum="3">
 
                         <LinearLayout
@@ -149,12 +166,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Gönderiler"
+                                android:text="@string/feed"
                                 android:textColor="@color/darkGray"
                                 android:textSize="@dimen/scale_11dp" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/followerLinear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="20dp"
@@ -175,12 +193,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Takipçiler"
+                                android:text="@string/follower"
                                 android:textColor="@color/darkGray"
                                 android:textSize="@dimen/scale_11dp" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/followedLinear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -200,21 +219,36 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Takip Edilenler"
+                                android:text="@string/followed"
                                 android:textColor="@color/darkGray"
                                 android:textSize="@dimen/scale_11dp" />
                         </LinearLayout>
 
                     </LinearLayout>
-
                 </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_top">
 
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/swipe_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/scale_16dp"
-                    android:layout_marginTop="@dimen/scale_8dp">
+                    android:layout_marginTop="@dimen/scale_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayout"
@@ -238,12 +272,16 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/scale_16dp" />
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="@dimen/scale_16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/swipe_toolbar" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

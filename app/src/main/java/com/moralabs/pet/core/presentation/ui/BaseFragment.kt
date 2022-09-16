@@ -3,6 +3,7 @@ package com.moralabs.pet.core.presentation.ui
 import android.app.Activity
 import android.content.ContextWrapper
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +12,17 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import com.moralabs.pet.R
 import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
+import com.moralabs.pet.notification.domain.NotificationUseCase
 import com.moralabs.pet.onboarding.presentation.ui.LoginAction
 import com.moralabs.pet.onboarding.presentation.ui.LoginResultContract
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -24,6 +30,9 @@ import javax.inject.Inject
 abstract class BaseFragment<T : ViewDataBinding,
         U : Any,
         K : BaseViewModel<U>> : Fragment() {
+
+    @Inject
+    lateinit var notificationUseCase: NotificationUseCase
 
     enum class UseCaseFetchStrategy {
         NO_FETCH,
@@ -71,6 +80,10 @@ abstract class BaseFragment<T : ViewDataBinding,
 
         addListeners()
         addObservers()
+
+        CoroutineScope(Dispatchers.Unconfined).launch {
+            notificationUseCase.sendNotificationToken().collect {}
+        }
 
         return binding?.root
     }
@@ -154,7 +167,12 @@ abstract class BaseFragment<T : ViewDataBinding,
             action.invoke()
         } else {
             PetWarningDialog(
-                binding.root.context,
+                requireContext(),
+                PetWarningDialogType.LOGIN,
+                getString(R.string.register),
+                okey = getString(R.string.ok),
+                description = getString(R.string.loginNeeded),
+                positiveButton = getString(R.string.login),
                 onResult = {
                     if (PetWarningDialogResult.OK == it) {
                         loginResultLauncher.launch(action)
@@ -162,5 +180,4 @@ abstract class BaseFragment<T : ViewDataBinding,
                 }).show()
         }
     }
-
 }

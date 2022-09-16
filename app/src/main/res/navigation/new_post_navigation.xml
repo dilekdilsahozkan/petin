@@ -23,6 +23,14 @@
         android:id="@+id/addLocationFragment"
         android:name="com.moralabs.pet.newPost.presentation.ui.AddLocationFragment"
         android:label="AddLocationFragment"
-        tools:layout="@layout/fragment_add_location"/>
+        tools:layout="@layout/fragment_add_location">
+
+        <action
+            android:id="@+id/action_fragment_addLocation_to_postFragment"
+            app:destination="@id/newPostFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
 
 </navigation>
