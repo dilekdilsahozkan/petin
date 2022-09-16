@@ -11,5 +11,5 @@ class SettingRepositoryImpl @Inject constructor(private val service: SettingServ
     SettingRepository, BaseRepository {
     override suspend fun logout(logout: SettingsRequestDto): Response<SettingsDto> = service.logout(logout)
     override suspend fun getBlockedAccounts() = service.getBlockedAccounts()
-
+    override suspend fun unBlock(userId: String?) = service.unBlock(userId)
 }

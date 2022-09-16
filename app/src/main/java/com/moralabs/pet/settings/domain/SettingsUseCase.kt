@@ -21,4 +21,19 @@ class SettingsUseCase @Inject constructor(
             )
         }
     }
+
+    fun unBlock(userId: String?): Flow<BaseResult<Boolean>> {
+        return flow {
+            emit(
+                /*BaseResult.Success(
+                    settingRepository.unBlock(userId).body()?.let {
+                        it.success
+                    } ?: false
+                )*/
+                BaseResult.Success(
+                    settingRepository.unBlock(userId).isSuccessful
+                )
+            )
+        }
+    }
 }

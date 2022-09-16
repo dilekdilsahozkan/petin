@@ -10,10 +10,11 @@ data class SettingsDto(
 ) : BaseDto()
 
 data class BlockedDto(
-    val uderId: String? = null,
+    val userId: String? = null,
     val fullName: String? = null,
     val userName: String? = null,
-    val media: Media? = null
+    val media: Media? = null,
+    var selected: Boolean = false
 ) : BaseDto()
 
 data class Media(

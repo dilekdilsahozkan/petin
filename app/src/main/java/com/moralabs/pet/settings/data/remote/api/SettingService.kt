@@ -5,9 +5,7 @@ import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.SettingsDto
 import com.moralabs.pet.settings.data.remote.dto.SettingsRequestDto
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface SettingService {
     @POST("/auth/logout")
@@ -15,4 +13,8 @@ interface SettingService {
 
     @GET("/user/blocked")
     suspend fun getBlockedAccounts(): Response<BaseResponse<List<BlockedDto>>>
+
+    @PATCH("/user/{userId}/unblock")
+    suspend fun unBlock(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
+
 }

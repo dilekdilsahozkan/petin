@@ -9,4 +9,5 @@ import retrofit2.Response
 interface SettingRepository {
     suspend fun logout(logout: SettingsRequestDto): Response<SettingsDto>
     suspend fun getBlockedAccounts(): Response<BaseResponse<List<BlockedDto>>>
+    suspend fun unBlock(userId: String?): Response<BaseResponse<Nothing>>
 }
