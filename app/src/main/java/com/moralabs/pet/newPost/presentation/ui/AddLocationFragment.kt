@@ -15,16 +15,11 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAddLocationBinding
 import com.moralabs.pet.newPost.presentation.viewmodel.LocationViewModel
-import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddLocationFragment :
     BaseFragment<FragmentAddLocationBinding, List<PostLocationDto>, LocationViewModel>() {
-
-    private val newPostActivity by lazy {
-        activity as? NewPostActivity
-    }
 
     override fun getLayoutId() = R.layout.fragment_add_location
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -62,7 +57,10 @@ class AddLocationFragment :
         super.addListeners()
 
         binding.cities.setOnItemClickListener { adapterView, _, position, _ ->
-            binding.cities.setText((adapterView.getItemAtPosition(position) as? PostLocationDto)?.name, false)
+            binding.cities.setText(
+                (adapterView.getItemAtPosition(position) as? PostLocationDto)?.name,
+                false
+            )
             viewModel.city.postValue(adapterView.getItemAtPosition(position) as? PostLocationDto)
         }
     }
@@ -70,7 +68,7 @@ class AddLocationFragment :
     override fun addObservers() {
         super.addObservers()
 
-        viewModel.city.observe(viewLifecycleOwner){
+        viewModel.city.observe(viewLifecycleOwner) {
             binding.cities.setText(it?.name, false)
         }
     }
@@ -78,15 +76,16 @@ class AddLocationFragment :
     override fun stateSuccess(data: List<PostLocationDto>) {
         super.stateSuccess(data)
 
-        binding.save.setOnClickListener{
+        binding.save.setOnClickListener {
 
-            if(viewModel.city.value != null && binding.cities.text?.isNotBlank() == true) {
+            if (viewModel.city.value != null && binding.cities.text?.isNotBlank() == true) {
                 val bundle = bundleOf(
-                    NewPostActivity.LOCATION to data[1].name
+                    NewPostActivity.LOCATION to data[1].name,
+                    NewPostActivity.LOCATION_ID to data[0].id
                 )
                 val intent = Intent(context, NewPostActivity::class.java)
                 intent.putExtras(bundle)
-                context?.startActivity(intent)
+                startActivity(intent)
             }
         }
 

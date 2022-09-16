@@ -49,6 +49,10 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         activity?.intent?.getStringExtra(NewPostActivity.LOCATION)
     }
 
+    private val locationId: String? by lazy {
+        activity?.intent?.getStringExtra(NewPostActivity.LOCATION_ID)
+    }
+
     private var currentPhotoFile: File? = null
 
     private val permissions = arrayOf(
@@ -77,7 +81,13 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.location.text = location.toString()
+        if(location.isNullOrEmpty().not()){
+            binding.location.visibility = View.VISIBLE
+            binding.location.text = location.toString()
+        } else {
+            binding.location.visibility = View.GONE
+        }
+
         binding.petCardList.adapter = petCardAdapter
         viewModel.userInfo()
 
@@ -116,7 +126,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 NewPostDto(
                     text = binding.explanationText.text.toString(),
                     type = postType,
-                //    locationId = location,
+                    locationId = locationId,
                     petId = pet?.id,
                     files = viewModel.files.value
                 )

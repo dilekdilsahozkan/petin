@@ -11,16 +11,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewPostActivity : BaseActivity<ActivityNewPostBinding>(),
     PetToolbarListener {
 
-    private var locationDto = PostLocationDto()
-
-
     companion object {
         var BUNDLE_CHOOSE_TYPE = "type"
         var LOCATION = "location"
+        var LOCATION_ID = "location_id"
     }
     override fun getLayoutId() = R.layout.activity_new_post
-
-    fun addLocation(): PostLocationDto {
-        return locationDto
-    }
 }
