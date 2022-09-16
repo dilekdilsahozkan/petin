@@ -92,8 +92,7 @@
     <string name="feed">Gönderiler</string>
     <string name="follower">Takipçiler</string>
     <string name="followed">Takip edilenler</string>
-    <string name="follow_user">Takip et</string>
-    <string name="unfollow_user">Takipten çıkar</string>
+    <string name="block_message">Bu kullanıcı tarafından engellendiniz</string>
 
     <!-- TOAST MESSAGES -->
 
@@ -125,5 +124,11 @@
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
     <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
+
+    <!-- OtherUserActionBottomSheet -->
+    <string name="follow_user">Takip et</string>
+    <string name="unfollow_user">Takipten çıkar</string>
+    <string name="block_user">Engelle</string>
+    <string name="unblock_user">Engeli kaldır</string>
 
 </resources>

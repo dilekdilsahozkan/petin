@@ -76,4 +76,38 @@ class ProfileUseCase @Inject constructor(
             )
         }
     }
+
+    fun getBlockedList(): Flow<BaseResult<List<UserInfoDto>>> {
+        return flow {
+            profileRepository.getBlockedList().body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
+        }
+    }
+
+    fun blockUser(userId: String?): Flow<BaseResult<Boolean>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    profileRepository.blockUser(userId).body()?.let {
+                        it.success
+                    } ?: false
+                )
+            )
+        }
+    }
+
+    fun unblockUser(userId: String?): Flow<BaseResult<Boolean>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    profileRepository.unblockUser(userId).body()?.let {
+                        it.success
+                    } ?: false
+                )
+            )
+        }
+    }
 }
