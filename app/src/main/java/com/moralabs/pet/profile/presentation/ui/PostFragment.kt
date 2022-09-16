@@ -35,28 +35,19 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
     private val postAdapter by lazy {
         PostListAdapter(
-            onPetProfile = {
-
-            }, onLikeClick = {
+            onLikeClick = {
                 val postId = it.id
                 viewModel.likePost(postId)
-            }, onCommentClick = {
+            },
+            onCommentClick = {
                 val bundle = bundleOf(
                     CommentActivity.POST_ID to it.id
                 )
                 val intent = Intent(context, CommentActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
-            }, onOfferUserClick = {
-
-            }, onUserPhotoClick = {
-                val bundle = bundleOf(
-                    OfferUserActivity.POST_ID to it.id
-                )
-                val intent = Intent(context, OfferUserActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
-            }, onPostSettingClick = {
+            },
+            onPostSettingClick = {
                 fragmentManager?.let { it1 ->
                     PostSettingBottomSheetFragment(
                         this,

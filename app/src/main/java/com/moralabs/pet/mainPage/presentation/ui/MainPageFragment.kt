@@ -12,6 +12,9 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
@@ -35,13 +38,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     private val postAdapter by lazy {
         PostListAdapter(
             onOfferClick = {
-                val bundle = bundleOf(
-                    MakeOfferActivity.POST_ID to it.id,
-                    MakeOfferActivity.OFFER_TYPE to it.content?.type
-                )
-                val intent = Intent(context, MakeOfferActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
+                loginIfNeeded {
+                    val bundle = bundleOf(
+                        MakeOfferActivity.POST_ID to it.id,
+                        MakeOfferActivity.OFFER_TYPE to it.content?.type
+                    )
+                    val intent = Intent(context, MakeOfferActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
             },
             onPetProfile = {
                 if (it.isPostOwnedByUser != true) {
@@ -55,43 +60,53 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onLikeClick = {
-                val postId = it.id
-                viewModel.likePost(postId)
+                loginIfNeeded {
+                    val postId = it.id
+                    viewModel.likePost(postId)
+                }
             },
             onCommentClick = {
-                val bundle = bundleOf(
-                    CommentActivity.POST_ID to it.id
-                )
-                val intent = Intent(context, CommentActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
-            },
-            onOfferUserClick = {
-                if (it.isPostOwnedByUser == true) {
+                loginIfNeeded {
                     val bundle = bundleOf(
-                        OfferUserActivity.POST_ID to it.id
+                        CommentActivity.POST_ID to it.id
                     )
-                    val intent = Intent(context, OfferUserActivity::class.java)
+                    val intent = Intent(context, CommentActivity::class.java)
                     intent.putExtras(bundle)
                     context?.startActivity(intent)
+                }
+            },
+            onOfferUserClick = {
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        val bundle = bundleOf(
+                            OfferUserActivity.POST_ID to it.id
+                        )
+                        val intent = Intent(context, OfferUserActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
                 }
             },
             onUserPhotoClick = {
-                if (it.isPostOwnedByUser != true) {
-                    val bundle = bundleOf(
-                        ProfileActivity.OTHER_USER_ID to it.user?.userId
-                    )
-                    val intent = Intent(context, ProfileActivity::class.java)
-                    intent.putExtras(bundle)
-                    context?.startActivity(intent)
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser != true) {
+                        val bundle = bundleOf(
+                            ProfileActivity.OTHER_USER_ID to it.user?.userId
+                        )
+                        val intent = Intent(context, ProfileActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
                 }
             },
             onPostSettingClick = {
-                fragmentManager?.let { it1 ->
-                    PostSettingBottomSheetFragment(
-                        this,
-                        it.id
-                    ).show(it1, "")
+                loginIfNeeded {
+                    fragmentManager?.let { it1 ->
+                        PostSettingBottomSheetFragment(
+                            this,
+                            it.id
+                        ).show(it1, "")
+                    }
                 }
             }
         )
@@ -115,15 +130,28 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.addListeners()
 
         binding.searchEdittext.addTextChangedListener {
-            if(it.toString().isEmptyOrBlank()){
+            if (it.toString().isEmptyOrBlank()) {
                 viewModel.feedPost()
-            }else{
+            } else {
                 viewModel.feedPost(it.toString())
             }
         }
     }
 
     override fun onItemClick(postId: String?) {
-        viewModel.deletePost(postId)
+
+        PetWarningDialog(
+            requireContext(),
+            PetWarningDialogType.CONFIRMATION,
+            resources.getString(R.string.ask_sure),
+            okey = getString(R.string.yes),
+            description = resources.getString(R.string.delete_post_warning),
+            negativeButton = resources.getString(R.string.no),
+            onResult = {
+                if (PetWarningDialogResult.OK == it) {
+                    viewModel.deletePost(postId)
+                }
+            }
+        ).show()
     }
 }

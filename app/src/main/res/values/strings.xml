@@ -120,7 +120,10 @@
     <string name="member_check"><u>Üye iseniz giriş yapmak için tıklayın</u></string>
     <string name="loginNeeded">Petin\'i kullanmak için kayıt olun</string>
     <string name="warning">Uyarı</string>
+    <string name="logoutSure">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="ask_sure">Emin misiniz?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
+    <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
+    <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
 
 </resources>

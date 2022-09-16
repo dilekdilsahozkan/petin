@@ -6,6 +6,9 @@ import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentSettingsBinding
 import com.moralabs.pet.onboarding.presentation.ui.WelcomeActivity
 import com.moralabs.pet.settings.data.remote.dto.SettingsDto
@@ -22,10 +25,22 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsDto, Sett
         super.addListeners()
 
         binding.tvLogOut.setOnClickListener {
-            viewModel.logout()
-            val intent = Intent(context, WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            PetWarningDialog(
+                requireContext(),
+                PetWarningDialogType.CONFIRMATION,
+                resources.getString(R.string.ask_sure),
+                okey = getString(R.string.yes),
+                description = resources.getString(R.string.logoutSure),
+                negativeButton = resources.getString(R.string.no),
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        viewModel.logout()
+                        val intent = Intent(context, WelcomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+                }
+            ).show()
         }
 
         binding.icNavigateToAccount.setOnClickListener {

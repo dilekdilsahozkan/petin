@@ -2,23 +2,30 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityMainPageBinding
+import com.moralabs.pet.message.presentation.ui.MessageDetailActivity
+import com.moralabs.pet.message.presentation.ui.MessageUserSearchActivity
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetFragment
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
+import com.moralabs.pet.notification.presentation.ui.NotificationActivity
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
+    NavigationView.OnNavigationItemSelectedListener,
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
     override fun getLayoutId() = R.layout.activity_main_page
@@ -70,5 +77,23 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
                 )
             )
         })
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.messages -> loginIfNeeded {
+                startActivity(Intent(this, MessageUserSearchActivity::class.java))
+            }
+            R.id.addButton -> loginIfNeeded {
+                startActivity(Intent(this, NewPostActivity::class.java))
+            }
+            R.id.notification -> loginIfNeeded {
+                startActivity(Intent(this, NotificationActivity::class.java))
+            }
+            R.id.profile -> loginIfNeeded {
+                startActivity(Intent(this, ProfileActivity::class.java))
+            }
+        }
+        return true
     }
 }

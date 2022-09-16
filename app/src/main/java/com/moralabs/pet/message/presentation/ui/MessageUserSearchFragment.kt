@@ -19,7 +19,7 @@ import com.moralabs.pet.profile.data.remote.dto.UserDto
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MessageUserSearchFragment :
+class  MessageUserSearchFragment :
     BaseFragment<FragmentMessageUserSearchBinding, List<UserDto>, MessageUserSearchViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_message_user_search

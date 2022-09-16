@@ -17,10 +17,10 @@ import com.moralabs.pet.databinding.*
 class PostListAdapter(
     private val onOfferClick: ((post: PostDto) -> Unit)? = null,
     private val onPetProfile: ((post: PostDto) -> Unit)? = null,
-    private val onLikeClick: (post: PostDto) -> Unit,
-    private val onCommentClick: (post: PostDto) -> Unit,
-    private val onOfferUserClick: (post: PostDto) -> Unit,
-    private val onUserPhotoClick: (user: PostDto) -> Unit,
+    private val onLikeClick: ((post: PostDto) -> Unit)? = null,
+    private val onCommentClick: ((post: PostDto) -> Unit)? = null,
+    private val onOfferUserClick: ((post: PostDto) -> Unit)? = null,
+    private val onUserPhotoClick: ((post: PostDto) -> Unit)? = null,
     private val onPostSettingClick: ((user: PostDto) -> Unit)? = null
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
@@ -53,7 +53,7 @@ class PostListAdapter(
         init {
             binding.postCommentLinear.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onCommentClick.invoke(getItem(bindingAdapterPosition))
+                    onCommentClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
 
@@ -66,7 +66,7 @@ class PostListAdapter(
 
             binding.likeIcon.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onLikeClick.invoke(getItem(bindingAdapterPosition))
+                    onLikeClick?.invoke(getItem(bindingAdapterPosition))
                     notifyDataSetChanged()
                 }
             }
@@ -79,12 +79,12 @@ class PostListAdapter(
 
             binding.postOfferLinear.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onOfferUserClick.invoke(getItem(bindingAdapterPosition))
+                    onOfferUserClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
             binding.userPhoto.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    onUserPhotoClick.invoke(getItem(bindingAdapterPosition))
+                    onUserPhotoClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
 

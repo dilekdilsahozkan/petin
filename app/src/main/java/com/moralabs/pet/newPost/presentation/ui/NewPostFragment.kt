@@ -25,6 +25,9 @@ import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentNewPostBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
@@ -135,7 +138,19 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         }
 
         binding.toolbar.imgClose.setOnClickListener {
-            startActivity(Intent(context, MainPageActivity::class.java))
+            PetWarningDialog(
+                requireContext(),
+                PetWarningDialogType.CONFIRMATION,
+                resources.getString(R.string.ask_sure),
+                okey = getString(R.string.yes),
+                description = resources.getString(R.string.postSure),
+                negativeButton = resources.getString(R.string.no),
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        startActivity(Intent(context, MainPageActivity::class.java))
+                    }
+                }
+            ).show()
         }
 
         binding.locationIcon.setOnClickListener {

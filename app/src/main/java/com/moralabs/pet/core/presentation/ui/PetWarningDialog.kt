@@ -11,8 +11,6 @@ import com.moralabs.pet.databinding.UiPetWarningDialogBinding
 enum class PetWarningDialogType {
     WARNING,
     CONFIRMATION,
-    SUCCESS,
-    ERROR,
     LOGIN
 }
 
@@ -45,23 +43,15 @@ class PetWarningDialog (
         when(type){
             PetWarningDialogType.WARNING -> {
                 setCancelable(true)
-                binding.icon.setImageResource(R.drawable.ic_add_photo)
+                binding.icon.setImageResource(R.drawable.ic_warning)
             }
             PetWarningDialogType.CONFIRMATION -> {
                 setCancelable(false)
                 binding.icon.setImageResource(R.drawable.ic_add_photo)
             }
-            PetWarningDialogType.SUCCESS -> {
-                setCancelable(false)
-                binding.icon.setImageResource(R.drawable.ic_add_photo)
-            }
-            PetWarningDialogType.ERROR -> {
-                setCancelable(false)
-                binding.icon.setImageResource(R.drawable.ic_add_photo)
-            }
             PetWarningDialogType.LOGIN -> {
                 setCancelable(false)
-                binding.icon.setImageResource(R.drawable.ic_add_photo)
+                binding.icon.setImageResource(R.drawable.ic_warning)
             }
         }
 

@@ -95,7 +95,7 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         } else {
             PetWarningDialog(
                 binding.root.context,
-                PetWarningDialogType.CONFIRMATION,
+                PetWarningDialogType.LOGIN,
                 getString(R.string.register),
                 okey = getString(R.string.ok),
                 description = getString(R.string.loginNeeded),
