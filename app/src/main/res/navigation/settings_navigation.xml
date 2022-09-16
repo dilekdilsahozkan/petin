@@ -16,6 +16,16 @@
             app:destination="@id/accountFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_settingsFragment_to_privacyAndSecurityFragment"
+            app:destination="@id/privacyAndSecurityFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
 
     </fragment>
 
@@ -39,12 +49,12 @@
             android:id="@+id/action_accountFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_accountFragment_to_deleteAccountFragment"
             app:destination="@id/deleteAccountFragment"
             app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
+            app:popEnterAnim="@anim/slide_out" />
     </fragment>
 
     <fragment
@@ -79,4 +89,49 @@
         android:id="@+id/deleteAccountFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.DeleteAccountFragment"
         android:label="DeleteAccountFragment" />
+    <fragment
+        android:id="@+id/privacyAndSecurityFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.privacyAndSecurity.PrivacyAndSecurityFragment"
+        android:label="PrivacyAndSecurityFragment">
+        <action
+            android:id="@+id/action_privacyAndSecurityFragment_to_blockedAccountsFragment"
+            app:destination="@id/blockedAccountsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blockedAccountsFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.privacyAndSecurity.BlockedAccountsFragment"
+        android:label="BlockedAccountsFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.about.AboutFragment"
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_whatIsPetFragment"
+            app:destination="@id/whatIsPetFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+        <action
+            android:id="@+id/action_aboutFragment_to_whoWeAreFragment"
+            app:destination="@id/whoWeAreFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+        <action
+            android:id="@+id/action_aboutFragment_to_ourPurposeFragment"
+            app:destination="@id/ourPurposeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/whatIsPetFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.about.WhatIsPetFragment"
+        android:label="fragment_what_is_pet"
+        tools:layout="@layout/fragment_what_is_pet" />
+    <fragment
+        android:id="@+id/ourPurposeFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.about.OurPurposeFragment"
+        android:label="OurPurposeFragment" />
+    <fragment
+        android:id="@+id/whoWeAreFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.about.WhoWeAreFragment"
+        android:label="WhoWeAreFragment" />
 </navigation>
