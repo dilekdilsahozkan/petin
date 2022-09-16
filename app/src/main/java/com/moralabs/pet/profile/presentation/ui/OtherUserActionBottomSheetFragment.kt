@@ -51,11 +51,13 @@ class OtherUserActionBottomSheetFragment(
 
     private fun InitBottomSheetUI() {
         isUserFollowed?.let {
-            binding.followUnfollowUserText.visibility = View.VISIBLE
-            if (it) {
-                binding.followUnfollowUserText.text = getString(R.string.unfollow_user)
-            } else {
-                binding.followUnfollowUserText.text = getString(R.string.follow_user)
+            if (isUserBlocked != true) {
+                binding.followUnfollowUserText.visibility = View.VISIBLE
+                if (it) {
+                    binding.followUnfollowUserText.text = getString(R.string.unfollow_user)
+                } else {
+                    binding.followUnfollowUserText.text = getString(R.string.follow_user)
+                }
             }
         }
         isUserBlocked?.let {

@@ -73,6 +73,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                 findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
             }
         }
+
+        binding.imgBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -242,6 +246,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
             viewModel.otherUsersInfo(otherUserId)
         } else {
             viewModel.userInfo()
+            binding.imgBack.visibility = View.GONE
         }
         viewModel.getBlockedList()
     }

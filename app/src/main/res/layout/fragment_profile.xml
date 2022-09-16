@@ -12,29 +12,41 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mainColor"
-            android:weightSum="2"
             app:layout_constraintBottom_toTopOf="@+id/profile_fragment_main_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="@dimen/scale_16dp"
+                android:layout_height="@dimen/scale_16dp"
+                android:layout_marginStart="@dimen/scale_10dp"
+                android:includeFontPadding="false"
+                android:src="@drawable/ic_back_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/toolbarUsername"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/toolbarUsername"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/scale_16dp"
-                android:layout_weight="2"
                 android:fontFamily="@font/poppins_semibold"
                 android:text=""
+                android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textSize="@dimen/scale_17dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/img_menu"
+                app:layout_constraintStart_toEndOf="@id/img_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -43,8 +55,12 @@
                 android:layout_height="30dp"
                 android:layout_margin="@dimen/scale_16dp"
                 android:src="@drawable/ic_menu"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/toolbarUsername"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/profile_fragment_main_layout"
@@ -61,10 +77,10 @@
                 android:id="@+id/layout_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/layout_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/layout_bottom">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -214,16 +230,17 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/block_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_marginTop="@dimen/scale_10dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/block_message"
                         android:textColor="@color/mainColor"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
 

@@ -28,17 +28,17 @@ interface UserService {
     suspend fun getFollowerList() : Response<BaseResponse<List<UserInfoDto>>>
 
     @POST("/user/{userId}/follow")
-    suspend fun followUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
+    suspend fun followUser(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
 
     @PATCH("/user/{userId}/unfollow")
-    suspend fun unfollowUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
+    suspend fun unfollowUser(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
 
     @GET("/user/blocked")
     suspend fun getBlockedList() : Response<BaseResponse<List<UserInfoDto>>>
 
     @POST("/user/{userId}/block")
-    suspend fun blockUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
+    suspend fun blockUser(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
 
     @PATCH("/user/{userId}/unblock")
-    suspend fun unblockUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
+    suspend fun unblockUser(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
 }
