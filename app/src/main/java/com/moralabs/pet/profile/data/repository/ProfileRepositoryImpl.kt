@@ -12,4 +12,7 @@ class ProfileRepositoryImpl @Inject constructor(private val service: UserService
     override suspend fun getFollowerList() = service.getFollowerList()
     override suspend fun followUser(userId: String?) = service.followUser(userId)
     override suspend fun unfollowUser(userId: String?) = service.unfollowUser(userId)
+    override suspend fun getBlockedList() = service.getBlockedList()
+    override suspend fun blockUser(userId: String?) = service.blockUser(userId)
+    override suspend fun unblockUser(userId: String?) = service.unblockUser(userId)
 }

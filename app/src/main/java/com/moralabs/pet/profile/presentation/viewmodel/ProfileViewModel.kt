@@ -21,11 +21,20 @@ class ProfileViewModel @Inject constructor(
     protected var _followedListState: MutableStateFlow<ViewState<List<UserInfoDto>>> = MutableStateFlow(ViewState.Idle())
     val followedListState: StateFlow<ViewState<List<UserInfoDto>>> = _followedListState
 
-    protected var _followState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
-    val followState: StateFlow<ViewState<Boolean>> = _followState
+    protected var _followUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val followUserState: StateFlow<ViewState<Boolean>> = _followUserState
 
-    protected var _unfollowState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
-    val unfollowState: StateFlow<ViewState<Boolean>> = _unfollowState
+    protected var _unfollowUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val unfollowUserState: StateFlow<ViewState<Boolean>> = _unfollowUserState
+
+    protected var _blockedListState: MutableStateFlow<ViewState<List<UserInfoDto>>> = MutableStateFlow(ViewState.Idle())
+    val blockedListState: StateFlow<ViewState<List<UserInfoDto>>> = _blockedListState
+
+    protected var _blockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val blockUserState: StateFlow<ViewState<Boolean>> = _blockUserState
+
+    protected var _unblockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val unblockUserState: StateFlow<ViewState<Boolean>> = _unblockUserState
 
     fun userInfo() {
         viewModelScope.launch {
@@ -85,15 +94,15 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.followUser(userId)
                 .onStart {
-                    _followState.value = ViewState.Loading()
+                    _followUserState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _followState.value = ViewState.Error(message = exception.message)
+                    _followUserState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _followState.value = ViewState.Success(baseResult.data)
+                        _followUserState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
@@ -103,17 +112,72 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.unfollowUser(userId)
                 .onStart {
-                    _unfollowState.value = ViewState.Loading()
+                    _unfollowUserState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _unfollowState.value = ViewState.Error(message = exception.message)
+                    _unfollowUserState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _unfollowState.value = ViewState.Success(baseResult.data)
+                        _unfollowUserState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
     }
+
+    fun getBlockedList() {
+        viewModelScope.launch {
+            useCase.getBlockedList()
+                .onStart {
+                    _blockedListState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _blockedListState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _blockedListState.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun blockUser(userId: String?) {
+        viewModelScope.launch {
+            useCase.blockUser(userId)
+                .onStart {
+                    _blockUserState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _blockUserState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _blockUserState.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun unblockUser(userId: String?) {
+        viewModelScope.launch {
+            useCase.unblockUser(userId)
+                .onStart {
+                    _unblockUserState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _unblockUserState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _unblockUserState.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
 }

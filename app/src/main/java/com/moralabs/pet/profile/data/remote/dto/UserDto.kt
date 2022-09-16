@@ -17,5 +17,7 @@ data class UserDto(
     val followerCount: Int? = null,
     val followedCount: Int? = null,
     val postCount: Int? = null,
-    val pageIndex: Int? = null
+    val pageIndex: Int? = null,
+    val isUserFollowed: Boolean? = null,
+    val isUserBlockedByUser: Boolean? = null
 ) : BaseDto(), Parcelable

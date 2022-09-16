@@ -32,4 +32,13 @@ interface UserService {
 
     @PATCH("/user/{userId}/unfollow")
     suspend fun unfollowUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
+
+    @GET("/user/blocked")
+    suspend fun getBlockedList() : Response<BaseResponse<List<UserInfoDto>>>
+
+    @POST("/user/{userId}/block")
+    suspend fun blockUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
+
+    @PATCH("/user/{userId}/unblock")
+    suspend fun unblockUser(@Path("userId") userId: String?): Response<BaseResponse<*>>
 }
