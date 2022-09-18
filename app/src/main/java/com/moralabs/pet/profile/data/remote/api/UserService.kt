@@ -15,9 +15,6 @@ interface UserService {
     @POST("/user")
     suspend fun searchUser(@Query("keyword") keyword: String?): Response<BaseResponse<List<UserDto>>>
 
-    @DELETE("user")
-    suspend fun deleteUser(): Response<Any>
-
     @GET("/user/{userId}")
     suspend fun otherUsersInfo(@Path("userId") userId: String?): Response<BaseResponse<UserDto>>
 

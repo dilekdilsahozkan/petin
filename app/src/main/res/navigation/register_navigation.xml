@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.moralabs.pet.onboarding.presentation.ui.RegisterFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/agreementFragment"
-        android:name="com.moralabs.pet.onboarding.presentation.ui.AgreementFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.register.AgreementFragment"
         android:label="AgreementFragment"
         tools:layout="@layout/fragment_agreement"/>
 

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.databinding.ActivityMainBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.onboarding.presentation.ui.WelcomeActivity
+import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

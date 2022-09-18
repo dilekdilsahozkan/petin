@@ -1,14 +1,13 @@
-package com.moralabs.pet.onboarding.presentation.ui
+package com.moralabs.pet.onboarding.presentation.ui.welcome
 
 import android.content.Intent
-import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentWelcomeBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
+import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

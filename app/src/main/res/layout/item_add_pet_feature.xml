@@ -5,10 +5,6 @@
 
     <data>
 
-        <variable
-            name="item"
-            type="com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +17,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/darkSecondary"
-            android:textSize="13dp"
+            android:textSize="@dimen/scale_13dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="İsim"/>
@@ -33,7 +29,7 @@
             android:background="@drawable/background_edit"
             android:inputType="text"
             android:padding="10dp"
-            android:textSize="15dp"
+            android:textSize="@dimen/scale_15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/name" />

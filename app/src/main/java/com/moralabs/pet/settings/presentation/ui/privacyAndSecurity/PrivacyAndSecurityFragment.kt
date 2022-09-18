@@ -6,12 +6,12 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPrivacyAndSecurityBinding
-import com.moralabs.pet.settings.data.remote.dto.SettingsDto
+import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PrivacyAndSecurityFragment : BaseFragment<FragmentPrivacyAndSecurityBinding, SettingsDto, SettingsViewModel>() {
+class PrivacyAndSecurityFragment : BaseFragment<FragmentPrivacyAndSecurityBinding, UserDto, SettingsViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_privacy_and_security
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -29,7 +29,7 @@ class PrivacyAndSecurityFragment : BaseFragment<FragmentPrivacyAndSecurityBindin
         toolbarListener?.showTitleText(getString(R.string.settings_privacy_and_security))
     }
 
-    override fun fragmentViewModel(): BaseViewModel<SettingsDto> {
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
     }

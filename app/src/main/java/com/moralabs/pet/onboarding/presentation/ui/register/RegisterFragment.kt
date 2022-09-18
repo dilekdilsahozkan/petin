@@ -1,4 +1,4 @@
-package com.moralabs.pet.onboarding.presentation.ui
+package com.moralabs.pet.onboarding.presentation.ui.register
 
 import android.content.Intent
 import android.graphics.Color
@@ -16,11 +16,9 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.databinding.FragmentRegisterBinding
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
+import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_login.email_edittext
-import kotlinx.android.synthetic.main.fragment_login.password_edittext
-import kotlinx.android.synthetic.main.fragment_register.*
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, RegisterViewModel>() {

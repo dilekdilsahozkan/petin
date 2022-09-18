@@ -57,7 +57,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".onboarding.presentation.ui.RegisterActivity"
+            android:name=".onboarding.presentation.ui.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".mainPage.presentation.ui.MainPageActivity"
@@ -67,7 +67,7 @@
             android:name=".onboarding.presentation.ui.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".onboarding.presentation.ui.WelcomeActivity"
+            android:name=".onboarding.presentation.ui.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".core.presentation.ui.BaseActivity"

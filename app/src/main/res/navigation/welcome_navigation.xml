@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.moralabs.pet.onboarding.presentation.ui.WelcomeFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeFragment"
         android:label="WelcomeFragment"
         tools:layout="@layout/fragment_welcome"/>
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.moralabs.pet.onboarding.presentation.ui.LoginFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
 

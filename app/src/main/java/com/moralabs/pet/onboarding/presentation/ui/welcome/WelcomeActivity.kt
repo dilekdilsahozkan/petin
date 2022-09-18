@@ -1,4 +1,4 @@
-package com.moralabs.pet.onboarding.presentation.ui
+package com.moralabs.pet.onboarding.presentation.ui.welcome
 
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener

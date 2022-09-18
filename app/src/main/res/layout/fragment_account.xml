@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp">
+        android:layout_margin="@dimen/scale_16dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvPersonalInfo"
@@ -22,7 +18,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/settings_personal_informations"
+            android:text="@string/settings_personal_information"
             android:textColor="@color/black"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +80,6 @@
             app:layout_constraintTop_toBottomOf="@+id/icNavigateToFavorites"
             app:srcCompat="@drawable/ic_arrow_right" />
 
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDeleteAccount"
             android:layout_width="wrap_content"
@@ -108,6 +103,5 @@
             app:srcCompat="@drawable/ic_arrow_right" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

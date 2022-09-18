@@ -1,4 +1,4 @@
-package com.moralabs.pet.onboarding.presentation.ui
+package com.moralabs.pet.onboarding.presentation.ui.register
 
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R

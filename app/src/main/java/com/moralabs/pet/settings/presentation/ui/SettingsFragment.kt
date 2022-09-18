@@ -10,13 +10,13 @@ import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentSettingsBinding
-import com.moralabs.pet.onboarding.presentation.ui.WelcomeActivity
-import com.moralabs.pet.settings.data.remote.dto.SettingsDto
+import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
+import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsDto, SettingsViewModel>() {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, SettingsViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_settings
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -54,7 +54,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsDto, Sett
         }
     }
 
-    override fun fragmentViewModel(): BaseViewModel<SettingsDto> {
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
     }

@@ -17,6 +17,7 @@
     <string name="email">Email</string>
     <string name="password">Parola</string>
     <string name="username">Kullanıcı Adı</string>
+    <string name="phoneNumber">Telefon Numarası</string>
     <string name="nameLastname">Ad Soyad</string>
     <string name="next">İleri</string>
     <string name="agreementText"><u>Kullanıcı sözleşmesini kabul ediyorum.</u></string>
@@ -28,6 +29,7 @@
     <string name="choosePetEditText">Neden evcil hayvanınızın partner olarak seçilmesini istediğinizi açıklayınız.</string>
     <string name="chooseAdoption">Neden bu evcil hayvanı sahiplenmek istediğinizi açıklayınız.</string>
     <string name="offer">Teklif</string>
+    <string name="edit">Düzenle</string>
     <string name="allOffers">Teklifler</string>
     <string name="addPet">Evcil Hayvan Ekle</string>
     <string name="sendOffer">Teklifte Bulun</string>
@@ -79,13 +81,10 @@
     <string name="settings_about">Hakkımızda</string>
     <string name="settings_log_out">Çıkış Yap</string>
     <string name="settings_my_account">Hesabım</string>
-    <string name="settings_personal_informations">Kişisel Bilgilerim</string>
+    <string name="settings_personal_information">Kişisel Bilgilerim</string>
     <string name="settings_my_favorites">Favorilerim</string>
     <string name="settings_change_password">Şifremi Değiştir</string>
     <string name="settings_delete_account">Hesabımı Sil</string>
-    <string name="settings_email">E-mail</string>
-    <string name="settings_username">Kullanıcı Adı</string>
-    <string name="settings_phone_number">Telefon No</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
     <string name="settings_privacy_and_security">Gizlilik ve Güvenlik</string>
     <string name="settings_blocked_accounts">Engellenen Hesaplar</string>
@@ -94,8 +93,14 @@
     <string name="settings_who_we_are">Biz kimiz?</string>
     <string name="settings_our_purpose">Amacımız</string>
     <string name="settings_bout">Hakkımızda</string>
+    <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
+    <string name="settings_current_password">Mevcut Şifre</string>
+    <string name="settings_new_password">Yeni Şifre</string>
+    <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
+    <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
 
-    <!-- Profile -->
+    <!-- PROFILE -->
+
     <string name="feed">Gönderiler</string>
     <string name="follower">Takipçiler</string>
     <string name="followed">Takip edilenler</string>
@@ -111,14 +116,6 @@
     <string name="error_add_pet">Evcil hayvanınızın profili kaydedilemedi.</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
-    <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
-    <string name="settings_current_password">Mevcut Şifre</string>
-    <string name="settings_new_password">Yeni Şifre</string>
-    <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
-    <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
     <!-- PetWarningDialogs -->
 

@@ -1,4 +1,4 @@
-package com.moralabs.pet.onboarding.presentation.ui
+package com.moralabs.pet.onboarding.presentation.ui.login
 
 import android.content.Intent
 import android.graphics.Color
@@ -15,6 +15,7 @@ import com.moralabs.pet.databinding.FragmentLoginBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
+import com.moralabs.pet.onboarding.presentation.ui.register.RegisterActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
