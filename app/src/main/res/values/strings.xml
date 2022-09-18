@@ -140,4 +140,6 @@
     <string name="block_user">Engelle</string>
     <string name="unblock_user">Engeli kaldır</string>
 
+    <string name="name">İsim</string>
+
 </resources>

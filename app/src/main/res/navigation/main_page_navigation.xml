@@ -44,24 +44,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/commentFragment"
-        android:name="com.moralabs.pet.mainPage.presentation.ui.CommentFragment"
-        android:label="CommentFragment"
-        tools:layout="@layout/fragment_comment" />
-
-    <fragment
-        android:id="@+id/makeOfferFragment"
-        android:name="com.moralabs.pet.offer.presentation.ui.MakeOfferFragment"
-        android:label="MakeOfferFragment"
-        tools:layout="@layout/fragment_make_offer" />
-
-    <fragment
-        android:id="@+id/offerUserFragment"
-        android:name="com.moralabs.pet.offer.presentation.ui.OfferUserFragment"
-        android:label="OfferUserFragment"
-        tools:layout="@layout/fragment_offer_user"/>
-
-    <fragment
         android:id="@+id/followedFragment"
         android:name="com.moralabs.pet.profile.presentation.ui.FollowedFragment"
         android:label="FollowedFragment"

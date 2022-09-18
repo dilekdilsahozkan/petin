@@ -13,7 +13,6 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityMainPageBinding
-import com.moralabs.pet.message.presentation.ui.MessageDetailActivity
 import com.moralabs.pet.message.presentation.ui.MessageUserSearchActivity
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetFragment
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
@@ -37,7 +36,6 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
             supportFragmentManager.findFragmentById(R.id.nav_main_page) as NavHostFragment
 
         binding.dashboardNavigation.setupWithNavController(navHostFragment.navController)
-        binding.dashboardNavigation.itemIconTintList = null
 
         setSupportActionBar(binding.appBar)
         setupActionBarWithNavController(

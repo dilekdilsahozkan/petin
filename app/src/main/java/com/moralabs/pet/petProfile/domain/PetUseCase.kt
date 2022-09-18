@@ -1,17 +1,22 @@
 package com.moralabs.pet.petProfile.domain
 
+import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
-import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
+import com.moralabs.pet.newPost.data.remote.dto.MediaDto
+import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
+import com.moralabs.pet.petProfile.data.remote.dto.*
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.File
 import javax.inject.Inject
 
 class PetUseCase @Inject constructor(
-    private val petRepository: PetRepository
+    private val petRepository: PetRepository,
+    private val mediaRepository: MediaRepository
 ) : BaseUseCase() {
 
     fun petPost(): Flow<BaseResult<List<PetDto>>> {
@@ -71,6 +76,39 @@ class PetUseCase @Inject constructor(
                     petRepository.petAttributes().body()?.data ?: listOf()
                 )
             )
+        }
+    }
+
+    fun savePet(file: File?, name: String?, attributes: List<PetPostAttributeDto>): Flow<BaseResult<Boolean>> {
+        return flow {
+
+            val postDto = PetRequestDto(
+                name = name,
+                petAttributes = attributes
+            )
+
+            val medias = mutableListOf<MediaDto>()
+
+            file?.let {
+                val media = mediaRepository.uploadPhoto(1, it)
+
+                media.body()?.data?.getOrNull(0)?.let{
+                    medias.add(it)
+                }
+            }
+
+            if(medias.isNotEmpty()){
+                postDto.media = medias
+            }
+
+            val result = petRepository.addPet(postDto).body()?.success ?: false
+
+            if (result) {
+                emit(BaseResult.Success(true))
+            } else {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+            }
+
         }
     }
 

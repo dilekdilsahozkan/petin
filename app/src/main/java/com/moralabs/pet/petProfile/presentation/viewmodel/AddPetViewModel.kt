@@ -3,23 +3,27 @@ package com.moralabs.pet.petProfile.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
+import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetPostAttributeDto
 import com.moralabs.pet.petProfile.domain.PetUseCase
+import com.moralabs.pet.petProfile.presentation.model.AttributeUiDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPetViewModel@Inject constructor(
+class AddPetViewModel @Inject constructor(
     private val useCase: PetUseCase
-): BaseViewModel<List<AttributeDto>>(useCase) {
+) : BaseViewModel<List<AttributeDto>>(useCase) {
 
-    fun petAttributes(){
+    fun petAttributes() {
         viewModelScope.launch {
             useCase.petAttributes()
                 .onStart {
@@ -32,6 +36,25 @@ class AddPetViewModel@Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun savePet(file: File?, name: String?, attributes: List<PetPostAttributeDto>, onSuccess: (() -> Unit)? = null) {
+        viewModelScope.launch {
+            useCase.savePet(file, name, attributes)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                        onSuccess?.invoke()
                     }
                 }
         }

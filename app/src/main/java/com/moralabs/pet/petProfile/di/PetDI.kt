@@ -1,5 +1,6 @@
 package com.moralabs.pet.petProfile.di
 
+import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.petProfile.data.remote.api.PetService
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import com.moralabs.pet.petProfile.data.repository.PetRepositoryImpl
@@ -26,6 +27,6 @@ class PetDI {
 
     @Provides
     @Singleton
-    fun providePetUseCase(petRepository: PetRepository): PetUseCase =
-        PetUseCase(petRepository)
+    fun providePetUseCase(petRepository: PetRepository, mediaRepository: MediaRepository): PetUseCase =
+        PetUseCase(petRepository, mediaRepository)
 }
