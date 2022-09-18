@@ -33,4 +33,8 @@
         <item name="behavior_draggable">false</item>
     </style>
 
+    <style name="com.moralabs.pet.style.BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="backgroundTint">@color/secondaryColor</item>
+    </style>
+
 </resources>

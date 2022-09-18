@@ -5,11 +5,16 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.moralabs.pet.petProfile.presentation.model.AttributeUiDto" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale_16dp">
 
         <TextView
             android:id="@+id/name"
@@ -19,7 +24,9 @@
             android:textColor="@color/darkSecondary"
             android:textSize="@dimen/scale_13dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{item.attributeDto.name}"
             tools:text="İsim"/>
 
         <EditText
@@ -32,7 +39,8 @@
             android:textSize="@dimen/scale_15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintTop_toBottomOf="@id/name" />
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:text="@{item.choice}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
