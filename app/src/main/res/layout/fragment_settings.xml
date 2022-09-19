@@ -7,84 +7,97 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/settingsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/scale_16dp">
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvAccount"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/account"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/settings_title"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Ayarlar" />
+            android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/icNavigateToAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="12dp"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/settings_privacy_and_settings"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_right" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/settings_title"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                tools:text="Ayarlar" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvPrivacyAndSecurity"
-            android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/icNavigateToAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:text="@string/settings_privacy_and_settings"
+                app:srcCompat="@drawable/ic_arrow_right" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/privacyAndSec"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/settings_privacy_and_settings"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAccount"
-            tools:text="Gizlilik ve Güvenlik" />
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/icNavigateToPrivacyAndSec"
-            android:layout_width="wrap_content"
-            android:layout_height="12dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="40dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icNavigateToAccount"
-            app:srcCompat="@drawable/ic_arrow_right" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPrivacyAndSecurity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/settings_privacy_and_settings"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Gizlilik ve Güvenlik" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvAbout"
-            android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/icNavigateToPrivacyAndSec"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_arrow_right" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/about"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/settings_about"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrivacyAndSecurity"
-            tools:text="About" />
+            android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/icNavigateToAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="12dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="40dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icNavigateToPrivacyAndSec"
-            app:srcCompat="@drawable/ic_arrow_right" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAbout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/settings_about"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                tools:text="About" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/icNavigateToAbout"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_arrow_right" />
+
+        </RelativeLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvLogOut"
@@ -95,10 +108,8 @@
             android:text="@string/settings_log_out"
             android:textColor="@color/mainColor"
             android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAbout"
             tools:text="Log Out" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

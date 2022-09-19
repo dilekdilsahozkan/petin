@@ -43,13 +43,13 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
             ).show()
         }
 
-        binding.icNavigateToAccount.setOnClickListener {
+        binding.account.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_settings_to_accountFragment)
         }
-        binding.icNavigateToPrivacyAndSec.setOnClickListener {
+        binding.privacyAndSec.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_privacyAndSecurityFragment)
         }
-        binding.icNavigateToAbout.setOnClickListener {
+        binding.about.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_aboutFragment)
         }
     }
