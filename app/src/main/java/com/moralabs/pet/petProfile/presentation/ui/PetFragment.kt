@@ -3,25 +3,19 @@ package com.moralabs.pet.petProfile.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>() {
@@ -55,7 +49,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
         binding.recyclerview.adapter = petAdapter
         binding.addPet.setOnClickListener {
-            val intent = Intent(context, AddPetActivity::class.java)
+            val intent = Intent(context, AddEditPetActivity::class.java)
             context?.startActivity(intent)
         }
 

@@ -6,8 +6,10 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
-import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
-import com.moralabs.pet.petProfile.data.remote.dto.*
+import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -49,16 +51,6 @@ class PetUseCase @Inject constructor(
         }
     }
 
-    fun editPet(editPet: PetRequestDto, petId: String?): Flow<BaseResult<PetDto>> {
-        return flow {
-            petRepository.editPet(editPet, petId).body()?.data?.let {
-                emit(
-                    BaseResult.Success(it)
-                )
-            }
-        }
-    }
-
     fun deletePet(petId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             emit(
@@ -79,7 +71,7 @@ class PetUseCase @Inject constructor(
         }
     }
 
-    fun savePet(file: File?, name: String?, attributes: List<PetPostAttributeDto>): Flow<BaseResult<Boolean>> {
+    fun savePet(file: File?, name: String?, attributes: List<PetAttributeDto>): Flow<BaseResult<Boolean>> {
         return flow {
 
             val postDto = PetRequestDto(
@@ -92,12 +84,12 @@ class PetUseCase @Inject constructor(
             file?.let {
                 val media = mediaRepository.uploadPhoto(1, it)
 
-                media.body()?.data?.getOrNull(0)?.let{
+                media.body()?.data?.getOrNull(0)?.let {
                     medias.add(it)
                 }
             }
 
-            if(medias.isNotEmpty()){
+            if (medias.isNotEmpty()) {
                 postDto.media = medias
             }
 
@@ -109,6 +101,42 @@ class PetUseCase @Inject constructor(
                 emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
             }
 
+        }
+    }
+
+    fun updatePet(petDto: PetDto, file: File?, name: String?, attributes: List<PetAttributeDto>): Flow<BaseResult<Boolean>> {
+        return flow {
+
+            val postDto = PetRequestDto(
+                name = name,
+                petAttributes = attributes
+            )
+
+            val medias = mutableListOf<MediaDto>()
+
+            file?.let {
+                val media = mediaRepository.uploadPhoto(1, it)
+
+                media.body()?.data?.getOrNull(0)?.let {
+                    medias.add(it)
+                }
+            } ?: run {
+                petDto.media?.let {
+                    medias.add(it)
+                }
+            }
+
+            if (medias.isNotEmpty()) {
+                postDto.media = medias
+            }
+
+            val result = petRepository.updatePet(petDto.id, postDto).body()?.success ?: false
+
+            if (result) {
+                emit(BaseResult.Success(true))
+            } else {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+            }
         }
     }
 

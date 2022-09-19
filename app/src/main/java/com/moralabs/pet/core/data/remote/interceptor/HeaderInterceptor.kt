@@ -20,7 +20,7 @@ class HeaderInterceptor(private val userRepository: AuthenticationRepository) : 
 
             val request = requestBuilder.build()
             return chain.proceed(request)
-        }catch (err: SocketException){
+        }catch (err: Exception){
 
         }
 

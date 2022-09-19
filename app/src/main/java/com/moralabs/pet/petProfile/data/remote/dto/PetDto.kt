@@ -5,6 +5,7 @@ import com.moralabs.pet.core.data.remote.dto.BaseDto
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PetDto(
     val id: String? = "",
     val name: String? = null,
@@ -12,15 +13,16 @@ data class PetDto(
     val petAttributes: List<PetAttributeDto>? = null,
     val pageIndex: Int? = null,
     var selected: Boolean = false
-) : BaseDto()
+) : BaseDto(), Parcelable
 
+@Parcelize
 data class PetAttributeDto(
     val attributeId: String? = "",
+    val attributeChoiceId: String? = null,
     val attributeName: String? = null,
     val type: Int? = null,
     val choice: String? = null,
-    var isLoading: Boolean = false
-) : BaseDto()
+) : BaseDto(), Parcelable
 
 @Parcelize
 data class AttributeDto(

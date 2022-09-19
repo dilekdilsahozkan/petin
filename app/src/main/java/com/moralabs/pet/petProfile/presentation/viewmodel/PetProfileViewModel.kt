@@ -34,6 +34,7 @@ class PetProfileViewModel @Inject constructor(
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
+                        latestDto = baseResult.data
                         _state.value = ViewState.Success(baseResult.data)
                     }
                 }
@@ -43,24 +44,6 @@ class PetProfileViewModel @Inject constructor(
     fun addPet(addPet: PetRequestDto){
         viewModelScope.launch {
             useCase.addPet(addPet)
-                .onStart {
-                    _state.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
-                    }
-                }
-        }
-    }
-
-    fun editPet(editPet: PetRequestDto, petId: String?){
-        viewModelScope.launch {
-            useCase.editPet(editPet, petId)
                 .onStart {
                     _state.value = ViewState.Loading()
                 }
