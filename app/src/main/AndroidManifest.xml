@@ -22,7 +22,7 @@
             android:name=".offer.presentation.ui.OfferUserActivity"
             android:exported="false" />
         <activity
-            android:name=".petProfile.presentation.ui.AddPetActivity"
+            android:name=".petProfile.presentation.ui.AddEditPetActivity"
             android:exported="false" />
         <activity
             android:name=".petProfile.presentation.ui.PetProfileActivity"

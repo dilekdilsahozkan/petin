@@ -19,7 +19,7 @@
 
         <action
             android:id="@+id/action_fragment_pet_to_addPetFragment"
-            app:destination="@id/addPetFragment"
+            app:destination="@id/addEditPetFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
 
@@ -32,8 +32,8 @@
         tools:layout="@layout/fragment_post"/>
 
     <fragment
-        android:id="@+id/addPetFragment"
-        android:name="com.moralabs.pet.petProfile.presentation.ui.AddPetFragment"
+        android:id="@+id/addEditPetFragment"
+        android:name="com.moralabs.pet.petProfile.presentation.ui.AddEditPetFragment"
         android:label="AddPetFragment"
         tools:layout="@layout/fragment_add_pet"/>
 
