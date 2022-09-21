@@ -7,7 +7,11 @@ import com.moralabs.pet.databinding.ActivityAddPetBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddPetActivity : BaseActivity<ActivityAddPetBinding>() {
+class AddEditPetActivity : BaseActivity<ActivityAddPetBinding>() {
+
+    companion object {
+        const val BUNDLE_PET = "Pet"
+    }
 
     override fun getLayoutId() = R.layout.activity_add_pet
 

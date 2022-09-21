@@ -23,7 +23,7 @@ interface PetService {
     suspend fun deletePet(@Path("petId") petId: String?): Response<EmptyDto>
 
     @PUT("/pet/{petId}")
-    suspend fun editPet(@Body editPet: PetRequestDto?, @Path("petId") petId: String?): Response<BaseResponse<PetDto>>
+    suspend fun updatePet(@Path("petId") petId: String?, @Body request: PetRequestDto?): Response<BaseResponse<PetDto>>
 
     @GET("/pet/user/{userId}")
     suspend fun getAnotherUserPet(@Path("userId") userId: String?): Response<BaseResponse<List<PetDto>>>

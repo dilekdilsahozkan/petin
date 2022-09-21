@@ -12,7 +12,7 @@ interface PetRepository {
     suspend fun petPost(): Response<BaseResponse<List<PetDto>>>
     suspend fun petInfo(petId: String?): Response<BaseResponse<PetDto>>
     suspend fun addPet(addPet: PetRequestDto?): Response<BaseResponse<PetDto>>
-    suspend fun editPet(editPet: PetRequestDto?, petId: String?): Response<BaseResponse<PetDto>>
+    suspend fun updatePet(petId: String?, requestDto: PetRequestDto?): Response<BaseResponse<PetDto>>
     suspend fun deletePet(petId: String?): Response<EmptyDto>
     suspend fun getAnotherUserPet(userId: String?): Response<BaseResponse<List<PetDto>>>
     suspend fun petAttributes(): Response<BaseResponse<List<AttributeDto>>>

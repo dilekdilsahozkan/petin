@@ -16,25 +16,29 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAddPetBinding
-import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetPostAttributeDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.adapter.PetAdapter
 import com.moralabs.pet.petProfile.presentation.model.AttributeUiDto
 import com.moralabs.pet.petProfile.presentation.model.AttributeUiType
-import com.moralabs.pet.petProfile.presentation.viewmodel.AddPetViewModel
+import com.moralabs.pet.petProfile.presentation.viewmodel.AddEditPetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_add_pet_attribute.*
 import java.io.File
 
 @AndroidEntryPoint
-class AddPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, AddPetViewModel>() {
+class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, AddEditPetViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_add_pet
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    private val pet by lazy {
+        activity?.intent?.getParcelableExtra<PetDto>(AddEditPetActivity.BUNDLE_PET)
+    }
+
     override fun fragmentViewModel(): BaseViewModel<List<AttributeDto>> {
-        val viewModel: AddPetViewModel by viewModels()
+        val viewModel: AddEditPetViewModel by viewModels()
         return viewModel
     }
 
@@ -67,21 +71,40 @@ class AddPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, A
             if (petAdapter.currentList.any { it.attributeDto.isRequired && it.choice.isNullOrEmpty() }) {
                 // TODO : error
             } else {
-                viewModel.savePet(
-                    petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) },
-                    petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
-                    petAdapter.currentList.filter { it.uiType == AttributeUiType.ATTRIBUTE || it.uiType == AttributeUiType.ATTRIBUTE_LIST }
-                        .map {
-                            PetPostAttributeDto(
-                                attributeId = it.attributeDto?.id,
-                                attributeChoiceId = it.choiceId,
-                                choice = it.choice,
-                            )
-                        },
-                    onSuccess = {
-                        activity?.onBackPressed()
-                    }
-                )
+                pet?.let { petDto ->
+                    viewModel.updatePet(
+                        petDto,
+                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) },
+                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
+                        petAdapter.currentList.filter { it.uiType == AttributeUiType.ATTRIBUTE || it.uiType == AttributeUiType.ATTRIBUTE_LIST }
+                            .map {
+                                PetAttributeDto(
+                                    attributeId = it.attributeDto.id,
+                                    attributeChoiceId = it.choiceId,
+                                    choice = it.choice,
+                                )
+                            },
+                        onSuccess = {
+                            activity?.onBackPressed()
+                        }
+                    )
+                } ?: run {
+                    viewModel.savePet(
+                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) },
+                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
+                        petAdapter.currentList.filter { it.uiType == AttributeUiType.ATTRIBUTE || it.uiType == AttributeUiType.ATTRIBUTE_LIST }
+                            .map {
+                                PetAttributeDto(
+                                    attributeId = it.attributeDto.id,
+                                    attributeChoiceId = it.choiceId,
+                                    choice = it.choice,
+                                )
+                            },
+                        onSuccess = {
+                            activity?.onBackPressed()
+                        }
+                    )
+                }
             }
         }
     }
@@ -94,14 +117,16 @@ class AddPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, A
                 uiType = AttributeUiType.PHOTO,
                 attributeDto = AttributeDto(
                     isRequired = true
-                )
+                ),
+                choice = pet?.media?.url
             ),
             AttributeUiDto(
                 uiType = AttributeUiType.NAME,
                 attributeDto = AttributeDto(
                     name = getString(R.string.name),
-                    isRequired = true
-                )
+                    isRequired = true,
+                ),
+                choice = pet?.name
             )
         )
 
@@ -110,14 +135,18 @@ class AddPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, A
                 list.add(
                     AttributeUiDto(
                         uiType = AttributeUiType.ATTRIBUTE,
-                        attributeDto = attributeDto
+                        attributeDto = attributeDto,
+                        choiceId = pet?.petAttributes?.firstOrNull { it.attributeId == attributeDto.id }?.attributeChoiceId,
+                        choice = pet?.petAttributes?.firstOrNull { it.attributeId == attributeDto.id }?.choice
                     )
                 )
             } else {
                 list.add(
                     AttributeUiDto(
                         uiType = AttributeUiType.ATTRIBUTE_LIST,
-                        attributeDto = attributeDto
+                        attributeDto = attributeDto,
+                        choiceId = pet?.petAttributes?.firstOrNull { it.attributeId == attributeDto.id }?.attributeChoiceId,
+                        choice = pet?.petAttributes?.firstOrNull { it.attributeId == attributeDto.id }?.choice
                     )
                 )
             }

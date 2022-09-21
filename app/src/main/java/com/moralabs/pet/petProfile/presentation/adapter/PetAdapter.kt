@@ -86,6 +86,10 @@ class PetAdapter(
                     return view
                 }
             })
+
+            getItem(position).choice?.let {
+                (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setText(it, false)
+            }
         }
     }
 

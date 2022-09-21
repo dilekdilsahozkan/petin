@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/addPetFragment2"
-        android:name="com.moralabs.pet.petProfile.presentation.ui.AddPetFragment"
+        android:name="com.moralabs.pet.petProfile.presentation.ui.AddEditPetFragment"
         android:label="AddPetFragment"
         tools:layout="@layout/fragment_add_pet"/>
 </navigation>

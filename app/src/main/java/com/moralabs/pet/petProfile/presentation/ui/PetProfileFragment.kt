@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
@@ -78,6 +79,14 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                     }
                 }
             ).show()
+        }
+
+        binding.editIcon.setOnClickListener {
+            context?.startActivity(
+                Intent(
+                    context,
+                    AddEditPetActivity::class.java
+                ).apply { putExtras(bundleOf(AddEditPetActivity.BUNDLE_PET to viewModel.latestDto)) })
         }
     }
 

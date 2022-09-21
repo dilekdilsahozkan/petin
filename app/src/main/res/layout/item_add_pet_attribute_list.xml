@@ -51,8 +51,7 @@
                 android:inputType="none"
                 android:padding="@dimen/scale_10dp"
                 android:textColor="@color/secondaryColor"
-                android:textSize="@dimen/scale_15dp"
-                android:text="@{item.choice}"/>
+                android:textSize="@dimen/scale_15dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
