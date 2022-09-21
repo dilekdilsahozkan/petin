@@ -1,6 +1,5 @@
 package com.moralabs.pet.notification.domain
 
-import android.os.Debug
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase

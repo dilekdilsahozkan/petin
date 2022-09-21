@@ -55,6 +55,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         if (!otherUserId.isNullOrBlank()) {
             viewModel.getAnotherUserPetInfo(petId, otherUserId)
             binding.editIcon.visibility = View.GONE
+            binding.deleteIcon.visibility = View.GONE
         } else {
             viewModel.petInfo(petId)
         }

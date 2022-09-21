@@ -24,6 +24,9 @@ class MainPageViewModel @Inject constructor(
 
     private var job: Job? = null
 
+    private var _guest: MutableStateFlow<ViewState<String>> = MutableStateFlow(ViewState.Idle())
+    val guest: StateFlow<ViewState<String>> = _guest
+
     fun feedPost(searchQuery: String? = null) {
         job?.cancel()
 
@@ -93,6 +96,24 @@ class MainPageViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
+
+    fun guestLogin() {
+        viewModelScope.launch {
+            useCase.guestLogin()
+                .onStart {
+                    _guest.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _guest.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _guest.value = ViewState.Idle()
                     }
                 }
         }

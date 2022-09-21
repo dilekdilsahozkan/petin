@@ -74,6 +74,7 @@ abstract class BaseFragment<T : ViewDataBinding,
                     }
                     is ViewState.Idle<U> -> stopLoading()
                     is ViewState.Loading<U> -> startLoading()
+                    else -> {}
                 }
             }
         }
@@ -157,6 +158,7 @@ abstract class BaseFragment<T : ViewDataBinding,
         { result ->
             when (result) {
 
+                else -> {}
             }
         }
 

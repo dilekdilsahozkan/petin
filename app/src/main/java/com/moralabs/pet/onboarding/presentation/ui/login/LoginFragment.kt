@@ -37,8 +37,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
         binding.loginButton.setOnClickListener {
             viewModel.login(
                 LoginRequestDto(
-                    this.email_edittext.text.toString(),
-                    this.password_edittext.text.toString()
+                    email = binding.emailEdittext.text.toString(),
+                    password = binding.passwordEdittext.text.toString()
                 )
             )
         }

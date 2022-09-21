@@ -6,8 +6,8 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentWelcomeBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
+import com.moralabs.pet.onboarding.presentation.ui.guest.GuestActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, Any, Nothing>() {
             startActivity(Intent(context, LoginActivity::class.java))
         }
         binding.guestButton.setOnClickListener {
-            startActivity(Intent(context, MainPageActivity::class.java))
+            startActivity(Intent(context, GuestActivity::class.java))
         }
     }
 

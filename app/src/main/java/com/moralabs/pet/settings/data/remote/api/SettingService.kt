@@ -1,6 +1,7 @@
 package com.moralabs.pet.settings.data.remote.api
 
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
@@ -23,4 +24,8 @@ interface SettingService {
 
     @DELETE("user")
     suspend fun deleteUser(): Response<Any>
+
+    // beğenilen gönderiler
+    @GET("/feed/liked")
+    suspend fun getLiked(): Response<BaseResponse<PostDto>>
 }

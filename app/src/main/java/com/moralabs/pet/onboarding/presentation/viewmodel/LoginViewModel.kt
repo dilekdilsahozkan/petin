@@ -19,6 +19,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCase
 ): BaseViewModel<LoginDto>(useCase){
+
     fun login(loginPet: LoginRequestDto) {
         viewModelScope.launch {
             useCase.login(loginPet)

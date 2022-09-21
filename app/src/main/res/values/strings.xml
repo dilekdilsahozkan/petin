@@ -138,5 +138,7 @@
     <string name="unblock_user">Engeli kaldır</string>
 
     <string name="name">İsim</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
