@@ -28,16 +28,16 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, UserDto, SettingsVi
 
     override fun addListeners() {
         super.addListeners()
-        binding.icNavigateToPersonalInfo.setOnClickListener{
+        binding.personalInfo.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_personalInformationsFragment)
         }
-        binding.icNavigateToFavorites.setOnClickListener {
+        binding.favorites.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_favoritesFragment)
         }
-        binding.icNavigateToChangePassw.setOnClickListener {
+        binding.changePW.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_changePasswordFragment)
         }
-        binding.icNavigateToDeleteAccount.setOnClickListener {
+        binding.deleteAccount.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_deleteAccountFragment)
         }
     }
