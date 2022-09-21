@@ -31,7 +31,9 @@ class RegisterUseCase @Inject constructor(
                 if (result.isSuccessful && result.code() == 200) {
                     result.body()?.data?.let {
                         it.accessToken?.let { accessToken ->
-                            authenticationRepository.login(it.userId, accessToken)
+                            it.refreshToken?.let { refreshToken ->
+                                authenticationRepository.login(it.userId, accessToken, refreshToken)
+                            }
                         }
 
                         notificationRepository.sendToken(notificationRepository.getFirebaseToken())

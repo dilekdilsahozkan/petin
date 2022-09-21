@@ -2,6 +2,7 @@ package com.moralabs.pet.settings.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
@@ -24,6 +25,9 @@ class SettingsViewModel @Inject constructor(
 
     private var _stateUnBlocked: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val stateUnBlocked: StateFlow<ViewState<Boolean>> = _stateUnBlocked
+
+    private var _stateLiked: MutableStateFlow<ViewState<List<PostDto>>> = MutableStateFlow(ViewState.Idle())
+    val stateLiked: StateFlow<ViewState<List<PostDto>>> = _stateLiked
 
     fun logout() {
         useCase.logout()
@@ -98,6 +102,25 @@ class SettingsViewModel @Inject constructor(
                     if (baseResult is BaseResult.Success) {
                         _stateUnBlocked.value = ViewState.Idle()
                         _stateUnBlocked.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun getLikedPosts() {
+        viewModelScope.launch {
+            useCase.getLikedPosts()
+                .onStart {
+                    _stateLiked.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _stateLiked.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _stateLiked.value = ViewState.Idle()
+                        _stateLiked.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

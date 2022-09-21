@@ -1,13 +1,28 @@
 package com.moralabs.pet.settings.presentation.ui.account
 
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentFavoritesBinding
+import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
+import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
+import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
+import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.data.remote.dto.UserDto
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, SettingsViewModel>() {
@@ -20,8 +35,116 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
         return viewModel
     }
 
+    private val likedPostAdapter by lazy {
+        PostListAdapter(
+            onOfferClick = {
+                loginIfNeeded {
+                    val bundle = bundleOf(
+                        MakeOfferActivity.POST_ID to it.id,
+                        MakeOfferActivity.OFFER_TYPE to it.content?.type
+                    )
+                    val intent = Intent(context, MakeOfferActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
+            },
+            onPetProfile = {
+                if (it.isPostOwnedByUser != true) {
+                    val bundle = bundleOf(
+                        PetProfileActivity.PET_ID to it.content?.pet?.id,
+                        PetProfileActivity.OTHER_USER_ID to it.user?.userId
+                    )
+                    val intent = Intent(context, PetProfileActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
+            },
+            onLikeClick = {
+                /*if (it.isPostLikedByUser == true) {
+                    viewModel.unlikePost(it.id)
+                } else {
+                    viewModel.likePost(it.id)
+                }*/
+
+            },
+            onCommentClick = {
+                loginIfNeeded {
+                    val bundle = bundleOf(
+                        CommentActivity.POST_ID to it.id
+                    )
+                    val intent = Intent(context, CommentActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
+            },
+            onOfferUserClick = {
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        val bundle = bundleOf(
+                            OfferUserActivity.POST_ID to it.id
+                        )
+                        val intent = Intent(context, OfferUserActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
+                }
+            },
+            onUserPhotoClick = {
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser != true) {
+                        val bundle = bundleOf(
+                            ProfileActivity.OTHER_USER_ID to it.user?.userId
+                        )
+                        val intent = Intent(context, ProfileActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
+                }
+            },
+            onPostSettingClick = {
+                /*loginIfNeeded {
+                    fragmentManager?.let { it1 ->
+                        PostSettingBottomSheetFragment(
+                            this,
+                            it.id
+                        ).show(it1, "")
+                    }
+                }*/
+            }
+        )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.favoritesRecyclerView.adapter = likedPostAdapter
+        viewModel.getLikedPosts()
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+
+        lifecycleScope.launch {
+            viewModel.stateLiked.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<List<PostDto>> -> {
+                        likedPostAdapter.submitList(it.data)
+                        stopLoading()
+                    }
+                    is ViewState.Error<*> -> {
+                        stopLoading()
+                    }
+                }
+            }
+        }
+    }
+
+
     override fun setToolbar() {
         super.setToolbar()
         toolbarListener?.showTitleText(getString(R.string.settings_my_favorites))
     }
+
 }
