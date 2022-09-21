@@ -1,5 +1,6 @@
 package com.moralabs.pet.settings.domain
 
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
@@ -53,6 +54,16 @@ class SettingsUseCase @Inject constructor(
             emit(
                 BaseResult.Success(
                     settingRepository.unBlock(userId).isSuccessful
+                )
+            )
+        }
+    }
+
+    fun getLikedPosts(): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.getLikedPosts().body()?.data ?: listOf()
                 )
             )
         }

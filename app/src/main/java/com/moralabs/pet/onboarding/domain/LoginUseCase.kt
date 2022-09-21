@@ -30,7 +30,9 @@ class LoginUseCase @Inject constructor(
                 if (response.isSuccessful && response.code() == 200) {
                     response.body()?.data?.let {
                         it.accessToken?.let { accessToken ->
-                            authenticationRepository.login(it.userId, accessToken)
+                            it.refreshToken?.let { refreshToken ->
+                                authenticationRepository.login(it.userId, accessToken, refreshToken)
+                            }
                         }
 
                         notificationRepository.sendToken(notificationRepository.getFirebaseToken())

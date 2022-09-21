@@ -1,8 +1,10 @@
 package com.moralabs.pet.settings.data.remote.api
 
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
+import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
 import com.moralabs.pet.settings.data.remote.dto.SettingsRequestDto
 import retrofit2.Response
@@ -23,4 +25,10 @@ interface SettingService {
 
     @DELETE("user")
     suspend fun deleteUser(): Response<Any>
+
+    @GET("/feed/liked")
+    suspend fun getLikedPosts(): Response<BaseResponse<List<PostDto>>>
+
+    @PATCH("/auth/password")
+    suspend fun changePassword(@Body changePassword: ChangePasswordRequestDto): Response<BaseResponse<Nothing>>
 }

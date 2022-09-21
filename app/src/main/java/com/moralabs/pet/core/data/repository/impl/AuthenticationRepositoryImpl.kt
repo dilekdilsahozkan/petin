@@ -34,7 +34,7 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
             _authentication = Gson().fromJson(it, AuthenticationDto::class.java)
         }
 
-        if(_authentication == null) {
+        if (_authentication == null) {
             _authentication = AuthenticationDto()
 
             preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
@@ -56,9 +56,10 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
         return true
     }
 
-    override fun login(userId: String?, bearerToken: String): Boolean {
+    override fun login(userId: String?, bearerToken: String, refreshToken: String): Boolean {
         _authentication?.apply {
             this.bearerKey = bearerToken
+            this.refreshKey = refreshToken
 
             preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }
@@ -70,7 +71,7 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
 
     override fun requestHeaders() = _authentication?.let {
         hashMapOf(
-            "Authorization" to if(it.bearerKey == null) null else "Bearer ${it.bearerKey}",
+            "Authorization" to if (it.bearerKey == null) null else "Bearer ${it.bearerKey}",
             "Accept-Language" to it.language,
             "Pet-Channel" to it.channel,
             "Pet-DeviceModel" to it.deviceModel,

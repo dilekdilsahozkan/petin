@@ -22,3 +22,8 @@ data class EditUserDto(
     val phoneNumber: String? = null,
     val birthDate: String? = null,
 ) : BaseDto()
+
+data class ChangePasswordRequestDto(
+    val oldPassword: String? = null,
+    val newPassword: String? = null,
+)
