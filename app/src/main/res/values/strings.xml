@@ -136,9 +136,13 @@
     <string name="unfollow_user">Takipten çıkar</string>
     <string name="block_user">Engelle</string>
     <string name="unblock_user">Engeli kaldır</string>
-
     <string name="name">İsim</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- FORGOT PASSWORD -->
+
+    <string name="sendAgain">Yeniden Gönder</string>
+    <string name="didNotReceiveEmail">Mail size ulaşmadı mı?</string>
+    <string name="otpDescription">Mailinize gönderilen 6 haneli doğrulama kodunu girin.</string>
+    <string name="otpEnter">Doğrulama Kodunu Girin</string>
 
 </resources>
