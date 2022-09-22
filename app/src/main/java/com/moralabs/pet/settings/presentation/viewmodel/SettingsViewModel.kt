@@ -8,6 +8,7 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ViewState
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
+import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
 import com.moralabs.pet.settings.domain.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +29,9 @@ class SettingsViewModel @Inject constructor(
 
     private var _stateLiked: MutableStateFlow<ViewState<List<PostDto>>> = MutableStateFlow(ViewState.Idle())
     val stateLiked: StateFlow<ViewState<List<PostDto>>> = _stateLiked
+
+    private var _stateChangePW: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val stateChangePW: StateFlow<ViewState<Boolean>> = _stateChangePW
 
     fun logout() {
         useCase.logout()
@@ -121,6 +125,24 @@ class SettingsViewModel @Inject constructor(
                     if (baseResult is BaseResult.Success) {
                         _stateLiked.value = ViewState.Idle()
                         _stateLiked.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto) {
+        viewModelScope.launch {
+            useCase.changePassword(refreshToken, changePassword)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _stateChangePW.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

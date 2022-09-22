@@ -31,12 +31,15 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.editUser(
-            EditUserDto(
-                fullName = binding.fullNameEdit.text.toString(),
-                phoneNumber = binding.phoneNumberEdit.text.toString()
+
+        binding.editProfile.setOnClickListener {
+            viewModel.editUser(
+                EditUserDto(
+                    fullName = binding.fullNameEdit.text.toString(),
+                    phoneNumber = binding.phoneNumberEdit.text.toString()
+                )
             )
-        )
+        }
     }
 
     override fun stateSuccess(data: UserDto) {
