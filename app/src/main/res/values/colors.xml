@@ -21,4 +21,6 @@
     <color name="gray_tint">#A4A2A0</color>
     <color name="transparent">#CC000000</color>
     <color name="divider">#D7D7D7</color>
+    <color name="transparentWhite">#cccccc</color>
+
 </resources>

@@ -8,6 +8,9 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface FeedService {
+    // GUEST LOGIN
+    @GET("/auth/guestLogin")
+    suspend fun guestLogin(): Response<BaseResponse<String>>
 
     // GET all feeds
     @GET("/feed")
@@ -36,10 +39,6 @@ interface FeedService {
 
     @GET("/pet/{petId}/user/{userId}")
     suspend fun getPetProfile(@Path("petId") petId: String?, @Path("userId") userId: String?): Response<BaseResponse<PetDto>>
-
-    // beğenilen gönderiler
-    @GET("/feed/liked")
-    suspend fun getLiked(): Response<BaseResponse<PostDto>>
 
     @DELETE("/feed/post/{postId}")
     suspend fun deletePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>

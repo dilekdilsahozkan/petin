@@ -53,4 +53,12 @@ class MainPageUseCase @Inject constructor(
             )
         }
     }
+
+    fun guestLogin(): Flow<BaseResult<String>> {
+        return flow {
+            postRepository.guestLogin().body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
+        }
+    }
 }

@@ -6,7 +6,6 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.notification.data.repository.NotificationRepository
-import com.moralabs.pet.notification.domain.NotificationUseCase
 import com.moralabs.pet.onboarding.data.remote.dto.ForgotPasswordDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
@@ -21,6 +20,7 @@ class LoginUseCase @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
     private val notificationRepository: NotificationRepository
 ) : BaseUseCase() {
+
     fun login(loginPet: LoginRequestDto): Flow<BaseResult<LoginDto>> {
         return flow {
             if (loginPet.email.isNullOrEmpty() && loginPet.password.isNullOrEmpty()) {
@@ -64,5 +64,4 @@ class LoginUseCase @Inject constructor(
             }
         }
     }
-
 }

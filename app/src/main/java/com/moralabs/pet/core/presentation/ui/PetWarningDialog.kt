@@ -47,7 +47,7 @@ class PetWarningDialog (
             }
             PetWarningDialogType.CONFIRMATION -> {
                 setCancelable(false)
-                binding.icon.setImageResource(R.drawable.ic_add_photo)
+                binding.icon.setImageResource(R.drawable.ic_error_profile)
             }
             PetWarningDialogType.LOGIN -> {
                 setCancelable(false)
