@@ -6,10 +6,7 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.notification.data.repository.NotificationRepository
-import com.moralabs.pet.onboarding.data.remote.dto.ForgotPasswordDto
-import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
-import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
-import com.moralabs.pet.onboarding.data.remote.dto.NewPasswordDto
+import com.moralabs.pet.onboarding.data.remote.dto.*
 import com.moralabs.pet.onboarding.data.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -48,20 +45,33 @@ class LoginUseCase @Inject constructor(
         }
     }
 
-    fun forgotPassword(sendEmail: ForgotPasswordDto): Flow<BaseResult<LoginDto>> {
+    fun forgotPassword(sendEmail: ForgotPasswordDto): Flow<BaseResult<Boolean>> {
         return flow {
-            loginRepository.forgotPassword(sendEmail).body()?.data?.let {
-                emit(BaseResult.Success(it))
+            if (sendEmail.email.isNullOrEmpty()) {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.EMPTY_BLANKS)))
+            } else {
+                val forgot = loginRepository.forgotPassword(sendEmail)
+                if (forgot.isSuccessful && forgot.code() == 200) {
+                    emit(BaseResult.Success(true))
+                } else {
+                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                }
             }
         }
     }
 
-    fun newPassword(getCode: NewPasswordDto): Flow<BaseResult<LoginDto>> {
+    fun passwordCode(passwordCode: PasswordCodeDto): Flow<BaseResult<Boolean>> {
         return flow {
-            loginRepository.newPassword(getCode).body()?.data?.let {
-                emit(BaseResult.Success(it))
-
+            val pwCode = loginRepository.passwordCode(passwordCode)
+            if (pwCode.isSuccessful && pwCode.code() == 200) {
+                emit(BaseResult.Success(true))
             }
+        }
+    }
+
+    fun newPassword(newPw: NewPasswordDto): Flow<BaseResult<Boolean>> {
+        return flow {
+            emit(BaseResult.Success(loginRepository.newPassword(newPw).isSuccessful))
         }
     }
 }

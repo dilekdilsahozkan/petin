@@ -23,7 +23,6 @@ class MainPageViewModel @Inject constructor(
 ) : BaseViewModel<List<PostDto>>(useCase) {
 
     private var job: Job? = null
-
     private var _guest: MutableStateFlow<ViewState<String>> = MutableStateFlow(ViewState.Idle())
     val guest: StateFlow<ViewState<String>> = _guest
 

@@ -23,12 +23,34 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="com.moralabs.pet.onboarding.presentation.ui.login.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment"
-        tools:layout="@layout/fragment_forgot_password"/>
+        tools:layout="@layout/fragment_forgot_password">
+
+        <action
+            android:id="@+id/action_fragment_forgot_to_passwordCodeFragment"
+            app:destination="@id/passwordCodeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
 
     <fragment
-        android:id="@+id/mainPageFragment"
-        android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
-        android:label="MainPageFragment"
-        tools:layout="@layout/fragment_main_page"/>
+        android:id="@+id/passwordCodeFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.login.PasswordCodeFragment"
+        android:label="PasswordCodeFragment"
+        tools:layout="@layout/fragment_password_code">
+
+        <action
+            android:id="@+id/action_fragment_code_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.moralabs.pet.onboarding.presentation.ui.login.NewPasswordFragment"
+        android:label="NewPasswordFragment"
+        tools:layout="@layout/fragment_new_password"/>
 
 </navigation>

@@ -11,9 +11,7 @@
         android:id="@+id/settingsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_margin="@dimen/scale_16dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -103,7 +101,7 @@
             android:id="@+id/tvLogOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginVertical="20dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/settings_log_out"
             android:textColor="@color/mainColor"

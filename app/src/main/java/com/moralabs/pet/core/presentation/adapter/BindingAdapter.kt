@@ -27,6 +27,6 @@ fun ImageView.loadImageWithPlaceholder(src: String?) {
 
 @BindingAdapter("pet:attributes")
 fun TextView.attributes(list: List<PetAttributeDto>?){
-    text = list?.filter { it.type.toString() == tag}?.getOrNull(0)?.choice
+    text = list?.filter { it.attributeType.toString() == tag}?.getOrNull(0)?.choice
 }
 

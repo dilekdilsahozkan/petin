@@ -7,8 +7,12 @@ data class ForgotPasswordDto(
     val codeType: Int? = null
 ): BaseDto()
 
+data class PasswordCodeDto(
+    val code: String? = null
+): BaseDto()
+
 data class NewPasswordDto(
-    val email: String? = null,
-    val code: String? = null,
+    var email: String? = null,
+    var code: String? = null,
     val newPassword: String? = null
 ): BaseDto()

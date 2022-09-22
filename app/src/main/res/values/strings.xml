@@ -10,7 +10,7 @@
     <string name="guest">Misafir</string>
     <string name="login">Giriş Yap</string>
     <string name="register">Kayıt Ol</string>
-    <string name="forgotPassword">Şifremi Unuttum?</string>
+    <string name="forgotPassword">Parolamı Unuttum?</string>
     <string name="haveAccount">Zaten hesabınız var mı? Giriş yap.</string>
     <string name="dontHaveAccount">Hala kayıt olmadınız mı? Kayıt ol.</string>
     <string name="or">ya da</string>
@@ -24,7 +24,6 @@
     <string name="enterEmail">Hesabınıza bağlı mail adresinizi giriniz.</string>
     <string name="findAccount">Hesabınızı Bulun</string>
     <string name="read">Okudum</string>
-    <string name="passwordSended">Yeni şifrenizi kayıtlı <font color="#FF724C"> e-mail adresinize</font> gönderildi.</string>
     <string name="choosePet">Evcil hayvanınızı seçiniz.</string>
     <string name="choosePetEditText">Neden evcil hayvanınızın partner olarak seçilmesini istediğinizi açıklayınız.</string>
     <string name="chooseAdoption">Neden bu evcil hayvanı sahiplenmek istediğinizi açıklayınız.</string>
@@ -37,7 +36,7 @@
     <string name="delete">Kaldır</string>
     <string name="accept">Kabul Et</string>
     <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
-    <string name="wrongLogin">Yanlış email ya da şifre</string>
+    <string name="wrongLogin">Yanlış email ya da parola</string>
     <string name="chooseType">Gönderi tipinizi seçiniz</string>
     <string name="post">Post</string>
     <string name="qna">Soru - Cevap</string>
@@ -83,21 +82,21 @@
     <string name="settings_my_account">Hesabım</string>
     <string name="settings_personal_information">Kişisel Bilgilerim</string>
     <string name="settings_my_favorites">Favorilerim</string>
-    <string name="settings_change_password">Şifremi Değiştir</string>
+    <string name="settings_change_password">Parolamı Değiştir</string>
     <string name="settings_delete_account">Hesabımı Sil</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
     <string name="settings_privacy_and_security">Gizlilik ve Güvenlik</string>
     <string name="settings_blocked_accounts">Engellenen Hesaplar</string>
     <string name="settings_blocked_accounts_unblock">ENGELLEMEYİ KALDIR</string>
-    <string name="settings_what_is_pet">Pet nedir?</string>
+    <string name="settings_what_is_pet">Petin nedir?</string>
     <string name="settings_who_we_are">Biz kimiz?</string>
     <string name="settings_our_purpose">Amacımız</string>
     <string name="settings_bout">Hakkımızda</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
-    <string name="settings_current_password">Mevcut Şifre</string>
-    <string name="settings_new_password">Yeni Şifre</string>
-    <string name="settings_new_password_again">Yeni Şifre (Yeniden)</string>
-    <string name="settings_new_password_info">Şifreniz en az 8 karakter olmalıdır.</string>
+    <string name="settings_current_password">Mevcut Parola</string>
+    <string name="settings_new_password">Yeni Parola</string>
+    <string name="settings_new_password_again">Yeni Parola (Yeniden)</string>
+    <string name="settings_new_password_info">Parolanızın bir büyük, bir küçük ve bir rakam içermesi ve en az 8 harf olması lazım</string>
 
     <!-- PROFILE -->
 
@@ -116,6 +115,11 @@
     <string name="error_add_pet">Evcil hayvanınızın profili kaydedilemedi.</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
+    <string name="success_new_password">Parolanız başarıyla değiştirildi</string>
+    <string name="error_new_password">Parolanız oluşurken bir sorun oluştu</string>
+    <string name="error_wrong_email">Sisteme kayıtlı böyle bir mail adresi bulunamamıştır</string>
+    <string name="error_password_code">Yanlış kod girdiniz</string>
+
 
     <!-- PetWarningDialogs -->
 
@@ -144,5 +148,7 @@
     <string name="didNotReceiveEmail">Mail size ulaşmadı mı?</string>
     <string name="otpDescription">Mailinize gönderilen 6 haneli doğrulama kodunu girin.</string>
     <string name="otpEnter">Doğrulama Kodunu Girin</string>
+    <string name="newPassword">Yeni Parolanızı Giriniz</string>
+    <string name="secondsLeft">saniye kaldı</string>
 
 </resources>

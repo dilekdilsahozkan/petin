@@ -30,8 +30,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
         BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
             val bundle = bundleOf(
-                PetProfileActivity.PET_ID to it.id,
-                PetProfileActivity.OTHER_USER_ID to otherUserId
+                PetProfileActivity.PET_ID to it.id
             )
             val intent = Intent(context, PetProfileActivity::class.java)
             intent.putExtras(bundle)

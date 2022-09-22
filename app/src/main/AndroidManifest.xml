@@ -19,9 +19,12 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".NewPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".onboarding.presentation.ui.guest.GuestActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".offer.presentation.ui.OfferUserActivity"
             android:exported="false" />
@@ -68,7 +71,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".onboarding.presentation.ui.LoginActivity"
+            android:name=".onboarding.presentation.ui.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".onboarding.presentation.ui.welcome.WelcomeActivity"
@@ -96,6 +99,9 @@
                 android:resource="@xml/image_paths" />
         </provider>
 
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
         <service
             android:name=".common.presentation.PetFirebaseService"
             android:exported="false">

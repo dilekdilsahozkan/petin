@@ -62,8 +62,10 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             onLikeClick = {
                 if (it.isPostLikedByUser == true) {
                     viewModel.unlikePost(it.id)
+                    viewModel.feedPost()
                 } else {
                     viewModel.likePost(it.id)
+                    viewModel.feedPost()
                 }
 
             },

@@ -16,7 +16,7 @@ import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.databinding.FragmentRegisterBinding
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
-import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
+import com.moralabs.pet.onboarding.presentation.ui.login.LoginActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

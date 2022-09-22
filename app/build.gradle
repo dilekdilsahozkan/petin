@@ -124,4 +124,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-messaging'
 
+    // AWS Cognito
+    implementation "com.amazonaws:aws-android-sdk-cognitoauth:$aws_version"
+    implementation "com.amazonaws:aws-android-sdk-cognitoidentityprovider:$aws_version"
+    implementation "com.amazonaws:aws-android-sdk-s3:$aws_version"
+
 }

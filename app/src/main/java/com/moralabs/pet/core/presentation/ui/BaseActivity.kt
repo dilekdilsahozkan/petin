@@ -12,8 +12,8 @@ import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.databinding.ActivityBaseBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.onboarding.presentation.ui.LoginAction
-import com.moralabs.pet.onboarding.presentation.ui.LoginResultContract
+import com.moralabs.pet.onboarding.presentation.ui.login.LoginAction
+import com.moralabs.pet.onboarding.presentation.ui.login.LoginResultContract
 import javax.inject.Inject
 
 abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), PetToolbarListener {

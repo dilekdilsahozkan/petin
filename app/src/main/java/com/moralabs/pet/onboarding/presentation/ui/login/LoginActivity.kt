@@ -1,4 +1,4 @@
-package com.moralabs.pet.onboarding.presentation.ui
+package com.moralabs.pet.onboarding.presentation.ui.login
 
 import android.app.Activity
 import android.content.Context
@@ -11,6 +11,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityLoginBinding
+import com.moralabs.pet.onboarding.data.remote.dto.NewPasswordDto
 import dagger.hilt.android.AndroidEntryPoint
 
 typealias LoginAction = (() -> Unit)
@@ -22,6 +23,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(),
     companion object {
         const val RESULT_LOGIN = "loginResult"
     }
+
+    private var newPassword: NewPasswordDto = NewPasswordDto()
 
     override fun getLayoutId() = R.layout.activity_login
 
@@ -35,6 +38,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(),
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(binding.appBar)
+    }
+
+    fun getPassword() : NewPasswordDto{
+        return newPassword
     }
 }
 

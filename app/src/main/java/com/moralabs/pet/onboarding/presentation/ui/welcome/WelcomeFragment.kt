@@ -6,7 +6,7 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.presentation.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentWelcomeBinding
-import com.moralabs.pet.onboarding.presentation.ui.LoginActivity
+import com.moralabs.pet.onboarding.presentation.ui.login.LoginActivity
 import com.moralabs.pet.onboarding.presentation.ui.guest.GuestActivity
 import dagger.hilt.android.AndroidEntryPoint
 

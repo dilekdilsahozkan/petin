@@ -20,6 +20,7 @@ data class PetAttributeDto(
     val attributeId: String? = "",
     val attributeChoiceId: String? = null,
     val attributeName: String? = null,
+    val attributeType: Int? = null,
     val type: Int? = null,
     val choice: String? = null,
 ) : BaseDto(), Parcelable

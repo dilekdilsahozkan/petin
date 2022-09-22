@@ -110,9 +110,9 @@ class PostListAdapter(
             binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
 
             binding.petName.text = pet.content?.pet?.name
-            binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.type == 7 }?.getOrNull(0)?.choice
-            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.type == 5 }?.getOrNull(0)?.choice
-            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.type == 8 }?.getOrNull(0)?.choice
+            binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.attributeType == 7 }?.getOrNull(0)?.choice
+            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
+            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
 
             if (pet.isPostLikedByUser == true) {
                 binding.likeIcon.setImageResource(R.drawable.ic_like_orange)

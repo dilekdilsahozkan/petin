@@ -18,7 +18,6 @@ import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
 import com.moralabs.pet.onboarding.presentation.ui.register.RegisterActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_login.*
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewModel>() {
@@ -33,7 +32,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
 
     override fun addListeners() {
         super.addListeners()
-
         binding.loginButton.setOnClickListener {
             viewModel.login(
                 LoginRequestDto(
