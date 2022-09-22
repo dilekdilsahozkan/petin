@@ -7,6 +7,7 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
+import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
 import com.moralabs.pet.settings.data.repository.SettingRepository
 import kotlinx.coroutines.flow.Flow
@@ -64,6 +65,17 @@ class SettingsUseCase @Inject constructor(
             emit(
                 BaseResult.Success(
                     settingRepository.getLikedPosts().body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+    fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Flow<BaseResult<Boolean>> {
+
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.changePassword(refreshToken, changePassword).body() ?: false
                 )
             )
         }
