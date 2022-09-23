@@ -36,6 +36,9 @@ class SettingsViewModel @Inject constructor(
     private var _stateInfo: MutableStateFlow<ViewState<String>> = MutableStateFlow(ViewState.Idle())
     val stateInfo: StateFlow<ViewState<String>> = _stateInfo
 
+    private var _stateDeleteAccount: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val stateDeleteAccount: StateFlow<ViewState<Boolean>> = _stateDeleteAccount
+
     fun logout() {
         useCase.logout()
     }
@@ -164,6 +167,24 @@ class SettingsViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _stateInfo.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun deleteAccount() {
+        viewModelScope.launch {
+            useCase.deleteAccount()
+                .onStart {
+                    _stateDeleteAccount.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _stateDeleteAccount.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _stateDeleteAccount.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
