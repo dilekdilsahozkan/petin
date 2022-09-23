@@ -21,7 +21,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, UserDto, SettingsViewMo
         toolbarListener?.showTitleText(getString(R.string.settings_about))
     }
 
-
     override fun addListeners() {
         super.addListeners()
 
