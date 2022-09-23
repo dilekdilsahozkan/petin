@@ -17,5 +17,6 @@ class SettingRepositoryImpl @Inject constructor(private val service: SettingServ
     override suspend fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto) =
         service.changePassword(refreshToken, changePassword)
     override suspend fun getInfo(infoType: Int) = service.getInfo(infoType)
+    override suspend fun deleteAccount() = service.deleteAccount()
 
 }

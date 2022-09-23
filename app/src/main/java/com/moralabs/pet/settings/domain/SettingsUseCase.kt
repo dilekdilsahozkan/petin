@@ -90,6 +90,16 @@ class SettingsUseCase @Inject constructor(
         }
     }
 
+    fun deleteAccount(): Flow<BaseResult<Boolean>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.deleteAccount().body()?.success ?: false
+                )
+            )
+        }
+    }
+
     fun logout() {
         authenticationUseCase.logout()
     }

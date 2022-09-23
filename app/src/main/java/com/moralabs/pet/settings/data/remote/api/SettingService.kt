@@ -30,8 +30,14 @@ interface SettingService {
     suspend fun getLikedPosts(): Response<BaseResponse<List<PostDto>>>
 
     @PATCH("/auth/password")
-    suspend fun changePassword(@Header("refreshToken") refreshToken: String, @Body changePassword: ChangePasswordRequestDto): Response<Boolean>
+    suspend fun changePassword(
+        @Header("refreshToken") refreshToken: String,
+        @Body changePassword: ChangePasswordRequestDto
+    ): Response<Boolean>
 
     @GET("/info/{infoType}")
     suspend fun getInfo(@Path("infoType") infoType: Int?): Response<BaseResponse<String>>
+
+    @DELETE("/user")
+    suspend fun deleteAccount(): Response<BaseResponse<Nothing>>
 }
