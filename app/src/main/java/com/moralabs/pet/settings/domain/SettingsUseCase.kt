@@ -71,13 +71,22 @@ class SettingsUseCase @Inject constructor(
     }
 
     fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Flow<BaseResult<Boolean>> {
-
         return flow {
             emit(
                 BaseResult.Success(
                     settingRepository.changePassword(refreshToken, changePassword).body() ?: false
                 )
             )
+        }
+    }
+
+    fun getInfo(infoType: Int): Flow<BaseResult<String>> {
+        return flow {
+            settingRepository.getInfo(infoType).body()?.data?.let {
+                emit(
+                    BaseResult.Success(it)
+                )
+            }
         }
     }
 

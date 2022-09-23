@@ -42,3 +42,10 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, UserDto, SettingsViewMo
         return viewModel
     }
 }
+
+enum class InfoTypes(val type: Int) {
+    AGREEMENT(1),
+    WHAT_IS_PET(2),
+    WHO_ARE_WE(3),
+    OUR_PURPOSE(4)
+}

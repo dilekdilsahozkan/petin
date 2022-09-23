@@ -33,6 +33,9 @@ class SettingsViewModel @Inject constructor(
     private var _stateChangePW: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val stateChangePW: StateFlow<ViewState<Boolean>> = _stateChangePW
 
+    private var _stateInfo: MutableStateFlow<ViewState<String>> = MutableStateFlow(ViewState.Idle())
+    val stateInfo: StateFlow<ViewState<String>> = _stateInfo
+
     fun logout() {
         useCase.logout()
     }
@@ -143,6 +146,24 @@ class SettingsViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _stateChangePW.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun getInfo(infoType: Int) {
+        viewModelScope.launch {
+            useCase.getInfo(infoType)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _stateInfo.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
