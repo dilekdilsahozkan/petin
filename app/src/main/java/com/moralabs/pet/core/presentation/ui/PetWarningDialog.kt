@@ -80,15 +80,6 @@ class PetWarningDialog (
         }
 
         binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
-
-        binding.login.setOnClickListener{
-            onResult?.let {
-                onResult(PetWarningDialogResult.OK)
-            }
-            dismiss()
-        }
-
-        binding.login.isVisible = type == PetWarningDialogType.LOGIN
         binding.discard.isVisible = type == PetWarningDialogType.LOGIN
         binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
 

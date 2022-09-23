@@ -4,6 +4,8 @@ import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.data.repository.NewPostRepository

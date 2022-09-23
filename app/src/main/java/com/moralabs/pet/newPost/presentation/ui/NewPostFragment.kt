@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
@@ -122,17 +123,21 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         viewModel.petValue()
 
         binding.toolbar.publishText.setOnClickListener {
-            val pet = petCardAdapter.currentList.filter { it.selected }.firstOrNull()
-            viewModel.createPost(
-                NewPostDto(
-                    text = binding.explanationText.text.toString(),
-                    type = postType,
-                    locationId = locationId,
-                    petId = pet?.id,
-                    files = viewModel.files.value
+            if(binding.explanationText.text.isNullOrEmpty()){
+                Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
+            }else{
+                val pet = petCardAdapter.currentList.filter { it.selected }.firstOrNull()
+                viewModel.createPost(
+                    NewPostDto(
+                        text = binding.explanationText.text.toString(),
+                        type = 1,
+                        locationId = locationId,
+                        petId = pet?.id,
+                        files = viewModel.files.value
+                    )
                 )
-            )
-            startActivity(Intent(context, MainPageActivity::class.java))
+                startActivity(Intent(context, MainPageActivity::class.java))
+            }
         }
 
         binding.toolbar.imgClose.setOnClickListener {
@@ -177,7 +182,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                             binding.userPhoto.loadImage(it.data.media?.url)
                             binding.userName.text = it.data.userName.toString()
                         }
-
                         else -> {}
                     }
                 }

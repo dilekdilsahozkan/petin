@@ -129,7 +129,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         binding.petImage.loadImage(data.media?.url)
 
         data.petAttributes?.forEach {
-            when (it.type) {
+            when (it.attributeType) {
 
                 8 -> binding.petGender.text = it.choice.toString()
 

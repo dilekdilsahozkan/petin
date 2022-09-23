@@ -25,7 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dialog_root"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="320dp"
             android:layout_marginHorizontal="@dimen/scale_20dp"
             android:background="@drawable/base_cardview"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,6 +60,7 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/scale_16dp"
                 android:layout_marginTop="@dimen/scale_16dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
@@ -69,42 +70,38 @@
                 app:layout_constraintTop_toBottomOf="@id/text"
                 tools:text="Kaydetme işlemi başarıyla gerçekleştirildi." />
 
-            <TextView
-                android:id="@+id/okey"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/scale_50dp"
                 android:layout_marginTop="@dimen/scale_25dp"
-                android:fontFamily="@font/poppins_bold"
-                android:gravity="center"
-                android:text="@string/ok"
-                android:textColor="@color/mainColor"
-                android:textSize="@dimen/scale_18dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description" />
+                app:layout_constraintTop_toBottomOf="@id/description">
 
-            <TextView
-                android:id="@+id/discard"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="@dimen/scale_20dp"
-                android:background="@color/white"
-                android:fontFamily="@font/poppins_bold"
-                android:gravity="center"
-                android:text="@string/cancel"
-                android:textSize="@dimen/scale_18dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/okey" />
+                <TextView
+                    android:id="@+id/okey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/ok"
+                    android:textColor="@color/mainColor"
+                    android:textSize="@dimen/scale_18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/member_check"
-                android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@id/discard" />
+                <TextView
+                    android:id="@+id/discard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/cancel"
+                    android:textSize="@dimen/scale_18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

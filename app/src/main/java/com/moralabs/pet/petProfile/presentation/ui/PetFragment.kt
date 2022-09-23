@@ -12,6 +12,7 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
+import com.moralabs.pet.message.presentation.ui.MessageDetailActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
@@ -29,12 +30,13 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
         BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
-            val bundle = bundleOf(
-                PetProfileActivity.PET_ID to it.id
-            )
-            val intent = Intent(context, PetProfileActivity::class.java)
-            intent.putExtras(bundle)
-            context?.startActivity(intent)
+            startActivity(Intent(context, PetProfileActivity::class.java).apply {
+                putExtras(
+                    bundleOf(
+                        PetProfileActivity.PET_ID to it.id
+                    )
+                )
+            })
         })
     }
 
@@ -52,11 +54,10 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
             context?.startActivity(intent)
         }
 
-        if(!otherUserId.isNullOrBlank()) {
+        if (!otherUserId.isNullOrBlank()) {
             viewModel.getAnotherUserPet(otherUserId)
             binding.addPetTitleAndIcon.visibility = View.GONE
-        }
-        else {
+        } else {
             viewModel.getPet()
         }
     }
