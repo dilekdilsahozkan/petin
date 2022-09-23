@@ -3,14 +3,10 @@ package com.moralabs.pet.mainPage.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.mainPage.domain.MainPageUseCase
-import com.moralabs.pet.onboarding.domain.LoginUseCase
-import com.moralabs.pet.profile.data.remote.dto.UserDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
@@ -23,8 +19,6 @@ class MainPageViewModel @Inject constructor(
 ) : BaseViewModel<List<PostDto>>(useCase) {
 
     private var job: Job? = null
-    private var _guest: MutableStateFlow<ViewState<String>> = MutableStateFlow(ViewState.Idle())
-    val guest: StateFlow<ViewState<String>> = _guest
 
     fun feedPost(searchQuery: String? = null) {
         job?.cancel()
@@ -100,21 +94,4 @@ class MainPageViewModel @Inject constructor(
         }
     }
 
-    fun guestLogin() {
-        viewModelScope.launch {
-            useCase.guestLogin()
-                .onStart {
-                    _guest.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _guest.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _guest.value = ViewState.Idle()
-                    }
-                }
-        }
-    }
 }

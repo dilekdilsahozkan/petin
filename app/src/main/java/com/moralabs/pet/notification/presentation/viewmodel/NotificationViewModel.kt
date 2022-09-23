@@ -3,8 +3,8 @@ package com.moralabs.pet.notification.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.notification.data.remote.dto.NotificationDto
 import com.moralabs.pet.notification.domain.NotificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

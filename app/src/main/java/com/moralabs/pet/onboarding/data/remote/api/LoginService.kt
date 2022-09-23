@@ -4,10 +4,15 @@ import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.onboarding.data.remote.dto.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface LoginService {
+
+    @GET("/auth/guestLogin")
+    suspend fun guestLogin(): Response<BaseResponse<LoginDto>>
+
     @POST("/auth/login")
     suspend fun login(@Body loginPet: LoginRequestDto): Response<BaseResponse<LoginDto>>
 

@@ -144,7 +144,7 @@
 
     <!-- FORGOT PASSWORD -->
 
-    <string name="sendAgain">Yeniden Gönder</string>
+    <string name="timeUp">Süreniz dolmuştur</string>
     <string name="didNotReceiveEmail">Mail size ulaşmadı mı?</string>
     <string name="otpDescription">Mailinize gönderilen 6 haneli doğrulama kodunu girin.</string>
     <string name="otpEnter">Doğrulama Kodunu Girin</string>

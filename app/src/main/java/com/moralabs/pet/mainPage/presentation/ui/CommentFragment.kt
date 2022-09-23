@@ -9,7 +9,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.CommentDto
 import com.moralabs.pet.core.data.remote.dto.CommentsDto
-import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.extension.hideKeyboard
 import com.moralabs.pet.core.presentation.extension.isNotEmptyOrBlank

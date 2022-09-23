@@ -19,9 +19,6 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".NewPasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".onboarding.presentation.ui.guest.GuestActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />

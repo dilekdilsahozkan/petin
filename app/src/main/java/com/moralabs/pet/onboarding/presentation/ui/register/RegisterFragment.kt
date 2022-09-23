@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentRegisterBinding
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto

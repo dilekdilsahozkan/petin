@@ -3,10 +3,8 @@ package com.moralabs.pet.onboarding.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.domain.ErrorCode
-import com.moralabs.pet.core.domain.ErrorResult
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
 import com.moralabs.pet.onboarding.domain.RegisterUseCase

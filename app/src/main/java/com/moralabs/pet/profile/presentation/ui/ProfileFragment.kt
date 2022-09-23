@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentProfileBinding

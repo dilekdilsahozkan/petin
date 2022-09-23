@@ -2,7 +2,7 @@ package com.moralabs.pet.settings.presentation.ui.account
 
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.*
 import com.moralabs.pet.profile.data.remote.dto.UserDto

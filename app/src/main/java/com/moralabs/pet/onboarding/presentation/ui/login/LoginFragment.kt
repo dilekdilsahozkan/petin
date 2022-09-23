@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentLoginBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.onboarding.data.remote.dto.LoginDto

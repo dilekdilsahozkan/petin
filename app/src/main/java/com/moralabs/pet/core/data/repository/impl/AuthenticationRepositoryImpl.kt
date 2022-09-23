@@ -67,6 +67,15 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
         return true
     }
 
+    override fun guestLogin(bearerToken: String): Boolean {
+        _authentication?.apply {
+            this.bearerKey = bearerToken
+
+            preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
+        }
+        return true
+    }
+
     override fun getAuthentication() = _authentication
 
     override fun requestHeaders() = _authentication?.let {

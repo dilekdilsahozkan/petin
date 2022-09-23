@@ -3,7 +3,7 @@ package com.moralabs.pet.settings.presentation.ui.about
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAboutBinding
 import com.moralabs.pet.profile.data.remote.dto.UserDto

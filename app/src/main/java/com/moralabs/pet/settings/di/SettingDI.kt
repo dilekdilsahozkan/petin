@@ -1,4 +1,4 @@
-package com.moralabs.pet.settings
+package com.moralabs.pet.settings.di
 
 import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.profile.data.repository.ProfileRepository

@@ -2,10 +2,9 @@ package com.moralabs.pet.onboarding.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.onboarding.data.remote.dto.*
 import com.moralabs.pet.onboarding.domain.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -95,6 +94,24 @@ class LoginViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _forgotState.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun guestLogin() {
+        viewModelScope.launch {
+            useCase.guestLogin()
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

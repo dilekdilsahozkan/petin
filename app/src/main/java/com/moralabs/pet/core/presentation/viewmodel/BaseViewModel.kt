@@ -1,4 +1,4 @@
-package com.moralabs.pet.core.presentation
+package com.moralabs.pet.core.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

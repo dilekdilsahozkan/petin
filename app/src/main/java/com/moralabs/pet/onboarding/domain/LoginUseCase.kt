@@ -31,9 +31,7 @@ class LoginUseCase @Inject constructor(
                                 authenticationRepository.login(it.userId, accessToken, refreshToken)
                             }
                         }
-
                         notificationRepository.sendToken(notificationRepository.getFirebaseToken())
-
                         emit(BaseResult.Success(it))
                     } ?: run {
                         emit(BaseResult.Error(ErrorResult(code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD)))
@@ -42,6 +40,17 @@ class LoginUseCase @Inject constructor(
                     emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
                 }
             }
+        }
+    }
+
+    fun guestLogin(): Flow<BaseResult<LoginDto>> {
+        return flow {
+                loginRepository.guestLogin().body()?.data?.let {
+                    it.accessToken?.let { accessToken ->
+                        authenticationRepository.guestLogin(accessToken)
+                    }
+                    emit(BaseResult.Success(it))
+                }
         }
     }
 

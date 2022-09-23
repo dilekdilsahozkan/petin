@@ -3,11 +3,9 @@ package com.moralabs.pet.message.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.extension.isNotEmptyOrBlank
-import com.moralabs.pet.message.data.remote.dto.ChatDto
-import com.moralabs.pet.message.data.remote.dto.ChatRequestDto
 import com.moralabs.pet.message.domain.MessageUseCase
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import dagger.hilt.android.lifecycle.HiltViewModel

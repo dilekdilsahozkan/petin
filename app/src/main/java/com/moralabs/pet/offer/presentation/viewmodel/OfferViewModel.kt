@@ -3,8 +3,8 @@ package com.moralabs.pet.offer.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.presentation.BaseViewModel
-import com.moralabs.pet.core.presentation.ViewState
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.domain.OfferUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
