@@ -17,9 +17,9 @@ class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCase
 ) : BaseViewModel<LoginDto>(useCase) {
 
-    private var _forgotState: MutableStateFlow<ViewState<Boolean>> =
+    private var _forgotState: MutableStateFlow<ViewState<Any>> =
         MutableStateFlow(ViewState.Idle())
-    val forgotState: StateFlow<ViewState<Boolean>> = _forgotState
+    val forgotState: StateFlow<ViewState<Any>> = _forgotState
 
     fun login(loginPet: LoginRequestDto) {
         viewModelScope.launch {
@@ -78,7 +78,7 @@ class LoginViewModel @Inject constructor(
                         is BaseResult.Success ->
                             _forgotState.value = ViewState.Success(baseResult.data)
                         is BaseResult.Error ->
-                            _forgotState.value = ViewState.Error()
+                            _forgotState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                     }
                 }
         }

@@ -100,7 +100,7 @@ class PostListAdapter(
         fun bind(pet: PostDto) {
 
             binding.username.text = pet.user?.userName.toString()
-            binding.userPhoto.loadImage(pet.user?.media?.url)
+            binding.userPhoto.loadImageWithPlaceholder(pet.user?.media?.url)
             binding.postText.text = pet.content?.text.toString()
             binding.post2Text.text = pet.content?.text.toString()
             binding.likeCount.text = pet.likeCount.toString()
