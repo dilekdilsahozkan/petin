@@ -107,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             app:cardCornerRadius="@dimen/scale_8dp"
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/scale_16dp"
             android:layout_marginTop="@dimen/scale_8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,6 +128,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:src="@drawable/ic_bold_close"
+            android:visibility="gone"
             android:background="@color/softOrange"
             android:fontFamily="@font/poppins_regular"
             android:textSize="12sp"
@@ -141,17 +143,27 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/scale_16dp"
             android:orientation="vertical"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tl_explanation">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/selectPet"
                 android:textColor="@color/secondaryColor"
+                android:textSize="@dimen/scale_15dp" />
+
+            <TextView
+                android:id="@+id/addPetText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/scale_16dp"
+                android:text="@string/please_add_pet"
+                android:textColor="@color/mainColor"
                 android:textSize="@dimen/scale_15dp" />
 
             <androidx.recyclerview.widget.RecyclerView

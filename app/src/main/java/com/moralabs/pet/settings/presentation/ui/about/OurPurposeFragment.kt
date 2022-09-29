@@ -37,7 +37,6 @@ class OurPurposeFragment : BaseFragment<FragmentOurPurposeBinding, UserDto, Sett
         viewModel.getInfo(InfoTypes.OUR_PURPOSE.type)
     }
 
-
     override fun addObservers() {
         super.addObservers()
 

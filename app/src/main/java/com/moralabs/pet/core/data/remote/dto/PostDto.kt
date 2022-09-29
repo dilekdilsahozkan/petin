@@ -1,8 +1,10 @@
 package com.moralabs.pet.core.data.remote.dto
 
+import android.os.Parcelable
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
+import kotlinx.android.parcel.Parcelize
 
 data class PostDto(
     val id: String = "",
@@ -34,12 +36,13 @@ data class LocationDto(
     val district: String? = null
 ): BaseDto()
 
+@Parcelize
 data class PostLocationDto(
     val id: String? = "",
     val name: String? = null,
     val latitude: Float? = null,
     val longitude: Float? = null
-): BaseDto()
+): BaseDto(), Parcelable
 
 data class CommentDto(
     val id: String = "",

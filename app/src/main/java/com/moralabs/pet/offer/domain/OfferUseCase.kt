@@ -1,6 +1,5 @@
 package com.moralabs.pet.offer.domain
 
-import com.moralabs.pet.core.data.remote.dto.EmptyDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto

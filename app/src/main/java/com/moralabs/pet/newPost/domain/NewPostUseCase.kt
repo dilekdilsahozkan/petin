@@ -1,5 +1,7 @@
 package com.moralabs.pet.newPost.domain
 
+import android.widget.Toast
+import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.BaseResult
@@ -7,6 +9,7 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
+import com.moralabs.pet.newPost.data.remote.dto.MediaType
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.data.repository.NewPostRepository
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
@@ -37,7 +40,7 @@ class NewPostUseCase @Inject constructor(
             val medias = mutableListOf<MediaDto>()
 
             newPost.files?.forEach {
-                val media = mediaRepository.uploadPhoto(newPost.type ?: 0, it)
+                val media = mediaRepository.uploadPhoto(MediaType.POST.value, it)
 
                 media.body()?.data?.getOrNull(0)?.let{
                     medias.add(it)

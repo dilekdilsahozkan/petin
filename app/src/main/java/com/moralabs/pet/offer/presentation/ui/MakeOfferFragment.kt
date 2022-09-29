@@ -62,33 +62,32 @@ class MakeOfferFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.petList.adapter = petAdapter
 
-        if (offerType == 3) {
+        if (offerType == OfferType.ADOPTION_TYPE.type) {
             binding.petList.visibility = View.GONE
             binding.selectText.visibility = View.GONE
-            binding.selectPartner.visibility = View.GONE
-            binding.selectAdoption.visibility = View.VISIBLE
-        } else if (offerType == 2) {
+        } else if (offerType == OfferType.FIND_PARTNER_TYPE.type) {
             binding.petList.visibility = View.VISIBLE
             binding.selectText.visibility = View.VISIBLE
-            binding.selectPartner.visibility = View.VISIBLE
-            binding.selectAdoption.visibility = View.GONE
-
         }
     }
 
     override fun addListeners() {
         super.addListeners()
         binding.makeOfferButton.setOnClickListener {
-            val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
-            viewModel.newOffer(
-                OfferRequestDto(
-                    postId = postId,
-                    text = binding.selectPartner.text.toString(),
-                    petId = pet?.id
+            if(binding.explanationText.text.isNullOrEmpty()){
+                Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
+            }else{
+                val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
+                viewModel.newOffer(
+                    OfferRequestDto(
+                        postId = postId,
+                        text = binding.explanationText.text.toString(),
+                        petId = pet?.id
+                    )
                 )
-            )
-            Toast.makeText(context, "Teklifiniz Gönderilidi", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(context, MainPageActivity::class.java))
+                Toast.makeText(context, "Teklifiniz Gönderilidi", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(context, MainPageActivity::class.java))
+            }
         }
         viewModel.petValue()
     }

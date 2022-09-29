@@ -19,3 +19,10 @@ data class MediaDto(
     val id: String? = null,
     val url: String? = null
 ) : BaseDto(), Parcelable
+
+enum class MediaType(val value: Int) {
+    POST(1),
+    USER(2),
+    PET(3),
+    MESSAGE(4)
+}

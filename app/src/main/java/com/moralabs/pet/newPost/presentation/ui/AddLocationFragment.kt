@@ -15,6 +15,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAddLocationBinding
 import com.moralabs.pet.newPost.presentation.viewmodel.LocationViewModel
+import com.moralabs.pet.onboarding.presentation.ui.login.LoginResultContract
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -80,8 +81,7 @@ class AddLocationFragment :
 
             if (viewModel.city.value != null && binding.cities.text?.isNotBlank() == true) {
                 val bundle = bundleOf(
-                    NewPostActivity.LOCATION to data[1].name,
-                    NewPostActivity.LOCATION_ID to data[0].id
+                    NewPostActivity.LOCATION to viewModel.city
                 )
                 val intent = Intent(context, NewPostActivity::class.java)
                 intent.putExtras(bundle)
@@ -94,4 +94,15 @@ class AddLocationFragment :
             cityAdapter.addAll(data.toMutableList())
         }
     }
+
+    private val locationResultLauncher =
+        registerForActivityResult(
+            LocationResultContract()
+        )
+        { result ->
+            when (result) {
+
+                else -> {}
+            }
+        }
 }

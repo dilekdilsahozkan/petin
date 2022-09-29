@@ -130,7 +130,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 viewModel.createPost(
                     NewPostDto(
                         text = binding.explanationText.text.toString(),
-                        type = 1,
+                        type = postType,
                         locationId = locationId,
                         petId = pet?.id,
                         files = viewModel.files.value

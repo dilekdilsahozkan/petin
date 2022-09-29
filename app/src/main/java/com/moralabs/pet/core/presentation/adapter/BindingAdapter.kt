@@ -1,6 +1,5 @@
 package com.moralabs.pet.core.presentation.adapter
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

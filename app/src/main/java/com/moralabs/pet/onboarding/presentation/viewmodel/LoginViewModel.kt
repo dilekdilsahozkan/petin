@@ -74,8 +74,11 @@ class LoginViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _forgotState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success ->
+                            _forgotState.value = ViewState.Success(baseResult.data)
+                        is BaseResult.Error ->
+                            _forgotState.value = ViewState.Error()
                     }
                 }
         }
@@ -85,10 +88,10 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.newPassword(newPw)
                 .onStart {
-                    _forgotState.value = ViewState.Loading()
+                    _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _forgotState.value = ViewState.Error(message = exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->

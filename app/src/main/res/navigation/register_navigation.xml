@@ -23,11 +23,14 @@
         android:id="@+id/agreementFragment"
         android:name="com.moralabs.pet.onboarding.presentation.ui.register.AgreementFragment"
         android:label="AgreementFragment"
-        tools:layout="@layout/fragment_agreement"/>
+        tools:layout="@layout/fragment_agreement">
 
-    <fragment
-        android:id="@+id/mainPageFragment"
-        android:name="com.moralabs.pet.mainPage.presentation.ui.MainPageFragment"
-        android:label="MainPageFragment"
-        tools:layout="@layout/fragment_main_page"/>
+        <action
+            android:id="@+id/action_fragment_agreement_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
 </navigation>
