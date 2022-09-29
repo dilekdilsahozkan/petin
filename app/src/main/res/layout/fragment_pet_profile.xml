@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/scale_22dp"
                     android:includeFontPadding="false"
-                    android:src="@drawable/ic_garbage"/>
+                    android:src="@drawable/ic_trash"/>
             </LinearLayout>
 
             <LinearLayout

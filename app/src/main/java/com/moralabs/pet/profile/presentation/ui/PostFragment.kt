@@ -10,6 +10,9 @@ import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
 import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetFragment
@@ -21,11 +24,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>(),
     PostSettingBottomSheetListener {
 
-    override fun getLayoutId() = R.layout.fragment_post
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
+
+    override fun getLayoutId() = R.layout.fragment_post
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<List<PostDto>> {
         val viewModel: ProfilePostViewModel by viewModels()
@@ -35,8 +39,11 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
     private val postAdapter by lazy {
         PostListAdapter(
             onLikeClick = {
-                val postId = it.id
-                viewModel.likePost(postId)
+                if (it.isPostLikedByUser == true) {
+                    viewModel.unlikePost(it.id)
+                } else {
+                    viewModel.likePost(it.id)
+                }
             },
             onCommentClick = {
                 val bundle = bundleOf(
@@ -76,6 +83,19 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
     }
 
     override fun onItemClick(postId: String?) {
-        viewModel.deletePost(postId)
+
+        PetWarningDialog(
+            requireContext(),
+            PetWarningDialogType.CONFIRMATION,
+            resources.getString(R.string.ask_sure),
+            okey = getString(R.string.yes),
+            description = resources.getString(R.string.delete_post_warning),
+            negativeButton = resources.getString(R.string.no),
+            onResult = {
+                if (PetWarningDialogResult.OK == it) {
+                    viewModel.deletePost(postId)
+                }
+            }
+        ).show()
     }
 }

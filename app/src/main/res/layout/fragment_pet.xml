@@ -26,6 +26,7 @@
                 android:text="@string/pets"
                 android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/darkGray"
+                android:textSize="@dimen/scale_15dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 

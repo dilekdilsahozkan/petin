@@ -53,8 +53,6 @@ class ProfilePostViewModel @Inject constructor(
         }
     }
 
-
-
     fun likePost(postId: String?) {
         viewModelScope.launch {
             useCase.likePost(postId)

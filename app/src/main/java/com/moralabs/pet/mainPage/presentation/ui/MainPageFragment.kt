@@ -38,15 +38,13 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     private val postAdapter by lazy {
         PostListAdapter(
             onOfferClick = {
-                loginIfNeeded {
-                    val bundle = bundleOf(
-                        MakeOfferActivity.POST_ID to it.id,
-                        MakeOfferActivity.OFFER_TYPE to it.content?.type
-                    )
-                    val intent = Intent(context, MakeOfferActivity::class.java)
-                    intent.putExtras(bundle)
-                    context?.startActivity(intent)
-                }
+                val bundle = bundleOf(
+                    MakeOfferActivity.POST_ID to it.id,
+                    MakeOfferActivity.OFFER_TYPE to it.content?.type
+                )
+                val intent = Intent(context, MakeOfferActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
             },
             onPetProfile = {
                 if (it.isPostOwnedByUser != true) {
@@ -67,50 +65,41 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                     viewModel.likePost(it.id)
                     viewModel.feedPost()
                 }
-
             },
             onCommentClick = {
-                loginIfNeeded {
+                val bundle = bundleOf(
+                    CommentActivity.POST_ID to it.id
+                )
+                val intent = Intent(context, CommentActivity::class.java)
+                intent.putExtras(bundle)
+                context?.startActivity(intent)
+            },
+            onOfferUserClick = {
+                if (it.isPostOwnedByUser == true) {
                     val bundle = bundleOf(
-                        CommentActivity.POST_ID to it.id
+                        OfferUserActivity.POST_ID to it.id
                     )
-                    val intent = Intent(context, CommentActivity::class.java)
+                    val intent = Intent(context, OfferUserActivity::class.java)
                     intent.putExtras(bundle)
                     context?.startActivity(intent)
                 }
             },
-            onOfferUserClick = {
-                loginIfNeeded {
-                    if (it.isPostOwnedByUser == true) {
-                        val bundle = bundleOf(
-                            OfferUserActivity.POST_ID to it.id
-                        )
-                        val intent = Intent(context, OfferUserActivity::class.java)
-                        intent.putExtras(bundle)
-                        context?.startActivity(intent)
-                    }
-                }
-            },
             onUserPhotoClick = {
-                loginIfNeeded {
-                    if (it.isPostOwnedByUser != true) {
-                        val bundle = bundleOf(
-                            ProfileActivity.OTHER_USER_ID to it.user?.userId
-                        )
-                        val intent = Intent(context, ProfileActivity::class.java)
-                        intent.putExtras(bundle)
-                        context?.startActivity(intent)
-                    }
+                if (it.isPostOwnedByUser != true) {
+                    val bundle = bundleOf(
+                        ProfileActivity.OTHER_USER_ID to it.user?.userId
+                    )
+                    val intent = Intent(context, ProfileActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
                 }
             },
             onPostSettingClick = {
-                loginIfNeeded {
-                    fragmentManager?.let { it1 ->
-                        PostSettingBottomSheetFragment(
-                            this,
-                            it.id
-                        ).show(it1, "")
-                    }
+                fragmentManager?.let { it1 ->
+                    PostSettingBottomSheetFragment(
+                        this,
+                        it.id
+                    ).show(it1, "")
                 }
             }
         )

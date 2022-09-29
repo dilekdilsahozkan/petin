@@ -1,13 +1,16 @@
 package com.moralabs.pet.offer.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.domain.OfferUseCase
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -19,6 +22,8 @@ import javax.inject.Inject
 class MakeOfferViewModel @Inject constructor(
     private val useCase: OfferUseCase
 ): BaseViewModel<CreateOfferDto>(useCase) {
+
+    val petsList = MutableLiveData<List<PetDto>>()
 
     fun newOffer(newOfferRequest: OfferRequestDto) {
         viewModelScope.launch {

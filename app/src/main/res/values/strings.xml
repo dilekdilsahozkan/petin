@@ -116,8 +116,10 @@
     <string name="please_add_pet">Kayıtlı evcil hayvan bulunamamaktadır. Lütfen profil sayfasından ekleme yapınız.</string>
     <string name="add_pet">Evcil hayvanınızın profili başarıyla kaydedildi</string>
     <string name="error_add_pet">Evcil hayvanınızın profili kaydedilemedi.</string>
+    <string name="have_to_add_pet">Evcil hayvanınızı seçmeniz gerekli.</string>
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
+    <string name="offer_sent">Teklifiniz Gönderildi</string>
     <string name="success_new_password">Parolanız başarıyla değiştirildi</string>
     <string name="error_new_password">Parolanız oluşurken bir sorun oluştu</string>
     <string name="error_wrong_email">Sisteme kayıtlı böyle bir mail adresi bulunamamıştır</string>

@@ -2,7 +2,6 @@ package com.moralabs.pet.core.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -109,6 +108,10 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 
     fun selectItem(position: Int) {
         onRowClick?.invoke(getItem(position))
+    }
+
+    fun setItems(itemList: List<Dto>?) {
+        submitList(itemList?.toMutableList())
     }
 
     override fun getItemViewType(position: Int): Int {

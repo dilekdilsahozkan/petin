@@ -7,7 +7,6 @@ package com.moralabs.pet.newPost.presentation.ui
  import android.os.Parcelable
  import androidx.activity.result.contract.ActivityResultContract
  import com.moralabs.pet.R
- import com.moralabs.pet.core.data.remote.dto.PostLocationDto
  import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityNewPostBinding

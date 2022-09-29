@@ -32,6 +32,7 @@ import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
+import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,11 +95,13 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         viewModel.userInfo()
 
         if (postType == TabTextType.POST_TYPE.type) {
+            binding.keyboardConstraint.visibility = View.VISIBLE
             binding.petChooseLinear.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
             binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
+            binding.keyboardConstraint.visibility = View.VISIBLE
             binding.petChooseLinear.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
             binding.deleteImage.visibility = View.VISIBLE
@@ -127,16 +130,31 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
             }else{
                 val pet = petCardAdapter.currentList.filter { it.selected }.firstOrNull()
-                viewModel.createPost(
-                    NewPostDto(
-                        text = binding.explanationText.text.toString(),
-                        type = postType,
-                        locationId = locationId,
-                        petId = pet?.id,
-                        files = viewModel.files.value
+                if ((postType == TabTextType.FIND_PARTNER_TYPE.type || postType == TabTextType.ADOPTION_TYPE.type) && pet?.selected == true) {
+                    viewModel.createPost(
+                        NewPostDto(
+                            text = binding.explanationText.text.toString(),
+                            type = postType,
+                            locationId = locationId,
+                            petId = pet.id,
+                            files = viewModel.files.value
+                        )
                     )
-                )
-                startActivity(Intent(context, MainPageActivity::class.java))
+                    startActivity(Intent(context, MainPageActivity::class.java))
+                }else if(postType == TabTextType.POST_TYPE.type || postType == TabTextType.QAN_TYPE.type ){
+                    viewModel.createPost(
+                        NewPostDto(
+                            text = binding.explanationText.text.toString(),
+                            type = postType,
+                            locationId = locationId,
+                            petId = pet?.id,
+                            files = viewModel.files.value
+                        )
+                    )
+                    startActivity(Intent(context, MainPageActivity::class.java))
+                } else{
+                    Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG).show()
+                }
             }
         }
 

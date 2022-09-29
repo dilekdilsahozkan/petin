@@ -8,20 +8,30 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp">
 
-        <EditText
-            android:id="@+id/explanationText"
-            android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/explanationTextInput"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/explanation"
-            android:textSize="15dp"
-            android:imeOptions="actionDone"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/darkGray"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/selectText"
+            android:minHeight="100dp"
+            app:hintEnabled="false"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/explanationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/explanation"
+                android:maxLength="255"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:textSize="@dimen/scale_15dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/selectText"
@@ -31,9 +41,8 @@
             android:textSize="15dp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/secondaryColor"
-            android:layout_marginTop="@dimen/scale_16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/explanationText"/>
+            app:layout_constraintTop_toBottomOf="@+id/explanationTextInput"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/petList"

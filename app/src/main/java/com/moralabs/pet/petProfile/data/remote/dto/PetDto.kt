@@ -28,10 +28,12 @@ data class PetAttributeDto(
 @Parcelize
 data class AttributeDto(
     val id: String? = "",
+    val attributeType : Int? = null,
     val type: Int? = null,
-    val parentAttributeId: String? = null,
+    val parentAttributeChoiceId: String? = null,
     val name: String? = null,
     val isRequired: Boolean = false,
+    val isEditable: Boolean = false,
     val choices: List<ChoicesDto>? = null,
 ) : BaseDto(), Parcelable
 

@@ -15,7 +15,6 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentAddLocationBinding
 import com.moralabs.pet.newPost.presentation.viewmodel.LocationViewModel
-import com.moralabs.pet.onboarding.presentation.ui.login.LoginResultContract
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -81,7 +80,7 @@ class AddLocationFragment :
 
             if (viewModel.city.value != null && binding.cities.text?.isNotBlank() == true) {
                 val bundle = bundleOf(
-                    NewPostActivity.LOCATION to viewModel.city
+                    NewPostActivity.LOCATION to binding.cities.text
                 )
                 val intent = Intent(context, NewPostActivity::class.java)
                 intent.putExtras(bundle)

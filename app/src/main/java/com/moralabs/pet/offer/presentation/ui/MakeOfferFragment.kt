@@ -13,6 +13,9 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMakeOfferBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
+import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
+import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.presentation.viewmodel.MakeOfferViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
@@ -78,18 +81,40 @@ class MakeOfferFragment :
                 Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
             }else{
                 val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
-                viewModel.newOffer(
-                    OfferRequestDto(
-                        postId = postId,
-                        text = binding.explanationText.text.toString(),
-                        petId = pet?.id
+                if ((offerType == TabTextType.FIND_PARTNER_TYPE.type || offerType == TabTextType.ADOPTION_TYPE.type) && pet?.selected == true) {
+                    viewModel.newOffer(
+                        OfferRequestDto(
+                            postId = postId,
+                            text = binding.explanationText.text.toString(),
+                            petId = pet.id
+                        )
                     )
-                )
-                Toast.makeText(context, "Teklifiniz Gönderilidi", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(context, MainPageActivity::class.java))
+                    Toast.makeText(context, R.string.offer_sent, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(context, MainPageActivity::class.java))
+                } else if(offerType == TabTextType.POST_TYPE.type || offerType == TabTextType.QAN_TYPE.type ){
+                    viewModel.newOffer(
+                        OfferRequestDto(
+                            postId = postId,
+                            text = binding?.explanationText.text.toString(),
+                            petId = pet?.id
+                        )
+                    )
+                    startActivity(Intent(context, MainPageActivity::class.java))
+                }
+                else {
+                    Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG).show()
+                }
             }
         }
         viewModel.petValue()
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+
+        viewModel.petsList.observe(viewLifecycleOwner) { it ->
+            petAdapter.setItems(it.sortedByDescending { it.selected })
+        }
     }
 }
 
