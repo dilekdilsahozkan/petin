@@ -1,6 +1,7 @@
 package com.moralabs.pet.onboarding.presentation.ui.login
 
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,8 +41,8 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding, LoginDto, L
         }
     }
 
-    override fun addObservers() {
-        super.addObservers()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
             viewModel.forgotState.collect {

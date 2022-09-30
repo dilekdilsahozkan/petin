@@ -43,6 +43,34 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
         return viewModel
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launch {
+            viewModel.forgotState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<*> -> {
+                        findNavController().navigate(
+                            R.id.action_fragment_code_to_newPasswordFragment
+                        )
+                    }
+                    is ViewState.Error<*> -> {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_password_code),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         boxList.add(binding.otp1)
@@ -73,7 +101,8 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
             R.id.timeUp -> {
                 startTimer()
             }
-        }    }
+        }
+    }
 
     override fun addListeners() {
         super.addListeners()
@@ -134,34 +163,6 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
             })
-        }
-    }
-
-    override fun addObservers() {
-        super.addObservers()
-
-        lifecycleScope.launch {
-            viewModel.forgotState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        findNavController().navigate(
-                            R.id.action_fragment_code_to_newPasswordFragment
-                        )
-                    }
-                    is ViewState.Error<*> -> {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_password_code),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        stopLoading()
-                    }
-                    else -> {}
-                }
-            }
         }
     }
 
