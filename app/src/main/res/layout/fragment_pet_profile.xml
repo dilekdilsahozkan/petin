@@ -20,8 +20,22 @@
             android:background="@drawable/background_image"
             android:scaleType="centerCrop"
             android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ellipse"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_ellipse" />
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/petDetailLayout"

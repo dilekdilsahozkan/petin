@@ -58,6 +58,13 @@ class MakeOfferFragment :
 
     override fun stateSuccess(data: CreateOfferDto) {
         super.stateSuccess(data)
+
+        if (offerType == OfferType.FIND_PARTNER_TYPE.type && data.getOffer?.size == 0) {
+            binding.addPetText.visibility = View.VISIBLE
+        } else {
+            binding.addPetText.visibility = View.GONE
+        }
+
         petAdapter.submitList(data.getOffer)
     }
 

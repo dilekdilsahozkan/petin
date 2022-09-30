@@ -46,14 +46,8 @@ class BlockedAccountsAdapter(
         init {
             binding.blockUnBlockButton.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    val item = getItem(bindingAdapterPosition)
-                    buttonClick.invoke(item)
-                }
-            }
-
-            binding.blockUnBlockButton.setOnClickListener {
-                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     buttonClick.invoke(getItem(bindingAdapterPosition))
+                    notifyDataSetChanged()
                 }
             }
         }
@@ -62,8 +56,6 @@ class BlockedAccountsAdapter(
             binding.userPhoto.loadImage(item.media?.url)
             binding.username.text = item.fullName
             binding.blockUnBlockButton.isSelected = item.selected
-
-
         }
     }
 }

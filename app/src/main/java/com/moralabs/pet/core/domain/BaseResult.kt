@@ -7,7 +7,8 @@ sealed class BaseResult<out T : Any> {
 
 data class ErrorResult(
     val code: ErrorCode,
-    val message: String? = null
+    val message: String? = null,
+    val serverCode: Int? = null
 )
 
 enum class ErrorCode {

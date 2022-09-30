@@ -1,34 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/tools">
 
     <ConstraintSet android:id="@+id/start">
+
         <Constraint android:id="@+id/petImage" />
+        <Constraint android:id="@+id/backButton" />
+        <Constraint android:id="@+id/ellipse" />
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@id/petImage"
-            android:layout_height="1dp"
-            android:layout_width="match_parent" />
+
+        <Constraint
+            android:id="@id/petImage"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <Constraint
+            android:id="@+id/backButton"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_margin="8dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/ellipse"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_margin="8dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
-        app:constraintSetStart="@+id/start" >
-        <KeyFrameSet >
+        app:constraintSetStart="@+id/start">
+
+        <KeyFrameSet>
+
             <KeyAttribute
-                app:motionTarget="@+id/petImage"
+                android:alpha="0"
                 app:framePosition="100"
-                android:alpha="0" />
+                app:motionTarget="@+id/petImage" />
+
             <KeyAttribute
-                app:motionTarget="@+id/petImage"
+                android:scaleX="1"
                 app:framePosition="100"
-                android:scaleX="1" />
+                app:motionTarget="@+id/petImage" />
+
             <KeyAttribute
-                app:motionTarget="@+id/petImage"
+                android:scaleY="1"
                 app:framePosition="100"
-                android:scaleY="1" />
+                app:motionTarget="@+id/petImage" />
+
         </KeyFrameSet>
+
         <OnSwipe app:touchAnchorSide="bottom" />
+
     </Transition>
+
 </MotionScene>

@@ -18,9 +18,6 @@ class ProfileViewModel @Inject constructor(
     private val useCase: ProfileUseCase
 ) : BaseViewModel<UserDto>(useCase) {
 
-    protected var _followedListState: MutableStateFlow<ViewState<List<UserInfoDto>>> = MutableStateFlow(ViewState.Idle())
-    val followedListState: StateFlow<ViewState<List<UserInfoDto>>> = _followedListState
-
     protected var _followUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val followUserState: StateFlow<ViewState<Boolean>> = _followUserState
 
@@ -67,24 +64,6 @@ class ProfileViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _state.value = ViewState.Success(baseResult.data)
-                    }
-                }
-        }
-    }
-
-    fun getFollowedList() {
-        viewModelScope.launch {
-            useCase.getFollowedList()
-                .onStart {
-                    _followedListState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _followedListState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _followedListState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

@@ -1,16 +1,12 @@
 package com.moralabs.pet.newPost.presentation.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note.NOTE
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
@@ -95,15 +91,4 @@ class AddLocationFragment :
             cityAdapter.addAll(data.toMutableList())
         }
     }
-
-    private val locationResultLauncher =
-        registerForActivityResult(
-            LocationResultContract()
-        )
-        { result ->
-            when (result) {
-
-                else -> {}
-            }
-        }
 }

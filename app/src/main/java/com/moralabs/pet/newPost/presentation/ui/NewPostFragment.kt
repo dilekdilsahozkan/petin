@@ -26,6 +26,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
+import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
@@ -39,6 +40,7 @@ import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_new_post.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
@@ -118,9 +120,10 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         viewModel.petValue()
 
         binding.toolbar.publishText.setOnClickListener {
-            if(binding.explanationText.text.isNullOrEmpty()){
-                Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
-            }else{
+            if (binding.explanationText.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG)
+                    .show()
+            } else {
                 val pet = petCardAdapter.currentList.filter { it.selected }.firstOrNull()
                 if ((postType == TabTextType.FIND_PARTNER_TYPE.type || postType == TabTextType.ADOPTION_TYPE.type) && pet?.selected == true) {
                     viewModel.createPost(
@@ -131,7 +134,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                         )
                     )
                     startActivity(Intent(context, MainPageActivity::class.java))
-                }else if(postType == TabTextType.POST_TYPE.type || postType == TabTextType.QAN_TYPE.type ){
+                } else if (postType == TabTextType.POST_TYPE.type || postType == TabTextType.QAN_TYPE.type) {
                     viewModel.createPost(
                         NewPostDto(
                             text = binding.explanationText.text.toString(),
@@ -141,8 +144,9 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                         )
                     )
                     startActivity(Intent(context, MainPageActivity::class.java))
-                } else{
-                    Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }
@@ -201,6 +205,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                         is ViewState.Success -> {
                             binding.userPhoto.loadImage(it.data.media?.url)
                             binding.userName.text = it.data.userName.toString()
+                            binding.userPhoto.loadImageWithPlaceholder(it.data.media?.url)
                         }
                         else -> {}
                     }
@@ -212,6 +217,11 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     override fun stateSuccess(data: CreatePostDto) {
         super.stateSuccess(data)
 
+        if ((postType == TabTextType.FIND_PARTNER_TYPE.type || postType == TabTextType.ADOPTION_TYPE.type) && data.getValue?.size == 0) {
+            binding.addPetText.visibility = View.VISIBLE
+        } else {
+            binding.addPetText.visibility = View.GONE
+        }
         petCardAdapter.submitList(data.getValue)
     }
 

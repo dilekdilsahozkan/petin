@@ -37,7 +37,7 @@ class LoginUseCase @Inject constructor(
                         emit(BaseResult.Error(ErrorResult(code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD)))
                     }
                 } else {
-                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, response.message(), response.code())))
                 }
             }
         }
@@ -63,7 +63,7 @@ class LoginUseCase @Inject constructor(
                 if (forgot.isSuccessful && forgot.code() == 200) {
                     emit(BaseResult.Success(true))
                 } else {
-                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, forgot.message(), forgot.code())))
                 }
             }
         }
@@ -75,7 +75,7 @@ class LoginUseCase @Inject constructor(
             if (pwCode.isSuccessful && pwCode.code() == 200) {
                 emit(BaseResult.Success(true))
             } else {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, pwCode.message(), pwCode.code())))
             }
         }
     }

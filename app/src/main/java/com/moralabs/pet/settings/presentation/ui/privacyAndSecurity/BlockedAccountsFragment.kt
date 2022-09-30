@@ -23,6 +23,11 @@ class BlockedAccountsFragment() : BaseFragment<FragmentBlockedAccountsBinding, U
     override fun getLayoutId() = R.layout.fragment_blocked_accounts
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
+        val viewModel: SettingsViewModel by viewModels()
+        return viewModel
+    }
+
     override fun setToolbar() {
         super.setToolbar()
         toolbarListener?.showTitleText(getString(R.string.settings_privacy_and_security))
@@ -81,10 +86,5 @@ class BlockedAccountsFragment() : BaseFragment<FragmentBlockedAccountsBinding, U
                 }
             }
         }
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<UserDto> {
-        val viewModel: SettingsViewModel by viewModels()
-        return viewModel
     }
 }

@@ -120,22 +120,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
     override fun addObservers() {
         super.addObservers()
-        lifecycleScope.launch {
-            viewModel.followedListState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<List<UserInfoDto>> -> {
-                        //takip edilenler
-                    }
-                    is ViewState.Error<*> -> {
-                        stopLoading()
-                    }
-                    else -> {}
-                }
-            }
-        }
+
         lifecycleScope.launch {
             viewModel.followUserState.collect {
                 when (it) {

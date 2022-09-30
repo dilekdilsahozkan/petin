@@ -81,6 +81,10 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
             ).show()
         }
 
+        binding.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         binding.editIcon.setOnClickListener {
             context?.startActivity(
                 Intent(

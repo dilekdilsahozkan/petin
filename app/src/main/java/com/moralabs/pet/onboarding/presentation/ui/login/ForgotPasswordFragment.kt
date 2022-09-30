@@ -24,6 +24,11 @@ class ForgotPasswordFragment :
     override fun getLayoutId() = R.layout.fragment_forgot_password
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
+        val viewModel: LoginViewModel by viewModels()
+        return viewModel
+    }
+
     private val passwordActivity by lazy {
         activity as? LoginActivity
     }
@@ -57,18 +62,13 @@ class ForgotPasswordFragment :
         }
     }
 
-    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
-        val viewModel: LoginViewModel by viewModels()
-        return viewModel
-    }
-
     override fun addListeners() {
         super.addListeners()
         binding.nextButton.setOnClickListener {
             viewModel.forgotPassword(
                 ForgotPasswordDto(
                     email = binding.emailEdittext.text.toString(),
-                    codeType = 1
+                    codeType = ForgotPw.FORGOT_PASSWORD.value
                 )
             )
         }
