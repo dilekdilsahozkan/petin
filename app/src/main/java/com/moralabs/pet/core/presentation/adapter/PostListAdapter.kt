@@ -5,6 +5,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.extension.toFullDate
-import com.moralabs.pet.databinding.*
+import com.moralabs.pet.databinding.ItemPostBinding
 
 class PostListAdapter(
     private val onOfferClick: ((post: PostDto) -> Unit)? = null,
@@ -97,30 +100,31 @@ class PostListAdapter(
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(pet: PostDto) {
+        fun bind(post: PostDto) {
 
-            binding.username.text = pet.user?.userName.toString()
-            binding.userPhoto.loadImageWithPlaceholder(pet.user?.media?.url)
-            binding.postText.text = pet.content?.text.toString()
-            binding.post2Text.text = pet.content?.text.toString()
-            binding.likeCount.text = pet.likeCount.toString()
-            binding.commentCount.text = pet.commentCount.toString()
-            binding.offerCount.text = pet.offerCount.toString()
-            binding.postReleaseTime.text = pet.dateTime.toFullDate(context)
-            binding.post2ReleaseTime.text = pet.dateTime.toFullDate(context)
+            binding.username.text = post.user?.userName.toString()
+            binding.userPhoto.loadImageWithPlaceholder(post.user?.media?.url)
+            binding.postText.text = post.content?.text.toString()
+            binding.post2Text.text = post.content?.text.toString()
+            binding.likeCount.text = post.likeCount.toString()
+            binding.commentCount.text = post.commentCount.toString()
+            binding.offerCount.text = post.offerCount.toString()
+            binding.postReleaseTime.text = post.dateTime.toFullDate(context)
+            binding.post2ReleaseTime.text = post.dateTime.toFullDate(context)
+            binding.location.text = post.content?.location?.city.toString()
 
-            binding.petName.text = pet.content?.pet?.name
-            binding.petKind.text = pet.content?.pet?.petAttributes?.filter { it.attributeType == 7 }?.getOrNull(0)?.choice
-            binding.petLocation.text = pet.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
-            binding.petGender.text = pet.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
+            binding.petName.text = post.content?.pet?.name
+            binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 7 }?.getOrNull(0)?.choice
+            binding.petLocation.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
+            binding.petGender.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
 
-            if (pet.isPostLikedByUser == true) {
+            if (post.isPostLikedByUser == true) {
                 binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
             } else {
                 binding.likeIcon.setImageResource(R.drawable.ic_like)
             }
 
-            if (pet.isPostOwnedByUser == true) {
+            if (post.isPostOwnedByUser == true) {
                 binding.offerButton.visibility = View.GONE
                 binding.postType.visibility = View.GONE
                 binding.postSetting.visibility = View.VISIBLE
@@ -130,28 +134,28 @@ class PostListAdapter(
                 binding.postSetting.visibility = View.GONE
             }
 
-            if (pet.content?.pet?.media?.url.isNullOrEmpty()) {
+            if (post.content?.pet?.media?.url.isNullOrEmpty()) {
                 binding.petImage.visibility = View.GONE
             } else {
                 binding.petImage.visibility = View.VISIBLE
-                binding.petImage.loadImage(pet.content?.pet?.media?.url)
+                binding.petImage.loadImage(post.content?.pet?.media?.url)
             }
 
-            if (pet.content?.location?.city.isNullOrEmpty()) {
+            if (post.content?.location?.city.isNullOrEmpty()) {
                 binding.location.visibility = View.GONE
             } else {
                 binding.location.visibility = View.VISIBLE
-                binding.location.text = pet.content?.location?.city.toString()
+                binding.location.text = post.content?.location?.city.toString()
             }
 
-            if (pet.content?.media.isNullOrEmpty()) {
+            if (post.content?.media.isNullOrEmpty()) {
                 binding.postImage.visibility = View.GONE
             } else {
                 binding.postImage.visibility = View.VISIBLE
-                binding.postImage.loadImage(pet.content?.media?.get(0)?.url)
+                binding.postImage.loadImage(post.content?.media?.get(0)?.url)
             }
 
-            when (pet.content?.type) {
+            when (post.content?.type) {
                 0 -> {
                     binding.postIcon.setImageResource(R.drawable.ic_post)
                     binding.postTypeText.text = context.getString(R.string.post)

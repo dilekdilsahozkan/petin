@@ -22,6 +22,7 @@ class NewPostViewModel @Inject constructor(
 ) : BaseViewModel<CreatePostDto>(useCase) {
 
     var files: MutableLiveData<MutableList<File>> = MutableLiveData(mutableListOf())
+    var locationId: String? = null
 
     protected var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())
     val getUser: StateFlow<ViewState<UserDto>> = _userInfo

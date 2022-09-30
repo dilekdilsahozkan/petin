@@ -38,7 +38,7 @@ class ForgotPasswordFragment :
             viewModel.forgotPassword(
                 ForgotPasswordDto(
                     email = binding.emailEdittext.text.toString(),
-                    codeType = 1
+                    codeType = ForgotPw.FORGOT_PASSWORD.value
                 )
             )
         }
@@ -72,4 +72,8 @@ class ForgotPasswordFragment :
             }
         }
     }
+}
+
+enum class ForgotPw(val value :Int){
+    FORGOT_PASSWORD(1)
 }

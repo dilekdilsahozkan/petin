@@ -5,17 +5,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/explanationTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="100dp"
-            app:hintEnabled="false"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -23,12 +22,12 @@
                 android:id="@+id/explanationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/explanation"
-                android:maxLength="255"
                 android:background="@color/white"
                 android:fontFamily="@font/poppins_regular"
+                android:hint="@string/explanation"
                 android:imeOptions="actionDone"
                 android:inputType="textMultiLine"
+                android:maxLength="255"
                 android:textSize="@dimen/scale_15dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -37,31 +36,51 @@
             android:id="@+id/selectText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/choosePet"
-            android:textSize="15dp"
+            android:layout_margin="16dp"
             android:fontFamily="@font/poppins_medium"
+            android:text="@string/choosePet"
             android:textColor="@color/secondaryColor"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/explanationTextInput"/>
+            app:layout_constraintTop_toBottomOf="@+id/explanationTextInput" />
+
+        <TextView
+            android:id="@+id/addPetText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_16dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="@string/please_add_pet"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/scale_15dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selectText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/petList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
             android:layout_marginTop="@dimen/scale_20dp"
+            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_pet_card"
-            app:layout_constraintTop_toBottomOf="@id/selectText" />
+            app:layout_constraintBottom_toTopOf="@id/makeOfferButton"
+            app:layout_constraintTop_toBottomOf="@id/selectText"
+            tools:listitem="@layout/item_pet_card" />
 
         <Button
             android:id="@+id/makeOfferButton"
+            style="@style/PetButton"
+            android:layout_margin="16dp"
             android:layout_width="0dp"
             android:layout_height="44dp"
-            style="@style/PetButton"
             android:text="@string/sendOffer"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

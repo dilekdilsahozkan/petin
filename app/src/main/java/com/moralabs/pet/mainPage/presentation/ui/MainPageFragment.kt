@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
@@ -128,6 +129,16 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             } else {
                 viewModel.feedPost(it.toString())
             }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(
+            "fragment_location"
+        ) { _, result ->
+            result.getString("locationId")
         }
     }
 

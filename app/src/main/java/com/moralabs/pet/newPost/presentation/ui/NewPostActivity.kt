@@ -21,7 +21,6 @@ class NewPostActivity : BaseActivity<ActivityNewPostBinding>(),
 
     companion object {
         var BUNDLE_CHOOSE_TYPE = "type"
-        var LOCATION = "location"
         var LOCATION_ID = "location_id"
     }
     override fun getLayoutId() = R.layout.activity_new_post

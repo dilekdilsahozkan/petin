@@ -2,11 +2,15 @@ package com.moralabs.pet.newPost.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note.NOTE
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
@@ -63,6 +67,16 @@ class AddLocationFragment :
             )
             viewModel.city.postValue(adapterView.getItemAtPosition(position) as? PostLocationDto)
         }
+
+        binding.save.setOnClickListener {
+            setFragmentResult(
+                "fragment_location", bundleOf(
+                    "location" to binding.cities.text.toString(),
+                    "locationId" to viewModel.city.value?.id,
+                )
+            )
+            findNavController().popBackStack()
+        }
     }
 
     override fun addObservers() {
@@ -75,18 +89,6 @@ class AddLocationFragment :
 
     override fun stateSuccess(data: List<PostLocationDto>) {
         super.stateSuccess(data)
-
-        binding.save.setOnClickListener {
-
-            if (viewModel.city.value != null && binding.cities.text?.isNotBlank() == true) {
-                val bundle = bundleOf(
-                    NewPostActivity.LOCATION to binding.cities.text
-                )
-                val intent = Intent(context, NewPostActivity::class.java)
-                intent.putExtras(bundle)
-                startActivity(intent)
-            }
-        }
 
         data.let {
             cityAdapter.clear()

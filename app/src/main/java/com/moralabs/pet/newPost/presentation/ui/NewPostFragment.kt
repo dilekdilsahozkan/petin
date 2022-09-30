@@ -7,12 +7,15 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import androidx.lifecycle.lifecycleScope
@@ -48,14 +51,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         activity?.intent?.getIntExtra(NewPostActivity.BUNDLE_CHOOSE_TYPE, 0)
     }
 
-    private val location: String? by lazy {
-        activity?.intent?.getStringExtra(NewPostActivity.LOCATION)
-    }
-
-    private val locationId: String? by lazy {
-        activity?.intent?.getStringExtra(NewPostActivity.LOCATION_ID)
-    }
-
     private var currentPhotoFile: File? = null
 
     private val permissions = arrayOf(
@@ -84,37 +79,34 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(location.isNullOrEmpty().not()){
-            binding.location.visibility = View.VISIBLE
-            binding.location.text = location.toString()
-        } else {
-            binding.location.visibility = View.GONE
-        }
-
         binding.petCardList.adapter = petCardAdapter
         viewModel.userInfo()
 
         if (postType == TabTextType.POST_TYPE.type) {
             binding.keyboardConstraint.visibility = View.VISIBLE
-            binding.petChooseLinear.visibility = View.GONE
+            binding.petCardList.visibility = View.GONE
+            binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
             binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
             binding.keyboardConstraint.visibility = View.VISIBLE
-            binding.petChooseLinear.visibility = View.GONE
+            binding.petCardList.visibility = View.GONE
+            binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
             binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
-            binding.petChooseLinear.visibility = View.VISIBLE
+            binding.petCardList.visibility = View.VISIBLE
+            binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
             binding.deleteImage.visibility = View.GONE
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
-            binding.petChooseLinear.visibility = View.VISIBLE
+            binding.petCardList.visibility = View.VISIBLE
+            binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
             binding.deleteImage.visibility = View.GONE
         }
@@ -135,9 +127,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                         NewPostDto(
                             text = binding.explanationText.text.toString(),
                             type = postType,
-                            locationId = locationId,
                             petId = pet.id,
-                            files = viewModel.files.value
                         )
                     )
                     startActivity(Intent(context, MainPageActivity::class.java))
@@ -146,8 +136,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                         NewPostDto(
                             text = binding.explanationText.text.toString(),
                             type = postType,
-                            locationId = locationId,
-                            petId = pet?.id,
+                            locationId = viewModel.locationId,
                             files = viewModel.files.value
                         )
                     )
@@ -180,6 +169,19 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
         binding.galleryIcon.setOnClickListener {
             permissionResultLauncher.launch(permissions)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(
+            "fragment_location"
+        ) { _, result ->
+            binding.location.text = result.getString("location")
+            binding.location.visibility = View.VISIBLE
+
+            viewModel.locationId = result.getString("locationId")
         }
     }
 
