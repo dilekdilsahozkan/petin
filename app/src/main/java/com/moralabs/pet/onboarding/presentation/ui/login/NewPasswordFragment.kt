@@ -51,6 +51,7 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding, LoginDto, L
                     }
                     is ViewState.Success<*> -> {
                         startActivity(Intent(context, LoginActivity::class.java))
+                        activity?.finish()
                         Toast.makeText(
                             requireContext(),
                             getString(R.string.success_new_password),

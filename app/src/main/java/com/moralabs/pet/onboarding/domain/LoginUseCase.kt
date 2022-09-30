@@ -69,11 +69,13 @@ class LoginUseCase @Inject constructor(
         }
     }
 
-    fun passwordCode(passwordCode: PasswordCodeDto): Flow<BaseResult<Boolean>> {
+    fun passwordCode(passwordCode: PasswordCodeDto): Flow<BaseResult<Any>> {
         return flow {
             val pwCode = loginRepository.passwordCode(passwordCode)
             if (pwCode.isSuccessful && pwCode.code() == 200) {
                 emit(BaseResult.Success(true))
+            } else {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
             }
         }
     }

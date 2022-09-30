@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
-import com.moralabs.pet.core.presentation.adapter.loadImage
+import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentProfileBinding
 import com.moralabs.pet.petProfile.presentation.ui.PetFragment
@@ -107,7 +107,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
             }
             binding.followers.text = data.followerCount.toString()
             binding.following.text = data.followedCount.toString()
-            binding.userPhoto.loadImage(data.media?.url)
+            binding.userPhoto.loadImageWithPlaceholder(data.media?.url)
         } else {
             binding.userSocialInfo.visibility = View.GONE
             binding.imgMenu.visibility = View.GONE
