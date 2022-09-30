@@ -1,5 +1,6 @@
 package com.moralabs.pet.onboarding.presentation.ui.login
 
+import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,25 +28,8 @@ class ForgotPasswordFragment :
         activity as? LoginActivity
     }
 
-    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
-        val viewModel: LoginViewModel by viewModels()
-        return viewModel
-    }
-
-    override fun addListeners() {
-        super.addListeners()
-        binding.nextButton.setOnClickListener {
-            viewModel.forgotPassword(
-                ForgotPasswordDto(
-                    email = binding.emailEdittext.text.toString(),
-                    codeType = ForgotPw.FORGOT_PASSWORD.value
-                )
-            )
-        }
-    }
-
-    override fun addObservers() {
-        super.addObservers()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
             viewModel.forgotState.collect {
@@ -72,6 +56,24 @@ class ForgotPasswordFragment :
             }
         }
     }
+
+    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
+        val viewModel: LoginViewModel by viewModels()
+        return viewModel
+    }
+
+    override fun addListeners() {
+        super.addListeners()
+        binding.nextButton.setOnClickListener {
+            viewModel.forgotPassword(
+                ForgotPasswordDto(
+                    email = binding.emailEdittext.text.toString(),
+                    codeType = 1
+                )
+            )
+        }
+    }
+
 }
 
 enum class ForgotPw(val value :Int){
