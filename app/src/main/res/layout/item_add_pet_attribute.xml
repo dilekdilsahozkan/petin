@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.moralabs.pet.petProfile.presentation.model.AttributeUiDto" />
@@ -16,31 +18,50 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/scale_16dp">
 
-        <TextView
-            android:id="@+id/name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nameLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/darkSecondary"
-            android:textSize="@dimen/scale_13dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.attributeDto.name}"
-            tools:text="İsim"/>
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@{item.attributeDto.name}"
+                android:textColor="@color/darkSecondary"
+                android:textSize="@dimen/scale_13dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="İsim" />
+
+            <ImageView
+                android:id="@+id/required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/scale_5dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/ic_required"
+                android:visibility="@{item.attributeDto.isRequired ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toEndOf="@id/name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
             android:id="@+id/choice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/scale_50dp"
             android:background="@drawable/background_edit"
             android:inputType="text"
             android:padding="10dp"
+            android:text="@{item.choice}"
             android:textSize="@dimen/scale_15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            android:text="@{item.choice}"/>
+            app:layout_constraintStart_toStartOf="@id/nameLinear"
+            app:layout_constraintTop_toBottomOf="@id/nameLinear" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -40,7 +40,6 @@ data class AttributeDto(
 @Parcelize
 data class ChoicesDto(
     val id: String? = "",
-    val parentAttributeChoiceId: String? = null,
     val choice: String? = null,
 ) : BaseDto(), Parcelable
 

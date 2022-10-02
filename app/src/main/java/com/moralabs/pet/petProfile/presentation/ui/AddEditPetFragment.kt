@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
@@ -69,7 +70,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
 
         binding.saveButton.setOnClickListener {
             if (petAdapter.currentList.any { it.attributeDto.isRequired && it.choice.isNullOrEmpty() }) {
-                // TODO : error
+                Toast.makeText(requireContext(), getString(R.string.add_pet_required), Toast.LENGTH_LONG).show()
             } else {
                 pet?.let { petDto ->
                     viewModel.updatePet(
@@ -85,6 +86,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                                 )
                             },
                         onSuccess = {
+                            Toast.makeText(requireContext(), getString(R.string.edit_pet), Toast.LENGTH_LONG).show()
                             activity?.onBackPressed()
                         }
                     )
@@ -101,6 +103,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                                 )
                             },
                         onSuccess = {
+                            Toast.makeText(requireContext(), getString(R.string.add_pet), Toast.LENGTH_LONG).show()
                             activity?.onBackPressed()
                         }
                     )

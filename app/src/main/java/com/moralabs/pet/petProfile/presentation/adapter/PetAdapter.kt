@@ -27,7 +27,7 @@ class PetAdapter(
         DiffUtil.ItemCallback<AttributeUiDto>() {
 
         override fun areItemsTheSame(oldItem: AttributeUiDto, newItem: AttributeUiDto) =
-            oldItem.uiType == newItem.uiType && oldItem.attributeDto?.id == newItem.attributeDto?.id
+            oldItem.uiType == newItem.uiType && oldItem.attributeDto.id == newItem.attributeDto.id
 
         override fun areContentsTheSame(oldItem: AttributeUiDto, newItem: AttributeUiDto) = oldItem == newItem
     }) {
@@ -70,13 +70,13 @@ class PetAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
 
-        if (holder is ViewHolder.PetAttributeListViewHolder) {
-
+        if (holder is ViewHolder.PetAttributeListViewHolder ) {
+            
             (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setAdapter(object :
                 ArrayAdapter<ChoicesDto>(
                     context,
                     android.R.layout.simple_list_item_1,
-                    getItem(position).attributeDto?.choices ?: listOf()
+                    getItem(position).attributeDto.choices ?: listOf()
                 ) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                     val view = super.getView(position, convertView, parent)
@@ -163,13 +163,18 @@ class PetAdapter(
     }
 
     fun setChoicePosition(position: Int, choice: Int): String? {
-        getItem(position).choice = getItem(position).attributeDto?.choices?.getOrNull(choice)?.choice
-        getItem(position).choiceId = getItem(position).attributeDto?.choices?.getOrNull(choice)?.id
+        getItem(position).choice = getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
+        getItem(position).choiceId = getItem(position).attributeDto.choices?.getOrNull(choice)?.id
 
-        return getItem(position).attributeDto?.choices?.getOrNull(choice)?.choice
+        return getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
     }
 
     fun onPhotoClicked(position: Int) {
         onPhotoClicked?.invoke(getItem(position))
     }
+}
+
+enum class AttributeType(val value: Int){
+    PET_TYPE(6),
+    PET_KIND(7)
 }

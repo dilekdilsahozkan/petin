@@ -23,9 +23,6 @@ interface SettingService {
     @PUT("user")
     suspend fun editUser(@Body edit: EditUserDto): Response<BaseResponse<UserDto>>
 
-    @DELETE("user")
-    suspend fun deleteUser(): Response<Any>
-
     @GET("/feed/liked")
     suspend fun getLikedPosts(): Response<BaseResponse<List<PostDto>>>
 
