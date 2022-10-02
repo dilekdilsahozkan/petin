@@ -54,8 +54,6 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
     override fun onBindViewHolder(holder: ViewHolder<Binding>, position: Int) {
         val item = getItem(position)
 
-        Log.d("PET", "item : $position - $item")
-
         when (holder) {
             is ViewHolder.DtoViewHolder<*> -> {
                 modelId?.let {
