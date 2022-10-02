@@ -2,6 +2,7 @@ package com.moralabs.pet.core.di
 
 import com.moralabs.pet.BuildConfig
 import com.moralabs.pet.MainActivity
+import com.moralabs.pet.core.data.remote.interceptor.AuthenticationInterceptorRefreshToken
 import com.moralabs.pet.core.data.remote.interceptor.HeaderInterceptor
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.data.repository.impl.AuthenticationRepositoryImpl
@@ -21,11 +22,15 @@ class NetworkDI {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(headerInterceptor: HeaderInterceptor) = if (true) {
+    fun provideOkHttpClient(
+        headerInterceptor: HeaderInterceptor,
+        authenticationInterceptorRefreshToken: AuthenticationInterceptorRefreshToken
+    ) = if (true) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
+            .addInterceptor(authenticationInterceptorRefreshToken)
             .addInterceptor(loggingInterceptor)
             .build()
     } else OkHttpClient
@@ -50,5 +55,13 @@ class NetworkDI {
 
     @Provides
     @Singleton
-    fun provideAuthenticationRepository(): AuthenticationRepository = AuthenticationRepositoryImpl(MainActivity.instance)
+    fun proviceAuthenticationInterceptorRefreshToken(
+        authenticationRepository: AuthenticationRepository
+    ) =
+        AuthenticationInterceptorRefreshToken(authenticationRepository)
+
+    @Provides
+    @Singleton
+    fun provideAuthenticationRepository(): AuthenticationRepository =
+        AuthenticationRepositoryImpl(MainActivity.instance)
 }

@@ -121,7 +121,7 @@ class MakeOfferFragment :
         super.addObservers()
 
         viewModel.petsList.observe(viewLifecycleOwner) { it ->
-            petAdapter.setItems(it.sortedByDescending { it.selected })
+            petAdapter.submitList(it.sortedByDescending { it.selected })
         }
     }
 }

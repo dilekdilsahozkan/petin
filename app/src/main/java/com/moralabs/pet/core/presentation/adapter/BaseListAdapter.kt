@@ -1,6 +1,7 @@
 package com.moralabs.pet.core.presentation.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.SimpleDto
 import com.moralabs.pet.databinding.UiItemBaseListEmptyBinding
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 
 class BaseListAdapter<Dto, Binding : ViewDataBinding>(
     private val layoutId: Int,
@@ -31,7 +33,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Dto, newItem: Dto): Boolean {
-            return false
+            return oldItem == newItem
         }
     }) {
 
@@ -69,7 +71,7 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 
     override fun submitList(list: List<Dto>?) {
 
-        if (list != null && list.count() == 0 && emptyString.isNullOrEmpty().not()) {
+        if (list.isNullOrEmpty() && emptyString.isNullOrEmpty().not()) {
             super.submitList(listOf(null))
         } else {
             super.submitList(list)
@@ -93,25 +95,21 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
             ViewHolder<Binding>(binding as Binding, listAdapter)
 
         init {
-            when (this) {
-                is DtoViewHolder<*> -> {
+            when (binding) {
+                is UiItemBaseListEmptyBinding -> binding.setVariable(BR.item, listAdapter.emptyString)
+                else -> {
                     binding.root.setOnClickListener {
                         if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                             listAdapter.selectItem(bindingAdapterPosition)
                         }
                     }
                 }
-                is EmptyViewHolder<*> -> binding.setVariable(BR.item, listAdapter.emptyString)
             }
         }
     }
 
     fun selectItem(position: Int) {
         onRowClick?.invoke(getItem(position))
-    }
-
-    fun setItems(itemList: List<Dto>?) {
-        submitList(itemList?.toMutableList())
     }
 
     override fun getItemViewType(position: Int): Int {
