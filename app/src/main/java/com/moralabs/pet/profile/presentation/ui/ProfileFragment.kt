@@ -50,14 +50,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                 startActivity(Intent(context, SettingsActivity::class.java))
             } else {
                 userInfo?.let { user ->
-                    fragmentManager?.let {
-                        OtherUserActionBottomSheetFragment(
-                            user.isUserFollowed,
-                            isUserBlocked,
-                            this@ProfileFragment,
-                            this@ProfileFragment
-                        ).show(it, "")
-                    }
+                    OtherUserActionBottomSheetFragment(
+                        user.isUserFollowed,
+                        isUserBlocked,
+                        this@ProfileFragment,
+                        this@ProfileFragment
+                    ).show(this.parentFragmentManager, "OtherUserActionBottomSheetFragment")
                 }
             }
         }
@@ -220,8 +218,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         ProfileViewPagerAdapter(
             this,
             listOf(
+                PetFragment(),
                 PostFragment(),
-                PetFragment()
             )
         )
     }

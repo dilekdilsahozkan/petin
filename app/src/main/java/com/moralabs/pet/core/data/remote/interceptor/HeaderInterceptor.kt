@@ -3,7 +3,6 @@ package com.moralabs.pet.core.data.remote.interceptor
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.net.SocketException
 
 class HeaderInterceptor(private val userRepository: AuthenticationRepository) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

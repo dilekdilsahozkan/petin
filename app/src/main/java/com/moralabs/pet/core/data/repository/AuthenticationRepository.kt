@@ -7,6 +7,7 @@ interface AuthenticationRepository {
     fun logout(): Boolean
     fun login(userId: String?, bearerToken: String, refreshToken: String): Boolean
     fun guestLogin(bearerToken: String): Boolean
+    fun refreshLogin(bearerToken: String?, refreshToken: String?): Boolean
     fun getAuthentication() : AuthenticationDto?
     fun requestHeaders(): HashMap<String, String?>
 }

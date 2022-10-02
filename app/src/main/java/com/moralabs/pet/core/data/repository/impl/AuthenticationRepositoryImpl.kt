@@ -7,7 +7,8 @@ import com.google.gson.Gson
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 
-class AuthenticationRepositoryImpl(private val context: Context?) : AuthenticationRepository {
+class AuthenticationRepositoryImpl(private val context: Context?) :
+    AuthenticationRepository {
 
     companion object {
         private const val USER_KEY = "user"
@@ -70,6 +71,16 @@ class AuthenticationRepositoryImpl(private val context: Context?) : Authenticati
     override fun guestLogin(bearerToken: String): Boolean {
         _authentication?.apply {
             this.bearerKey = bearerToken
+
+            preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
+        }
+        return true
+    }
+
+    override fun refreshLogin(bearerToken: String?, refreshToken: String?): Boolean {
+        _authentication?.apply {
+            this.bearerKey = bearerToken
+            this.refreshKey = refreshToken
 
             preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }

@@ -2,6 +2,7 @@ package com.moralabs.pet.petProfile.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -37,6 +38,8 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
                     )
                 )
             })
+        }, isSameDto = { oldItem, newItem ->
+            oldItem.id == newItem.id
         })
     }
 

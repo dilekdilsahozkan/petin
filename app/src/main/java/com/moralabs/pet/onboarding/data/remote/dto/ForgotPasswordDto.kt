@@ -16,3 +16,7 @@ data class NewPasswordDto(
     var code: String? = null,
     val newPassword: String? = null
 ): BaseDto()
+
+data class RefreshTokenDto(
+    var refreshToken: String? = null
+): BaseDto()
