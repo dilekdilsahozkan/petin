@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
@@ -15,6 +16,7 @@ import com.moralabs.pet.databinding.FragmentOfferBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
+import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import kotlinx.coroutines.flow.collect
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,6 +49,13 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         arguments?.getString(OfferUserActivity.PET_KIND)
     }
 
+    private val petId: String? by lazy {
+        arguments?.getString(OfferUserActivity.PET_ID)
+    }
+    private val otherUserId: String? by lazy {
+        arguments?.getString(OfferUserActivity.OTHER_USER_ID)
+    }
+
     override fun getLayoutId() = R.layout.fragment_offer
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
@@ -58,6 +67,20 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
     override fun setToolbar() {
         super.setToolbar()
         toolbarListener?.showTitleText(getString(R.string.offer))
+    }
+
+    override fun addListeners() {
+        super.addListeners()
+
+        binding.petInfo.setOnClickListener {
+            val bundle = bundleOf(
+                PetProfileActivity.PET_ID to petId,
+                PetProfileActivity.OTHER_USER_ID to otherUserId
+            )
+            val intent = Intent(context, PetProfileActivity::class.java)
+            intent.putExtras(bundle)
+            context?.startActivity(intent)
+        }
     }
 
     override fun addObservers() {

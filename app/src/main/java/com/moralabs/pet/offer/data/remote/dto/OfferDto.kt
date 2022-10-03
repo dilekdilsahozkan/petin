@@ -14,6 +14,7 @@ data class OfferDto(
 ): BaseDto()
 
 data class OfferDetailDto(
+    val otherPet: PetDto? = null,
     val readOffer: OfferDto? = null,
     val allOffers: List<OfferDto>? = null
 )

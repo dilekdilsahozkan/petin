@@ -61,15 +61,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         }
 
         binding.followedLinear.setOnClickListener {
-            if (otherUserId.isNullOrBlank()) {
-                findNavController().navigate(R.id.action_fragment_profile_to_followedFragment)
-            }
+            findNavController().navigate(R.id.action_fragment_profile_to_followedFragment)
         }
 
         binding.followerLinear.setOnClickListener {
-            if (otherUserId.isNullOrBlank()) {
-                findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
-            }
+            findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
         }
 
         binding.imgBack.setOnClickListener {
@@ -84,8 +80,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
             when (position) {
-                0 -> tab.setIcon(R.drawable.ic_posts)
-                1 -> tab.setIcon(R.drawable.ic_pet_house)
+                0 -> tab.setIcon(R.drawable.ic_pet_house)
+                1 -> tab.setIcon(R.drawable.ic_posts)
             }
         }.attach()
 

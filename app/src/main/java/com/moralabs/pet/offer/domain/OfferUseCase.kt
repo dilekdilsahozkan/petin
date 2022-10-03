@@ -6,6 +6,7 @@ import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.data.repository.OfferRepository
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -29,33 +30,33 @@ class OfferUseCase @Inject constructor(
         }
     }
 
-    fun getOffer(offerId: String?): Flow<BaseResult<OfferDetailDto>>  {
+    fun getOffer(offerId: String?): Flow<BaseResult<OfferDetailDto>> {
         return flow {
-           val readOffer = offerRepository.getOffer(offerId).body()?.data
-                emit(
-                    BaseResult.Success(
-                        OfferDetailDto(
-                            readOffer = readOffer
-                        )
+            val readOffer = offerRepository.getOffer(offerId).body()?.data
+            emit(
+                BaseResult.Success(
+                    OfferDetailDto(
+                        readOffer = readOffer
                     )
                 )
+            )
         }
     }
 
-    fun usersOffer(postId : String?): Flow<BaseResult<OfferDetailDto>>  {
+    fun usersOffer(postId: String?): Flow<BaseResult<OfferDetailDto>> {
         return flow {
-           val allOffers =  offerRepository.usersOffer(postId).body()?.data ?: listOf()
-                emit(
-                    BaseResult.Success(
-                        OfferDetailDto(
-                            allOffers = allOffers
-                        )
+            val allOffers = offerRepository.usersOffer(postId).body()?.data ?: listOf()
+            emit(
+                BaseResult.Success(
+                    OfferDetailDto(
+                        allOffers = allOffers
                     )
                 )
+            )
         }
     }
 
-    fun declineOffer(offerId : String?): Flow<BaseResult<Boolean>>  {
+    fun declineOffer(offerId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             emit(
                 BaseResult.Success(
@@ -65,7 +66,7 @@ class OfferUseCase @Inject constructor(
         }
     }
 
-    fun acceptOffer(offerId : String?): Flow<BaseResult<Boolean>>   {
+    fun acceptOffer(offerId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             emit(
                 BaseResult.Success(
@@ -85,6 +86,19 @@ class OfferUseCase @Inject constructor(
                     )
                 )
             )
+        }
+    }
+
+    fun getAnotherUserPetInfo(petId: String?, userId: String?): Flow<BaseResult<OfferDetailDto>> {
+        return flow {
+            val otherPet = petRepository.getAnotherUserPetInfo(petId, userId).body()?.data
+                emit(
+                    BaseResult.Success(
+                        OfferDetailDto(
+                            otherPet = otherPet
+                        )
+                    )
+                )
         }
     }
 }

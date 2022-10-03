@@ -67,11 +67,13 @@ class PetAdapter(
         )
     }
 
+    private val choiceId :ArrayList<String?> = arrayListOf()
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
 
-        if (holder is ViewHolder.PetAttributeListViewHolder ) {
-            
+        if (holder is ViewHolder.PetAttributeListViewHolder) {
+
             (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setAdapter(object :
                 ArrayAdapter<ChoicesDto>(
                     context,
@@ -82,6 +84,7 @@ class PetAdapter(
                     val view = super.getView(position, convertView, parent)
 
                     (view as? TextView)?.text = getItem(position)?.choice
+                    choiceId.add(getItem(position)?.id)
 
                     return view
                 }
@@ -89,6 +92,15 @@ class PetAdapter(
 
             getItem(position).choice?.let {
                 (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setText(it, false)
+            }
+
+            choiceId.forEach {
+            }
+
+            if(getItem(position).attributeDto.parentAttributeChoiceId.isNullOrEmpty() && getItem(position).choiceId == getItem(position).parentId){
+                (holder.binding as? ItemAddPetAttributeListBinding)?.autoCompleteConstraint?.visibility = View.VISIBLE
+            } else{
+                (holder.binding as? ItemAddPetAttributeListBinding)?.autoCompleteConstraint?.visibility = View.GONE
             }
         }
     }
@@ -165,6 +177,7 @@ class PetAdapter(
     fun setChoicePosition(position: Int, choice: Int): String? {
         getItem(position).choice = getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
         getItem(position).choiceId = getItem(position).attributeDto.choices?.getOrNull(choice)?.id
+        getItem(position).parentId = getItem(position).attributeDto.parentAttributeChoiceId
 
         return getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
     }

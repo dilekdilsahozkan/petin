@@ -38,12 +38,14 @@ class OfferUserFragment :
             var bundle = bundleOf(
                 MakeOfferActivity.OFFER_ID to offer.id,
                 OfferUserActivity.OFFER_TEXT to offer.text,
+                OfferUserActivity.OTHER_USER_ID to offer.user?.userId,
                 OfferUserActivity.USER_NAME to offer.user?.fullName,
                 OfferUserActivity.PET_IMAGE to offer.pet?.media?.url,
+                OfferUserActivity.PET_ID to offer.pet?.id,
                 OfferUserActivity.PET_NAME to offer.pet?.name,
-                OfferUserActivity.PET_KIND to offer.pet?.petAttributes?.filter { it.type == 7 }?.getOrNull(0)?.choice,
-                OfferUserActivity.PET_GENDER to offer.pet?.petAttributes?.filter { it.type == 8 }?.getOrNull(0)?.choice,
-                OfferUserActivity.PET_AGE to offer.pet?.petAttributes?.filter { it.type == 9 }?.getOrNull(0)?.choice
+                OfferUserActivity.PET_KIND to offer.pet?.petAttributes?.filter { it.attributeType == 7 }?.getOrNull(0)?.choice,
+                OfferUserActivity.PET_GENDER to offer.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice,
+                OfferUserActivity.PET_AGE to offer.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
                 )
             findNavController().navigate(R.id.action_fragment_offerUser_to_offerFragment, bundle)
         })

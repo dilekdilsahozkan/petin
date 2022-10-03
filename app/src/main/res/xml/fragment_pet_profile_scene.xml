@@ -6,8 +6,24 @@
     <ConstraintSet android:id="@+id/start">
 
         <Constraint android:id="@+id/petImage" />
-        <Constraint android:id="@+id/backButton" />
-        <Constraint android:id="@+id/ellipse" />
+
+        <Constraint
+            android:id="@+id/backButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="16dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/ellipse"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="16dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
 
     </ConstraintSet>
 
@@ -20,18 +36,18 @@
 
         <Constraint
             android:id="@+id/backButton"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_margin="8dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="16dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/ellipse"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_margin="8dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="16dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />

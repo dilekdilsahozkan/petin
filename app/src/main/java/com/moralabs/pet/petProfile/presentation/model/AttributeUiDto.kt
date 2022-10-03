@@ -10,6 +10,8 @@ import kotlinx.android.parcel.Parcelize
 data class AttributeUiDto(
     val uiType: AttributeUiType,
     val attributeDto: AttributeDto,
+    var isSelected: Boolean = false,
+    var parentId: String? = null,
     var choiceId: String? = null,
     var choice: String? = null,
     var media: MediaDto? = null

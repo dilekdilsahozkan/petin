@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/ellipse"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/scale_32dp"
+            android:layout_height="@dimen/scale_32dp"
             android:background="@drawable/ic_ellipse" />
 
         <ImageView

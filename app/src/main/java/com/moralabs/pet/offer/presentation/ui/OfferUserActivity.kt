@@ -15,6 +15,8 @@ class OfferUserActivity :BaseActivity<ActivityOfferUserBinding>(),
         const val POST_ID = "postId"
         const val OFFER_TEXT = "offerText"
         const val USER_NAME = "userName"
+        const val OTHER_USER_ID = "otherUserId"
+        const val PET_ID = "petId"
         const val PET_IMAGE = "petImage"
         const val PET_NAME = "petName"
         const val PET_AGE = "petAge"

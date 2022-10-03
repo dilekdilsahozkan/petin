@@ -15,15 +15,7 @@
         android:id="@+id/petFragment"
         android:name="com.moralabs.pet.petProfile.presentation.ui.PetFragment"
         android:label="PetFragment"
-        tools:layout="@layout/fragment_pet">
-
-        <action
-            android:id="@+id/action_fragment_pet_to_addPetFragment"
-            app:destination="@id/addEditPetFragment"
-            app:enterAnim="@anim/slide_in"
-            app:popEnterAnim="@anim/slide_out"/>
-
-    </fragment>
+        tools:layout="@layout/fragment_pet"/>
 
     <fragment
         android:id="@+id/postFragment"
