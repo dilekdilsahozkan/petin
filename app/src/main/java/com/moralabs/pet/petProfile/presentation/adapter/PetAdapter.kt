@@ -93,15 +93,6 @@ class PetAdapter(
             getItem(position).choice?.let {
                 (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setText(it, false)
             }
-
-            choiceId.forEach {
-            }
-
-            if(getItem(position).attributeDto.parentAttributeChoiceId.isNullOrEmpty() && getItem(position).choiceId == getItem(position).parentId){
-                (holder.binding as? ItemAddPetAttributeListBinding)?.autoCompleteConstraint?.visibility = View.VISIBLE
-            } else{
-                (holder.binding as? ItemAddPetAttributeListBinding)?.autoCompleteConstraint?.visibility = View.GONE
-            }
         }
     }
 
@@ -185,9 +176,4 @@ class PetAdapter(
     fun onPhotoClicked(position: Int) {
         onPhotoClicked?.invoke(getItem(position))
     }
-}
-
-enum class AttributeType(val value: Int){
-    PET_TYPE(6),
-    PET_KIND(7)
 }
