@@ -80,8 +80,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
             when (position) {
-                0 -> tab.setIcon(R.drawable.ic_pet_house)
-                1 -> tab.setIcon(R.drawable.ic_posts)
+                0 -> tab.setIcon(R.drawable.ic_posts)
+                1 -> tab.setIcon(R.drawable.ic_pet_house)
             }
         }.attach()
 
@@ -214,8 +214,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         ProfileViewPagerAdapter(
             this,
             listOf(
-                PetFragment(),
                 PostFragment(),
+                PetFragment(),
             )
         )
     }

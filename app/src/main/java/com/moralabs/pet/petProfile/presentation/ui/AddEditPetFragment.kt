@@ -48,6 +48,12 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
             requireContext(),
             onPhotoClicked = {
                 permissionResultLauncher.launch(permissions)
+            },
+            onChoiceChanged = { list ->
+                viewModel.visibleData.postValue(viewModel.allData?.filter {
+                    it.attributeDto.parentAttributeChoiceId == null || (list.filter { it.choiceId != null }.map { it.choiceId }
+                        .contains(it.attributeDto.parentAttributeChoiceId))
+                })
             }
         )
     }
@@ -112,6 +118,14 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
         }
     }
 
+    override fun addObservers() {
+        super.addObservers()
+
+        viewModel.visibleData.observe(viewLifecycleOwner) {
+            petAdapter.submitList(it)
+        }
+    }
+
     override fun stateSuccess(data: List<AttributeDto>) {
         super.stateSuccess(data)
 
@@ -155,7 +169,8 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
             }
         }
 
-        petAdapter.submitList(list)
+        viewModel.allData = list
+        viewModel.visibleData.postValue(viewModel.allData?.filter { it.attributeDto.parentAttributeChoiceId == null })
     }
 
     // PHOTO AREA
