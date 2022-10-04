@@ -37,7 +37,6 @@
                     android:layout_width="132dp"
                     android:layout_height="120dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/pet"
                     pet:src="@{item.media.url}" />
 
                 <LinearLayout

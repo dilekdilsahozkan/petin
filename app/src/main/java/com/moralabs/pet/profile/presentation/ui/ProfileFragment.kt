@@ -13,7 +13,11 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentProfileBinding
+import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetFragment
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
@@ -21,6 +25,7 @@ import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 import com.moralabs.pet.settings.presentation.ui.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.ui_pet_warning_dialog.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -233,9 +238,33 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     override fun onBlockUnblockItemClick(isUserBlocked: Boolean?) {
         isUserBlocked?.let {
             if (it) {
-                viewModel.unblockUser(otherUserId)
+                PetWarningDialog(
+                    requireContext(),
+                    PetWarningDialogType.CONFIRMATION,
+                    resources.getString(R.string.ask_sure),
+                    okey = getString(R.string.yes),
+                    description = getString(R.string.user_unblock),
+                    negativeButton = resources.getString(R.string.no),
+                    onResult = {
+                        if (PetWarningDialogResult.OK == it) {
+                            viewModel.unblockUser(otherUserId)
+                        }
+                    }
+                ).show()
             } else {
-                viewModel.blockUser(otherUserId)
+                PetWarningDialog(
+                    requireContext(),
+                    PetWarningDialogType.CONFIRMATION,
+                    resources.getString(R.string.ask_sure),
+                    okey = getString(R.string.yes),
+                    description = getString(R.string.user_block),
+                    negativeButton = resources.getString(R.string.no),
+                    onResult = {
+                        if (PetWarningDialogResult.OK == it) {
+                            viewModel.blockUser(otherUserId)
+                        }
+                    }
+                ).show()
             }
         }
     }

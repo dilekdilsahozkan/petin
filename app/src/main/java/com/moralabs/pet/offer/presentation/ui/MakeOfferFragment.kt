@@ -88,22 +88,21 @@ class MakeOfferFragment :
                 Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
             }else{
                 val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
-                if (offerType == OfferType.FIND_PARTNER_TYPE.type && pet?.selected == true) {
+                if (offerType == OfferType.ADOPTION_TYPE.type) {
+                    viewModel.newOffer(
+                        OfferRequestDto(
+                            postId = postId,
+                            text = binding.explanationText.text.toString()
+                        )
+                    )
+                    Toast.makeText(context, R.string.offer_sent, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(context, MainPageActivity::class.java))
+                } else if(offerType == OfferType.FIND_PARTNER_TYPE.type && pet?.selected == true){
                     viewModel.newOffer(
                         OfferRequestDto(
                             postId = postId,
                             text = binding.explanationText.text.toString(),
                             petId = pet.id
-                        )
-                    )
-                    Toast.makeText(context, R.string.offer_sent, Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(context, MainPageActivity::class.java))
-                } else if(offerType == OfferType.ADOPTION_TYPE.type){
-                    viewModel.newOffer(
-                        OfferRequestDto(
-                            postId = postId,
-                            text = binding.explanationText.text.toString(),
-                            petId = pet?.id
                         )
                     )
                     Toast.makeText(context, R.string.offer_sent, Toast.LENGTH_SHORT).show()

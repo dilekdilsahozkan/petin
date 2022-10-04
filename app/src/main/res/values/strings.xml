@@ -136,6 +136,8 @@
     <string name="no">Hayır</string>
     <string name="member_check"><u>Üye iseniz giriş yapmak için tıklayın</u></string>
     <string name="loginNeeded">Petin\'i kullanmak için kayıt olun</string>
+    <string name="user_block">Kullanıcıyı engellemk istediğinize emin misiniz?</string>
+    <string name="user_unblock">Kullanıcının engelini kaldırmak istediğinize emin misiniz?</string>
     <string name="warning">Uyarı</string>
     <string name="logoutSure">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="ask_sure">Emin misiniz?</string>

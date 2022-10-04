@@ -52,7 +52,6 @@
                 android:id="@+id/offerImage"
                 android:layout_width="132dp"
                 android:layout_height="120dp"
-                android:src="@drawable/pet"
                 style="@style/PetImageView.PetCard"
                 android:scaleType="centerCrop" />
 
