@@ -61,8 +61,8 @@
     <string name="filter">Filtrele</string>
     <string name="reset">Temizle</string>
     <string name="location">Konum</string>
-    <string name="type">Cins</string>
-    <string name="breed">Tür</string>
+    <string name="type">Tür</string>
+    <string name="breed">Irk</string>
     <string name="gender">Cinsiyet</string>
     <string name="age">Yaş</string>
     <string name="chooseLocation">Konum Seçiniz</string>
