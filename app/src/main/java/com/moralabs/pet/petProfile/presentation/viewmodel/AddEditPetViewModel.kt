@@ -1,6 +1,7 @@
 package com.moralabs.pet.petProfile.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
@@ -9,6 +10,7 @@ import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.domain.PetUseCase
+import com.moralabs.pet.petProfile.presentation.model.AttributeUiDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -21,6 +23,9 @@ import javax.inject.Inject
 class AddEditPetViewModel @Inject constructor(
     private val useCase: PetUseCase
 ) : BaseViewModel<List<AttributeDto>>(useCase) {
+
+    var allData: List<AttributeUiDto>? = null
+    var visibleData: MutableLiveData<List<AttributeUiDto>?> = MutableLiveData()
 
     fun petAttributes() {
         viewModelScope.launch {

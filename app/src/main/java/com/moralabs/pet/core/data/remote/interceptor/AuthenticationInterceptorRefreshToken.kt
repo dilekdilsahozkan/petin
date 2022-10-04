@@ -4,7 +4,6 @@ import com.moralabs.pet.BuildConfig
 import com.moralabs.pet.core.data.remote.api.AuthenticationService
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.onboarding.data.remote.dto.RefreshTokenDto
-import dagger.Provides
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,34 +11,53 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class AuthenticationInterceptorRefreshToken(
     private val userRepository: AuthenticationRepository,
 ) : Interceptor {
+
+    companion object {
+        private var refreshing = false
+    }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val initialResponse = chain.proceed(originalRequest)
 
         when {
-            initialResponse.code == 403 || initialResponse.code == 401 -> {
+            (initialResponse.code == 403 || initialResponse.code == 401) -> {
+                if(refreshing){
 
-                return runBlocking {
-                    val response = getService().refreshToken(RefreshTokenDto(userRepository.getAuthentication()?.refreshKey))
+                    return runBlocking {
+                        val oldBearer = userRepository.getAuthentication()?.bearerKey
 
-                    when {
-                        response == null || response.code() != 200 -> {
-                            initialResponse
+                        while (oldBearer == userRepository.getAuthentication()?.bearerKey){}
+
+                        val newAuthenticationRequest = originalRequest.newBuilder()
+                            .removeHeader("Authorization").addHeader("Authorization", "Bearer ${userRepository.getAuthentication()?.bearerKey}").build()
+                        chain.proceed(newAuthenticationRequest)
+                    }
+                }else{
+                    refreshing = true
+
+                    return runBlocking {
+                        val response = getService().refreshToken(RefreshTokenDto(userRepository.getAuthentication()?.refreshKey))
+
+                        var refreshingResponse = when {
+                            response == null || response.code() != 200 -> {
+                                initialResponse
+                            }
+                            else -> {
+                                userRepository.refreshLogin(response.body()?.data?.accessToken, response.body()?.data?.refreshToken)
+
+                                val newAuthenticationRequest = originalRequest.newBuilder()
+                                    .removeHeader("Authorization").addHeader("Authorization", "Bearer ${response.body()?.data?.accessToken}").build()
+                                chain.proceed(newAuthenticationRequest)
+                            }
                         }
-                        else -> {
-                            userRepository.refreshLogin(response.body()?.data?.accessToken, response.body()?.data?.refreshToken)
 
-                            val newAuthenticationRequest = originalRequest.newBuilder()
-                                .addHeader("Authorization", "Bearer " + response.body()?.data?.accessToken).build()
-                            chain.proceed(newAuthenticationRequest)
-                        }
+                        refreshing = false
+                        refreshingResponse
                     }
                 }
             }

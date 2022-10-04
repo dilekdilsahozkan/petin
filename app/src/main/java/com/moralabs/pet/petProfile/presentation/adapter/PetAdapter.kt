@@ -22,6 +22,7 @@ import com.moralabs.pet.petProfile.presentation.model.AttributeUiType
 class PetAdapter(
     private val context: Context,
     private val onPhotoClicked: ((result: AttributeUiDto) -> Unit)? = null,
+    private val onChoiceChanged: ((list: List<AttributeUiDto>) -> Unit)? = null,
 ) :
     ListAdapter<AttributeUiDto, PetAdapter.ViewHolder>(object :
         DiffUtil.ItemCallback<AttributeUiDto>() {
@@ -168,8 +169,8 @@ class PetAdapter(
     fun setChoicePosition(position: Int, choice: Int): String? {
         getItem(position).choice = getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
         getItem(position).choiceId = getItem(position).attributeDto.choices?.getOrNull(choice)?.id
-        getItem(position).parentId = getItem(position).attributeDto.parentAttributeChoiceId
 
+        onChoiceChanged?.invoke(currentList)
         return getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
     }
 
