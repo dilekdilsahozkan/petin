@@ -266,12 +266,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/scale_8dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/post2ReleaseTime"
+                app:layout_constraintBottom_toTopOf="@id/post2ReleaseTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/petImage"
-                app:layout_constraintTop_toTopOf="@id/post2Text">
+                app:layout_constraintTop_toBottomOf="@id/post2Text">
 
                 <TextView
                     android:id="@+id/petName"

@@ -21,6 +21,11 @@ class MessageFragment : BaseFragment<FragmentMessageBinding, List<ChatDto>, Mess
 
     override fun getLayoutId() = R.layout.fragment_message
 
+    override fun fragmentViewModel(): BaseViewModel<List<ChatDto>> {
+        val viewModel: MessageViewModel by viewModels()
+        return viewModel
+    }
+
     private val messageAdapter: BaseListAdapter<ChatDto, ItemUserMessageBinding> by lazy {
         BaseListAdapter(R.layout.item_user_message, BR.item, onRowClick = {
             startActivity(Intent(context, MessageDetailActivity::class.java).apply { putExtras(bundleOf(MessageDetailActivity.BUNDLE_USER to it.to)) })
@@ -39,11 +44,6 @@ class MessageFragment : BaseFragment<FragmentMessageBinding, List<ChatDto>, Mess
         binding.toolbar.imgSelect.setOnClickListener {
             startActivity(Intent(context, MessageUserSearchActivity::class.java))
         }
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<List<ChatDto>> {
-        val viewModel: MessageViewModel by viewModels()
-        return viewModel
     }
 
     override fun setToolbar() {

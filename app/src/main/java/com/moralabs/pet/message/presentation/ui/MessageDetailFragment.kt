@@ -2,6 +2,7 @@ package com.moralabs.pet.message.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moralabs.pet.BR
@@ -25,6 +26,11 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
     override fun getLayoutId() = R.layout.fragment_message_detail
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<ChatDto> {
+        val viewModel: MessageDetailViewModel by viewModels()
+        return viewModel
+    }
+
     private val messageAdapter: BaseListAdapter<UiChatMessageDto, ItemChatMessageBinding> by lazy {
         BaseListAdapter(R.layout.item_chat_message, BR.item)
     }
@@ -40,11 +46,6 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
         (binding.recyclerView.layoutManager as? LinearLayoutManager)?.stackFromEnd = true
 
         viewModel.getDetail(userDto?.userId)
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<ChatDto> {
-        val viewModel: MessageDetailViewModel by viewModels()
-        return viewModel
     }
 
     override fun setToolbar() {
@@ -71,6 +72,13 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
         super.stateSuccess(data)
 
         val uiList = mutableListOf<UiChatMessageDto>()
+
+        if(data.isUserBlocked == true){
+            binding.messageTextLayout.visibility = View.GONE
+            Toast.makeText(requireContext(), getString(R.string.no_user), Toast.LENGTH_LONG).show()
+        }else{
+            binding.messageTextLayout.visibility = View.VISIBLE
+        }
 
         data.messages?.groupBy {
             it.dateTime.toDbDate()

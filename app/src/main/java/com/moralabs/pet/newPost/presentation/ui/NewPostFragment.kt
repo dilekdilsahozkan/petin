@@ -7,10 +7,8 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,11 +34,9 @@ import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
-import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_new_post.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File

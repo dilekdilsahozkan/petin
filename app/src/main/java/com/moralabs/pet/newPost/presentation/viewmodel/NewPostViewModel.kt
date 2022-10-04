@@ -83,15 +83,15 @@ class NewPostViewModel @Inject constructor(
     }
 
     fun addFile(file: File){
-        var list = files?.value
+        var list = files.value
         list?.add(file)
-        files?.postValue(list)
+        files.postValue(list)
     }
 
     fun deleteFile(file: File){
-        var list = files?.value
+        var list = files.value
         list?.remove(file)
-        files?.postValue(list)
+        files.postValue(list)
     }
 }
 

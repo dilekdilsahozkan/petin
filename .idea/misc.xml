@@ -7,23 +7,29 @@
         <entry key="app/src/main/res/drawable/ic_background_welcome.xml" value="0.2215" />
         <entry key="app/src/main/res/drawable/ic_welcome_background_blue.xml" value="0.1055" />
         <entry key="app/src/main/res/layout/activity_add_pet.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/activity_message_detail.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/activity_new_post.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/activity_offer_user.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_add_location.xml" value="0.3055292765299479" />
         <entry key="app/src/main/res/layout/fragment_add_pet.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_blocked_accounts.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/fragment_comment.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_edit_pet.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/fragment_followed.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/fragment_follower.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_guest.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/fragment_main_page.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/fragment_make_offer.xml" value="0.20931854248046877" />
+        <entry key="app/src/main/res/layout/fragment_message.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/fragment_message_detail.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.18404083251953127" />
         <entry key="app/src/main/res/layout/fragment_pet_profile.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_post_setting_bottom_sheet.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.21396942138671876" />
         <entry key="app/src/main/res/layout/item_add_pet_feature.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/item_blocked_accounts.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/item_follow_type.xml" value="0.375" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/item_user_comment.xml" value="0.37604166666666666" />

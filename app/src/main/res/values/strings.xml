@@ -113,6 +113,7 @@
     <string name="add_pet_required">Lütfen gerekli yerleri girdiğinize ve fotoğraf eklediğinize emin olun.</string>
     <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
     <string name="add_text">Açıklama eklemeden paylaşımda bulanamazsınız.</string>
+    <string name="no_user">Kullanıcı bulunamamıştır.</string>
     <string name="choose_pet">Evcil hayvan seçmeden paylaşımda bulanamazsınız.</string>
     <string name="please_add_pet">Kayıtlı evcil hayvan bulunamamaktadır. Lütfen profil sayfasından ekleme yapınız.</string>
     <string name="add_pet">Evcil hayvanınızın profili başarıyla kaydedildi</string>

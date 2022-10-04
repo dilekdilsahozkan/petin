@@ -10,5 +10,6 @@ data class ChatDto (
     val to: UserDto? = null,
     val messages: List<MessageDto>? = null,
     val unreadMessages: Int? = null,
+    val isUserBlocked: Boolean? = null,
     val pageIndex: Int? = null
 ) : BaseDto(), Parcelable

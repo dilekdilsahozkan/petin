@@ -1,14 +1,12 @@
 package com.moralabs.pet.settings.presentation.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.moralabs.pet.core.presentation.adapter.loadImage
+import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.databinding.ItemBlockedAccountsBinding
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 
@@ -53,7 +51,7 @@ class BlockedAccountsAdapter(
         }
 
         fun bind(item: BlockedDto) {
-            binding.userPhoto.loadImage(item.media?.url)
+            binding.userPhoto.loadImageWithPlaceholder(item.media?.url)
             binding.username.text = item.fullName
             binding.blockUnBlockButton.isSelected = item.selected
         }
