@@ -9,7 +9,33 @@
         android:id="@+id/profileFragment"
         android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
         android:label="ProfileFragment2"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_fragment_profile_to_followedFragment"
+            app:destination="@id/followedFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+        <action
+            android:id="@+id/action_fragment_profile_to_followersFragment"
+            app:destination="@id/followerFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/followedFragment"
+        android:name="com.moralabs.pet.profile.presentation.ui.FollowedFragment"
+        android:label="FollowedFragment"
+        tools:layout="@layout/fragment_followed"/>
+
+    <fragment
+        android:id="@+id/followerFragment"
+        android:name="com.moralabs.pet.profile.presentation.ui.FollowerFragment"
+        android:label="FollowerFragment"
+        tools:layout="@layout/fragment_follower"/>
 
     <fragment
         android:id="@+id/petFragment"
