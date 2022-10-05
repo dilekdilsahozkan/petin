@@ -1,23 +1,27 @@
 package com.moralabs.pet.settings.domain
 
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.domain.AuthenticationUseCase
-import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.data.repository.MediaRepository
+import com.moralabs.pet.core.domain.*
+import com.moralabs.pet.newPost.data.remote.dto.MediaDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
+import com.moralabs.pet.settings.data.remote.dto.Media
 import com.moralabs.pet.settings.data.repository.SettingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.File
 import javax.inject.Inject
 
 class SettingsUseCase @Inject constructor(
     private val settingRepository: SettingRepository,
     private val profileRepository: ProfileRepository,
-    private val authenticationUseCase: AuthenticationUseCase
+    private val authenticationUseCase: AuthenticationUseCase,
+    private val mediaRepository: MediaRepository
 ) : BaseUseCase() {
 
     fun userInfo(): Flow<BaseResult<UserDto>> {
@@ -30,13 +34,44 @@ class SettingsUseCase @Inject constructor(
         }
     }
 
-    fun editUser(edit: EditUserDto): Flow<BaseResult<UserDto>> {
+    fun editUser(fullName: String?, phoneNumber: String?, file: File?): Flow<BaseResult<UserDto>> {
         return flow {
-            settingRepository.editUser(edit).body()?.data?.let {
-                emit(
-                    BaseResult.Success(it)
-                )
+
+            val editUserDto = EditUserDto(
+                fullName = fullName,
+                phoneNumber = phoneNumber
+            )
+
+
+            val medias = mutableListOf<MediaDto>()
+
+            file?.let {
+                val media = mediaRepository.uploadPhoto(1, it)
+
+                media.body()?.data?.getOrNull(0)?.let {
+                    medias.add(it)
+                }
+            } ?: run {
+                editUserDto.media?.let {
+                    medias.addAll(it)
+                }
             }
+
+            if (medias.isNotEmpty()) {
+                editUserDto.media = medias
+            }
+
+            val result = settingRepository.editUser(editUserDto).body()?.success ?: false
+            if (result) {
+                settingRepository.editUser(editUserDto).body()?.data?.let {
+                    emit(
+                        BaseResult.Success(it)
+                    )
+                }
+            } else {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+            }
+
         }
     }
 

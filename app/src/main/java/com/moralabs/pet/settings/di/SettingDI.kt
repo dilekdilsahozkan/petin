@@ -1,5 +1,6 @@
 package com.moralabs.pet.settings.di
 
+import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.api.SettingService
@@ -28,6 +29,6 @@ class SettingDI {
 
     @Provides
     @Singleton
-    fun provideProfileUseCase(settingRepository: SettingRepository, profileRepository: ProfileRepository, authenticationUseCase: AuthenticationUseCase): SettingsUseCase =
-        SettingsUseCase(settingRepository, profileRepository, authenticationUseCase)
+    fun provideProfileUseCase(settingRepository: SettingRepository, profileRepository: ProfileRepository, authenticationUseCase: AuthenticationUseCase, mediaRepository: MediaRepository): SettingsUseCase =
+        SettingsUseCase(settingRepository, profileRepository, authenticationUseCase, mediaRepository)
 }

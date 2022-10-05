@@ -20,7 +20,7 @@ interface SettingService {
     @PATCH("/user/{userId}/unblock")
     suspend fun unBlock(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
 
-    @PUT("user")
+    @PUT("/user")
     suspend fun editUser(@Body edit: EditUserDto): Response<BaseResponse<UserDto>>
 
     @GET("/feed/liked")
