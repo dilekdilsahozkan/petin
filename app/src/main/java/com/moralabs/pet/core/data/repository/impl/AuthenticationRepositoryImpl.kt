@@ -42,9 +42,8 @@ class AuthenticationRepositoryImpl(private val context: Context?) :
         }
     }
 
-    override fun isLoggedIn(): Boolean {
-        return _authentication?.bearerKey != null
-    }
+    override fun isLoggedIn() = _authentication?.bearerKey != null
+    override fun isGuest() = _authentication?.isGuest == true
 
     override fun logout(): Boolean {
         _authentication?.apply {
@@ -61,6 +60,7 @@ class AuthenticationRepositoryImpl(private val context: Context?) :
         _authentication?.apply {
             this.bearerKey = bearerToken
             this.refreshKey = refreshToken
+            this.isGuest = false
 
             preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }
@@ -71,6 +71,7 @@ class AuthenticationRepositoryImpl(private val context: Context?) :
     override fun guestLogin(bearerToken: String): Boolean {
         _authentication?.apply {
             this.bearerKey = bearerToken
+            this.isGuest = true
 
             preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }

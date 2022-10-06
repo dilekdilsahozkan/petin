@@ -39,13 +39,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     private val postAdapter by lazy {
         PostListAdapter(
             onOfferClick = {
-                val bundle = bundleOf(
-                    MakeOfferActivity.POST_ID to it.id,
-                    MakeOfferActivity.OFFER_TYPE to it.content?.type
-                )
-                val intent = Intent(context, MakeOfferActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
+                loginIfNeeded {
+                    val bundle = bundleOf(
+                        MakeOfferActivity.POST_ID to it.id,
+                        MakeOfferActivity.OFFER_TYPE to it.content?.type
+                    )
+                    val intent = Intent(context, MakeOfferActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
             },
             onPetProfile = {
                 if (it.isPostOwnedByUser != true) {
@@ -59,12 +61,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onLikeClick = {
-                if (it.isPostLikedByUser == true) {
-                    viewModel.unlikePost(it.id)
-                    viewModel.feedPost()
-                } else {
-                    viewModel.likePost(it.id)
-                    viewModel.feedPost()
+                loginIfNeeded {
+                    if (it.isPostLikedByUser == true) {
+                        viewModel.unlikePost(it.id)
+                        viewModel.feedPost()
+                    } else {
+                        viewModel.likePost(it.id)
+                        viewModel.feedPost()
+                    }
                 }
             },
             onCommentClick = {
@@ -76,13 +80,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 context?.startActivity(intent)
             },
             onOfferUserClick = {
-                if (it.isPostOwnedByUser == true) {
-                    val bundle = bundleOf(
-                        OfferUserActivity.POST_ID to it.id
-                    )
-                    val intent = Intent(context, OfferUserActivity::class.java)
-                    intent.putExtras(bundle)
-                    context?.startActivity(intent)
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        val bundle = bundleOf(
+                            OfferUserActivity.POST_ID to it.id
+                        )
+                        val intent = Intent(context, OfferUserActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
                 }
             },
             onUserPhotoClick = {
@@ -96,11 +102,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onPostSettingClick = {
-                fragmentManager?.let { it1 ->
+                loginIfNeeded {
                     PostSettingBottomSheetFragment(
                         this,
                         it.id
-                    ).show(it1, "")
+                    ).show(childFragmentManager, "")
                 }
             }
         )

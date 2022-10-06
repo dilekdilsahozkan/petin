@@ -4,6 +4,7 @@ import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 
 interface AuthenticationRepository {
     fun isLoggedIn(): Boolean
+    fun isGuest(): Boolean
     fun logout(): Boolean
     fun login(userId: String?, bearerToken: String, refreshToken: String): Boolean
     fun guestLogin(bearerToken: String): Boolean
