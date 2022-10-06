@@ -49,18 +49,30 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
     override fun stateSuccess(data: UserDto) {
         super.stateSuccess(data)
         binding.fullNameEdit.setText(data.fullName.toString())
-        binding.phoneNumberEdit.setText(data.phoneNumber.toString())
+        data.phoneNumber?.let {
+            binding.phoneNumberEdit.setText(it)
+        }
         binding.userImage.loadImageWithPlaceholder(data.media?.url)
     }
 
     override fun addListeners() {
         super.addListeners()
         binding.editProfile.setOnClickListener {
-            viewModel.editUser(
-                binding.fullNameEdit.text.toString(),
-                binding.phoneNumberEdit.text.toString(),
-                File(newProfilePictureUrl)
-            )
+            if(newProfilePictureUrl.isNullOrEmpty()) {
+                viewModel.editUser(
+                    binding.fullNameEdit.text.toString(),
+                    binding.phoneNumberEdit.text.toString(),
+                    null
+                )
+            }
+            else {
+                viewModel.editUser(
+                    binding.fullNameEdit.text.toString(),
+                    binding.phoneNumberEdit.text.toString(),
+                    File(newProfilePictureUrl)
+                )
+            }
+
         }
         binding.editImage.setOnClickListener {
             permissionResultLauncher.launch(permissions)

@@ -4,13 +4,11 @@ import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.*
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
-import com.moralabs.pet.settings.data.remote.dto.Media
 import com.moralabs.pet.settings.data.repository.SettingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -42,7 +40,6 @@ class SettingsUseCase @Inject constructor(
                 phoneNumber = phoneNumber
             )
 
-
             val medias = mutableListOf<MediaDto>()
 
             file?.let {
@@ -51,15 +48,9 @@ class SettingsUseCase @Inject constructor(
                 media.body()?.data?.getOrNull(0)?.let {
                     medias.add(it)
                 }
-            } ?: run {
-                editUserDto.media?.let {
-                    medias.addAll(it)
-                }
             }
 
-            if (medias.isNotEmpty()) {
-                editUserDto.media = medias
-            }
+            editUserDto.media = medias
 
             val result = settingRepository.editUser(editUserDto).body()?.success ?: false
             if (result) {

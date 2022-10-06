@@ -3,7 +3,10 @@ package com.moralabs.pet.profile.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewParent
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -95,20 +98,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.username.text = data.userName.toString()
         binding.toolbarUsername.text = data.userName.toString()
         if (data.isUserBlockedByUser != true) {
-            binding.totalPost.text = data.postCount.toString()
-            if (data.postCount == null) {
-                binding.totalPost.text = getString(R.string.zero)
-            }
-            binding.followers.text = data.followerCount.toString()
-            binding.following.text = data.followedCount.toString()
-            binding.userPhoto.loadImageWithPlaceholder(data.media?.url)
+            setProfileUI(data)
         } else {
-            binding.userSocialInfo.visibility = View.GONE
-            binding.imgMenu.visibility = View.GONE
-            binding.blockMessage.visibility = View.VISIBLE
-            Glide.with(this)
-                .load(R.drawable.ic_error_profile)
-                .into(binding.userPhoto)
+            otherUserBlockedUI()
+        }
+        if (isUserBlocked) {
+            blockedUserUI()
         }
     }
 
@@ -164,6 +159,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                                 isUserBlocked = true
                             }
                         }
+                        viewModel.otherUsersInfo(otherUserId)
                     }
                     is ViewState.Error<*> -> {
                         stopLoading()
@@ -197,7 +193,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                         startLoading()
                     }
                     is ViewState.Success<Boolean> -> {
-                        if (it.data) {
+                        if (it.data && isUserBlocked) {
                             getUserInfo()
                         }
                     }
@@ -222,12 +218,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
     private fun getUserInfo() {
         if (!otherUserId.isNullOrBlank()) {
-            viewModel.otherUsersInfo(otherUserId)
+            viewModel.getBlockedList()
         } else {
             viewModel.userInfo()
             binding.imgBack.visibility = View.GONE
         }
-        viewModel.getBlockedList()
     }
 
     override fun onBlockUnblockItemClick(isUserBlocked: Boolean?) {
@@ -248,5 +243,36 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                 viewModel.followUser(otherUserId)
             }
         }
+    }
+
+    private fun setProfileUI(data: UserDto) {
+        binding.userSocialInfo.visibility = View.VISIBLE
+        if(otherUserId.isNullOrBlank().not()) {
+            binding.viewpager.adapter = viewPagerAdapter
+        }
+        binding.totalPost.text = data.postCount.toString()
+        if (data.postCount == null) {
+            binding.totalPost.text = getString(R.string.zero)
+        }
+        binding.followers.text = data.followerCount.toString()
+        binding.following.text = data.followedCount.toString()
+        binding.userPhoto.loadImageWithPlaceholder(data.media?.url)
+    }
+
+    private fun otherUserBlockedUI() {
+        binding.userSocialInfo.visibility = View.GONE
+        binding.imgMenu.visibility = View.GONE
+        binding.blockMessage.visibility = View.VISIBLE
+        Glide.with(this)
+            .load(R.drawable.ic_error_profile)
+            .into(binding.userPhoto)
+    }
+
+    private fun blockedUserUI() {
+        binding.userSocialInfo.visibility = View.GONE
+        binding.viewpager.adapter = null
+        Glide.with(this)
+            .load(R.drawable.ic_error_profile)
+            .into(binding.userPhoto)
     }
 }

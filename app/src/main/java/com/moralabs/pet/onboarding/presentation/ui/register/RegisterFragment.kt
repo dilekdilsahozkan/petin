@@ -31,6 +31,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
         return viewModel
     }
 
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText("")
+    }
+
     override fun addListeners() {
         super.addListeners()
         setRegisterClickable()
