@@ -36,7 +36,6 @@ class GuestFragment : BaseFragment<FragmentGuestBinding, List<PostDto>, MainPage
     private val postAdapter by lazy {
         PostListAdapter(
             onOfferClick = {
-                loginNeeded {
                     val bundle = bundleOf(
                         MakeOfferActivity.POST_ID to it.id,
                         MakeOfferActivity.OFFER_TYPE to it.content?.type
@@ -44,10 +43,8 @@ class GuestFragment : BaseFragment<FragmentGuestBinding, List<PostDto>, MainPage
                     val intent = Intent(context, MakeOfferActivity::class.java)
                     intent.putExtras(bundle)
                     context?.startActivity(intent)
-                }
             },
             onPetProfile = {
-                loginNeeded {
                     if (it.isPostOwnedByUser != true) {
                         val bundle = bundleOf(
                             PetProfileActivity.PET_ID to it.content?.pet?.id,
@@ -57,10 +54,8 @@ class GuestFragment : BaseFragment<FragmentGuestBinding, List<PostDto>, MainPage
                         intent.putExtras(bundle)
                         context?.startActivity(intent)
                     }
-                }
             },
             onLikeClick = {
-                loginNeeded {
                     if (it.isPostLikedByUser == true) {
                         viewModel.unlikePost(it.id)
                         viewModel.feedPost()
@@ -68,20 +63,16 @@ class GuestFragment : BaseFragment<FragmentGuestBinding, List<PostDto>, MainPage
                         viewModel.likePost(it.id)
                         viewModel.feedPost()
                     }
-                }
             },
             onCommentClick = {
-                loginNeeded {
                     val bundle = bundleOf(
                         CommentActivity.POST_ID to it.id
                     )
                     val intent = Intent(context, CommentActivity::class.java)
                     intent.putExtras(bundle)
                     context?.startActivity(intent)
-                }
             },
             onOfferUserClick = {
-                loginNeeded {
                     if (it.isPostOwnedByUser == true) {
                         val bundle = bundleOf(
                             OfferUserActivity.POST_ID to it.id
@@ -90,10 +81,8 @@ class GuestFragment : BaseFragment<FragmentGuestBinding, List<PostDto>, MainPage
                         intent.putExtras(bundle)
                         context?.startActivity(intent)
                     }
-                }
             },
             onUserPhotoClick = {
-                loginNeeded {
                     if (it.isPostOwnedByUser != true) {
                         val bundle = bundleOf(
                             ProfileActivity.OTHER_USER_ID to it.user?.userId
@@ -102,7 +91,6 @@ class GuestFragment : BaseFragment<FragmentGuestBinding, List<PostDto>, MainPage
                         intent.putExtras(bundle)
                         context?.startActivity(intent)
                     }
-                }
             }
         )
     }
