@@ -133,7 +133,7 @@ class PetUseCase @Inject constructor(
             val result = petRepository.updatePet(petDto.id, postDto).body()?.success ?: false
 
             if (result) {
-                emit(BaseResult.Success(true))
+                emit(BaseResult.Success(false))
             } else {
                 emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
             }

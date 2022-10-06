@@ -26,11 +26,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, List<Noti
     }
 
     private val notificationAdapter: BaseListAdapter<NotificationDto, ItemNotificationBinding> by lazy {
-        BaseListAdapter(R.layout.item_notification, BR.item, onRowClick = {
-
-        }, isSameDto = { oldItem, newItem ->
-            true
-        })
+        BaseListAdapter(R.layout.item_notification, BR.item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

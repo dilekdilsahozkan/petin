@@ -34,8 +34,11 @@ import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
+import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
+import com.moralabs.pet.petProfile.presentation.model.AttributeUiDto
+import com.moralabs.pet.petProfile.presentation.model.AttributeUiType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -70,7 +73,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
             petCardAdapter.currentList.forEach { pet ->
                 pet.selected = pet == selected
             }
-            petCardAdapter.notifyDataSetChanged()
+            viewModel.selectedPet.postValue(viewModel.allData?.filter { it.selected })
         })
     }
 
@@ -152,7 +155,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 requireContext(),
                 PetWarningDialogType.CONFIRMATION,
                 resources.getString(R.string.ask_sure),
-                okey = getString(R.string.yes),
+                okay = getString(R.string.yes),
                 description = resources.getString(R.string.postSure),
                 negativeButton = resources.getString(R.string.no),
                 onResult = {
@@ -187,6 +190,10 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
     override fun addObservers() {
         super.addObservers()
+
+        viewModel.selectedPet.observe(viewLifecycleOwner) {
+            petCardAdapter.submitList(it)
+        }
 
         (viewModel as? NewPostViewModel)?.files?.observe(viewLifecycleOwner) {
 

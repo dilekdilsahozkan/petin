@@ -9,6 +9,7 @@ data class AuthenticationDto(
     var userId: String? = null,
     var bearerKey: String? = null,
     var email: String? = null,
+    var isLoggedIn: Boolean = false,
     var refreshKey: String? = null,
     var language: String = Locale.getDefault().language,
     var loginState: UserState = UserState.IDLE,
@@ -22,7 +23,6 @@ data class AuthenticationDto(
 )
 
 enum class UserState {
-    IDLE,
-    PROCESSING,
-    UNSET
+    UNSET,
+    IDLE
 }

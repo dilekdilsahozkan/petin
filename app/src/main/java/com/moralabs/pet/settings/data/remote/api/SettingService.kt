@@ -30,7 +30,7 @@ interface SettingService {
     suspend fun changePassword(
         @Header("refreshToken") refreshToken: String,
         @Body changePassword: ChangePasswordRequestDto
-    ): Response<Boolean>
+    ): Response<BaseResponse<Boolean>>
 
     @GET("/info/{infoType}")
     suspend fun getInfo(@Path("infoType") infoType: Int?): Response<BaseResponse<String>>

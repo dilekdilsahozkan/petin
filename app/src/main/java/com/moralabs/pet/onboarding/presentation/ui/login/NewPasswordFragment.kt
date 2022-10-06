@@ -1,7 +1,6 @@
 package com.moralabs.pet.onboarding.presentation.ui.login
 
 import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +26,11 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding, LoginDto, L
     override fun getLayoutId() = R.layout.fragment_new_password
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
+        val viewModel: LoginViewModel by viewModels()
+        return viewModel
+    }
+
     override fun addListeners() {
         super.addListeners()
 
@@ -41,9 +45,8 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding, LoginDto, L
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun addObservers() {
+        super.addObservers()
         lifecycleScope.launch {
             viewModel.forgotState.collect {
                 when (it) {
@@ -71,10 +74,5 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding, LoginDto, L
                 }
             }
         }
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<LoginDto> {
-        val viewModel: LoginViewModel by viewModels()
-        return viewModel
     }
 }

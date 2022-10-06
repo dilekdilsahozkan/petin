@@ -242,7 +242,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     requireContext(),
                     PetWarningDialogType.CONFIRMATION,
                     resources.getString(R.string.ask_sure),
-                    okey = getString(R.string.yes),
+                    okay = getString(R.string.yes),
                     description = getString(R.string.user_unblock),
                     negativeButton = resources.getString(R.string.no),
                     onResult = {
@@ -256,7 +256,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     requireContext(),
                     PetWarningDialogType.CONFIRMATION,
                     resources.getString(R.string.ask_sure),
-                    okey = getString(R.string.yes),
+                    okay = getString(R.string.yes),
                     description = getString(R.string.user_block),
                     negativeButton = resources.getString(R.string.no),
                     onResult = {

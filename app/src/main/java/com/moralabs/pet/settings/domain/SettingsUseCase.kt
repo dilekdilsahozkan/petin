@@ -1,9 +1,7 @@
 package com.moralabs.pet.settings.domain
 
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.domain.AuthenticationUseCase
-import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.*
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
@@ -72,11 +70,12 @@ class SettingsUseCase @Inject constructor(
 
     fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Flow<BaseResult<Boolean>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    settingRepository.changePassword(refreshToken, changePassword).body() ?: false
-                )
-            )
+            val change = settingRepository.changePassword(refreshToken, changePassword)
+            if (change.isSuccessful && change.code() == 200) {
+                emit(BaseResult.Success(true))
+            } else {
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+            }
         }
     }
 

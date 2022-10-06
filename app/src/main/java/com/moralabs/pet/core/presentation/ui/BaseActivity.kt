@@ -97,7 +97,7 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
                 binding.root.context,
                 PetWarningDialogType.LOGIN,
                 getString(R.string.register),
-                okey = getString(R.string.ok),
+                okay = getString(R.string.ok),
                 description = getString(R.string.loginNeeded),
                 positiveButton = getString(R.string.login),
                 onResult = {

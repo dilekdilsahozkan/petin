@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:pet="http://schemas.android.com/tools">
+    xmlns:pet="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt" />
@@ -19,48 +21,48 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/scale_16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userPhoto"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            pet:srcWithPlaceholder="@{item.userMedia.url}" />
+
+        <TextView
+            android:id="@+id/notificationText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginStart="@dimen/scale_12dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@{item.text}"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/scale_13dp"
+            app:layout_constraintStart_toEndOf="@id/userPhoto"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userPhoto"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                pet:srcWithPlaceholder="@{item.userMedia.url}" />
+        <TextView
+            android:id="@+id/notificationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/scale_12dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@{DateExtensionKt.toFullDate(item.dateTime, context)}"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/scale_12dp"
+            app:layout_constraintStart_toEndOf="@id/userPhoto"
+            app:layout_constraintTop_toBottomOf="@id/notificationText" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/scale_15dp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/notificationText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@{item.text}"
-                    android:textColor="@color/darkGray"
-                    android:textSize="@dimen/scale_13dp" />
-
-                <TextView
-                    android:id="@+id/notificationTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@{DateExtensionKt.toFullDate(item.dateTime, context)}"
-                    android:textColor="@color/darkGray"
-                    android:textSize="@dimen/scale_12dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/new_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_orange_dot"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/scale_4dp"
+            android:visibility="@{item.isRead == true ? View.GONE : View.VISIBLE}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

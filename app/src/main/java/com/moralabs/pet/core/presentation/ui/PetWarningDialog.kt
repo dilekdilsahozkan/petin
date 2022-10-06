@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.moralabs.pet.R
 import com.moralabs.pet.databinding.UiPetWarningDialogBinding
+import kotlinx.android.synthetic.main.ui_pet_warning_dialog.*
 
 enum class PetWarningDialogType {
     WARNING,
@@ -23,7 +24,7 @@ class PetWarningDialog (
     context: Context,
     type: PetWarningDialogType,
     title: String,
-    okey: String,
+    okay: String,
     description: String,
     onResult: ((result: PetWarningDialogResult) -> Unit)? = null,
     positiveButton: String? = null,
@@ -57,7 +58,7 @@ class PetWarningDialog (
 
         binding.text.text = title
         binding.description.text = description
-        binding.okey.text = okey
+        binding.okay.text = okay
 
         if(title.equals(context.getString(R.string.register))){
             binding.icon.visibility = View.GONE
@@ -65,7 +66,7 @@ class PetWarningDialog (
             binding.icon.visibility = View.VISIBLE
         }
 
-        binding.okey.setOnClickListener{
+        binding.okay.setOnClickListener{
             onResult?.let {
                 onResult(PetWarningDialogResult.OK)
             }
@@ -81,10 +82,9 @@ class PetWarningDialog (
 
         binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
         binding.discard.isVisible = type == PetWarningDialogType.LOGIN
-        binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
 
         positiveButton?.let{
-            binding.okey.text = it
+            binding.okay.text = it
         }
 
         negativeButton?.let{

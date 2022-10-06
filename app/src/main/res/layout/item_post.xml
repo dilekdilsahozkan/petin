@@ -112,7 +112,6 @@
             android:id="@+id/postContentLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userInfoLinear">
@@ -134,7 +133,7 @@
                 android:id="@+id/postImage"
                 style="@style/PetImageView.Round.8"
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/background_image"
                 android:scaleType="centerCrop"
@@ -232,6 +231,7 @@
             android:id="@+id/postContent2Linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userInfoLinear">

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -116,6 +117,7 @@ abstract class BaseFragment<T : ViewDataBinding,
     }
 
     open fun stateError(data: String?) {
+        Toast.makeText(requireContext(), data, Toast.LENGTH_LONG).show()
         stopLoading()
     }
 
@@ -170,7 +172,7 @@ abstract class BaseFragment<T : ViewDataBinding,
                 requireContext(),
                 PetWarningDialogType.LOGIN,
                 getString(R.string.register),
-                okey = getString(R.string.ok),
+                okay = getString(R.string.ok),
                 description = getString(R.string.loginNeeded),
                 positiveButton = getString(R.string.login),
                 onResult = {

@@ -15,7 +15,7 @@ interface SettingRepository {
     suspend fun unBlock(userId: String?): Response<BaseResponse<Nothing>>
     suspend fun editUser(edit: EditUserDto): Response<BaseResponse<UserDto>>
     suspend fun getLikedPosts(): Response<BaseResponse<List<PostDto>>>
-    suspend fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Response<Boolean>
+    suspend fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Response<BaseResponse<Boolean>>
     suspend fun getInfo(infoType: Int): Response<BaseResponse<String>>
     suspend fun deleteAccount(): Response<BaseResponse<Nothing>>
 }

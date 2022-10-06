@@ -178,6 +178,7 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
             override fun onFinish() {
                 binding.secondsLeft.visibility = View.GONE
                 binding.timeUp.visibility = View.VISIBLE
+                binding.buttonContinue.visibility = View.GONE
             }
         }
         timer.start()

@@ -21,22 +21,27 @@ class SettingsViewModel @Inject constructor(
     private val useCase: SettingsUseCase
 ) : BaseViewModel<UserDto>(useCase) {
 
-    private var _stateBlocked: MutableStateFlow<ViewState<List<BlockedDto>>> = MutableStateFlow(ViewState.Idle())
+    private var _stateBlocked: MutableStateFlow<ViewState<List<BlockedDto>>> =
+        MutableStateFlow(ViewState.Idle())
     val stateBlocked: StateFlow<ViewState<List<BlockedDto>>> = _stateBlocked
 
-    private var _stateUnBlocked: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _stateUnBlocked: MutableStateFlow<ViewState<Boolean>> =
+        MutableStateFlow(ViewState.Idle())
     val stateUnBlocked: StateFlow<ViewState<Boolean>> = _stateUnBlocked
 
-    private var _stateLiked: MutableStateFlow<ViewState<List<PostDto>>> = MutableStateFlow(ViewState.Idle())
+    private var _stateLiked: MutableStateFlow<ViewState<List<PostDto>>> =
+        MutableStateFlow(ViewState.Idle())
     val stateLiked: StateFlow<ViewState<List<PostDto>>> = _stateLiked
 
-    private var _stateChangePW: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _stateChangePW: MutableStateFlow<ViewState<Boolean>> =
+        MutableStateFlow(ViewState.Idle())
     val stateChangePW: StateFlow<ViewState<Boolean>> = _stateChangePW
 
     private var _stateInfo: MutableStateFlow<ViewState<String>> = MutableStateFlow(ViewState.Idle())
     val stateInfo: StateFlow<ViewState<String>> = _stateInfo
 
-    private var _stateDeleteAccount: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _stateDeleteAccount: MutableStateFlow<ViewState<Boolean>> =
+        MutableStateFlow(ViewState.Idle())
     val stateDeleteAccount: StateFlow<ViewState<Boolean>> = _stateDeleteAccount
 
     fun logout() {
@@ -147,8 +152,15 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _stateChangePW.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _stateChangePW.value = ViewState.Idle()
+                            _stateChangePW.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateChangePW.value = ViewState.Error()
+                        }
                     }
                 }
         }

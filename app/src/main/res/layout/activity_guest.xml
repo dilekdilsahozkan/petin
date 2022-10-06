@@ -43,6 +43,7 @@
             app:navGraph="@navigation/guest_navigation" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/appBarGuest"
             style="@style/com.moralabs.pet.style.BottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

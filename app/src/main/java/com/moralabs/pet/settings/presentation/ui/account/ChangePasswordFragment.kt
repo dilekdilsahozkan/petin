@@ -1,8 +1,11 @@
 package com.moralabs.pet.settings.presentation.ui.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
@@ -10,11 +13,15 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentChangePasswordBinding
 import com.moralabs.pet.profile.data.remote.dto.UserDto
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserDto, SettingsViewModel>() {
@@ -65,5 +72,35 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
                 )
             )
         }
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+
+        lifecycleScope.launch {
+            viewModel.stateInfo.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<String> -> {
+                        startActivity(Intent(context, ProfileActivity::class.java))
+                        stopLoading()
+                    }
+                    is ViewState.Error<*> -> {
+                        stopLoading()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun stateError(data: String?) {
+        super.stateError(data)
+        Toast.makeText(
+            requireContext(),
+            "ajskdhjkasdhas",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

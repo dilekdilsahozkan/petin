@@ -9,6 +9,7 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.domain.NewPostUseCase
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
+import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -23,6 +24,8 @@ class NewPostViewModel @Inject constructor(
 
     var files: MutableLiveData<MutableList<File>> = MutableLiveData(mutableListOf())
     var locationId: String? = null
+    var allData: List<PetDto>? = null
+    var selectedPet: MutableLiveData<List<PetDto>?> = MutableLiveData()
 
     protected var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())
     val getUser: StateFlow<ViewState<UserDto>> = _userInfo

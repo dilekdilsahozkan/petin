@@ -25,7 +25,6 @@ import com.moralabs.pet.petProfile.presentation.model.AttributeUiDto
 import com.moralabs.pet.petProfile.presentation.model.AttributeUiType
 import com.moralabs.pet.petProfile.presentation.viewmodel.AddEditPetViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.item_add_pet_attribute.*
 import java.io.File
 
 @AndroidEntryPoint
@@ -33,6 +32,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
 
     override fun getLayoutId() = R.layout.fragment_add_pet
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+    private var isNewPhoto : Boolean = false
 
     private val pet by lazy {
         activity?.intent?.getParcelableExtra<PetDto>(AddEditPetActivity.BUNDLE_PET)
@@ -81,7 +81,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                 pet?.let { petDto ->
                     viewModel.updatePet(
                         petDto,
-                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) },
+                        if(isNewPhoto) petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) } else  null,
                         petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
                         petAdapter.currentList.filter { it.uiType == AttributeUiType.ATTRIBUTE || it.uiType == AttributeUiType.ATTRIBUTE_LIST }
                             .map {
@@ -276,7 +276,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
             file.parentFile.mkdirs()
 
         currentPhotoFile = file
-
+        isNewPhoto = true
         return FileProvider.getUriForFile(
             requireContext(),
             context?.packageName + ".fileprovider",
