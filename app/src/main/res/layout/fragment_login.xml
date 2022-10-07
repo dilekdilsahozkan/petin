@@ -53,8 +53,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:text="noyan.kabakci@moralabs.com"
-                    android:textSize="15dp"
+                    android:text="seda.sahin@moralabs.com"
+                    android:textSize="@dimen/scale_15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/email_title"
                     app:layout_constraintTop_toBottomOf="@id/email_title" />
@@ -67,7 +67,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/password"
                     android:textColor="@color/darkSecondary"
-                    android:textSize="13dp"
+                    android:textSize="@dimen/scale_13dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/email_edittext" />
@@ -91,8 +91,8 @@
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:padding="10dp"
-                        android:text="Noyan123"
-                        android:textSize="15dp" />
+                        android:text="Seda1111."
+                        android:textSize="@dimen/scale_15dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

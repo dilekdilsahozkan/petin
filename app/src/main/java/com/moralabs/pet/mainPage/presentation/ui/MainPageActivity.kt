@@ -3,6 +3,9 @@ package com.moralabs.pet.mainPage.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -15,6 +18,7 @@ import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetFragment
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
+import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,14 +26,40 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
     override fun getLayoutId() = R.layout.activity_main_page
+    var viewModel: NotificationViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[NotificationViewModel::class.java]
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_main_page) as NavHostFragment
 
         binding.dashboardNavigation.setupWithNavController(navHostFragment.navController)
+
+      val badge = binding.dashboardNavigation.getOrCreateBadge(R.id.notification)
+        val badgeDrawable = binding.dashboardNavigation.getBadge(R.id.notification)
+
+        badgeDrawable?.isVisible = true
+        badge.backgroundColor = getColor(R.color.mainColor)
+        badge.isVisible = true
+      //  badge.verticalOffset = 20
+      //  badge.horizontalOffset = 15
+
+         /* itemCount.observe(this) { productCount ->
+            if (productCount > 0) {
+                binding.dashboardNavigation.getOrCreateBadge(R.id.notification).apply {
+                    isVisible = true
+                    number = productCount
+                }
+            } else {
+                binding.dashboardNavigation.getBadge(R.id.notification)?.apply {
+                    isVisible = false
+                    clearNumber()
+                }
+            }
+        }*/
 
         setSupportActionBar(binding.appBar)
         setupActionBarWithNavController(
