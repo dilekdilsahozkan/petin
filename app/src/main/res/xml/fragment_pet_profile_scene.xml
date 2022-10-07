@@ -77,7 +77,10 @@
 
         </KeyFrameSet>
 
-        <OnSwipe app:touchAnchorSide="bottom" />
+
+        <OnSwipe app:touchAnchorId="@+id/petDetailLayout"
+            app:touchAnchorSide="top"
+            app:dragDirection="dragUp"/>
 
     </Transition>
 
