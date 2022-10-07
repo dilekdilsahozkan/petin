@@ -2,17 +2,13 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
@@ -23,7 +19,6 @@ import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),

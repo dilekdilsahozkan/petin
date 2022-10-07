@@ -114,7 +114,7 @@ class PostListAdapter(
             binding.location.text = post.content?.location?.city.toString()
 
             binding.petName.text = post.content?.pet?.name
-            binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 7 }?.getOrNull(0)?.choice
+            binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 6 }?.getOrNull(0)?.choice
             binding.petLocation.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
             binding.petGender.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
 

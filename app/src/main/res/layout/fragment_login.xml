@@ -53,7 +53,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:text="seda.sahin@moralabs.com"
+                    android:text="noyan.kabakci@moralabs.com"
                     android:textSize="@dimen/scale_15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/email_title"
@@ -91,7 +91,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:padding="10dp"
-                        android:text="Seda1111."
+                        android:text="Noyan123"
                         android:textSize="@dimen/scale_15dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>

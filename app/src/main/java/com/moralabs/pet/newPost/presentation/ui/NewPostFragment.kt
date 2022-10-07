@@ -73,7 +73,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
             petCardAdapter.currentList.forEach { pet ->
                 pet.selected = pet == selected
             }
-            viewModel.selectedPet.postValue(viewModel.allData?.filter { it.selected })
+            petCardAdapter.notifyDataSetChanged()
         })
     }
 
@@ -191,9 +191,9 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
     override fun addObservers() {
         super.addObservers()
 
-        viewModel.selectedPet.observe(viewLifecycleOwner) {
+      /*  viewModel.selectedPet.observe(viewLifecycleOwner) {
             petCardAdapter.submitList(it)
-        }
+        }*/
 
         (viewModel as? NewPostViewModel)?.files?.observe(viewLifecycleOwner) {
 
