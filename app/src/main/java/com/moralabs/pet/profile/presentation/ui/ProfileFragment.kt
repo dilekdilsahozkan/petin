@@ -20,7 +20,6 @@ import com.moralabs.pet.databinding.FragmentProfileBinding
 import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetFragment
 import com.moralabs.pet.profile.data.remote.dto.UserDto
-import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 import com.moralabs.pet.settings.presentation.ui.SettingsActivity
@@ -40,8 +39,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
     private var userInfo: UserDto? = null
-    private var isUserBlocked: Boolean = false
-
 
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: ProfileViewModel by viewModels()
@@ -57,7 +54,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                 userInfo?.let { user ->
                     OtherUserActionBottomSheetFragment(
                         user.isUserFollowed,
-                        isUserBlocked,
+                        user.isBlocked,
                         this@ProfileFragment,
                         this@ProfileFragment
                     ).show(this.parentFragmentManager, "OtherUserActionBottomSheetFragment")
@@ -66,11 +63,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         }
 
         binding.followedLinear.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_profile_to_followedFragment)
+            if (otherUserId.isNullOrBlank()) {
+                findNavController().navigate(R.id.action_fragment_profile_to_followedFragment)
+            }
         }
 
         binding.followerLinear.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
+            if (otherUserId.isNullOrBlank()) {
+                findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
+            }
         }
 
         binding.imgBack.setOnClickListener {
@@ -99,21 +100,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.userFullName.text = data.fullName.toString()
         binding.username.text = data.userName.toString()
         binding.toolbarUsername.text = data.userName.toString()
-        if (data.isUserBlockedByUser != true) {
-            binding.totalPost.text = data.postCount.toString()
-            if (data.postCount == null) {
-                binding.totalPost.text = getString(R.string.zero)
-            }
-            binding.followers.text = data.followerCount.toString()
-            binding.following.text = data.followedCount.toString()
-            binding.userPhoto.loadImageWithPlaceholder(data.media?.url)
+        if (data.isUserBlockedByUser == true) {
+            otherUserBlockedUI()
+        } else if (data.isBlocked == true) {
+            blockedUserUI()
         } else {
-            binding.userSocialInfo.visibility = View.GONE
-            binding.imgMenu.visibility = View.GONE
-            binding.blockMessage.visibility = View.VISIBLE
-            Glide.with(this)
-                .load(R.drawable.ic_error_profile)
-                .into(binding.userPhoto)
+            setProfileUI(data)
         }
     }
 
@@ -147,27 +139,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     is ViewState.Success<Boolean> -> {
                         if (it.data) {
                             getUserInfo()
-                        }
-                    }
-                    is ViewState.Error<*> -> {
-                        stopLoading()
-                    }
-                    else -> {}
-                }
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.blockedListState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<List<UserInfoDto>> -> {
-                        isUserBlocked = false
-                        it.data.forEach {
-                            if (it.userId == otherUserId) {
-                                isUserBlocked = true
-                            }
                         }
                     }
                     is ViewState.Error<*> -> {
@@ -226,13 +197,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     }
 
     private fun getUserInfo() {
-        if (!otherUserId.isNullOrBlank()) {
+        if (otherUserId.isNullOrBlank().not()) {
             viewModel.otherUsersInfo(otherUserId)
         } else {
             viewModel.userInfo()
             binding.imgBack.visibility = View.GONE
         }
-        viewModel.getBlockedList()
     }
 
     override fun onBlockUnblockItemClick(isUserBlocked: Boolean?) {
@@ -277,5 +247,37 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                 viewModel.followUser(otherUserId)
             }
         }
+    }
+
+    private fun setProfileUI(data: UserDto) {
+        binding.userSocialInfo.visibility = View.VISIBLE
+        if(otherUserId.isNullOrBlank().not() && binding.viewpager.adapter == null) {
+            binding.viewpager.adapter = viewPagerAdapter
+            viewPagerAdapter.notifyDataSetChanged()
+        }
+        binding.totalPost.text = data.postCount.toString()
+        if (data.postCount == null) {
+            binding.totalPost.text = getString(R.string.zero)
+        }
+        binding.followers.text = data.followerCount.toString()
+        binding.following.text = data.followedCount.toString()
+        binding.userPhoto.loadImageWithPlaceholder(data.media?.url)
+    }
+
+    private fun otherUserBlockedUI() {
+        binding.userSocialInfo.visibility = View.GONE
+        binding.imgMenu.visibility = View.GONE
+        binding.blockMessage.visibility = View.VISIBLE
+        Glide.with(this)
+            .load(R.drawable.ic_error_profile)
+            .into(binding.userPhoto)
+    }
+
+    private fun blockedUserUI() {
+        binding.userSocialInfo.visibility = View.GONE
+        binding.viewpager.adapter = null
+        Glide.with(this)
+            .load(R.drawable.ic_error_profile)
+            .into(binding.userPhoto)
     }
 }

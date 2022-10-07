@@ -1,6 +1,7 @@
 package com.moralabs.pet.settings.data.remote.dto
 
 import com.moralabs.pet.core.data.remote.dto.BaseDto
+import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 
 data class BlockedDto(
     val userId: String? = null,
@@ -16,6 +17,7 @@ data class Media(
 ) : BaseDto()
 
 data class EditUserDto(
+    var media: List<MediaDto>? = null,
     val userName: String? = null,
     val fullName: String? = null,
     val email: String? = null,

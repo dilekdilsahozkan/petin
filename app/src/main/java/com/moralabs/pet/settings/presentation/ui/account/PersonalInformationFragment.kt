@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.loadImage
+import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPersonalInformationBinding
 import com.moralabs.pet.profile.data.remote.dto.UserDto
@@ -47,6 +48,6 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
         binding.usernameEdit.text = data.userName.toString()
         binding.fullNameEdit.text = data.fullName.toString()
         binding.phoneNumberEdit.text = data.phoneNumber.toString()
-        binding.userImage.loadImage(data.media?.url)
+        binding.userImage.loadImageWithPlaceholder(data.media?.url)
     }
 }

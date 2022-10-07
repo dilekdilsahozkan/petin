@@ -19,5 +19,6 @@ data class UserDto(
     val postCount: Int? = null,
     val pageIndex: Int? = null,
     val isUserFollowed: Boolean? = null,
-    val isUserBlockedByUser: Boolean? = null
+    val isUserBlockedByUser: Boolean? = null,
+    val isBlocked: Boolean? = null
 ) : BaseDto(), Parcelable

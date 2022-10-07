@@ -14,6 +14,7 @@ import com.moralabs.pet.settings.domain.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -66,9 +67,9 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun editUser(edit: EditUserDto) {
+    fun editUser(name: String?, phoneNumber: String?, file: File?) {
         viewModelScope.launch {
-            useCase.editUser(edit)
+            useCase.editUser(name, phoneNumber, file)
                 .onStart {
                     _state.value = ViewState.Loading()
                 }
