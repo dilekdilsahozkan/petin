@@ -146,21 +146,20 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.changePassword(refreshToken, changePassword)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    _stateChangePW.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
+                    _stateChangePW.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _state.value = ViewState.Idle()
                             _stateChangePW.value = ViewState.Idle()
                             _stateChangePW.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
-                            _stateChangePW.value = ViewState.Error()
+                            _stateChangePW.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }
