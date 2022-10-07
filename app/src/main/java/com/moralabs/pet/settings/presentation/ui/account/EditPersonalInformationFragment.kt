@@ -8,8 +8,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.view.KeyEvent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
@@ -29,6 +34,13 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     private var newProfilePictureUrl: String? = null
+
+    var phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+    var defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+    var indices = mutableListOf<Int>()
+    var index = 0
+    var oldIndex = -1
+
 
 
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
@@ -77,6 +89,81 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
         binding.editImage.setOnClickListener {
             permissionResultLauncher.launch(permissions)
         }
+
+        index = 0
+        indices.clear()
+        defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+        phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+        if (index == 0)
+            phoneList.forEachIndexed { i, e -> if (e is Int || e == "_") indices.add(i) }
+
+        var span = SpannableString(phoneList.joinToString(""))
+        span.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+            indices[index] + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.phoneNumberEdit.setText(span)
+        index = -1
+        oldIndex = index
+
+        binding.phoneNumberEdit.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (event.action != KeyEvent.ACTION_DOWN)
+                return@OnKeyListener true
+            if (keyCode == KeyEvent.KEYCODE_DEL) {
+                if (index == -1){
+                    var span = SpannableString(phoneList.joinToString(""))
+                    span.setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                        0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    binding.phoneNumberEdit.setText(span)
+                    binding.phoneNumberEdit.setSelection(indices[0])
+                    return@OnKeyListener true
+                }else{
+                    phoneList[indices[index]] = defaultList[indices[index]]
+                    index--
+                    var span = SpannableString(phoneList.joinToString(""))
+                    if(index>-1){
+                        span.setSpan(
+                            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                            indices[index] + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        binding.phoneNumberEdit.setText(span)
+                        binding.phoneNumberEdit.setSelection(indices[index]+1)
+                    }else{
+                        span.setSpan(
+                            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                            0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        binding.phoneNumberEdit.setText(span)
+                        binding.phoneNumberEdit.setSelection(indices[0])
+                    }
+
+                    oldIndex = index
+                }
+
+                return@OnKeyListener true
+            }
+            else if (keyCode in 7..16) {
+                if (index == indices.size - 1) return@OnKeyListener true
+                index++
+                phoneList[indices[index]] = keyCode - 7
+                var span = SpannableString(phoneList.joinToString(""))
+                span.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                    indices[index] + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                binding.phoneNumberEdit.setText(span)
+
+                if(index+1<indices.size)
+                    binding.phoneNumberEdit.setSelection(indices[index+1])
+                else
+                    binding.phoneNumberEdit.setSelection(indices[index]+1)
+
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     // PHOTO AREA

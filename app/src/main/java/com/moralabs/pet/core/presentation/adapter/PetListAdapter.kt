@@ -14,29 +14,22 @@ import com.moralabs.pet.core.data.remote.dto.SimpleDto
 import com.moralabs.pet.databinding.UiItemBaseListEmptyBinding
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 
-class BaseListAdapter<Dto, Binding : ViewDataBinding>(
+class PetListAdapter<Dto, Binding : ViewDataBinding>(
     private val layoutId: Int,
     private val modelId: Int? = null,
     private val onRowClick: ((result: Dto) -> Unit)? = null,
-    private val isSameDto: ((oldItem: Dto, newItem: Dto) -> Boolean)? = null,
     private val emptyString: String? = null
 ) :
-    ListAdapter<Dto, BaseListAdapter.ViewHolder<Binding>>(object :
+    ListAdapter<Dto, PetListAdapter.ViewHolder<Binding>>(object :
         DiffUtil.ItemCallback<Dto>() {
 
         override fun areItemsTheSame(oldItem: Dto, newItem: Dto): Boolean {
-            isSameDto?.let {
-                return it(oldItem, newItem)
-            }
-            return false
+            return oldItem == newItem
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Dto, newItem: Dto): Boolean {
-            if(oldItem is PetDto){
-                return (oldItem as PetDto).selected == (newItem as PetDto).selected
-            }
-            return oldItem == newItem
+            return (oldItem as PetDto).selected == (newItem as PetDto).selected
         }
     }) {
 
@@ -83,17 +76,17 @@ class BaseListAdapter<Dto, Binding : ViewDataBinding>(
 
     sealed class ViewHolder<Binding : ViewDataBinding>(
         binding: Binding,
-        listAdapter: BaseListAdapter<*, *>
+        listAdapter: PetListAdapter<*, *>
     ) :
         RecyclerView.ViewHolder(binding.root) {
         class DtoViewHolder<Binding : ViewDataBinding>(
             val binding: Binding,
-            listAdapter: BaseListAdapter<*, *>
+            listAdapter: PetListAdapter<*, *>
         ) : ViewHolder<Binding>(binding, listAdapter)
 
         class EmptyViewHolder<Binding : ViewDataBinding>(
             val binding: UiItemBaseListEmptyBinding,
-            listAdapter: BaseListAdapter<*, *>
+            listAdapter: PetListAdapter<*, *>
         ) :
             ViewHolder<Binding>(binding as Binding, listAdapter)
 

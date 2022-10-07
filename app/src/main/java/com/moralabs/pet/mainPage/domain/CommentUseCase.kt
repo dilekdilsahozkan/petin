@@ -1,6 +1,7 @@
 package com.moralabs.pet.mainPage.domain
 
 import com.moralabs.pet.core.data.remote.dto.CommentDto
+import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.mainPage.data.remote.dto.CommentRequestDto
@@ -33,6 +34,15 @@ class CommentUseCase @Inject constructor(
                  )
              }
 
+        }
+    }
+    fun deleteComment(commentId: String?): Flow<BaseResult<Boolean>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    commentRepository.deleteComment(commentId).isSuccessful
+                )
+            )
         }
     }
 }

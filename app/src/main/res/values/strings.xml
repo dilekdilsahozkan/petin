@@ -38,7 +38,7 @@
     <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
     <string name="wrongLogin">Yanlış email ya da parola</string>
     <string name="chooseType">Gönderi tipinizi seçiniz</string>
-    <string name="post">Post</string>
+    <string name="post">Paylaşım</string>
     <string name="qna">Soru - Cevap</string>
     <string name="findPartner">Arkadaş Bulma</string>
     <string name="adoption">Sahiplendirme</string>
@@ -70,7 +70,7 @@
     <string name="changePhoto">Fotoğrafınzı Değiştiriniz</string>
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
-    <string name="deletePost">Gönderiyi Kaldır</string>
+    <string name="deletePost">Sil</string>
 
     <!-- Settings -->
 
@@ -110,8 +110,10 @@
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
     <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>
+    <string name="error_comment_delete">Yorumunuz silinirken bir sorun oluştu</string>
     <string name="add_pet_required">Lütfen gerekli yerleri girdiğinize ve fotoğraf eklediğinize emin olun.</string>
     <string name="pet_delete">Evcil hayvanınızın profili başarıyla sildiniz</string>
+    <string name="comment_delete">Yorumunuz başarıyla silindi</string>
     <string name="add_text">Açıklama eklemeden paylaşımda bulanamazsınız.</string>
     <string name="no_user">Kullanıcı bulunamamıştır.</string>
     <string name="choose_pet">Evcil hayvan seçmeden paylaşımda bulanamazsınız.</string>
@@ -143,6 +145,7 @@
     <string name="ask_sure">Emin misiniz?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
+    <string name="delete_comment_warning">Yorumu silmek istediğinize emin misin?</string>
     <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
 
     <!-- OtherUserActionBottomSheet -->

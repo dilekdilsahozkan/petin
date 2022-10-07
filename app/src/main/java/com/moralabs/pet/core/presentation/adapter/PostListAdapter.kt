@@ -5,9 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -101,7 +98,6 @@ class PostListAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(post: PostDto) {
-
             binding.username.text = post.user?.userName.toString()
             binding.userPhoto.loadImageWithPlaceholder(post.user?.media?.url)
             binding.postText.text = post.content?.text.toString()

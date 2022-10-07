@@ -8,4 +8,5 @@ import retrofit2.Response
 interface CommentRepository {
     suspend fun writeComment(postId: String?, writeNewComment: CommentRequestDto): Response<BaseResponse<CommentDto>>
     suspend fun getComment(postId: String?): Response<BaseResponse<CommentDto>>
+    suspend fun deleteComment(postId: String?): Response<BaseResponse<Nothing>>
 }

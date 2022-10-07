@@ -18,4 +18,7 @@ interface CommentService {
         @Path("postId") postId: String?,
         @Body writeNewComment: CommentRequestDto
     ): Response<BaseResponse<CommentDto>>
+
+    @DELETE("/feed/comment/{commentId}")
+    suspend fun deletePost(@Path("commentId") commentId: String?): Response<BaseResponse<Nothing>>
 }

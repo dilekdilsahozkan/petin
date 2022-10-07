@@ -12,4 +12,5 @@ class CommentRepositoryImpl @Inject constructor(private val service: CommentServ
     CommentRepository, BaseRepository {
     override suspend fun writeComment(postId: String?, writeNewComment: CommentRequestDto): Response<BaseResponse<CommentDto>> = service.writeComment(postId, writeNewComment)
     override suspend fun getComment(postId: String?): Response<BaseResponse<CommentDto>> = service.getComments(postId)
+    override suspend fun deleteComment(commentId: String?): Response<BaseResponse<Nothing>> = service.deletePost(commentId)
 }

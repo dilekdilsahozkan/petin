@@ -109,6 +109,7 @@
             android:layout_marginEnd="@dimen/scale_16dp"
             android:text="0/255"
             android:textSize="@dimen/scale_10dp"
+            android:textColor="@color/darkGray"
             android:layout_gravity="bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tl_explanation"/>

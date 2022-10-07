@@ -12,7 +12,9 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -20,9 +22,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.BR
+import com.moralabs.pet.core.presentation.adapter.PetListAdapter
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
-import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
@@ -34,11 +36,8 @@ import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
-import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
-import com.moralabs.pet.petProfile.presentation.model.AttributeUiDto
-import com.moralabs.pet.petProfile.presentation.model.AttributeUiType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -52,6 +51,8 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         activity?.intent?.getIntExtra(NewPostActivity.BUNDLE_CHOOSE_TYPE, 0)
     }
 
+    val MAX_CHAR_NUMBER = 255
+
     private var currentPhotoFile: File? = null
 
     private val permissions = arrayOf(
@@ -59,6 +60,8 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+
+    var list = mutableListOf<PetDto>()
 
     override fun getLayoutId() = R.layout.fragment_new_post
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -68,12 +71,17 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         return viewModel
     }
 
-    private val petCardAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
-        BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = { selected ->
-            petCardAdapter.currentList.forEach { pet ->
-                pet.selected = pet == selected
+    private val petCardAdapter: PetListAdapter<PetDto, ItemPetCardBinding> by lazy {
+        PetListAdapter(R.layout.item_pet_card, BR.item, onRowClick = { selected ->
+
+            var a = mutableListOf<PetDto>()
+            viewModel.petList.forEach { pet ->
+                a.add(pet.copy())
             }
-            petCardAdapter.notifyDataSetChanged()
+            a.forEach {
+                it.selected = it.id == selected.id
+            }
+            petCardAdapter.submitList(a)
         })
     }
 
@@ -110,6 +118,19 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
             binding.deleteImage.visibility = View.GONE
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(
+            "fragment_location"
+        ) { _, result ->
+            binding.location.text = result.getString("location")
+            binding.location.visibility = View.VISIBLE
+
+            viewModel.locationId = result.getString("locationId")
         }
     }
 
@@ -173,27 +194,27 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         binding.galleryIcon.setOnClickListener {
             permissionResultLauncher.launch(permissions)
         }
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        binding.explanationText.doAfterTextChanged {
+            binding.inputViewCounter.text = "${it?.length}/${MAX_CHAR_NUMBER}"
 
-        setFragmentResultListener(
-            "fragment_location"
-        ) { _, result ->
-            binding.location.text = result.getString("location")
-            binding.location.visibility = View.VISIBLE
-
-            viewModel.locationId = result.getString("locationId")
+            if(it?.length == MAX_CHAR_NUMBER){
+                binding.inputViewCounter.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainColor))
+            }else{
+                binding.inputViewCounter.setTextColor(R.color.darkGray)
+            }
         }
     }
 
     override fun addObservers() {
         super.addObservers()
 
-      /*  viewModel.selectedPet.observe(viewLifecycleOwner) {
-            petCardAdapter.submitList(it)
-        }*/
+        viewModel.selectedPet.observe(viewLifecycleOwner) {
+            it?.let { list ->
+                (viewModel as? NewPostViewModel)?.petList = list.toMutableList()
+            }
+            petCardAdapter.submitList(viewModel.petList)
+        }
 
         (viewModel as? NewPostViewModel)?.files?.observe(viewLifecycleOwner) {
 
@@ -225,7 +246,12 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         } else {
             binding.addPetText.visibility = View.GONE
         }
-        petCardAdapter.submitList(data.getValue)
+
+        data.getValue?.let { list ->
+            (viewModel as? NewPostViewModel)?.petList = list.toMutableList()
+        }
+
+        petCardAdapter.submitList(viewModel.petList)
     }
 
     private val permissionResultLauncher =
