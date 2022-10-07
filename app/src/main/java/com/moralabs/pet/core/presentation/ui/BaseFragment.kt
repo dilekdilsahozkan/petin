@@ -3,7 +3,6 @@ package com.moralabs.pet.core.presentation.ui
 import android.app.Activity
 import android.content.ContextWrapper
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +10,20 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.domain.AuthenticationUseCase
+import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
-import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.notification.domain.NotificationUseCase
 import com.moralabs.pet.onboarding.presentation.ui.login.LoginAction
 import com.moralabs.pet.onboarding.presentation.ui.login.LoginResultContract
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class BaseFragment<T : ViewDataBinding,
@@ -73,7 +73,6 @@ abstract class BaseFragment<T : ViewDataBinding,
                     }
                     is ViewState.Idle<U> -> stopLoading()
                     is ViewState.Loading<U> -> startLoading()
-                    else -> {}
                 }
             }
         }
@@ -157,7 +156,6 @@ abstract class BaseFragment<T : ViewDataBinding,
         )
         { result ->
             when (result) {
-
                 else -> {}
             }
         }
@@ -165,9 +163,7 @@ abstract class BaseFragment<T : ViewDataBinding,
     fun loginIfNeeded(
         action: LoginAction,
     ) {
-        if (authenticationUseCase.isLoggedIn()) {
-            action.invoke()
-        } else {
+        if (authenticationUseCase.isGuest()) {
             PetWarningDialog(
                 requireContext(),
                 PetWarningDialogType.LOGIN,
@@ -180,6 +176,8 @@ abstract class BaseFragment<T : ViewDataBinding,
                         loginResultLauncher.launch(action)
                     }
                 }).show()
+        } else {
+            action.invoke()
         }
     }
 }

@@ -161,4 +161,9 @@
     <string name="newPassword">Yeni Parolanızı Giriniz</string>
     <string name="secondsLeft">saniye kaldı</string>
 
+    <!-- TUTORIAL -->
+    <string name="tutorial_1">Petin şöyle bir uygulama bla bla</string>
+    <string name="tutorial_2">Petin diğerlerinden farklı bla bla </string>
+    <string name="tutorial_3">Petin sizin işinize çok yarar bla bla</string>
+
 </resources>

@@ -89,10 +89,8 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
 
     fun loginIfNeeded(
         action: LoginAction,
-    ) {
-        if (authenticationUseCase.isLoggedIn()) {
-            action.invoke()
-        } else {
+    ): Boolean {
+        if (authenticationUseCase.isGuest()) {
             PetWarningDialog(
                 binding.root.context,
                 PetWarningDialogType.LOGIN,
@@ -105,6 +103,11 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
                         loginResultLauncher.launch(action)
                     }
                 }).show()
+
+            return false
+        } else {
+            action.invoke()
+            return true
         }
     }
 }

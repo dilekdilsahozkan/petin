@@ -7,11 +7,7 @@ class AuthenticationUseCase @Inject constructor(
     private val authenticationRepository: AuthenticationRepository
 ) : BaseUseCase() {
 
-    fun isLoggedIn(): Boolean {
-        return authenticationRepository.isLoggedIn()
-    }
-
-    fun logout(){
-        authenticationRepository.logout()
-    }
+    fun isLoggedIn() = authenticationRepository.isLoggedIn()
+    fun isGuest() = authenticationRepository.isGuest()
+    fun logout() = authenticationRepository.logout()
 }

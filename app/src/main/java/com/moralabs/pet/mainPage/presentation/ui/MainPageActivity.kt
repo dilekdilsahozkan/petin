@@ -2,12 +2,15 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.moralabs.pet.R
@@ -21,12 +24,15 @@ import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
     override fun getLayoutId() = R.layout.activity_main_page
     var viewModel: NotificationViewModel? = null
+
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +42,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_main_page) as NavHostFragment
 
-        binding.dashboardNavigation.setupWithNavController(navHostFragment.navController)
+        navController = navHostFragment.navController
 
       val badge = binding.dashboardNavigation.getOrCreateBadge(R.id.notification)
         val badgeDrawable = binding.dashboardNavigation.getBadge(R.id.notification)
@@ -78,9 +84,21 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
 
     private fun addListeners() {
         binding.addPostButton.setOnClickListener {
-            ChooseTypeBottomSheetFragment(
-                this@MainPageActivity
-            ).show(supportFragmentManager, "")
+            loginIfNeeded {
+                ChooseTypeBottomSheetFragment(
+                    this@MainPageActivity
+                ).show(supportFragmentManager, "")
+            }
+        }
+
+        binding.dashboardNavigation.setOnItemSelectedListener {
+            val result = loginIfNeeded {}
+
+            if (result) {
+                NavigationUI.onNavDestinationSelected(it, navController)
+            }
+
+            result
         }
     }
 

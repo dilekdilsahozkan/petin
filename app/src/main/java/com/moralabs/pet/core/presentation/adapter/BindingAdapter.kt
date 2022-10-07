@@ -12,6 +12,7 @@ fun ImageView.loadImage(src: String?) {
     Glide.with(context).clear(this)
 
     Glide.with(context).load(src)
+        .centerCrop()
         .into(this)
 }
 

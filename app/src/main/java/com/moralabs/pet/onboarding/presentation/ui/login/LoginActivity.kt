@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.core.os.bundleOf
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityLoginBinding
 import com.moralabs.pet.onboarding.data.remote.dto.NewPasswordDto
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.parcel.Parcelize
 
 typealias LoginAction = (() -> Unit)
 
@@ -22,6 +24,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(),
 
     companion object {
         const val RESULT_LOGIN = "loginResult"
+        const val BUNDLE_ACTION = "FROM_LOGIN"
     }
 
     private var newPassword: NewPasswordDto = NewPasswordDto()
@@ -40,7 +43,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(),
         setSupportActionBar(binding.appBar)
     }
 
-    fun getPassword() : NewPasswordDto{
+    fun getPassword(): NewPasswordDto {
         return newPassword
     }
 }
@@ -52,7 +55,7 @@ class LoginResultContract : ActivityResultContract<LoginAction, LoginResult>() {
     override fun createIntent(context: Context, action: LoginAction): Intent {
         this.action = action
 
-        return Intent(context, LoginActivity::class.java)
+        return Intent(context, LoginActivity::class.java).apply { putExtras(bundleOf(LoginActivity.BUNDLE_ACTION to true)) }
     }
 
     override fun parseResult(resultCode: Int, result: Intent?): LoginResult {
@@ -70,28 +73,7 @@ class LoginResultContract : ActivityResultContract<LoginAction, LoginResult>() {
     }
 }
 
-enum class LoginResult(val id: Int) : Parcelable {
-
-    LOGIN_OK(0),
-    LOGIN_CANCELED(2);
-
-    constructor(parcel: Parcel) : this(parcel.readInt())
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<LoginResult> {
-        override fun createFromParcel(parcel: Parcel): LoginResult {
-            return values()[parcel.readInt()]
-        }
-
-        override fun newArray(size: Int): Array<LoginResult?> {
-            return arrayOfNulls(size)
-        }
-    }
+@Parcelize
+enum class LoginResult : Parcelable {
+    LOGIN_OK, LOGIN_CANCELED
 }

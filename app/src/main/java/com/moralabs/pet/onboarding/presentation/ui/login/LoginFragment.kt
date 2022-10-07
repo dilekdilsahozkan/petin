@@ -1,11 +1,13 @@
 package com.moralabs.pet.onboarding.presentation.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.R
 import androidx.navigation.fragment.findNavController
@@ -17,6 +19,7 @@ import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
 import com.moralabs.pet.onboarding.presentation.ui.register.RegisterActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +27,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
 
     override fun getLayoutId() = R.layout.fragment_login
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+
+    private val isFromAction by lazy {
+        activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
+    }
 
     override fun fragmentViewModel(): BaseViewModel<LoginDto> {
         val viewModel: LoginViewModel by viewModels()
@@ -48,7 +55,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
 
     override fun stateSuccess(data: LoginDto) {
         super.stateSuccess(data)
-        startActivity(Intent(context, MainPageActivity::class.java))
+
+        if (isFromAction) {
+            activity?.setResult(
+                Activity.RESULT_OK,
+                Intent().run { putExtras(bundleOf(LoginActivity.RESULT_LOGIN to LoginResult.LOGIN_OK)) })
+            activity?.finish()
+        } else {
+            startActivity(Intent(context, MainPageActivity::class.java))
+        }
     }
 
     override fun stateError(data: String?) {
