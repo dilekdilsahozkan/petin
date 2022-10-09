@@ -78,23 +78,26 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
         super.addObservers()
 
         lifecycleScope.launch {
-            viewModel.stateInfo.collect {
+            viewModel.stateChangePW.collect {
                 when (it) {
                     is ViewState.Loading -> {
                         startLoading()
                     }
-                    is ViewState.Success<String> -> {
+                    is ViewState.Success<*> -> {
                         startActivity(Intent(context, ProfileActivity::class.java))
                         stopLoading()
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.error.toString())
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }
     }
 
+    /*
     override fun stateError(data: String?) {
         super.stateError(data)
         Toast.makeText(
@@ -103,4 +106,6 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
             Toast.LENGTH_LONG
         ).show()
     }
+
+     */
 }

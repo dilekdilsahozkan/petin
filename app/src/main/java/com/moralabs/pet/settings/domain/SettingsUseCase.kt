@@ -102,7 +102,7 @@ class SettingsUseCase @Inject constructor(
             if (change.isSuccessful && change.code() == 200) {
                 emit(BaseResult.Success(true))
             } else {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, change.body()?.userMessage, change.code())))
             }
         }
     }
