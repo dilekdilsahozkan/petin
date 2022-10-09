@@ -71,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fullNameEdit" />
 
-        <com.moralabs.pet.utils.CodeInputEditText
+        <com.moralabs.pet.core.utils.CodeInputEditText
             android:id="@+id/phoneNumberEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

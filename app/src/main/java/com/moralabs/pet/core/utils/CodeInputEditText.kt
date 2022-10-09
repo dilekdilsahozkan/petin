@@ -1,4 +1,4 @@
-package com.moralabs.pet.utils
+package com.moralabs.pet.core.utils
 
 import android.content.Context
 import android.util.AttributeSet

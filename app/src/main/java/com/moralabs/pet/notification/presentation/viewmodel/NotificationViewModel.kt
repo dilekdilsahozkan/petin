@@ -3,6 +3,7 @@ package com.moralabs.pet.notification.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
@@ -21,8 +22,7 @@ class NotificationViewModel @Inject constructor(
     private val  useCase: NotificationUseCase
 ) : BaseViewModel<List<NotificationDto>>(useCase) {
 
-    private val _itemCount = MediatorLiveData<Int>()
-    val itemCount: LiveData<Int> = _itemCount
+    var itemCount : MutableLiveData<Int?> = MutableLiveData(null)
 
     fun notificationPet(){
         viewModelScope.launch {

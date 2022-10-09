@@ -29,7 +29,7 @@ class PetWarningDialog (
     onResult: ((result: PetWarningDialogResult) -> Unit)? = null,
     positiveButton: String? = null,
     negativeButton: String? = null
-) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen), Animator.AnimatorListener {
+) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar), Animator.AnimatorListener {
 
     private var binding = UiPetWarningDialogBinding.inflate(layoutInflater)
 

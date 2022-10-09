@@ -34,7 +34,8 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
             startActivity(Intent(context, PetProfileActivity::class.java).apply {
                 putExtras(
                     bundleOf(
-                        PetProfileActivity.PET_ID to it.id
+                        PetProfileActivity.PET_ID to it.id,
+                        PetProfileActivity.OTHER_USER_ID to otherUserId
                     )
                 )
             })

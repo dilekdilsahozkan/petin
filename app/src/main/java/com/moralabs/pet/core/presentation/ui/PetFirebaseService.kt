@@ -1,4 +1,4 @@
-package com.moralabs.pet.common.presentation
+package com.moralabs.pet.core.presentation.ui
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.moralabs.pet.notification.domain.NotificationUseCase

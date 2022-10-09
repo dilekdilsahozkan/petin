@@ -46,7 +46,7 @@
                 android:hint="@string/comment"
                 android:maxLength="255"
                 android:includeFontPadding="false"
-                android:inputType="textLongMessage"
+                android:inputType="textMultiLine"
                 android:padding="@dimen/scale_10dp"
                 android:textSize="@dimen/scale_15dp" />
 

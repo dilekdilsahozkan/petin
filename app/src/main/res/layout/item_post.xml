@@ -133,7 +133,7 @@
                 android:id="@+id/postImage"
                 style="@style/PetImageView.Round.8"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="350dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/background_image"
                 android:scaleType="centerCrop"

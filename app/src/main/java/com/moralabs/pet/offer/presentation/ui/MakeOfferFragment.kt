@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
@@ -33,6 +35,8 @@ class MakeOfferFragment :
     private val offerType: Int? by lazy {
         activity?.intent?.getIntExtra(MakeOfferActivity.OFFER_TYPE, 0)
     }
+
+    val MAX_CHAR_NUMBER = 255
 
     override fun getLayoutId() = R.layout.fragment_make_offer
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -83,6 +87,17 @@ class MakeOfferFragment :
 
     override fun addListeners() {
         super.addListeners()
+
+        binding.explanationText.doAfterTextChanged {
+            binding.inputViewCounter.text = "${it?.length}/${MAX_CHAR_NUMBER}"
+
+            if(it?.length == MAX_CHAR_NUMBER){
+                binding.inputViewCounter.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainColor))
+            }else{
+                binding.inputViewCounter.setTextColor(R.color.darkGray)
+            }
+        }
+
         binding.makeOfferButton.setOnClickListener {
             if(binding.explanationText.text.isNullOrEmpty()){
                 Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()

@@ -1,5 +1,6 @@
 package com.moralabs.pet.core.presentation.adapter
 
+import android.graphics.Typeface
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -28,5 +29,10 @@ fun ImageView.loadImageWithPlaceholder(src: String?) {
 @BindingAdapter("pet:attributes")
 fun TextView.attributes(list: List<PetAttributeDto>?){
     text = list?.filter { it.attributeType.toString() == tag}?.getOrNull(0)?.choice
+}
+
+@BindingAdapter("pet:setTextCustomStyle")
+fun TextView.setTextCustomStyle(isNormal:Boolean){
+    if (isNormal) this.setTypeface(this.typeface, Typeface.NORMAL) else this.setTypeface(this.typeface,Typeface.BOLD)
 }
 

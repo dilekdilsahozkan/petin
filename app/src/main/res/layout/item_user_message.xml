@@ -5,8 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <import type="com.moralabs.pet.core.presentation.extension.DateExtensionKt" />
+
         <variable
             name="item"
             type="com.moralabs.pet.message.data.remote.dto.ChatDto" />
@@ -21,59 +24,61 @@
             android:id="@+id/user_photo"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            pet:srcWithPlaceholder="@{item.to.media.url}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            pet:srcWithPlaceholder="@{item.to.media.url}" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{item.to.userName}"
-            tools:text="adsasdasd"
-            android:textColor="@color/darkPrimary"
-            android:textSize="@dimen/scale_15dp"
             android:layout_marginStart="@dimen/scale_12dp"
             android:fontFamily="@font/poppins_medium"
+            android:text="@{item.to.userName}"
+            android:textColor="@color/darkPrimary"
+            android:textSize="@dimen/scale_15dp"
             app:layout_constraintStart_toEndOf="@id/user_photo"
-            app:layout_constraintTop_toTopOf="@id/user_photo"/>
+            app:layout_constraintTop_toTopOf="@id/user_photo"
+            tools:text="adsasdasd" />
 
         <TextView
             android:id="@+id/message_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{DateExtensionKt.toFullDate(item.messages.get(0).dateTime, context)}"
-            tools:text="teasdasda sda"
-            android:textSize="@dimen/scale_11dp"
-            android:textColor="@color/darkGray"
+            android:layout_marginStart="4dp"
             android:fontFamily="@font/poppins_regular"
-            app:layout_constraintStart_toEndOf="@id/user_name"
+            android:text="@{DateExtensionKt.toFullDate(item.messages.get(0).dateTime, context)}"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/scale_11dp"
             app:layout_constraintBaseline_toBaselineOf="@id/user_name"
-            android:layout_marginStart="4dp" />
+            app:layout_constraintStart_toEndOf="@id/user_name"
+            tools:text="21:03" />
 
         <TextView
             android:id="@+id/message_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/scale_12dp"
-            android:text="@{item.messages.get(0).text.toString()}"
-            tools:text="sadasdas"
-            android:textColor="@color/darkGray"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
-            app:layout_constraintTop_toBottomOf="@id/user_name"
+            android:maxLines="1"
+            android:text="@{item.messages.get(0).text.toString()}"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/scale_13dp"
+            app:layout_constraintEnd_toStartOf="@id/new_message"
             app:layout_constraintStart_toStartOf="@id/user_name"
-            app:layout_constraintEnd_toStartOf="@id/new_message"/>
+            app:layout_constraintTop_toBottomOf="@id/user_name"
+            tools:text="sadasdas" />
 
         <ImageView
             android:id="@+id/new_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/scale_4dp"
             android:src="@drawable/ic_orange_dot"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{item.unreadMessages > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/scale_4dp"
-            android:visibility="@{item.unreadMessages > 0 ? View.VISIBLE : View.GONE}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

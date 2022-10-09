@@ -31,15 +31,19 @@
 
         <TextView
             android:id="@+id/notificationText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/scale_12dp"
-            android:fontFamily="@font/poppins_regular"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{item.text}"
             android:textColor="@color/darkGray"
             android:textSize="@dimen/scale_13dp"
+            app:layout_constraintEnd_toStartOf="@id/new_message"
             app:layout_constraintStart_toEndOf="@id/userPhoto"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/userPhoto"
+            pet:setTextCustomStyle="@{item.isRead}"
+            tools:text="Takip edildin!"/>
 
         <TextView
             android:id="@+id/notificationTime"
@@ -51,18 +55,19 @@
             android:textColor="@color/darkGray"
             android:textSize="@dimen/scale_12dp"
             app:layout_constraintStart_toEndOf="@id/userPhoto"
-            app:layout_constraintTop_toBottomOf="@id/notificationText" />
+            app:layout_constraintTop_toBottomOf="@id/notificationText"
+            tools:text="21:21"/>
 
         <ImageView
             android:id="@+id/new_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/scale_4dp"
             android:src="@drawable/ic_orange_dot"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{item.isRead == true ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/scale_4dp"
-            android:visibility="@{item.isRead == true ? View.GONE : View.VISIBLE}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
