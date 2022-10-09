@@ -129,7 +129,7 @@
     <string name="error_new_password">Parolanız oluşurken bir sorun oluştu</string>
     <string name="error_wrong_email">Sisteme kayıtlı böyle bir mail adresi bulunamamıştır</string>
     <string name="error_password_code">Yanlış kod girdiniz</string>
-
+    <string name="error_wrong_type_password">Mevcut şifrenizin doğru girdiğinizden ve kurala uygun yeni şifre girdiğinizden emin olunuz.</string>
 
     <!-- PetWarningDialogs -->
 
@@ -149,6 +149,7 @@
     <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
 
     <!-- OtherUserActionBottomSheet -->
+
     <string name="follow_user">Takip et</string>
     <string name="unfollow_user">Takipten çıkar</string>
     <string name="block_user">Engelle</string>
@@ -165,6 +166,7 @@
     <string name="secondsLeft">saniye kaldı</string>
 
     <!-- TUTORIAL -->
+
     <string name="tutorial_1">Petin şöyle bir uygulama bla bla</string>
     <string name="tutorial_2">Petin diğerlerinden farklı bla bla </string>
     <string name="tutorial_3">Petin sizin işinize çok yarar bla bla</string>

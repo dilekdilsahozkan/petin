@@ -48,7 +48,6 @@ class BlockedAccountsFragment() : BaseFragment<FragmentBlockedAccountsBinding, U
         binding.blockedAccountsRecyclerView.adapter = blockedAccountsAdapter
         viewModel.getBlockedAccounts()
         viewModel.logout()
-
     }
 
     override fun addObservers() {

@@ -13,6 +13,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -92,6 +93,7 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
         indices.clear()
         defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
         phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+
         if (index == 0)
             phoneList.forEachIndexed { i, e -> if (e is Int || e == "_") indices.add(i) }
 
