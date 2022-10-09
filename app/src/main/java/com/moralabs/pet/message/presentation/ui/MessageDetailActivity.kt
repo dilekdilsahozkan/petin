@@ -1,12 +1,10 @@
 package com.moralabs.pet.message.presentation.ui
 
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityMessageDetailBinding
-import com.moralabs.pet.message.data.remote.dto.ChatDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import dagger.hilt.android.AndroidEntryPoint
 

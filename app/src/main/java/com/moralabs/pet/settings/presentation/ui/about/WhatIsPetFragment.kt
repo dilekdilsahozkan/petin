@@ -21,14 +21,14 @@ class WhatIsPetFragment : BaseFragment<FragmentWhatIsPetBinding, UserDto, Settin
     override fun getLayoutId() = R.layout.fragment_what_is_pet
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun setToolbar() {
-        super.setToolbar()
-        toolbarListener?.showTitleText(getString(R.string.settings_what_is_pet))
-    }
-
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
+    }
+
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.settings_what_is_pet))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

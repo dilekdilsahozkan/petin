@@ -30,13 +30,14 @@ import java.io.File
 @AndroidEntryPoint
 class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto>, AddEditPetViewModel>() {
 
-    override fun getLayoutId() = R.layout.fragment_add_pet
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
-    private var isNewPhoto : Boolean = false
-
     private val pet by lazy {
         activity?.intent?.getParcelableExtra<PetDto>(AddEditPetActivity.BUNDLE_PET)
     }
+
+    private var isNewPhoto : Boolean = false
+
+    override fun getLayoutId() = R.layout.fragment_add_pet
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<List<AttributeDto>> {
         val viewModel: AddEditPetViewModel by viewModels()

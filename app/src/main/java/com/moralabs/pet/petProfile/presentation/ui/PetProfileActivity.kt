@@ -14,5 +14,4 @@ class PetProfileActivity : BaseActivity<ActivityPetProfileBinding>() {
     }
 
     override fun getLayoutId() = R.layout.activity_pet_profile
-
 }

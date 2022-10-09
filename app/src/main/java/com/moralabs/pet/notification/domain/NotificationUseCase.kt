@@ -46,7 +46,6 @@ class NotificationUseCase @Inject constructor(
                 sendTokenUser = authenticationRepository.getAuthentication()?.userId
                 notificationRepository.sendToken(notificationRepository.getFirebaseToken())
             }
-
             emit(BaseResult.Success(true))
         }
     }

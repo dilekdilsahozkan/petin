@@ -16,7 +16,6 @@ class PrivacyAndSecurityFragment : BaseFragment<FragmentPrivacyAndSecurityBindin
     override fun getLayoutId() = R.layout.fragment_privacy_and_security
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-
     override fun addListeners() {
 
         binding.tvBlockedAccounts.setOnClickListener {
@@ -33,5 +32,4 @@ class PrivacyAndSecurityFragment : BaseFragment<FragmentPrivacyAndSecurityBindin
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
     }
-
 }

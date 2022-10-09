@@ -15,9 +15,6 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentMakeOfferBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
-import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
-import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
-import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.presentation.viewmodel.MakeOfferViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
@@ -91,17 +88,23 @@ class MakeOfferFragment :
         binding.explanationText.doAfterTextChanged {
             binding.inputViewCounter.text = "${it?.length}/${MAX_CHAR_NUMBER}"
 
-            if(it?.length == MAX_CHAR_NUMBER){
-                binding.inputViewCounter.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainColor))
-            }else{
+            if (it?.length == MAX_CHAR_NUMBER) {
+                binding.inputViewCounter.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.mainColor
+                    )
+                )
+            } else {
                 binding.inputViewCounter.setTextColor(R.color.darkGray)
             }
         }
 
         binding.makeOfferButton.setOnClickListener {
-            if(binding.explanationText.text.isNullOrEmpty()){
-                Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG).show()
-            }else{
+            if (binding.explanationText.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), getString(R.string.add_text), Toast.LENGTH_LONG)
+                    .show()
+            } else {
                 val pet = petAdapter.currentList.filter { it.selected }.firstOrNull()
                 if (offerType == OfferType.ADOPTION_TYPE.type) {
                     viewModel.newOffer(
@@ -112,7 +115,7 @@ class MakeOfferFragment :
                     )
                     Toast.makeText(context, R.string.offer_sent, Toast.LENGTH_SHORT).show()
                     startActivity(Intent(context, MainPageActivity::class.java))
-                } else if(offerType == OfferType.FIND_PARTNER_TYPE.type && pet?.selected == true){
+                } else if (offerType == OfferType.FIND_PARTNER_TYPE.type && pet?.selected == true) {
                     viewModel.newOffer(
                         OfferRequestDto(
                             postId = postId,
@@ -122,9 +125,9 @@ class MakeOfferFragment :
                     )
                     Toast.makeText(context, R.string.offer_sent, Toast.LENGTH_SHORT).show()
                     startActivity(Intent(context, MainPageActivity::class.java))
-                }
-                else {
-                    Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }

@@ -36,5 +36,4 @@ interface PetService {
         @Path("petId") petId: String?,
         @Path("userId") userId: String?
     ): Response<BaseResponse<PetDto>>
-
 }

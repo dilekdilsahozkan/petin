@@ -73,7 +73,6 @@ class ForgotPasswordFragment :
             )
         }
     }
-
 }
 
 enum class ForgotPw(val value :Int){

@@ -1,10 +1,8 @@
 package com.moralabs.pet.mainPage.presentation.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.data.remote.dto.CommentDto
-import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
@@ -19,8 +17,6 @@ import javax.inject.Inject
 class CommentViewModel @Inject constructor(
     private val useCase: CommentUseCase
 ) : BaseViewModel<CommentDto>(useCase) {
-
-    var commentId : MutableLiveData<CommentDto?> = MutableLiveData(null)
 
     protected var _deleteState: MutableStateFlow<ViewState<Boolean>> =
         MutableStateFlow(ViewState.Idle())

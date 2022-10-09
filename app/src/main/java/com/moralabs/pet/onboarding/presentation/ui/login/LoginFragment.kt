@@ -19,18 +19,17 @@ import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
 import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
 import com.moralabs.pet.onboarding.presentation.ui.register.RegisterActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
-import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewModel>() {
 
-    override fun getLayoutId() = R.layout.fragment_login
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
-
     private val isFromAction by lazy {
         activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
     }
+
+    override fun getLayoutId() = R.layout.fragment_login
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<LoginDto> {
         val viewModel: LoginViewModel by viewModels()

@@ -18,6 +18,7 @@ class RegisterUseCase @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
     private val notificationRepository: NotificationRepository
 ) : BaseUseCase() {
+
     fun register(registerPet: RegisterRequestDto): Flow<BaseResult<RegisterDto>> {
         return flow {
             if (registerPet.fullName.isNullOrEmpty() && registerPet.username.isNullOrEmpty() && registerPet.email.isNullOrEmpty() && registerPet.password.isNullOrEmpty()) {

@@ -29,7 +29,6 @@ class NotificationRepositoryImpl @Inject constructor(private val service: Notifi
                 continuation.resumeWith(Result.success(null))
                 return@OnCompleteListener
             }
-
             continuation.resumeWith(Result.success(task.result))
         })
     }

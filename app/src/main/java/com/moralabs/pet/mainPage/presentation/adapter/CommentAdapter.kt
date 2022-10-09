@@ -34,14 +34,17 @@ class CommentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val binding =
             ItemUserCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CommentViewHolder(parent.context,binding)
+        return CommentViewHolder(parent.context, binding)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class CommentViewHolder(private val context: Context, private val binding: ItemUserCommentBinding) :
+    inner class CommentViewHolder(
+        private val context: Context,
+        private val binding: ItemUserCommentBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {

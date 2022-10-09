@@ -16,6 +16,11 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, UserDto, SettingsViewMo
     override fun getLayoutId() = R.layout.fragment_about
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
+        val viewModel: SettingsViewModel by viewModels()
+        return viewModel
+    }
+
     override fun setToolbar() {
         super.setToolbar()
         toolbarListener?.showTitleText(getString(R.string.settings_about))
@@ -34,11 +39,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, UserDto, SettingsViewMo
         binding.ourPurpose.setOnClickListener {
             findNavController().navigate(R.id.action_aboutFragment_to_ourPurposeFragment)
         }
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<UserDto> {
-        val viewModel: SettingsViewModel by viewModels()
-        return viewModel
     }
 }
 

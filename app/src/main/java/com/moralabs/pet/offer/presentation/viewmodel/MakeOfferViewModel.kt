@@ -3,7 +3,6 @@ package com.moralabs.pet.offer.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.moralabs.pet.core.data.remote.dto.PostLocationDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
@@ -21,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MakeOfferViewModel @Inject constructor(
     private val useCase: OfferUseCase
-): BaseViewModel<CreateOfferDto>(useCase) {
+) : BaseViewModel<CreateOfferDto>(useCase) {
 
     val petsList = MutableLiveData<List<PetDto>>()
 

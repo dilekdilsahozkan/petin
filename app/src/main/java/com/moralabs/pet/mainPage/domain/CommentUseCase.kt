@@ -1,7 +1,6 @@
 package com.moralabs.pet.mainPage.domain
 
 import com.moralabs.pet.core.data.remote.dto.CommentDto
-import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.mainPage.data.remote.dto.CommentRequestDto
@@ -19,23 +18,20 @@ class CommentUseCase @Inject constructor(
         writeNewComment: CommentRequestDto
     ): Flow<BaseResult<CommentDto>> {
         return flow {
-                commentRepository.writeComment(postId, writeNewComment).body()?.data?.let {
-                    emit(BaseResult.Success(it))
-                }
-
+            commentRepository.writeComment(postId, writeNewComment).body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
         }
     }
 
     fun getComments(postId: String?): Flow<BaseResult<CommentDto>> {
         return flow {
-             commentRepository.getComment(postId).body()?.data?.let {
-                 emit(
-                     BaseResult.Success(it)
-                 )
-             }
-
+            commentRepository.getComment(postId).body()?.data?.let {
+                emit(BaseResult.Success(it))
+            }
         }
     }
+
     fun deleteComment(commentId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             emit(

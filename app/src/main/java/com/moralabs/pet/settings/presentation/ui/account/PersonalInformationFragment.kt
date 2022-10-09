@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
-import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPersonalInformationBinding
@@ -30,16 +29,16 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
         toolbarListener?.showTitleText(getString(R.string.settings_personal_information))
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.userInfo()
+    }
+
     override fun addListeners() {
         super.addListeners()
         binding.editProfile.setOnClickListener {
             findNavController().navigate(R.id.action_personalInformationsFragment_to_editPersonalInformationsFragment)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.userInfo()
     }
 
     override fun stateSuccess(data: UserDto) {

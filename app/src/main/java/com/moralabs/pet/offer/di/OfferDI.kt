@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class OfferDI  {
+class OfferDI {
     @Provides
     @Singleton
     fun provideOfferService(retrofit: Retrofit): OfferService =

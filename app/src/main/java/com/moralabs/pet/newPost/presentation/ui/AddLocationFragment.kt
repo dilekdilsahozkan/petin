@@ -30,7 +30,6 @@ class AddLocationFragment :
     }
 
     private val cityAdapter: ArrayAdapter<PostLocationDto> by lazy {
-
         object : ArrayAdapter<PostLocationDto>(requireContext(), R.layout.list_item) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)

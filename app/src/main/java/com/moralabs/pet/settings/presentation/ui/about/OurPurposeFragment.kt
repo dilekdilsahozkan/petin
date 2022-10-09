@@ -21,14 +21,14 @@ class OurPurposeFragment : BaseFragment<FragmentOurPurposeBinding, UserDto, Sett
     override fun getLayoutId() = R.layout.fragment_our_purpose
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun setToolbar() {
-        super.setToolbar()
-        toolbarListener?.showTitleText(getString(R.string.settings_our_purpose))
-    }
-
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
+    }
+
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.settings_our_purpose))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -2,7 +2,6 @@ package com.moralabs.pet.petProfile.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -13,7 +12,6 @@ import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentPetBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
-import com.moralabs.pet.message.presentation.ui.MessageDetailActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
@@ -29,6 +27,11 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
     override fun getLayoutId() = R.layout.fragment_pet
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<List<PetDto>> {
+        val viewModel: PetViewModel by viewModels()
+        return viewModel
+    }
+
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
         BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
             startActivity(Intent(context, PetProfileActivity::class.java).apply {
@@ -42,11 +45,6 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         }, isSameDto = { oldItem, newItem ->
             oldItem.id == newItem.id
         })
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<List<PetDto>> {
-        val viewModel: PetViewModel by viewModels()
-        return viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

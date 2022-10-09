@@ -89,7 +89,6 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
                     type = UiChatMessageType.TITLE
                 )
             )
-
             it.value.forEach { message ->
                 uiList.add(
                     UiChatMessageDto(
@@ -100,7 +99,6 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
                 )
             }
         }
-
         messageAdapter.submitList(uiList)
     }
 }

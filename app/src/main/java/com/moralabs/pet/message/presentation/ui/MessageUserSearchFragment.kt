@@ -25,6 +25,11 @@ class  MessageUserSearchFragment :
     override fun getLayoutId() = R.layout.fragment_message_user_search
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<List<UserDto>> {
+        val viewModel: MessageUserSearchViewModel by viewModels()
+        return viewModel
+    }
+
     private val userAdapter: BaseListAdapter<UiChatUserDto, ItemUserMessageInfoBinding> by lazy {
         BaseListAdapter(R.layout.item_user_message_info, BR.item, onRowClick = { selected ->
             userAdapter.currentList.forEach {
@@ -38,11 +43,6 @@ class  MessageUserSearchFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.adapter = userAdapter
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<List<UserDto>> {
-        val viewModel: MessageUserSearchViewModel by viewModels()
-        return viewModel
     }
 
     override fun addListeners() {

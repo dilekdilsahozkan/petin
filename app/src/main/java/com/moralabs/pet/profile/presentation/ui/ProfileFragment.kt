@@ -17,14 +17,12 @@ import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentProfileBinding
-import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetFragment
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.presentation.adapter.ProfileViewPagerAdapter
 import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 import com.moralabs.pet.settings.presentation.ui.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.ui_pet_warning_dialog.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -32,17 +30,42 @@ import kotlinx.coroutines.launch
 class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(), BlockUnblockBottomSheetListener,
     FollowUnfollowBottomSheetListener {
 
-    override fun getLayoutId() = R.layout.fragment_profile
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
-
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
     private var userInfo: UserDto? = null
 
+    override fun getLayoutId() = R.layout.fragment_profile
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
+
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: ProfileViewModel by viewModels()
         return viewModel
+    }
+
+    private val viewPagerAdapter: ProfileViewPagerAdapter by lazy {
+        ProfileViewPagerAdapter(
+            this,
+            listOf(
+                PostFragment(),
+                PetFragment(),
+            )
+        )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.viewpager.adapter = viewPagerAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
+            when (position) {
+                0 -> tab.setIcon(R.drawable.ic_posts)
+                1 -> tab.setIcon(R.drawable.ic_pet_house)
+            }
+        }.attach()
+
+        getUserInfo()
     }
 
     override fun addListeners() {
@@ -76,36 +99,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
         binding.imgBack.setOnClickListener {
             activity?.onBackPressed()
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.viewpager.adapter = viewPagerAdapter
-
-        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
-            when (position) {
-                0 -> tab.setIcon(R.drawable.ic_posts)
-                1 -> tab.setIcon(R.drawable.ic_pet_house)
-            }
-        }.attach()
-
-        getUserInfo()
-    }
-
-    override fun stateSuccess(data: UserDto) {
-        super.stateSuccess(data)
-        userInfo = data
-        binding.userFullName.text = data.fullName.toString()
-        binding.username.text = data.userName.toString()
-        binding.toolbarUsername.text = data.userName.toString()
-        if (data.isUserBlockedByUser == true) {
-            otherUserBlockedUI()
-        } else if (data.isBlocked == true) {
-            blockedUserUI()
-        } else {
-            setProfileUI(data)
         }
     }
 
@@ -186,14 +179,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         }
     }
 
-    private val viewPagerAdapter: ProfileViewPagerAdapter by lazy {
-        ProfileViewPagerAdapter(
-            this,
-            listOf(
-                PostFragment(),
-                PetFragment(),
-            )
-        )
+    override fun stateSuccess(data: UserDto) {
+        super.stateSuccess(data)
+        userInfo = data
+        binding.userFullName.text = data.fullName.toString()
+        binding.username.text = data.userName.toString()
+        binding.toolbarUsername.text = data.userName.toString()
+        if (data.isUserBlockedByUser == true) {
+            otherUserBlockedUI()
+        } else if (data.isBlocked == true) {
+            blockedUserUI()
+        } else {
+            setProfileUI(data)
+        }
     }
 
     private fun getUserInfo() {

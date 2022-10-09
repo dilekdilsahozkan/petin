@@ -21,14 +21,14 @@ class WhoWeAreFragment : BaseFragment<FragmentWhoWeAreBinding, UserDto, Settings
     override fun getLayoutId() = R.layout.fragment_who_we_are
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
-    override fun setToolbar() {
-        super.setToolbar()
-        toolbarListener?.showTitleText(getString(R.string.settings_who_we_are))
-    }
-
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
+    }
+
+    override fun setToolbar() {
+        super.setToolbar()
+        toolbarListener?.showTitleText(getString(R.string.settings_who_we_are))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +36,6 @@ class WhoWeAreFragment : BaseFragment<FragmentWhoWeAreBinding, UserDto, Settings
 
         viewModel.getInfo(InfoTypes.WHO_ARE_WE.type)
     }
-
 
     override fun addObservers() {
         super.addObservers()

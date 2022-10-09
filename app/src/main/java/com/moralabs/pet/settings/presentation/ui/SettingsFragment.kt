@@ -21,6 +21,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
     override fun getLayoutId() = R.layout.fragment_settings
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
+    override fun fragmentViewModel(): BaseViewModel<UserDto> {
+        val viewModel: SettingsViewModel by viewModels()
+        return viewModel
+    }
+
     override fun addListeners() {
         super.addListeners()
 
@@ -52,10 +57,5 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
         binding.about.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_aboutFragment)
         }
-    }
-
-    override fun fragmentViewModel(): BaseViewModel<UserDto> {
-        val viewModel: SettingsViewModel by viewModels()
-        return viewModel
     }
 }

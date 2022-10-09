@@ -105,24 +105,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getBlockedList() {
-        viewModelScope.launch {
-            useCase.getBlockedList()
-                .onStart {
-                    _blockedListState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _blockedListState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _blockedListState.value = ViewState.Success(baseResult.data)
-                    }
-                }
-        }
-    }
-
     fun blockUser(userId: String?) {
         viewModelScope.launch {
             useCase.blockUser(userId)

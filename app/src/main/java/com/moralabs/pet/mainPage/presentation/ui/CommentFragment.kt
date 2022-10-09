@@ -123,7 +123,7 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CommentDto, Comment
             negativeButton = resources.getString(R.string.no),
             onResult = {
                 if (PetWarningDialogResult.OK == it) {
-                      viewModel.deleteComment(postId)
+                    viewModel.deleteComment(postId)
                 }
             }
         ).show()

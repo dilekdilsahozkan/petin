@@ -26,12 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, RegisterViewModel>() {
 
-    override fun getLayoutId() = R.layout.fragment_register
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
-
     private val isFromAction by lazy {
         activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
     }
+
+    override fun getLayoutId() = R.layout.fragment_register
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<RegisterDto> {
         val viewModel: RegisterViewModel by viewModels()

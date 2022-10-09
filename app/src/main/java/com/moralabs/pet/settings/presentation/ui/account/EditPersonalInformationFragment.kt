@@ -30,9 +30,6 @@ import java.io.File
 @AndroidEntryPoint
 class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInformationBinding, UserDto, SettingsViewModel>() {
 
-    override fun getLayoutId() = R.layout.fragment_edit_personal_information
-    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
-
     private var newProfilePictureUrl: String? = null
 
     var phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
@@ -41,7 +38,8 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
     var index = 0
     var oldIndex = -1
 
-
+    override fun getLayoutId() = R.layout.fragment_edit_personal_information
+    override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
     override fun fragmentViewModel(): BaseViewModel<UserDto> {
         val viewModel: SettingsViewModel by viewModels()

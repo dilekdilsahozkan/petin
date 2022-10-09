@@ -100,7 +100,6 @@ class PetUseCase @Inject constructor(
             } else {
                 emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
             }
-
         }
     }
 

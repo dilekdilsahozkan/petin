@@ -31,7 +31,6 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>(),
         navController = navHostFragment.navController
 
         setSupportActionBar(binding.appBar)
-
     }
 
     override fun showTitleText(title: String?) {

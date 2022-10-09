@@ -129,11 +129,6 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
                     binding.buttonContinue.alpha = 0.5f
                     binding.buttonContinue.isClickable = false
                     box.setText("")
-//                    box.clearFocus()
-//                    if (index > 0) {
-//                        boxList[index - 1].requestFocus()
-//                        if (boxList[index - 1].text.isNotEmpty()) boxList[index - 1].setSelection(boxList[index - 1].text.length)
-//                    }
                     return@OnKeyListener true
                 }
                 return@OnKeyListener false
@@ -142,9 +137,6 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
             box.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     if (s?.length == 0) {
-//                        box.clearFocus()
-//                        if (index > 0)
-//                            boxList[index - 1].requestFocus()
                     } else {
                         if (s?.length == 2) box.setText(s.toString().substring(1, 2))
 

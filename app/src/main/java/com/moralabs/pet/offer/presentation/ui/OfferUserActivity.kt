@@ -8,7 +8,7 @@ import com.moralabs.pet.databinding.ActivityOfferUserBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OfferUserActivity :BaseActivity<ActivityOfferUserBinding>(),
+class OfferUserActivity : BaseActivity<ActivityOfferUserBinding>(),
     PetToolbarListener {
 
     companion object {

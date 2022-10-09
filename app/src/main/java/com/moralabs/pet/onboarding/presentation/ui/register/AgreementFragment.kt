@@ -10,8 +10,6 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentAgreementBinding
-import com.moralabs.pet.onboarding.data.remote.dto.LoginDto
-import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.presentation.ui.about.InfoTypes
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel

@@ -25,7 +25,6 @@ class NewPostViewModel @Inject constructor(
     var files: MutableLiveData<MutableList<File>> = MutableLiveData(mutableListOf())
     var locationId: String? = null
     var selectedPet: MutableLiveData<List<PetDto>?> = MutableLiveData()
-    var selectedValue: List<PetDto>? = null
     var petList = mutableListOf<PetDto>()
 
     protected var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())

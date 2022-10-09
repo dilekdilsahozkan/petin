@@ -59,14 +59,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
                     context?.startActivity(intent)
                 }
             },
-            onLikeClick = {
-                /*if (it.isPostLikedByUser == true) {
-                    viewModel.unlikePost(it.id)
-                } else {
-                    viewModel.likePost(it.id)
-                }*/
-
-            },
             onCommentClick = {
                 loginIfNeeded {
                     val bundle = bundleOf(
@@ -100,16 +92,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
                         context?.startActivity(intent)
                     }
                 }
-            },
-            onPostSettingClick = {
-                /*loginIfNeeded {
-                    fragmentManager?.let { it1 ->
-                        PostSettingBottomSheetFragment(
-                            this,
-                            it.id
-                        ).show(it1, "")
-                    }
-                }*/
             }
         )
     }
@@ -141,10 +123,8 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
         }
     }
 
-
     override fun setToolbar() {
         super.setToolbar()
         toolbarListener?.showTitleText(getString(R.string.settings_my_favorites))
     }
-
 }

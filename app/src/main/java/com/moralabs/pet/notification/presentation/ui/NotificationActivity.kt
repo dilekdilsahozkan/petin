@@ -11,5 +11,4 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(),
     PetToolbarListener {
 
     override fun getLayoutId() = R.layout.activity_notification
-    
 }

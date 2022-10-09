@@ -78,7 +78,6 @@ class WelcomeFragment : View.OnClickListener,
 
         binding.loginButton.setOnClickListener(this)
         binding.guestButton.setOnClickListener(this)
-
     }
 
     override fun stateSuccess(data: LoginDto) {

@@ -6,7 +6,6 @@ import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.data.remote.dto.OfferRequestDto
 import com.moralabs.pet.offer.data.repository.OfferRepository
 import com.moralabs.pet.petProfile.data.remote.dto.CreateOfferDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -86,19 +85,6 @@ class OfferUseCase @Inject constructor(
                     )
                 )
             )
-        }
-    }
-
-    fun getAnotherUserPetInfo(petId: String?, userId: String?): Flow<BaseResult<OfferDetailDto>> {
-        return flow {
-            val otherPet = petRepository.getAnotherUserPetInfo(petId, userId).body()?.data
-                emit(
-                    BaseResult.Success(
-                        OfferDetailDto(
-                            otherPet = otherPet
-                        )
-                    )
-                )
         }
     }
 }

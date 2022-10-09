@@ -22,8 +22,6 @@ class NotificationViewModel @Inject constructor(
     private val  useCase: NotificationUseCase
 ) : BaseViewModel<List<NotificationDto>>(useCase) {
 
-    var itemCount : MutableLiveData<Int?> = MutableLiveData(null)
-
     fun notificationPet(){
         viewModelScope.launch {
             useCase.notificationPet()
@@ -42,6 +40,7 @@ class NotificationViewModel @Inject constructor(
         }
     }
 
+    // TODO: Bu servis daha kullanılmadı
     fun notificationDateTime(dateTime : String?){
         viewModelScope.launch {
             useCase.notificationDateTime(dateTime)

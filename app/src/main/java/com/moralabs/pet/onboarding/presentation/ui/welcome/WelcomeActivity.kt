@@ -10,11 +10,5 @@ import dagger.hilt.android.AndroidEntryPoint
 class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(),
     PetToolbarListener {
 
-    companion object {
-        const val BUNDLE_TUTORIAL_TEXT = "TUTORIAL"
-        const val BUNDLE_LOTTIE_RES = "LOTTIE"
-    }
-
     override fun getLayoutId() = R.layout.activity_welcome
-
 }

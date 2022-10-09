@@ -1,8 +1,6 @@
 package com.moralabs.pet.offer.presentation.ui
 
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
@@ -18,6 +16,7 @@ class MakeOfferActivity : BaseActivity<ActivityOfferBinding>(),
         const val OFFER_ID = "offerId"
         const val OFFER_TYPE = "offer_type"
     }
+
     override fun getLayoutId() = R.layout.activity_offer
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -48,7 +48,6 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
     private val petKind: String? by lazy {
         arguments?.getString(OfferUserActivity.PET_KIND)
     }
-
     private val petId: String? by lazy {
         arguments?.getString(OfferUserActivity.PET_ID)
     }
@@ -96,11 +95,16 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
                         startActivity(Intent(context, MainPageActivity::class.java))
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.error_decline_offer), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_decline_offer),
+                            Toast.LENGTH_LONG
+                        ).show()
                         stopLoading()
                     }
                 }
             }
+
             viewModel.acceptState.collect {
                 when (it) {
                     is ViewState.Loading -> {
@@ -110,7 +114,11 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
                         startActivity(Intent(context, MainPageActivity::class.java))
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.error_accept_offer), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_accept_offer),
+                            Toast.LENGTH_LONG
+                        ).show()
                         stopLoading()
                     }
                 }
@@ -122,6 +130,7 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getOffer(offerId)
+
         binding.offerText.text = offerText
         binding.userInfo.text = userName
         binding.petKind.text = petKind

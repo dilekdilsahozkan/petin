@@ -1,7 +1,6 @@
 package com.moralabs.pet.profile.data.remote.api
 
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
-import com.moralabs.pet.core.data.remote.dto.EmptyDto
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 import retrofit2.Response

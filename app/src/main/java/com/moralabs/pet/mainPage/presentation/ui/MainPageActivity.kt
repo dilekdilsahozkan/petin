@@ -3,8 +3,6 @@ package com.moralabs.pet.mainPage.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,32 +11,23 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
-import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.ActivityMainPageBinding
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetFragment
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
-import com.moralabs.pet.notification.data.remote.dto.NotificationDto
-import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
-    override fun getLayoutId() = R.layout.activity_main_page
-
     private lateinit var navController: NavController
 
-    var viewModel: NotificationViewModel? = null
+    override fun getLayoutId() = R.layout.activity_main_page
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = ViewModelProvider(this)[NotificationViewModel::class.java]
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_main_page) as NavHostFragment
@@ -56,7 +45,6 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
             )
                 .build()
         )
-
         addListeners()
     }
 
@@ -75,7 +63,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         badge.isVisible = true
         badge.verticalOffset = 20
 
-        binding.dashboardNavigation.setOnItemSelectedListener {item->
+        binding.dashboardNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.notification -> {
                     val badgeDrawable = binding.dashboardNavigation.getBadge(R.id.notification)
