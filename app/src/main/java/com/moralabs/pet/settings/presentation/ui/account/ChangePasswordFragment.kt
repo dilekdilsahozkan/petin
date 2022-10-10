@@ -88,7 +88,7 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
                         stopLoading()
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.error_wrong_type_password), Toast.LENGTH_LONG).show()
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
@@ -96,4 +96,5 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
             }
         }
     }
+
 }
