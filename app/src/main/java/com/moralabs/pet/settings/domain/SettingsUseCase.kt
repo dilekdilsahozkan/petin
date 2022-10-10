@@ -1,5 +1,9 @@
 package com.moralabs.pet.settings.domain
 
+import com.amazonaws.auth.policy.Policy.fromJson
+import com.google.android.datatransport.cct.internal.LogResponse.fromJson
+import com.google.gson.Gson
+import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.*
@@ -102,7 +106,8 @@ class SettingsUseCase @Inject constructor(
             if (change.isSuccessful && change.code() == 200) {
                 emit(BaseResult.Success(true))
             } else {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, change.body()?.userMessage, change.code())))
+                val error = Gson().fromJson(change.errorBody()?.string(), BaseResponse::class.java)
+                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, error.userMessage)))
             }
         }
     }

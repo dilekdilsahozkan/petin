@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.22780797101449277" />
+        <entry key="app/src/main/res/drawable/ic_back_white.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/ic_background_welcome.xml" value="0.2215" />
         <entry key="app/src/main/res/drawable/ic_welcome_background_blue.xml" value="0.1055" />
         <entry key="app/src/main/res/layout/activity_add_pet.xml" value="0.37604166666666666" />
@@ -40,5 +41,6 @@
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
