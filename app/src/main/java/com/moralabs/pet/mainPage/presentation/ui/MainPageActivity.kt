@@ -2,7 +2,9 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +18,7 @@ import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetFragment
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
+import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +26,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
     private lateinit var navController: NavController
+    val viewModel: NotificationViewModel?  by viewModels()
 
     override fun getLayoutId() = R.layout.activity_main_page
 
@@ -58,10 +62,14 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
             }
         }
         val badge = binding.dashboardNavigation.getOrCreateBadge(R.id.notification)
-
         badge.backgroundColor = getColor(R.color.mainColor)
-        badge.isVisible = true
         badge.verticalOffset = 20
+
+        if(viewModel?.notification?.value?.isRead == false){
+            badge.isVisible = false
+        }else{
+            badge.isVisible = true
+        }
 
         binding.dashboardNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {

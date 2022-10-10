@@ -17,6 +17,7 @@ import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
 import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetFragment
 import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetListener
+import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,6 +53,18 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
                 val intent = Intent(context, CommentActivity::class.java)
                 intent.putExtras(bundle)
                 context?.startActivity(intent)
+            },
+            onOfferUserClick = {
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        val bundle = bundleOf(
+                            OfferUserActivity.POST_ID to it.id
+                        )
+                        val intent = Intent(context, OfferUserActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
+                }
             },
             onPostSettingClick = {
                 fragmentManager?.let { it1 ->

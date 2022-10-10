@@ -22,6 +22,8 @@ class NotificationViewModel @Inject constructor(
     private val  useCase: NotificationUseCase
 ) : BaseViewModel<List<NotificationDto>>(useCase) {
 
+    var notification : MutableLiveData<NotificationDto?> = MutableLiveData(null)
+
     fun notificationPet(){
         viewModelScope.launch {
             useCase.notificationPet()
