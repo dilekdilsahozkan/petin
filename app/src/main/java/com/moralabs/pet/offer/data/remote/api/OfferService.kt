@@ -18,9 +18,12 @@ interface OfferService {
     @GET("/offer/post/{postId}")
     suspend fun usersOffer(@Path("postId") postId: String?): Response<BaseResponse<List<OfferDto>>>
 
-    @DELETE("/offer/{offerId}/decline")
-    suspend fun declineOffer(@Path("offerId") offerId: String?): Response<EmptyDto>
-
     @POST("/offer/{offerId}/accept")
     suspend fun acceptOffer(@Path("offerId") offerId: String?): Response<EmptyDto>
+
+    @POST("/offer/{offerId}/decline")
+    suspend fun declineOffer(@Path("offerId") offerId: String?): Response<EmptyDto>
+
+    @DELETE("/offer/{offerId}/decline")
+    suspend fun deleteOffer(@Path("offerId") offerId: String?): Response<EmptyDto>
 }

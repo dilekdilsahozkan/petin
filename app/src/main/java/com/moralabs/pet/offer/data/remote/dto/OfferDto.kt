@@ -10,7 +10,8 @@ data class OfferDto(
     val user: UserInfoDto? = null,
     val dateTime: Long? = null,
     val text: String? = null,
-    val pageIndex: Int? = null
+    val pageIndex: Int? = null,
+    val status: Int? = null
 ): BaseDto()
 
 data class OfferDetailDto(

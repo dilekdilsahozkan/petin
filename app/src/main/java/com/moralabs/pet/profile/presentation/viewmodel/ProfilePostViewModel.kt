@@ -17,6 +17,9 @@ class ProfilePostViewModel @Inject constructor(
     private val useCase: ProfilePostUseCase
 ) : BaseViewModel<List<PostDto>>(useCase) {
 
+    protected var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
+
     fun profilePost() {
         viewModelScope.launch {
             useCase.profilePost()
@@ -57,15 +60,15 @@ class ProfilePostViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.likePost(postId)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    _likeUnlikeDeleteState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
+                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Idle()
                     }
                 }
         }
@@ -75,15 +78,15 @@ class ProfilePostViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.unlikePost(postId)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    _likeUnlikeDeleteState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
+                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Idle()
                     }
                 }
         }
@@ -93,15 +96,15 @@ class ProfilePostViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.deletePost(postId)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    _likeUnlikeDeleteState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
+                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Idle()
                     }
                 }
         }

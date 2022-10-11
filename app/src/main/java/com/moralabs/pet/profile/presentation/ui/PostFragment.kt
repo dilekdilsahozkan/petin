@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
@@ -13,6 +14,7 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
 import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetFragment
@@ -20,6 +22,8 @@ import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetListener
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>(),
@@ -87,6 +91,30 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
         } else {
             viewModel.profilePost()
         }
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+        lifecycleScope.launch {
+            viewModel.likeUnlikeDeleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<Boolean> -> {
+                        if (!otherUserId.isNullOrEmpty()) {
+                            viewModel.getPostAnotherUser(otherUserId)
+                        } else {
+                            viewModel.profilePost()
+                        }                    }
+                    is ViewState.Error<*> -> {
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
+
     }
 
     override fun stateSuccess(data: List<PostDto>) {

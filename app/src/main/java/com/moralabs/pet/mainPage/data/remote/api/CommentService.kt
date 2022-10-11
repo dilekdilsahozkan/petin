@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface CommentService {
 
-    @GET("/feed/post/{postId}/comment")
+    @GET("/feed/post/{postId}")
     suspend fun getComments(
         @Path("postId") postId: String?
     ): Response<BaseResponse<CommentDto>>
