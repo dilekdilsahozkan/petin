@@ -13,8 +13,21 @@ import com.moralabs.pet.databinding.FragmentTutorialBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TutorialFragment(@StringRes private val text: Int, @RawRes private val lottie: Int) :
+class TutorialFragment :
     BaseFragment<FragmentTutorialBinding, Nothing, Nothing>() {
+
+    companion object {
+        const val TEXT = "text"
+        const val LOTTIE = "lottie"
+    }
+
+    private val text by lazy {
+        arguments?.getInt(TEXT)
+    }
+
+    private val lottie by lazy {
+        arguments?.getInt(LOTTIE)
+    }
 
     override fun getLayoutId() = R.layout.fragment_tutorial
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -22,8 +35,13 @@ class TutorialFragment(@StringRes private val text: Int, @RawRes private val lot
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tutorialText.setText(text)
-        binding.lottie.setAnimation(lottie)
+        text?.let {
+            binding.tutorialText.setText(it)
+        }
+
+        lottie?.let {
+            binding.lottie.setAnimation(it)
+        }
     }
 
     override fun fragmentViewModel(): BaseViewModel<Nothing> {
