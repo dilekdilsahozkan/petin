@@ -3,6 +3,7 @@ package com.moralabs.pet.onboarding.presentation.ui.welcome
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -41,18 +42,18 @@ class WelcomeFragment : View.OnClickListener,
             override fun getItemCount() = 3
 
             override fun createFragment(position: Int) = when (position) {
-                0 -> TutorialFragment(
-                    R.string.tutorial_1,
-                    R.raw.pet_center
-                )
-                1 -> TutorialFragment(
-                    R.string.tutorial_2,
-                    R.raw.pet_adoption
-                )
-                2 -> TutorialFragment(
-                    R.string.tutorial_3,
-                    R.raw.pet_dog
-                )
+                0 -> TutorialFragment().apply {
+                    arguments =
+                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_1, TutorialFragment.LOTTIE to R.raw.pet_center)
+                }
+                1 -> TutorialFragment().apply {
+                    arguments =
+                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_2, TutorialFragment.LOTTIE to R.raw.pet_adoption)
+                }
+                2 -> TutorialFragment().apply {
+                    arguments =
+                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_3, TutorialFragment.LOTTIE to R.raw.pet_dog)
+                }
                 else -> throw NotImplementedError()
             }
         }
