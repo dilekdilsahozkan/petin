@@ -64,12 +64,7 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         val badge = binding.dashboardNavigation.getOrCreateBadge(R.id.notification)
         badge.backgroundColor = getColor(R.color.mainColor)
         badge.verticalOffset = 20
-
-        if(viewModel?.notification?.value?.isRead == false){
-            badge.isVisible = false
-        }else{
-            badge.isVisible = true
-        }
+        badge.isVisible = true
 
         binding.dashboardNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {

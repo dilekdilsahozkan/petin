@@ -1,6 +1,7 @@
 package com.moralabs.pet.settings.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
@@ -9,7 +10,6 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
-import com.moralabs.pet.settings.data.remote.dto.EditUserDto
 import com.moralabs.pet.settings.domain.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

@@ -1,6 +1,5 @@
 package com.moralabs.pet.profile.presentation.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -39,7 +38,7 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding, List<UserInfoDto>
     override fun addListeners() {
         super.addListeners()
         binding.imgClose.setOnClickListener {
-            startActivity(Intent(context, ProfileActivity::class.java))
+            activity?.onBackPressed()
         }
     }
 

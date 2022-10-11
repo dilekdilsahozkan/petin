@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="@{DateExtensionKt.toFullDate(item.messages.get(0).dateTime, context)}"
+            android:text="@{DateExtensionKt.toFullDate(item.messages[0].dateTime, context)}"
             android:textColor="@color/darkGray"
             android:textSize="@dimen/scale_11dp"
             app:layout_constraintBaseline_toBaselineOf="@id/user_name"
@@ -61,7 +61,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="1"
-            android:text="@{item.messages.get(0).text.toString()}"
+            android:text="@{item.messages[0].text.toString()}"
             android:textColor="@color/darkGray"
             android:textSize="@dimen/scale_13dp"
             app:layout_constraintEnd_toStartOf="@id/new_message"
@@ -81,4 +81,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

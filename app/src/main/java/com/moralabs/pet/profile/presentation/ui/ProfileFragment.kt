@@ -68,6 +68,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         getUserInfo()
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.viewpager.adapter = null
+    }
+
     override fun addListeners() {
         super.addListeners()
         binding.imgMenu.setOnClickListener {

@@ -1,7 +1,5 @@
 package com.moralabs.pet.settings.domain
 
-import com.amazonaws.auth.policy.Policy.fromJson
-import com.google.android.datatransport.cct.internal.LogResponse.fromJson
 import com.google.gson.Gson
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.remote.dto.PostDto
@@ -100,14 +98,24 @@ class SettingsUseCase @Inject constructor(
         }
     }
 
-    fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Flow<BaseResult<Boolean>> {
+    fun changePassword(
+        refreshToken: String,
+        changePassword: ChangePasswordRequestDto
+    ): Flow<BaseResult<Boolean>> {
         return flow {
             val change = settingRepository.changePassword(refreshToken, changePassword)
             if (change.isSuccessful && change.code() == 200) {
                 emit(BaseResult.Success(true))
             } else {
                 val error = Gson().fromJson(change.errorBody()?.string(), BaseResponse::class.java)
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, error.userMessage)))
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
             }
         }
     }
