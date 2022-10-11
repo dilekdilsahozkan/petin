@@ -18,4 +18,6 @@ interface SettingRepository {
     suspend fun changePassword(refreshToken: String, changePassword: ChangePasswordRequestDto): Response<BaseResponse<Boolean>>
     suspend fun getInfo(infoType: Int): Response<BaseResponse<String>>
     suspend fun deleteAccount(): Response<BaseResponse<Nothing>>
+    suspend fun likePost(postId: String?): Response<BaseResponse<Nothing>>
+    suspend fun unlikePost(postId: String?): Response<BaseResponse<Nothing>>
 }

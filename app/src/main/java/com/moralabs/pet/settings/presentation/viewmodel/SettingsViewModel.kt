@@ -9,7 +9,6 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
-import com.moralabs.pet.settings.data.remote.dto.EditUserDto
 import com.moralabs.pet.settings.domain.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -197,6 +196,42 @@ class SettingsViewModel @Inject constructor(
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
                         _stateDeleteAccount.value = ViewState.Success(baseResult.data)
+                    }
+                }
+        }
+    }
+
+    fun likePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.likePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
+                    }
+                }
+        }
+    }
+
+    fun unlikePost(postId: String?) {
+        viewModelScope.launch {
+            useCase.unlikePost(postId)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    if (baseResult is BaseResult.Success) {
+                        _state.value = ViewState.Idle()
                     }
                 }
         }

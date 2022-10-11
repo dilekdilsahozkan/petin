@@ -37,6 +37,13 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
 
     private val likedPostAdapter by lazy {
         PostListAdapter(
+            onLikeClick = {
+                if (it.isPostLikedByUser == true) {
+                    viewModel.unlikePost(it.id)
+                } else {
+                    viewModel.likePost(it.id)
+                }
+            },
             onOfferClick = {
                 loginIfNeeded {
                     val bundle = bundleOf(

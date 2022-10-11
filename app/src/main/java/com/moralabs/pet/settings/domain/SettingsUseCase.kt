@@ -1,7 +1,5 @@
 package com.moralabs.pet.settings.domain
 
-import com.amazonaws.auth.policy.Policy.fromJson
-import com.google.android.datatransport.cct.internal.LogResponse.fromJson
 import com.google.gson.Gson
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.remote.dto.PostDto
@@ -127,6 +125,26 @@ class SettingsUseCase @Inject constructor(
             emit(
                 BaseResult.Success(
                     settingRepository.deleteAccount().body()?.success ?: false
+                )
+            )
+        }
+    }
+
+    fun likePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.likePost(postId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+    fun unlikePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.unlikePost(postId).body()?.data ?: listOf()
                 )
             )
         }
