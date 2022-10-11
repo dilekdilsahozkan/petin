@@ -43,7 +43,7 @@ class OfferUserFragment :
                 OfferUserActivity.PET_IMAGE to offer.pet?.media?.url,
                 OfferUserActivity.PET_ID to offer.pet?.id,
                 OfferUserActivity.PET_NAME to offer.pet?.name,
-                OfferUserActivity.PET_KIND to offer.pet?.petAttributes?.filter { it.attributeType == 7 }
+                OfferUserActivity.PET_KIND to offer.pet?.petAttributes?.filter { it.attributeType == 6 }
                     ?.getOrNull(0)?.choice,
                 OfferUserActivity.PET_GENDER to offer.pet?.petAttributes?.filter { it.attributeType == 8 }
                     ?.getOrNull(0)?.choice,

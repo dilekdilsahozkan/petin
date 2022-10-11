@@ -184,6 +184,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(binding.viewpager.adapter == null){
+            binding.viewpager.adapter = viewPagerAdapter
+        }
+    }
+
     override fun stateSuccess(data: UserDto) {
         super.stateSuccess(data)
         userInfo = data

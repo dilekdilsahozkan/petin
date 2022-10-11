@@ -125,9 +125,12 @@
     <string name="write_a_message">Mesajınızı yazınız</string>
     <string name="new_message">Yeni Mesaj</string>
     <string name="offer_sent">Teklifiniz Gönderildi</string>
-    <string name="success_new_password">Parolanız başarıyla değiştirildi</string>
-    <string name="error_new_password">Parolanız oluşurken bir sorun oluştu</string>
-    <string name="error_wrong_email">Sisteme kayıtlı böyle bir mail adresi bulunamamıştır</string>
+    <string name="success_new_password">Parolanız başarıyla değiştirildi.</string>
+    <string name="error_new_password">Parolanız oluşurken bir sorun oluştu.</string>
+    <string name="error_wrong_email">Sisteme kayıtlı böyle bir mail adresi bulunamamıştır.</string>
+    <string name="success_profile_change">Kişisel bilgileriniz başarıyla güncellenmiştir.</string>
+    <string name="error_profile_change">Ad Soyad alanının boş olmadığına ve telefon numarasını tam girdiğinize emin olun.</string>
+
     <string name="error_password_code">Yanlış kod girdiniz</string>
     <string name="error_wrong_type_password">Mevcut şifrenizin doğru girdiğinizden ve kurala uygun yeni şifre girdiğinizden emin olunuz.</string>
 

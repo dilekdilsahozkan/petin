@@ -40,6 +40,8 @@
                 android:background="@drawable/background_gray"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/search"
+                android:maxLength="25"
+                android:imeOptions="actionDone"
                 android:includeFontPadding="false"
                 android:inputType="textLongMessage"
                 android:padding="@dimen/scale_10dp"
@@ -51,13 +53,13 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:clipToPadding="false"
             android:padding="@dimen/scale_16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/search_inputLayout"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:clipToPadding="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_inputLayout"
             tools:listitem="@layout/item_user_message_info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,11 @@
 package com.moralabs.pet.message.domain
 
+import com.google.gson.Gson
+import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.message.data.remote.dto.ChatDto
 import com.moralabs.pet.message.data.remote.dto.ChatRequestDto
 import com.moralabs.pet.message.data.repository.MessageRepository
@@ -28,33 +32,69 @@ class MessageUseCase @Inject constructor(
     fun getMessage(userId: String?): Flow<BaseResult<ChatDto>> {
         return flow {
             val postValue = messageRepository.getChatDetail(userId)
-            emit(
-                BaseResult.Success(
-                    postValue.body()?.data ?: ChatDto()
+            if(postValue.isSuccessful && postValue.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        postValue.body()?.data ?: ChatDto()
+                    )
                 )
-            )
+            }else{
+                val error = Gson().fromJson(postValue.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 
     fun sendMessage(userId: String?, chatRequestDto: ChatRequestDto): Flow<BaseResult<ChatDto>> {
         return flow {
             val postValue = messageRepository.sendMessage(userId, chatRequestDto)
-            emit(
-                BaseResult.Success(
-                    postValue.body()?.data ?: ChatDto()
+            if(postValue.isSuccessful && postValue.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        postValue.body()?.data ?: ChatDto()
+                    )
                 )
-            )
+            }else{
+                val error = Gson().fromJson(postValue.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 
     fun searchUser(keyword: String): Flow<BaseResult<List<UserDto>>> {
         return flow {
             val postValue = messageRepository.searchUser(keyword)
-            emit(
-                BaseResult.Success(
-                    postValue.body()?.data ?: listOf()
+            if(postValue.isSuccessful && postValue.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        postValue.body()?.data ?: listOf()
+                    )
                 )
-            )
+            }else{
+                val error = Gson().fromJson(postValue.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 }
