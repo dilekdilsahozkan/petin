@@ -172,7 +172,11 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
         }
 
         viewModel.allData = list
-        viewModel.visibleData.postValue(viewModel.allData?.filter { it.attributeDto.parentAttributeChoiceId == null })
+        viewModel.visibleData.postValue(viewModel.allData?.filter {
+            it.attributeDto.parentAttributeChoiceId == null || (list.filter { it.choiceId != null }
+                .map { it.choiceId }
+                .contains(it.attributeDto.parentAttributeChoiceId))
+        })
     }
 
     // PHOTO AREA
