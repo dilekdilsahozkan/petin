@@ -19,13 +19,13 @@ class MainPageUseCase @Inject constructor(
     fun getFeed(searchQuery: String? = null): Flow<BaseResult<List<PostDto>>> {
         return flow {
             val feed = postRepository.getFeed(searchQuery)
-            if(feed.isSuccessful && feed.code() == 200){
+            if (feed.isSuccessful && feed.code() == 200) {
                 emit(
                     BaseResult.Success(
                         feed.body()?.data ?: listOf()
                     )
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(feed.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
@@ -39,16 +39,14 @@ class MainPageUseCase @Inject constructor(
         }
     }
 
-    fun likePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+    fun likePost(postId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             val like = postRepository.likePost(postId)
-            if(like.isSuccessful && like.code() == 200){
+            if (like.isSuccessful && like.code() == 200) {
                 emit(
-                    BaseResult.Success(
-                        like.body()?.data ?: listOf()
-                    )
+                    BaseResult.Success(true)
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(like.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
@@ -62,16 +60,14 @@ class MainPageUseCase @Inject constructor(
         }
     }
 
-    fun unlikePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+    fun unlikePost(postId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             val unlike = postRepository.unlikePost(postId)
-            if(unlike.isSuccessful && unlike.code() == 200){
+            if (unlike.isSuccessful && unlike.code() == 200) {
                 emit(
-                    BaseResult.Success(
-                        unlike.body()?.data ?: listOf()
-                    )
+                    BaseResult.Success(true)
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(unlike.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
@@ -85,16 +81,14 @@ class MainPageUseCase @Inject constructor(
         }
     }
 
-    fun deletePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+    fun deletePost(postId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             val delete = postRepository.deletePost(postId)
-            if(delete.isSuccessful && delete.code() == 200){
+            if (delete.isSuccessful && delete.code() == 200) {
                 emit(
-                    BaseResult.Success(
-                        delete.body()?.data ?: listOf()
-                    )
+                    BaseResult.Success(true)
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(delete.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
