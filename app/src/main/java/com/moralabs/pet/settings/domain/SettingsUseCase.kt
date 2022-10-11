@@ -140,6 +140,26 @@ class SettingsUseCase @Inject constructor(
         }
     }
 
+    fun likePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.likePost(postId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
+    fun unlikePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+        return flow {
+            emit(
+                BaseResult.Success(
+                    settingRepository.unlikePost(postId).body()?.data ?: listOf()
+                )
+            )
+        }
+    }
+
     fun logout() {
         authenticationUseCase.logout()
     }
