@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
@@ -16,6 +17,7 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
@@ -23,6 +25,8 @@ import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
@@ -64,10 +68,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 loginIfNeeded {
                     if (it.isPostLikedByUser == true) {
                         viewModel.unlikePost(it.id)
-                        viewModel.feedPost()
                     } else {
                         viewModel.likePost(it.id)
-                        viewModel.feedPost()
                     }
                 }
             },
@@ -146,6 +148,27 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         ) { _, result ->
             result.getString("locationId")
         }
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+        lifecycleScope.launch {
+            viewModel.likeUnlikeDeleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<Boolean> -> {
+                        viewModel.feedPost()
+                    }
+                    is ViewState.Error<*> -> {
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
+
     }
 
     override fun onItemClick(postId: String?) {
