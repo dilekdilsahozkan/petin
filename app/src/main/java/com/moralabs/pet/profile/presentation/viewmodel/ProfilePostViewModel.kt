@@ -38,7 +38,7 @@ class ProfilePostViewModel @Inject constructor(
         }
     }
 
-    fun getPostAnotherUser(userId: String?){
+    fun getPostAnotherUser(userId: String?) {
         viewModelScope.launch {
             useCase.getPostAnotherUser(userId)
                 .onStart {
@@ -68,7 +68,7 @@ class ProfilePostViewModel @Inject constructor(
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _likeUnlikeDeleteState.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
@@ -86,7 +86,7 @@ class ProfilePostViewModel @Inject constructor(
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _likeUnlikeDeleteState.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }
@@ -104,7 +104,7 @@ class ProfilePostViewModel @Inject constructor(
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _likeUnlikeDeleteState.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

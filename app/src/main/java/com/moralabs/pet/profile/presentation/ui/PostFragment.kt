@@ -106,7 +106,8 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
                             viewModel.getPostAnotherUser(otherUserId)
                         } else {
                             viewModel.profilePost()
-                        }                    }
+                        }
+                    }
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }

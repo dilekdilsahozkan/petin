@@ -163,7 +163,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                             files = viewModel.files.value
                         )
                     )
-                    startActivity(Intent(context, MainPageActivity::class.java))
+                    activity?.finish()
                 } else {
                     Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG)
                         .show()
@@ -181,7 +181,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 negativeButton = resources.getString(R.string.no),
                 onResult = {
                     if (PetWarningDialogResult.OK == it) {
-                        startActivity(Intent(context, MainPageActivity::class.java))
+                        activity?.finish()
                     }
                 }
             ).show()
