@@ -23,6 +23,7 @@ import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetProfileViewModel
+import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -108,7 +109,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                             getString(R.string.pet_delete),
                             Toast.LENGTH_LONG
                         ).show()
-                        startActivity(Intent(context, MainPageActivity::class.java))
+                        startActivity(Intent(context, ProfileActivity::class.java))
                     }
                     is ViewState.Error<*> -> {
                         Toast.makeText(

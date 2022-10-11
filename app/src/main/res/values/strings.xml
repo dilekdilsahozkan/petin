@@ -106,7 +106,8 @@
     <string name="block_message">Bu kullanıcı tarafından engellendiniz</string>
 
     <!-- TOAST MESSAGES -->
-
+    <string name="accept_offer">Teklifi kabul ettiniz.</string>
+    <string name="decline_offer">Teklifi reddettiniz.</string>
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
     <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>

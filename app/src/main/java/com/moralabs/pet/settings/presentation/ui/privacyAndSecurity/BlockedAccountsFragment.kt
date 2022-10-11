@@ -30,7 +30,7 @@ class BlockedAccountsFragment() : BaseFragment<FragmentBlockedAccountsBinding, U
 
     override fun setToolbar() {
         super.setToolbar()
-        toolbarListener?.showTitleText(getString(R.string.settings_privacy_and_security))
+        toolbarListener?.showTitleText(getString(R.string.settings_blocked_accounts))
     }
 
     private val blockedAccountsAdapter by lazy(LazyThreadSafetyMode.NONE) {

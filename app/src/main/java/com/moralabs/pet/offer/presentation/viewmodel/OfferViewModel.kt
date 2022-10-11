@@ -17,9 +17,9 @@ class OfferViewModel @Inject constructor(
     private val useCase: OfferUseCase
 ) : BaseViewModel<OfferDetailDto>(useCase) {
 
-    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> =
+    protected var _declineState: MutableStateFlow<ViewState<Boolean>> =
         MutableStateFlow(ViewState.Idle())
-    val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
+    val declineState: StateFlow<ViewState<Boolean>> = _declineState
 
     protected var _acceptState: MutableStateFlow<ViewState<Boolean>> =
         MutableStateFlow(ViewState.Idle())
@@ -36,8 +36,14 @@ class OfferViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -54,8 +60,14 @@ class OfferViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -65,15 +77,21 @@ class OfferViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.declineOffer(offerId)
                 .onStart {
-                    _deleteState.value = ViewState.Loading()
+                    _declineState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _deleteState.value = ViewState.Error(message = exception.message)
+                    _declineState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _deleteState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _declineState.value = ViewState.Idle()
+                            _declineState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _declineState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -90,8 +108,14 @@ class OfferViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _acceptState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _acceptState.value = ViewState.Idle()
+                            _acceptState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _acceptState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }

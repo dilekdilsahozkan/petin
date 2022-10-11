@@ -116,7 +116,11 @@ abstract class BaseFragment<T : ViewDataBinding,
     }
 
     open fun stateError(data: String?) {
-        Toast.makeText(requireContext(), data, Toast.LENGTH_LONG).show()
+        if(data == null){
+            Toast.makeText(requireContext(), "", Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(requireContext(), data, Toast.LENGTH_LONG).show()
+        }
         stopLoading()
     }
 

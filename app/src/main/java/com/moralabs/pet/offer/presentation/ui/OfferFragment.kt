@@ -86,20 +86,21 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         super.addObservers()
 
         lifecycleScope.launch {
-            viewModel.deleteState.collect {
+            viewModel.declineState.collect {
                 when (it) {
                     is ViewState.Loading -> {
                         startLoading()
                     }
                     is ViewState.Success<*> -> {
                         startActivity(Intent(context, MainPageActivity::class.java))
-                    }
-                    is ViewState.Error<*> -> {
                         Toast.makeText(
                             requireContext(),
-                            getString(R.string.error_decline_offer),
+                            getString(R.string.decline_offer),
                             Toast.LENGTH_LONG
                         ).show()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                 }
@@ -112,13 +113,14 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
                     }
                     is ViewState.Success<*> -> {
                         startActivity(Intent(context, MainPageActivity::class.java))
-                    }
-                    is ViewState.Error<*> -> {
                         Toast.makeText(
                             requireContext(),
-                            getString(R.string.error_accept_offer),
+                            getString(R.string.accept_offer),
                             Toast.LENGTH_LONG
                         ).show()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                 }

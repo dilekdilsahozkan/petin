@@ -3,6 +3,7 @@ package com.moralabs.pet.core.presentation.adapter
 import android.graphics.Typeface
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.moralabs.pet.R
@@ -33,6 +34,9 @@ fun TextView.attributes(list: List<PetAttributeDto>?){
 
 @BindingAdapter("pet:setTextCustomStyle")
 fun TextView.setTextCustomStyle(isNormal:Boolean){
-    if (isNormal) this.setTypeface(this.typeface, Typeface.NORMAL) else this.setTypeface(this.typeface,Typeface.BOLD)
+    val regular: Typeface? = ResourcesCompat.getFont(context, R.font.poppins_regular)
+    val bold: Typeface? = ResourcesCompat.getFont(context, R.font.poppins_medium)
+
+    if (isNormal) this.typeface = regular else this.typeface = bold
 }
 
