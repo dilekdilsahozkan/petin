@@ -19,6 +19,5 @@ class SettingRepositoryImpl @Inject constructor(private val service: SettingServ
 
     override suspend fun getInfo(infoType: Int) = service.getInfo(infoType)
     override suspend fun deleteAccount() = service.deleteAccount()
-    override suspend fun likePost(postId: String?) = service.likePost(postId)
     override suspend fun unlikePost(postId: String?) = service.unlikePost(postId)
 }

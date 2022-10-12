@@ -1,7 +1,6 @@
 package com.moralabs.pet.settings.presentation.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
@@ -44,6 +43,9 @@ class SettingsViewModel @Inject constructor(
     private var _stateDeleteAccount: MutableStateFlow<ViewState<Boolean>> =
         MutableStateFlow(ViewState.Idle())
     val stateDeleteAccount: StateFlow<ViewState<Boolean>> = _stateDeleteAccount
+
+    private var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
 
     fun logout() {
         useCase.logout()
@@ -202,39 +204,23 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun likePost(postId: String?) {
-        viewModelScope.launch {
-            useCase.likePost(postId)
-                .onStart {
-                    _state.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Idle()
-                    }
-                }
-        }
-    }
-
     fun unlikePost(postId: String?) {
         viewModelScope.launch {
             useCase.unlikePost(postId)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    _likeUnlikeDeleteState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
+                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Idle()
+                        _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
                     }
                 }
+
         }
     }
 }

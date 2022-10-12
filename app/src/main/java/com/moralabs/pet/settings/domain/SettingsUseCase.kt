@@ -140,23 +140,24 @@ class SettingsUseCase @Inject constructor(
         }
     }
 
-    fun likePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
+    fun unlikePost(postId: String?): Flow<BaseResult<Boolean>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    settingRepository.likePost(postId).body()?.data ?: listOf()
+            val unlike = settingRepository.unlikePost(postId)
+            if (unlike.isSuccessful && unlike.code() == 200) {
+                emit(
+                    BaseResult.Success(true)
                 )
-            )
-        }
-    }
-
-    fun unlikePost(postId: String?): Flow<BaseResult<List<PostDto>>> {
-        return flow {
-            emit(
-                BaseResult.Success(
-                    settingRepository.unlikePost(postId).body()?.data ?: listOf()
+            } else {
+                val error = Gson().fromJson(unlike.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
                 )
-            )
+            }
         }
     }
 
