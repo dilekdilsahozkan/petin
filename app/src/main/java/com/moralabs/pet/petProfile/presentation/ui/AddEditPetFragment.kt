@@ -1,6 +1,7 @@
 package com.moralabs.pet.petProfile.presentation.ui
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.database.Cursor
@@ -96,6 +97,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                             },
                         onSuccess = {
                             Toast.makeText(requireContext(), getString(R.string.edit_pet), Toast.LENGTH_LONG).show()
+                            activity?.setResult(Activity.RESULT_OK)
                             activity?.onBackPressed()
                         }
                     )

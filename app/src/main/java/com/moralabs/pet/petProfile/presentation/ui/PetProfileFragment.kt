@@ -1,9 +1,11 @@
 package com.moralabs.pet.petProfile.presentation.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +21,6 @@ import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentPetProfileBinding
 import com.moralabs.pet.databinding.ItemPetFeatureBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetProfileViewModel
@@ -38,6 +39,18 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         activity?.intent?.getStringExtra(PetProfileActivity.OTHER_USER_ID)
     }
 
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            if (!otherUserId.isNullOrBlank()) {
+                viewModel.getAnotherUserPetInfo(petId, otherUserId)
+                binding.editIcon.visibility = View.GONE
+                binding.deleteIcon.visibility = View.GONE
+            } else {
+                viewModel.petInfo(petId)
+            }
+        }
+    }
+
     override fun getLayoutId() = R.layout.fragment_pet_profile
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
@@ -54,6 +67,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         super.onViewCreated(view, savedInstanceState)
 
         binding.attributeRecycler.adapter = attributeAdapter
+
         if (!otherUserId.isNullOrBlank()) {
             viewModel.getAnotherUserPetInfo(petId, otherUserId)
             binding.editIcon.visibility = View.GONE
@@ -87,11 +101,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         }
 
         binding.editIcon.setOnClickListener {
-            context?.startActivity(
-                Intent(
-                    context,
-                    AddEditPetActivity::class.java
-                ).apply { putExtras(bundleOf(AddEditPetActivity.BUNDLE_PET to viewModel.latestDto)) })
+            openEditPet()
         }
     }
 
@@ -145,5 +155,11 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                 9 -> binding.petAge.text = it.choice.toString()
             }
         }
+    }
+
+    fun openEditPet() {
+        val intent = Intent(requireContext(), AddEditPetActivity::class.java)
+        intent.putExtras(bundleOf(AddEditPetActivity.BUNDLE_PET to viewModel.latestDto))
+        resultLauncher.launch(intent)
     }
 }
