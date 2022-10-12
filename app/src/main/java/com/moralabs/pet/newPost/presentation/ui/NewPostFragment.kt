@@ -96,28 +96,24 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
             binding.petCardList.visibility = View.GONE
             binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
-            binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
             binding.keyboardConstraint.visibility = View.VISIBLE
             binding.petCardList.visibility = View.GONE
             binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
-            binding.deleteImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petCardList.visibility = View.VISIBLE
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
-            binding.deleteImage.visibility = View.GONE
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
             binding.keyboardConstraint.visibility = View.GONE
             binding.petCardList.visibility = View.VISIBLE
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
-            binding.deleteImage.visibility = View.GONE
         }
     }
 

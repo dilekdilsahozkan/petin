@@ -1,5 +1,7 @@
 package com.moralabs.pet.onboarding.domain
 
+import com.google.gson.Gson
+import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
@@ -37,7 +39,16 @@ class LoginUseCase @Inject constructor(
                         emit(BaseResult.Error(ErrorResult(code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD)))
                     }
                 } else {
-                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, response.body()?.userMessage, response.code())))
+                    val error =
+                        Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
+                    emit(
+                        BaseResult.Error(
+                            ErrorResult(
+                                code = ErrorCode.SERVER_ERROR,
+                                error.userMessage
+                            )
+                        )
+                    )
                 }
             }
         }
@@ -45,12 +56,12 @@ class LoginUseCase @Inject constructor(
 
     fun guestLogin(): Flow<BaseResult<LoginDto>> {
         return flow {
-                loginRepository.guestLogin().body()?.data?.let {
-                    it.accessToken?.let { accessToken ->
-                        authenticationRepository.guestLogin(accessToken)
-                    }
-                    emit(BaseResult.Success(it))
+            loginRepository.guestLogin().body()?.data?.let {
+                it.accessToken?.let { accessToken ->
+                    authenticationRepository.guestLogin(accessToken)
                 }
+                emit(BaseResult.Success(it))
+            }
         }
     }
 
@@ -63,7 +74,15 @@ class LoginUseCase @Inject constructor(
                 if (forgot.isSuccessful && forgot.code() == 200) {
                     emit(BaseResult.Success(true))
                 } else {
-                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, forgot.body()?.userMessage, forgot.code())))
+                    emit(
+                        BaseResult.Error(
+                            ErrorResult(
+                                code = ErrorCode.SERVER_ERROR,
+                                forgot.body()?.userMessage,
+                                forgot.code()
+                            )
+                        )
+                    )
                 }
             }
         }
@@ -75,14 +94,35 @@ class LoginUseCase @Inject constructor(
             if (pwCode.isSuccessful && pwCode.code() == 200) {
                 emit(BaseResult.Success(true))
             } else {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR, pwCode.body()?.userMessage, pwCode.code())))
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            pwCode.body()?.userMessage,
+                            pwCode.code()
+                        )
+                    )
+                )
             }
         }
     }
 
     fun newPassword(newPw: NewPasswordDto): Flow<BaseResult<Boolean>> {
         return flow {
-            emit(BaseResult.Success(loginRepository.newPassword(newPw).isSuccessful))
+            val response = loginRepository.newPassword(newPw)
+            if(response.isSuccessful && response.code() == 200){
+                emit(BaseResult.Success(response.isSuccessful))
+            }else{
+                val error = Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 }

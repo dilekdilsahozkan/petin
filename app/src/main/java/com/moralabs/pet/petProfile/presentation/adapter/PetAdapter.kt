@@ -163,11 +163,13 @@ class PetAdapter(
 
     fun setChoice(position: Int, choice: String) {
         getItem(position).choice = choice
+        notifyDataSetChanged()
     }
 
     fun setChoicePosition(position: Int, choice: Int): String? {
         getItem(position).choice = getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
         getItem(position).choiceId = getItem(position).attributeDto.choices?.getOrNull(choice)?.id
+        notifyDataSetChanged()
 
         onChoiceChanged?.invoke(currentList)
         return getItem(position).attributeDto.choices?.getOrNull(choice)?.choice

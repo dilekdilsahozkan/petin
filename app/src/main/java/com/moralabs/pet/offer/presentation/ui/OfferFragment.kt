@@ -27,6 +27,9 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
     private val offerId: String? by lazy {
         arguments?.getString(MakeOfferActivity.OFFER_ID)
     }
+    private val offerType: Int? by lazy {
+        arguments?.getInt(MakeOfferActivity.OFFER_TYPE, 0)
+    }
     private val userName: String? by lazy {
         arguments?.getString(OfferUserActivity.USER_NAME)
     }
@@ -74,7 +77,7 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         binding.petInfo.setOnClickListener {
             val bundle = bundleOf(
                 PetProfileActivity.PET_ID to petId,
-                PetProfileActivity.OTHER_USER_ID to otherUserId
+                PetProfileActivity.OTHER_USER_ID to otherUserId,
             )
             val intent = Intent(context, PetProfileActivity::class.java)
             intent.putExtras(bundle)
@@ -105,7 +108,8 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
                     }
                 }
             }
-
+        }
+        lifecycleScope.launch {
             viewModel.acceptState.collect {
                 when (it) {
                     is ViewState.Loading -> {
@@ -132,6 +136,12 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getOffer(offerId)
+
+        if(petId == null){
+            binding.petInfo.visibility = View.GONE
+        }else{
+            binding.petInfo.visibility = View.VISIBLE
+        }
 
         binding.offerText.text = offerText
         binding.userInfo.text = userName

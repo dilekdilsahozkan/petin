@@ -20,10 +20,6 @@
         android:theme="@style/Theme.PET"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".onboarding.presentation.ui.guest.GuestActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity
             android:name=".offer.presentation.ui.OfferUserActivity"
             android:exported="false" />
         <activity
@@ -84,6 +80,17 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="petinapp.co"
+                    android:pathPrefix="/link"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

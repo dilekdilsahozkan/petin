@@ -121,13 +121,11 @@ class PostListAdapter(
             }
 
             if (post.isPostOwnedByUser == true) {
-                binding.offerButton.visibility = View.GONE
-                binding.postType.visibility = View.GONE
                 binding.postSetting.visibility = View.VISIBLE
+                binding.offerButton.visibility = View.GONE
             } else {
-                binding.offerButton.visibility = View.VISIBLE
-                binding.postType.visibility = View.VISIBLE
                 binding.postSetting.visibility = View.GONE
+                binding.offerButton.visibility = View.VISIBLE
             }
 
             if (post.content?.pet?.media?.url.isNullOrEmpty()) {

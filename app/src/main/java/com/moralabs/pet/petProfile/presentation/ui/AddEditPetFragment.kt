@@ -55,7 +55,8 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                     it.attributeDto.parentAttributeChoiceId == null || (list.filter { it.choiceId != null }
                         .map { it.choiceId }
                         .contains(it.attributeDto.parentAttributeChoiceId))
-                })
+                }
+                )
             }
         )
     }

@@ -37,6 +37,7 @@ class OfferUserFragment :
         BaseListAdapter(R.layout.item_user_info, BR.item, onRowClick = { offer ->
             var bundle = bundleOf(
                 MakeOfferActivity.OFFER_ID to offer.id,
+                MakeOfferActivity.OFFER_TYPE to offer.id,
                 OfferUserActivity.OFFER_TEXT to offer.text,
                 OfferUserActivity.OTHER_USER_ID to offer.user?.userId,
                 OfferUserActivity.USER_NAME to offer.user?.fullName,

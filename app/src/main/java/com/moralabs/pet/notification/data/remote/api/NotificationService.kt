@@ -16,6 +16,9 @@ interface NotificationService {
     @GET("/notification/{dateTime}")
     suspend fun notificationDateTime(@Path("dateTime") dateTime: String?): Response<BaseResponse<List<NotificationDto>>>
 
+    @GET("/notification/latest")
+    suspend fun latestNotification(): Response<BaseResponse<Boolean>>
+
     @POST("/user/notification/token")
     suspend fun sendToken(@Body request: NotificationTokenDto): Response<BaseResponse<Nothing>>
 }

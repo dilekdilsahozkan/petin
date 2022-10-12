@@ -11,9 +11,7 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.notification.data.remote.dto.NotificationDto
 import com.moralabs.pet.notification.domain.NotificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +21,9 @@ class NotificationViewModel @Inject constructor(
 ) : BaseViewModel<List<NotificationDto>>(useCase) {
 
     var notification : MutableLiveData<NotificationDto?> = MutableLiveData(null)
+
+    protected var _latestState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val latestState: StateFlow<ViewState<Boolean>> = _latestState
 
     fun notificationPet(){
         viewModelScope.launch {
@@ -35,8 +36,38 @@ class NotificationViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun latestNotification(){
+        viewModelScope.launch {
+            useCase.latestNotification()
+                .onStart {
+                    _latestState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _latestState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _latestState.value = ViewState.Idle()
+                            _latestState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _latestState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -54,8 +85,14 @@ class NotificationViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
