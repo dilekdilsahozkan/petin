@@ -44,15 +44,15 @@ class WelcomeFragment : View.OnClickListener,
             override fun createFragment(position: Int) = when (position) {
                 0 -> TutorialFragment().apply {
                     arguments =
-                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_1, TutorialFragment.LOTTIE to R.raw.pet_center)
+                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_1, TutorialFragment.IMAGE to R.drawable.ic_tutorial_1)
                 }
                 1 -> TutorialFragment().apply {
                     arguments =
-                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_2, TutorialFragment.LOTTIE to R.raw.pet_adoption)
+                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_2, TutorialFragment.IMAGE to R.drawable.ic_tutorial_2)
                 }
                 2 -> TutorialFragment().apply {
                     arguments =
-                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_3, TutorialFragment.LOTTIE to R.raw.pet_dog)
+                        bundleOf(TutorialFragment.TEXT to R.string.tutorial_3, TutorialFragment.IMAGE to R.drawable.ic_tutorial_3)
                 }
                 else -> throw NotImplementedError()
             }

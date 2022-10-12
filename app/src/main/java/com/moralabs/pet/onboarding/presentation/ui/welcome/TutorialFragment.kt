@@ -18,15 +18,15 @@ class TutorialFragment :
 
     companion object {
         const val TEXT = "text"
-        const val LOTTIE = "lottie"
+        const val IMAGE = "image"
     }
 
     private val text by lazy {
         arguments?.getInt(TEXT)
     }
 
-    private val lottie by lazy {
-        arguments?.getInt(LOTTIE)
+    private val image by lazy {
+        arguments?.getInt(IMAGE)
     }
 
     override fun getLayoutId() = R.layout.fragment_tutorial
@@ -39,8 +39,8 @@ class TutorialFragment :
             binding.tutorialText.setText(it)
         }
 
-        lottie?.let {
-            binding.lottie.setAnimation(it)
+        image?.let {
+            binding.image.setImageResource(it)
         }
     }
 

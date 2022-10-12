@@ -107,7 +107,6 @@ class PostListAdapter(
             binding.offerCount.text = post.offerCount.toString()
             binding.postReleaseTime.text = post.dateTime.toFullDate(context)
             binding.post2ReleaseTime.text = post.dateTime.toFullDate(context)
-            binding.location.text = post.content?.location?.city.toString()
 
             binding.petName.text = post.content?.pet?.name
             binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 6 }?.getOrNull(0)?.choice

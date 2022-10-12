@@ -21,4 +21,5 @@
             app:lottie_rawRes="@raw/elephant_loading"/>
 
     </FrameLayout>
+
 </layout>
