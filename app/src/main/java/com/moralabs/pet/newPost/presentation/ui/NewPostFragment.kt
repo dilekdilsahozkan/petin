@@ -149,7 +149,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                             petId = pet.id,
                         )
                     )
-                    startActivity(Intent(context, MainPageActivity::class.java))
                 } else if (postType == TabTextType.POST_TYPE.type || postType == TabTextType.QAN_TYPE.type) {
                     viewModel.createPost(
                         NewPostDto(
@@ -214,7 +213,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
         (viewModel as? NewPostViewModel)?.files?.observe(viewLifecycleOwner) {
 
-//            binding.postImage.isVisible = it.size > 0
             if (it.size > 0) {
                 Glide.with(requireContext()).load(it.get(0)).into(binding.postImage)
             }

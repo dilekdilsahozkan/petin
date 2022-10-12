@@ -19,6 +19,7 @@ import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
 import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetFragment
 import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetListener
+import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +44,17 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
 
     private val postAdapter by lazy {
         PostListAdapter(
+            onOfferClick = {
+                loginIfNeeded {
+                    val bundle = bundleOf(
+                        MakeOfferActivity.POST_ID to it.id,
+                        MakeOfferActivity.OFFER_TYPE to it.content?.type
+                    )
+                    val intent = Intent(context, MakeOfferActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
+            },
             onLikeClick = {
                 if (it.isPostLikedByUser == true) {
                     viewModel.unlikePost(it.id)

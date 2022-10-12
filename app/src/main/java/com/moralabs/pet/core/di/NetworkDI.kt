@@ -27,7 +27,7 @@ class NetworkDI {
         authenticationInterceptorRefreshToken: AuthenticationInterceptorRefreshToken
     ) = if (true) {
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
         OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .addInterceptor(authenticationInterceptorRefreshToken)
