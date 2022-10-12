@@ -40,8 +40,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
             onLikeClick = {
                 if (it.isPostLikedByUser == true) {
                     viewModel.unlikePost(it.id)
-                } else {
-                    viewModel.likePost(it.id)
                 }
             },
             onOfferClick = {
@@ -103,6 +101,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
         )
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.favoritesRecyclerView.adapter = likedPostAdapter
@@ -128,10 +127,27 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
                 }
             }
         }
+        lifecycleScope.launch {
+            viewModel.likeUnlikeDeleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<Boolean> -> {
+                        viewModel.getLikedPosts()
+                        stopLoading()
+                    }
+                    is ViewState.Error<*> -> {
+                        stopLoading()
+                    }
+                }
+            }
+        }
     }
 
     override fun setToolbar() {
         super.setToolbar()
         toolbarListener?.showTitleText(getString(R.string.settings_my_favorites))
     }
+
 }

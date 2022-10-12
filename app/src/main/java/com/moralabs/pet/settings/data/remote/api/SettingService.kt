@@ -38,10 +38,6 @@ interface SettingService {
     @DELETE("/user")
     suspend fun deleteAccount(): Response<BaseResponse<Nothing>>
 
-    // gönderi beğenme
-    @POST("/feed/post/{postId}/like")
-    suspend fun likePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>
-
     // gönderi beğenmesini geri çekme
     @PATCH("/feed/post/{postId}/unlike")
     suspend fun unlikePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>
