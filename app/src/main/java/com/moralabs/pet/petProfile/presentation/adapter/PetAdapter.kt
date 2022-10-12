@@ -68,7 +68,7 @@ class PetAdapter(
         )
     }
 
-    private val choiceId :ArrayList<String?> = arrayListOf()
+    private val choiceId: ArrayList<String?> = arrayListOf()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.setVariable(BR.item, getItem(position))
@@ -163,7 +163,9 @@ class PetAdapter(
 
     fun setChoice(position: Int, choice: String) {
         getItem(position).choice = choice
-        notifyDataSetChanged()
+        if (getItemViewType(position) == AttributeUiType.ATTRIBUTE_LIST.value) {
+            notifyDataSetChanged()
+        }
     }
 
     fun setChoicePosition(position: Int, choice: Int): String? {
