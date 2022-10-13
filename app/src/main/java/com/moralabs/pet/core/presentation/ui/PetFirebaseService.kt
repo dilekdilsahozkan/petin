@@ -28,6 +28,8 @@ class PetFirebaseService : FirebaseMessagingService() {
 
         Log.d("MAIN", "FIREBASE key -> $message")
 
+        notificationUseCase.latestNotification()
+
         val notification = message.data["message"]
         sendNotification(notification)
     }

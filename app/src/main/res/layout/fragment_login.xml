@@ -90,6 +90,7 @@
                         android:background="@drawable/background_edit"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
+                        android:includeFontPadding="false"
                         android:padding="10dp"
                         android:text="Noyan123"
                         android:textSize="@dimen/scale_15dp" />

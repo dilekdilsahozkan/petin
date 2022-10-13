@@ -128,7 +128,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
             viewModel.locationId = result.getString("locationId")
         }
-
         viewModel.petValue()
     }
 

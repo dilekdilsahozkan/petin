@@ -14,6 +14,7 @@ import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.presentation.ui.about.InfoTypes
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import com.moralabs.pet.core.presentation.extension.fromHtml
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -56,7 +57,8 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding, UserDto, Settin
                         startLoading()
                     }
                     is ViewState.Success<String> -> {
-                        binding.agreementText.text = it.data
+                        viewModel.description = it.data
+                        binding.agreementText.text = viewModel.description.fromHtml()
                         stopLoading()
                     }
                     is ViewState.Error<*> -> {

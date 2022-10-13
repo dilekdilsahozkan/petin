@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".login.ui.SplashScreenFragment">
 
-    <data>
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layoutDescription="@xml/fragment_splash_screen">
+
+        <ImageView
+            android:id="@+id/moralabsLogo"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/moralabs_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/petinLogo"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/petin_logo"
+            android:layout_marginStart="@dimen/scale_16dp"
+            app:layout_constraintStart_toEndOf="@id/moralabsLogo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>

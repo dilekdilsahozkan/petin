@@ -2,9 +2,6 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +20,6 @@ import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
-import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -61,7 +57,6 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         )
         addListeners()
         observe()
-        //addObservers()
     }
 
     private fun addListeners() {

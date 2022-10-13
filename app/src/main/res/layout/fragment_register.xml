@@ -146,6 +146,7 @@
                         android:background="@drawable/background_edit"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
+                        android:includeFontPadding="false"
                         android:maxLines="1"
                         android:padding="10dp"
                         android:textSize="15dp" />
@@ -169,6 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/scale_32dp"
+                    android:padding="@dimen/scale_5dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/passwordRule">
 
@@ -184,6 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:clickable="true"
+                        android:textSize="@dimen/scale_13dp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/agreementText"
                         android:textColor="@color/darkSecondary" />

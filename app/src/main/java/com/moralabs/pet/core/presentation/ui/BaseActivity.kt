@@ -1,5 +1,6 @@
 package com.moralabs.pet.core.presentation.ui
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,10 @@ import javax.inject.Inject
 abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), PetToolbarListener {
 
     protected lateinit var binding: Binding
+
+    companion object {
+        var currentActivity: Activity? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

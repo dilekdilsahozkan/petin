@@ -47,6 +47,8 @@ class SettingsViewModel @Inject constructor(
     private var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
 
+    var description: String? = ""
+
     fun logout() {
         useCase.logout()
     }
