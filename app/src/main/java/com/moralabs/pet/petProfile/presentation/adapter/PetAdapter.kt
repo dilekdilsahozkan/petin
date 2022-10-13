@@ -93,6 +93,8 @@ class PetAdapter(
 
             getItem(position).choice?.let {
                 (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setText(it, false)
+            } ?: run {
+                (holder.binding as? ItemAddPetAttributeListBinding)?.choices?.setText("", false)
             }
         }
     }
@@ -164,14 +166,14 @@ class PetAdapter(
     fun setChoice(position: Int, choice: String) {
         getItem(position).choice = choice
         if (getItemViewType(position) == AttributeUiType.ATTRIBUTE_LIST.value) {
-            notifyDataSetChanged()
+            notifyItemRangeChanged(position, 1)
         }
     }
 
     fun setChoicePosition(position: Int, choice: Int): String? {
         getItem(position).choice = getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
         getItem(position).choiceId = getItem(position).attributeDto.choices?.getOrNull(choice)?.id
-        notifyDataSetChanged()
+        notifyItemRangeChanged(position, 1)
 
         onChoiceChanged?.invoke(currentList)
         return getItem(position).attributeDto.choices?.getOrNull(choice)?.choice
