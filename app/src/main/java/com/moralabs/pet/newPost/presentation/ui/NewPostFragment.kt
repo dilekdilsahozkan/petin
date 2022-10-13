@@ -170,6 +170,7 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 PetWarningDialogType.CONFIRMATION,
                 resources.getString(R.string.ask_sure),
                 okay = getString(R.string.yes),
+                discard = getString(R.string.no),
                 description = resources.getString(R.string.postSure),
                 negativeButton = resources.getString(R.string.no),
                 onResult = {

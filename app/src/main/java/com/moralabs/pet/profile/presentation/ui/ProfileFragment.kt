@@ -1,5 +1,6 @@
 package com.moralabs.pet.profile.presentation.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -223,10 +224,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     PetWarningDialogType.CONFIRMATION,
                     resources.getString(R.string.ask_sure),
                     okay = getString(R.string.yes),
+                    discard = getString(R.string.no),
                     description = getString(R.string.user_unblock),
                     negativeButton = resources.getString(R.string.no),
                     onResult = {
                         if (PetWarningDialogResult.OK == it) {
+                            activity?.setResult(Activity.RESULT_OK)
                             viewModel.unblockUser(otherUserId)
                         }
                     }
@@ -237,10 +240,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     PetWarningDialogType.CONFIRMATION,
                     resources.getString(R.string.ask_sure),
                     okay = getString(R.string.yes),
+                    discard = getString(R.string.no),
                     description = getString(R.string.user_block),
                     negativeButton = resources.getString(R.string.no),
                     onResult = {
                         if (PetWarningDialogResult.OK == it) {
+                            activity?.setResult(Activity.RESULT_OK)
                             viewModel.blockUser(otherUserId)
                         }
                     }

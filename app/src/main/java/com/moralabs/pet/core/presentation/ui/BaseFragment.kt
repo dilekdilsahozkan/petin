@@ -173,6 +173,7 @@ abstract class BaseFragment<T : ViewDataBinding,
                 PetWarningDialogType.LOGIN,
                 getString(R.string.register),
                 okay = getString(R.string.ok),
+                discard = getString(R.string.no),
                 description = getString(R.string.loginNeeded),
                 positiveButton = getString(R.string.login),
                 onResult = {

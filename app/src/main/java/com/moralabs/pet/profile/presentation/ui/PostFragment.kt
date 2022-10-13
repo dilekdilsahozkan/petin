@@ -143,6 +143,7 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
             PetWarningDialogType.CONFIRMATION,
             resources.getString(R.string.ask_sure),
             okay = getString(R.string.yes),
+            discard = getString(R.string.no),
             description = resources.getString(R.string.delete_post_warning),
             negativeButton = resources.getString(R.string.no),
             onResult = {

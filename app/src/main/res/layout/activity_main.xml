@@ -4,30 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".login.ui.SplashScreenFragment">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/mainColor"
         app:layoutDescription="@xml/fragment_splash_screen">
 
         <ImageView
             android:id="@+id/moralabsLogo"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/moralabs_logo"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="200dp"
+            android:layout_height="400dp"
+            android:src="@drawable/ic_petin_white"
+            app:layout_constraintBottom_toTopOf="@id/petinLogo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/petinLogo"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/petin_logo"
-            android:layout_marginStart="@dimen/scale_16dp"
-            app:layout_constraintStart_toEndOf="@id/moralabsLogo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:layout_marginBottom="@dimen/scale_20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

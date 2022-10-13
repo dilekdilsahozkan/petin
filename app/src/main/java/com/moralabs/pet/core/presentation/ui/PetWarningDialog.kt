@@ -25,6 +25,7 @@ class PetWarningDialog (
     type: PetWarningDialogType,
     title: String,
     okay: String,
+    discard: String,
     description: String,
     onResult: ((result: PetWarningDialogResult) -> Unit)? = null,
     positiveButton: String? = null,
@@ -59,6 +60,7 @@ class PetWarningDialog (
         binding.text.text = title
         binding.description.text = description
         binding.okay.text = okay
+        binding.discard.text = discard
 
         if(title.equals(context.getString(R.string.register))){
             binding.icon.visibility = View.GONE
@@ -79,9 +81,6 @@ class PetWarningDialog (
             }
             dismiss()
         }
-
-        binding.discard.isVisible = type == PetWarningDialogType.CONFIRMATION
-        binding.discard.isVisible = type == PetWarningDialogType.LOGIN
 
         positiveButton?.let{
             binding.okay.text = it

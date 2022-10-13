@@ -26,7 +26,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, List<Noti
     }
 
     private val notificationAdapter: BaseListAdapter<NotificationDto, ItemNotificationBinding> by lazy {
-        BaseListAdapter(R.layout.item_notification, BR.item)
+        BaseListAdapter(R.layout.item_notification, BR.item, emptyString = getString(R.string.noNotification))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

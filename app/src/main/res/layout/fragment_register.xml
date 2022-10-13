@@ -148,7 +148,6 @@
                         android:inputType="textPassword"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:padding="10dp"
                         android:textSize="15dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>

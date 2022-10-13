@@ -75,8 +75,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_inputLayout"
                     android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     app:boxStrokeWidth="0dp"
+                    android:padding="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/password_title"
@@ -91,7 +92,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:includeFontPadding="false"
-                        android:padding="10dp"
+                        android:paddingTop="0dp"
                         android:text="Noyan123"
                         android:textSize="@dimen/scale_15dp" />
 

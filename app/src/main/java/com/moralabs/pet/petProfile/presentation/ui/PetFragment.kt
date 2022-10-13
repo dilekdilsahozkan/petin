@@ -44,7 +44,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
             })
         }, isSameDto = { oldItem, newItem ->
             oldItem.id == newItem.id
-        })
+        }, emptyString = getString(R.string.noPet))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

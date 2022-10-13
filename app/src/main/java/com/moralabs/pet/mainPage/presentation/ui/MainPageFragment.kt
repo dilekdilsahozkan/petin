@@ -1,8 +1,10 @@
 package com.moralabs.pet.mainPage.presentation.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
@@ -22,6 +24,7 @@ import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
+import com.moralabs.pet.petProfile.presentation.ui.AddEditPetActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,12 +77,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onCommentClick = {
-                val bundle = bundleOf(
-                    CommentActivity.POST_ID to it.id
-                )
-                val intent = Intent(context, CommentActivity::class.java)
-                intent.putExtras(bundle)
-                context?.startActivity(intent)
+                loginIfNeeded {
+                    val bundle = bundleOf(
+                        CommentActivity.POST_ID to it.id
+                    )
+                    val intent = Intent(context, CommentActivity::class.java)
+                    intent.putExtras(bundle)
+                    context?.startActivity(intent)
+                }
             },
             onOfferUserClick = {
                 loginIfNeeded {
@@ -118,6 +123,13 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerview.adapter = postAdapter
+        val paddingDp = 15
+        val density = context?.resources?.displayMetrics?.density
+        var paddingPixel = 0f
+        density?.let {
+            paddingPixel = it * paddingDp
+        }
+        binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
 
         viewModel.feedPost()
     }
@@ -178,6 +190,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             PetWarningDialogType.CONFIRMATION,
             resources.getString(R.string.ask_sure),
             okay = getString(R.string.yes),
+            discard = getString(R.string.no),
             description = resources.getString(R.string.delete_post_warning),
             negativeButton = resources.getString(R.string.no),
             onResult = {

@@ -35,6 +35,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
                 PetWarningDialogType.CONFIRMATION,
                 resources.getString(R.string.ask_sure),
                 okay = getString(R.string.yes),
+                discard = getString(R.string.no),
                 description = resources.getString(R.string.logoutSure),
                 negativeButton = resources.getString(R.string.no),
                 onResult = {

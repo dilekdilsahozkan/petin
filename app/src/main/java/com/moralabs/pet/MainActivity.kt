@@ -40,7 +40,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(ActivityMainBinding.inflate(layoutInflater).root)
 
         lifecycleScope.launch {
-            delay(3000)
+            delay(500)
+            if (authenticationRepository.isLoggedIn()) {
+                startActivity(Intent(applicationContext, MainPageActivity::class.java))
+                finish()
+            } else {
+                startActivity(Intent(applicationContext, WelcomeActivity::class.java))
+                finish()
+            }
         }
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -49,13 +56,6 @@ class MainActivity : AppCompatActivity() {
             notificationUseCase.sendNotificationToken().collect {}
         }
 
-        if (authenticationRepository.isLoggedIn()) {
-            startActivity(Intent(this, MainPageActivity::class.java))
-            finish()
-        } else {
-            startActivity(Intent(this, WelcomeActivity::class.java))
-            finish()
-        }
     }
 
 }

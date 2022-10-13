@@ -86,6 +86,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                 PetWarningDialogType.CONFIRMATION,
                 resources.getString(R.string.ask_sure),
                 okay = getString(R.string.yes),
+                discard = getString(R.string.no),
                 description = resources.getString(R.string.delete_pet_warning),
                 negativeButton = resources.getString(R.string.no),
                 onResult = {

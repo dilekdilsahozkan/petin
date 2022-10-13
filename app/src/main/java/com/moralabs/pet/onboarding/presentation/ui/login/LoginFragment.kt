@@ -3,6 +3,7 @@ package com.moralabs.pet.onboarding.presentation.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -34,6 +35,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
     override fun fragmentViewModel(): BaseViewModel<LoginDto> {
         val viewModel: LoginViewModel by viewModels()
         return viewModel
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val paddingDp = 15
+        val density = context?.resources?.displayMetrics?.density
+        var paddingPixel = 0f
+        density?.let {
+            paddingPixel= it * paddingDp
+        }
+        binding.passwordEdittext.setPadding(paddingPixel.toInt(),0,0,0)
     }
 
     override fun addListeners() {
