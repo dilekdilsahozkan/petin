@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         CoroutineScope(Dispatchers.Default).launch {
-            notificationUseCase.sendNotificationToken().collect {}
+            notificationUseCase.sendNotificationToken()
         }
 
     }

@@ -5,17 +5,22 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
+import com.moralabs.pet.core.presentation.observable.NotificationHandler
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentNotificationBinding
 import com.moralabs.pet.databinding.ItemNotificationBinding
 import com.moralabs.pet.notification.data.remote.dto.NotificationDto
 import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NotificationFragment : BaseFragment<FragmentNotificationBinding, List<NotificationDto>, NotificationViewModel>() {
+
+    @Inject
+    lateinit var notificationHandler: NotificationHandler
 
     override fun getLayoutId() = R.layout.fragment_notification
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -36,9 +41,10 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, List<Noti
         viewModel.notificationPet()
     }
 
-     override fun stateSuccess(data: List<NotificationDto>) {
+    override fun stateSuccess(data: List<NotificationDto>) {
         super.stateSuccess(data)
 
         notificationAdapter.submitList(data)
+        notificationHandler.clearNotification()
     }
 }

@@ -3,46 +3,41 @@ package com.moralabs.pet.mainPage.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.moralabs.pet.R
+import com.moralabs.pet.core.presentation.observable.NotificationHandler
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
-import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.ActivityMainPageBinding
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetFragment
 import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
 import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
-import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
+    @Inject
+    lateinit var notificationHandler: NotificationHandler
+
     private lateinit var navController: NavController
-    var viewModel: NotificationViewModel? = null
 
     override fun getLayoutId() = R.layout.activity_main_page
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[NotificationViewModel::class.java]
-
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_main_page) as NavHostFragment
 
         navController = navHostFragment.navController
-        viewModel?.latestNotification()
 
         setSupportActionBar(binding.appBar)
         setupActionBarWithNavController(
@@ -56,7 +51,9 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
                 .build()
         )
         addListeners()
-        observe()
+        addObservers()
+
+        notificationHandler.checkNotifications()
     }
 
     private fun addListeners() {
@@ -70,13 +67,6 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         }
 
         binding.dashboardNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.notification -> {
-                    val badgeDrawable = binding.dashboardNavigation.getBadge(R.id.notification)
-                    badgeDrawable?.isVisible = false
-                    badgeDrawable?.clearNumber()
-                }
-            }
             val result = loginIfNeeded {}
 
             if (result) {
@@ -86,30 +76,19 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         }
     }
 
-    private fun observe() {
-
-        lifecycleScope.launch {
-            viewModel?.latestState?.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        if (it.data as Boolean) {
-                            val badge =
-                                binding.dashboardNavigation.getOrCreateBadge(R.id.notification)
-                            badge.isVisible = true
-                            badge.backgroundColor = getColor(R.color.mainColor)
-                        }
-                    }
-                    is ViewState.Error<*> -> {
-                        stopLoading()
-                    }
-                    else -> {}
-                }
+    fun addObservers() {
+        notificationHandler.hasNotification.observe(this) {
+            if (it) {
+                val badge =
+                    binding.dashboardNavigation.getOrCreateBadge(R.id.notification)
+                badge.isVisible = true
+                badge.backgroundColor = getColor(R.color.mainColor)
+            } else {
+                val badgeDrawable = binding.dashboardNavigation.getBadge(R.id.notification)
+                badgeDrawable?.isVisible = false
+                badgeDrawable?.clearNumber()
             }
         }
-
     }
 
     override fun onItemClick(type: Int) {
