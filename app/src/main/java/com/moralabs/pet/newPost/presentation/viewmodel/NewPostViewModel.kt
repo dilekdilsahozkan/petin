@@ -30,6 +30,9 @@ class NewPostViewModel @Inject constructor(
     protected var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())
     val getUser: StateFlow<ViewState<UserDto>> = _userInfo
 
+    protected var _createPost: MutableStateFlow<ViewState<CreatePostDto>> = MutableStateFlow(ViewState.Idle())
+    val createPost: StateFlow<ViewState<CreatePostDto>> = _createPost
+
     fun createPost(createNewPost: NewPostDto) {
         viewModelScope.launch {
             useCase.newPost(createNewPost)
@@ -42,8 +45,9 @@ class NewPostViewModel @Inject constructor(
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                        _createPost.value = ViewState.Success(baseResult.data)
                     }
+                    _state.value = ViewState.Idle()
                 }
         }
     }

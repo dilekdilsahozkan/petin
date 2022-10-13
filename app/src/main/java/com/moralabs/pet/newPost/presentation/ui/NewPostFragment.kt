@@ -128,12 +128,12 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
             viewModel.locationId = result.getString("locationId")
         }
+
+        viewModel.petValue()
     }
 
     override fun addListeners() {
         super.addListeners()
-
-        viewModel.petValue()
 
         binding.toolbar.publishText.setOnClickListener {
             if (binding.explanationText.text.isNullOrEmpty()) {
@@ -158,7 +158,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                             files = viewModel.files.value
                         )
                     )
-                    activity?.finish()
                 } else {
                     Toast.makeText(requireContext(), R.string.have_to_add_pet, Toast.LENGTH_LONG)
                         .show()
@@ -227,6 +226,17 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                         }
                         else -> {}
                     }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.createPost.collect {
+                when (it) {
+                    is ViewState.Success -> {
+                        activity?.finish()
+                    }
+                    else -> {}
                 }
             }
         }
