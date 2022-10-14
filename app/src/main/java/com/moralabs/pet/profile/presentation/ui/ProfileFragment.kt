@@ -57,22 +57,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewpager.adapter = viewPagerAdapter
-
-        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
-            when (position) {
-                0 -> tab.setIcon(R.drawable.ic_posts)
-                1 -> tab.setIcon(R.drawable.ic_pet_house)
-            }
-        }.attach()
-
         getUserInfo()
     }
 
-    override fun onPause() {
-        super.onPause()
-        binding.viewpager.adapter = null
-    }
 
     override fun addListeners() {
         super.addListeners()
@@ -93,12 +80,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
         binding.followedLinear.setOnClickListener {
             if (otherUserId.isNullOrBlank()) {
+                binding.viewpager.adapter = null
                 findNavController().navigate(R.id.action_fragment_profile_to_followedFragment)
             }
         }
 
         binding.followerLinear.setOnClickListener {
             if (otherUserId.isNullOrBlank()) {
+                binding.viewpager.adapter = null
                 findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
             }
         }
@@ -187,8 +176,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
     override fun onResume() {
         super.onResume()
-        if(binding.viewpager.adapter == null){
+
+        if (binding.viewpager.adapter == null && userInfo?.isBlocked != true) {
             binding.viewpager.adapter = viewPagerAdapter
+
+            TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
+                when (position) {
+                    0 -> tab.setIcon(R.drawable.ic_posts)
+                    1 -> tab.setIcon(R.drawable.ic_pet_house)
+                }
+            }.attach()
         }
     }
 
@@ -266,7 +263,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
 
     private fun setProfileUI(data: UserDto) {
         binding.userSocialInfo.visibility = View.VISIBLE
-        if(otherUserId.isNullOrBlank().not() && binding.viewpager.adapter == null) {
+        if (otherUserId.isNullOrBlank().not() && binding.viewpager.adapter == null) {
             binding.viewpager.adapter = viewPagerAdapter
             viewPagerAdapter.notifyDataSetChanged()
         }

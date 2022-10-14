@@ -39,7 +39,9 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         activity?.intent?.getStringExtra(PetProfileActivity.OTHER_USER_ID)
     }
 
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var isPetEdited: Boolean = false
+
+    private var resultLauncherEditPet = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             if (!otherUserId.isNullOrBlank()) {
                 viewModel.getAnotherUserPetInfo(petId, otherUserId)
@@ -48,6 +50,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
             } else {
                 viewModel.petInfo(petId)
             }
+            isPetEdited = true
         }
     }
 
@@ -98,6 +101,9 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         }
 
         binding.backButton.setOnClickListener {
+            if (isPetEdited) {
+                activity?.setResult(Activity.RESULT_OK)
+            }
             activity?.onBackPressed()
         }
 
@@ -120,7 +126,8 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                             getString(R.string.pet_delete),
                             Toast.LENGTH_LONG
                         ).show()
-                        startActivity(Intent(context, ProfileActivity::class.java))
+                        activity?.setResult(Activity.RESULT_OK)
+                        activity?.finish()
                     }
                     is ViewState.Error<*> -> {
                         Toast.makeText(
@@ -158,9 +165,9 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         }
     }
 
-    fun openEditPet() {
+    private fun openEditPet() {
         val intent = Intent(requireContext(), AddEditPetActivity::class.java)
         intent.putExtras(bundleOf(AddEditPetActivity.BUNDLE_PET to viewModel.latestDto))
-        resultLauncher.launch(intent)
+        resultLauncherEditPet.launch(intent)
     }
 }

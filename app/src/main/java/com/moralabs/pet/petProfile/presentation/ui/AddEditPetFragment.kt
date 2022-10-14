@@ -115,6 +115,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                             },
                         onSuccess = {
                             Toast.makeText(requireContext(), getString(R.string.add_pet), Toast.LENGTH_LONG).show()
+                            activity?.setResult(Activity.RESULT_OK)
                             activity?.onBackPressed()
                         }
                     )

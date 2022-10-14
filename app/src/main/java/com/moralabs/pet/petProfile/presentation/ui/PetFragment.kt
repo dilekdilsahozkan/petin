@@ -1,8 +1,10 @@
 package com.moralabs.pet.petProfile.presentation.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.BR
@@ -16,6 +18,7 @@ import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.notify
 
 @AndroidEntryPoint
 class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>() {
@@ -34,17 +37,18 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
     private val petAdapter: BaseListAdapter<PetDto, ItemPetCardBinding> by lazy {
         BaseListAdapter(R.layout.item_pet_card, BR.item, onRowClick = {
-            startActivity(Intent(context, PetProfileActivity::class.java).apply {
-                putExtras(
-                    bundleOf(
-                        PetProfileActivity.PET_ID to it.id,
-                        PetProfileActivity.OTHER_USER_ID to otherUserId
-                    )
-                )
-            })
+            it.id?.let { petId ->
+                openPetProfile(petId)
+            }
         }, isSameDto = { oldItem, newItem ->
             oldItem.id == newItem.id
         }, emptyString = getString(R.string.noPet))
+    }
+
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            getPetList()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,10 +56,18 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
 
         binding.recyclerview.adapter = petAdapter
         binding.addPet.setOnClickListener {
-            val intent = Intent(context, AddEditPetActivity::class.java)
-            context?.startActivity(intent)
+            openAddPet()
         }
 
+        getPetList()
+    }
+
+    override fun stateSuccess(data: List<PetDto>) {
+        super.stateSuccess(data)
+        petAdapter.submitList(data)
+    }
+
+    private fun getPetList() {
         if (!otherUserId.isNullOrBlank()) {
             viewModel.getAnotherUserPet(otherUserId)
             binding.addPetTitleAndIcon.visibility = View.GONE
@@ -64,9 +76,19 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         }
     }
 
-    override fun stateSuccess(data: List<PetDto>) {
-        super.stateSuccess(data)
+    private fun openAddPet() {
+        val intent = Intent(requireContext(), AddEditPetActivity::class.java)
+        resultLauncher.launch(intent)
+    }
 
-        petAdapter.submitList(data)
+    private fun openPetProfile(petId: String) {
+        val intent = Intent(requireContext(), PetProfileActivity::class.java)
+        intent.putExtras(
+            bundleOf(
+                PetProfileActivity.PET_ID to petId,
+                PetProfileActivity.OTHER_USER_ID to otherUserId
+            )
+        )
+        resultLauncher.launch(intent)
     }
 }
