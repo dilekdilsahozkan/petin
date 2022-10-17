@@ -52,6 +52,7 @@
             android:name=".newPost.presentation.ui.NewPostActivity"
             android:exported="false"
             android:fitsSystemWindows="true"
+            android:transcriptMode="alwaysScroll"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".offer.presentation.ui.MakeOfferActivity"

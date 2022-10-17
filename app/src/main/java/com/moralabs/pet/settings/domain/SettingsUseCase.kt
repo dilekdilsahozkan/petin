@@ -26,9 +26,22 @@ class SettingsUseCase @Inject constructor(
 
     fun userInfo(): Flow<BaseResult<UserDto>> {
         return flow {
-            profileRepository.userInfo().body()?.data?.let {
+            var user = profileRepository.userInfo()
+            if(user.isSuccessful && user.code() == 200){
+                user.body()?.data?.let {
+                    emit(
+                        BaseResult.Success(it)
+                    )
+                }
+            }else{
+                val error = Gson().fromJson(user.errorBody()?.string(), BaseResponse::class.java)
                 emit(
-                    BaseResult.Success(it)
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
                 )
             }
         }
@@ -54,35 +67,57 @@ class SettingsUseCase @Inject constructor(
 
             editUserDto.media = medias
 
-            val result = settingRepository.editUser(editUserDto).body()?.success ?: false
-            if (result) {
+            val result = settingRepository.editUser(editUserDto)
+
+            if(result.isSuccessful && result.code() == 200){
                 settingRepository.editUser(editUserDto).body()?.data?.let {
                     emit(
                         BaseResult.Success(it)
                     )
                 }
-            } else {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+            }else{
+                val error = Gson().fromJson(result.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
             }
-
         }
     }
 
     fun getBlockedAccounts(): Flow<BaseResult<List<BlockedDto>>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    settingRepository.getBlockedAccounts().body()?.data ?: listOf()
+            val blocked = settingRepository.getBlockedAccounts()
+            if(blocked.isSuccessful && blocked.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        blocked.body()?.data ?: listOf()
+                    )
                 )
-            )
+            }else{
+                val error = Gson().fromJson(blocked.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 
     fun unBlock(userId: String?): Flow<BaseResult<Boolean>> {
         return flow {
+            val unblock = settingRepository.unBlock(userId)
             emit(
                 BaseResult.Success(
-                    settingRepository.unBlock(userId).isSuccessful
+                    unblock.isSuccessful
                 )
             )
         }
@@ -90,9 +125,10 @@ class SettingsUseCase @Inject constructor(
 
     fun getLikedPosts(): Flow<BaseResult<List<PostDto>>> {
         return flow {
+            val liked = settingRepository.getLikedPosts()
             emit(
                 BaseResult.Success(
-                    settingRepository.getLikedPosts().body()?.data ?: listOf()
+                    liked.body()?.data ?: listOf()
                 )
             )
         }
@@ -122,7 +158,8 @@ class SettingsUseCase @Inject constructor(
 
     fun getInfo(infoType: Int): Flow<BaseResult<String>> {
         return flow {
-            settingRepository.getInfo(infoType).body()?.data?.let {
+            val info = settingRepository.getInfo(infoType)
+            info.body()?.data?.let {
                 emit(
                     BaseResult.Success(it)
                 )

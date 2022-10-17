@@ -58,7 +58,7 @@ class MessageDetailViewModel @Inject constructor(
                             onSuccess()
                         }
                         is BaseResult.Error -> {
-                            _state.value = ViewState.Error(message = baseResult.error.message)
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }

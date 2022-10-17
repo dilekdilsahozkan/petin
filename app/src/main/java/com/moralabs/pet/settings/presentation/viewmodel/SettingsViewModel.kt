@@ -25,6 +25,10 @@ class SettingsViewModel @Inject constructor(
         MutableStateFlow(ViewState.Idle())
     val stateBlocked: StateFlow<ViewState<List<BlockedDto>>> = _stateBlocked
 
+    private var _editProfile: MutableStateFlow<ViewState<UserDto>> =
+        MutableStateFlow(ViewState.Idle())
+    val editProfile: StateFlow<ViewState<UserDto>> = _editProfile
+
     private var _stateUnBlocked: MutableStateFlow<ViewState<Boolean>> =
         MutableStateFlow(ViewState.Idle())
     val stateUnBlocked: StateFlow<ViewState<Boolean>> = _stateUnBlocked
@@ -75,15 +79,15 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.editUser(name, phoneNumber, file)
                 .onStart {
-                    _state.value = ViewState.Loading()
+                    _editProfile.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
+                    _editProfile.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                        _editProfile.value = ViewState.Success(baseResult.data)
                     }
                 }
         }

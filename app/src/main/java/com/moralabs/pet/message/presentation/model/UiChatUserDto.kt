@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UiChatUserDto(
+    val id: String? = "",
     val user: UserDto?,
     var isSelected: Boolean = false
 ) : BaseDto(), Parcelable

@@ -3,6 +3,7 @@ package com.moralabs.pet.settings.presentation.ui.account
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -18,14 +19,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
+import com.moralabs.pet.core.presentation.extension.fromHtml
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentEditPersonalInformationBinding
+import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -81,11 +88,6 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
                         File(newProfilePictureUrl)
                     )
                 }
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.success_profile_change),
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
         binding.editImage.setOnClickListener {
@@ -141,7 +143,6 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
                         binding.phoneNumberEdit.setText(span)
                         binding.phoneNumberEdit.setSelection(indices[0])
                     }
-
                     oldIndex = index
                 }
 
@@ -167,6 +168,35 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
             }
             false
         })
+    }
+
+    override fun addObservers() {
+        super.addObservers()
+
+        lifecycleScope.launch {
+            viewModel.editProfile.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<UserDto> -> {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.success_profile_change),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    is ViewState.Error<*> -> {
+                        stopLoading()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_profile_change),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun stateSuccess(data: UserDto) {

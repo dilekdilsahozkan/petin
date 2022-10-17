@@ -1,15 +1,14 @@
 package com.moralabs.pet.petProfile.domain
 
+import com.google.gson.Gson
+import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
-import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
-import com.moralabs.pet.petProfile.data.remote.dto.PetRequestDto
+import com.moralabs.pet.petProfile.data.remote.dto.*
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,29 +22,41 @@ class PetUseCase @Inject constructor(
 
     fun petPost(): Flow<BaseResult<List<PetDto>>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    petRepository.petPost().body()?.data ?: listOf()
-                )
-            )
-        }
-    }
-
-    fun petInfo(petId: String?): Flow<BaseResult<PetDto>> {
-        return flow {
-            petRepository.petInfo(petId).body()?.data?.let {
+            val pets = petRepository.petPost()
+            if(pets.isSuccessful && pets.code() == 200){
                 emit(
-                    BaseResult.Success(it)
+                    BaseResult.Success(pets.body()?.data?: listOf())
+                )
+            }else{
+                val error = Gson().fromJson(pets.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
                 )
             }
         }
     }
 
-    fun addPet(addPet: PetRequestDto): Flow<BaseResult<PetDto>> {
+    fun petInfo(petId: String?): Flow<BaseResult<PetDto>> {
         return flow {
-            petRepository.addPet(addPet).body()?.data?.let {
+            val petInfo =  petRepository.petInfo(petId)
+            if(petInfo.isSuccessful && petInfo.code() == 200){
+                petInfo.body()?.data?.let {
+                    emit(BaseResult.Success(it))
+                }
+            }else{
+                val error = Gson().fromJson(petInfo.errorBody()?.string(), BaseResponse::class.java)
                 emit(
-                    BaseResult.Success(it)
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
                 )
             }
         }
@@ -53,21 +64,43 @@ class PetUseCase @Inject constructor(
 
     fun deletePet(petId: String?): Flow<BaseResult<Boolean>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    petRepository.deletePet(petId).isSuccessful
+            val delete = petRepository.deletePet(petId)
+            if(delete.isSuccessful && delete.code() == 200){
+                emit(BaseResult.Success(delete.isSuccessful))
+            }else{
+                val error = Gson().fromJson(delete.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
                 )
-            )
+            }
         }
     }
 
     fun petAttributes(): Flow<BaseResult<List<AttributeDto>>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    petRepository.petAttributes().body()?.data ?: listOf()
+            val attributes = petRepository.petAttributes()
+            if(attributes.isSuccessful && attributes.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        attributes.body()?.data ?: listOf()
+                    )
                 )
-            )
+            }else{
+                val error = Gson().fromJson(attributes.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 
@@ -141,21 +174,45 @@ class PetUseCase @Inject constructor(
 
     fun getAnotherUserPet(userId: String?): Flow<BaseResult<List<PetDto>>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    petRepository.getAnotherUserPet(userId).body()?.data ?: listOf()
+            val another = petRepository.getAnotherUserPet(userId)
+            if(another.isSuccessful && another.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        another.body()?.data ?: listOf()
+                    )
                 )
-            )
+            }else{
+                val error = Gson().fromJson(another.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 
     fun getAnotherUserPetInfo(petId: String?, userId: String?): Flow<BaseResult<PetDto>> {
         return flow {
-            petRepository.getAnotherUserPetInfo(petId, userId).body()?.data?.let {
-                emit(
-                    BaseResult.Success(it)
-                )
-            }
+           val anotherPet =  petRepository.getAnotherUserPetInfo(petId, userId)
+               if(anotherPet.isSuccessful && anotherPet.code() == 200){
+                   anotherPet.body()?.data?.let {
+                       emit(BaseResult.Success(it))
+                   }
+               }else{
+                   val error = Gson().fromJson(anotherPet.errorBody()?.string(), BaseResponse::class.java)
+                   emit(
+                       BaseResult.Error(
+                           ErrorResult(
+                               code = ErrorCode.SERVER_ERROR,
+                               error.userMessage
+                           )
+                       )
+                   )
+               }
         }
     }
 }

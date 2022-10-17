@@ -28,8 +28,14 @@ class PetViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -46,8 +52,14 @@ class PetViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }

@@ -24,9 +24,6 @@ class ProfileViewModel @Inject constructor(
     protected var _unfollowUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val unfollowUserState: StateFlow<ViewState<Boolean>> = _unfollowUserState
 
-    protected var _blockedListState: MutableStateFlow<ViewState<List<UserInfoDto>>> = MutableStateFlow(ViewState.Idle())
-    val blockedListState: StateFlow<ViewState<List<UserInfoDto>>> = _blockedListState
-
     protected var _blockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val blockUserState: StateFlow<ViewState<Boolean>> = _blockUserState
 
@@ -44,8 +41,14 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -62,8 +65,14 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -80,8 +89,14 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _followUserState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _followUserState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -98,8 +113,14 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _unfollowUserState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _unfollowUserState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -116,8 +137,14 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _blockUserState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _blockUserState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -134,8 +161,14 @@ class ProfileViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _unblockUserState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _unblockUserState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }

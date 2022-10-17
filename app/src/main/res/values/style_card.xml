@@ -6,6 +6,12 @@
         <item name="cardElevation">0dp</item>
     </style>
 
+    <style name="PhotoCard" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Outgoing.Cut</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay.MaterialCardView.Outgoing.Cut" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">@dimen/scale_24dp</item>
@@ -26,5 +32,11 @@
         <item name="cornerSizeTopLeft">@dimen/scale_24dp</item>
         <item name="cornerSizeBottomRight">@dimen/scale_24dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 </resources>

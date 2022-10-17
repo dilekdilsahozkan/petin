@@ -40,6 +40,7 @@ class MessageUserSearchViewModel @Inject constructor(
                                 _state.value = ViewState.Success(baseResult.data)
                             }
                             is BaseResult.Error -> {
+                                _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                             }
                         }
                     }

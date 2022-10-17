@@ -65,6 +65,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
     override fun stateSuccess(data: List<PetDto>) {
         super.stateSuccess(data)
         petAdapter.submitList(data)
+        petAdapter.notifyDataSetChanged()
     }
 
     private fun getPetList() {

@@ -32,11 +32,14 @@
             android:fontFamily="@font/poppins_medium"
             android:text="@{item.user.userName}"
             android:textColor="@color/darkPrimary"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/scale_15dp"
+            app:layout_constraintEnd_toStartOf="@id/radioButton"
             app:layout_constraintBottom_toBottomOf="@id/user_photo"
             app:layout_constraintStart_toEndOf="@id/user_photo"
             app:layout_constraintTop_toTopOf="@id/user_photo"
-            tools:text="adsasdasd" />
+            tools:text="adsasdascghdmd" />
 
         <RadioButton
             android:id="@+id/radioButton"

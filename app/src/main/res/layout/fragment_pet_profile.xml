@@ -16,7 +16,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/petImage"
             android:layout_width="match_parent"
-            android:layout_height="236dp"
+            android:layout_height="350dp"
             android:background="@drawable/background_image"
             android:scaleType="centerCrop"
             android:visibility="visible"
@@ -25,17 +25,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ellipse"
-            android:layout_width="@dimen/scale_32dp"
-            android:layout_height="@dimen/scale_32dp"
-            android:background="@drawable/ic_ellipse" />
-
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_back" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/iu_toolbar_pet_profile"
+            android:background="@color/transparent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/petDetailLayout"
@@ -44,13 +37,13 @@
             android:layout_marginTop="-25dp"
             android:background="@drawable/background_profile_page"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/petImage">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/petConstraint"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/scale_16dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,30 +51,34 @@
 
                 <TextView
                     android:id="@+id/petName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/scale_32dp"
                     android:layout_marginStart="3dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/poppins_semibold"
+                    android:maxLines="1"
+                    android:maxLength="25"
                     android:textColor="@color/black"
                     android:textSize="22sp"
+                    app:layout_constraintEnd_toStartOf="@id/editIcon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Kara Fırtına"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Kara Fırtınaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/petName" >
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/petName">
 
                     <ImageView
                         android:id="@+id/locationIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_location"/>
+                        android:src="@drawable/ic_location" />
 
                     <TextView
                         android:id="@+id/locationName"
@@ -89,27 +86,19 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/darkGray"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
                 </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/scale_40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/editIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/scale_15dp"
-                    android:src="@drawable/ic_edit_gray"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/scale_15dp"
+                    android:includeFontPadding="false"
+                    android:src="@drawable/ic_edit_gray"
                     app:layout_constraintEnd_toStartOf="@+id/deleteIcon"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -118,8 +107,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/scale_22dp"
                     android:includeFontPadding="false"
-                    android:src="@drawable/ic_trash"/>
-            </LinearLayout>
+                    android:src="@drawable/ic_trash"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/petMainFeatures"
@@ -128,9 +121,9 @@
                 android:layout_marginTop="@dimen/scale_22dp"
                 android:orientation="horizontal"
                 android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petConstraint"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/petConstraint">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -171,9 +164,11 @@
                         android:id="@+id/petType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/scale_12dp"
+                        android:layout_marginHorizontal="@dimen/scale_12dp"
                         android:layout_marginTop="@dimen/scale_15dp"
+                        android:ellipsize="end"
                         android:fontFamily="@font/poppins_medium"
+                        android:maxLines="1"
                         android:textColor="@color/darkPrimary"
                         android:textSize="15sp" />
 
@@ -283,10 +278,10 @@
                 android:layout_marginTop="@dimen/scale_8dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/petMainFeatures"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/petMainFeatures"
                 tools:listitem="@layout/item_pet_feature" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

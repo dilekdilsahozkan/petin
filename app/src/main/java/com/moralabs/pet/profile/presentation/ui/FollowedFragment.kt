@@ -1,7 +1,9 @@
 package com.moralabs.pet.profile.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
@@ -26,7 +28,14 @@ class FollowedFragment : BaseFragment<FragmentFollowedBinding, List<UserInfoDto>
     }
 
     private val followedAdapter: BaseListAdapter<UserInfoDto, ItemFollowTypeBinding> by lazy {
-        BaseListAdapter(R.layout.item_follow_type, BR.item)
+        BaseListAdapter(R.layout.item_follow_type, BR.item, onRowClick = {
+            val bundle = bundleOf(
+                ProfileActivity.OTHER_USER_ID to it.userId
+            )
+            val intent = Intent(context, ProfileActivity::class.java)
+            intent.putExtras(bundle)
+            context?.startActivity(intent)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -38,7 +38,7 @@ class CommentViewModel @Inject constructor(
                             onSuccess()
                         }
                         is BaseResult.Error -> {
-                            _state.value = ViewState.Error(message = baseResult.error.message)
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }
@@ -56,8 +56,14 @@ class CommentViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -74,8 +80,14 @@ class CommentViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _deleteState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _deleteState.value = ViewState.Idle()
+                            _deleteState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _deleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }

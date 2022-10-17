@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -73,7 +74,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
     private val petCardAdapter: PetListAdapter<PetDto, ItemPetCardBinding> by lazy {
         PetListAdapter(R.layout.item_pet_card, BR.item, onRowClick = { selected ->
-
             var a = mutableListOf<PetDto>()
             viewModel.petList.forEach { pet ->
                 a.add(pet.copy())
@@ -90,27 +90,28 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
         binding.petCardList.adapter = petCardAdapter
         viewModel.userInfo()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         if (postType == TabTextType.POST_TYPE.type) {
-            binding.keyboardConstraint.visibility = View.VISIBLE
+            binding.keyboardToolbar.visibility = View.VISIBLE
             binding.petCardList.visibility = View.GONE
             binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
-            binding.keyboardConstraint.visibility = View.VISIBLE
+            binding.keyboardToolbar.visibility = View.VISIBLE
             binding.petCardList.visibility = View.GONE
             binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
-            binding.keyboardConstraint.visibility = View.GONE
+            binding.keyboardToolbar.visibility = View.GONE
             binding.petCardList.visibility = View.VISIBLE
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
-            binding.keyboardConstraint.visibility = View.GONE
+            binding.keyboardToolbar.visibility = View.GONE
             binding.petCardList.visibility = View.VISIBLE
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE

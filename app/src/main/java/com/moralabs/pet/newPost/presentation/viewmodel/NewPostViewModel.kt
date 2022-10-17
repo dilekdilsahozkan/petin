@@ -44,10 +44,15 @@ class NewPostViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _createPost.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _createPost.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
-                    _state.value = ViewState.Idle()
                 }
         }
     }
@@ -63,8 +68,14 @@ class NewPostViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -81,9 +92,14 @@ class NewPostViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _userInfo.value = ViewState.Success(baseResult.data)
-                        _state.value = ViewState.Idle()
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _userInfo.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }

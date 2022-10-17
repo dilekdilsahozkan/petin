@@ -100,7 +100,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
             ).show()
         }
 
-        binding.backButton.setOnClickListener {
+        binding.toolbar.ellipse.setOnClickListener {
             if (isPetEdited) {
                 activity?.setResult(Activity.RESULT_OK)
             }
