@@ -41,7 +41,7 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
                 openPetProfile(petId)
             }
         }, isSameDto = { oldItem, newItem ->
-            oldItem.id == newItem.id
+            oldItem == newItem
         }, emptyString = getString(R.string.noPet))
     }
 
