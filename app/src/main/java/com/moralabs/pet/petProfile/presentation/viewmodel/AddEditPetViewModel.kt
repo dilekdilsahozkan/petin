@@ -89,6 +89,7 @@ class AddEditPetViewModel @Inject constructor(
                     when (baseResult) {
                         is BaseResult.Success -> {
                             _state.value = ViewState.Idle()
+                            onSuccess?.invoke()
                         }
                         is BaseResult.Error -> {
                             _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
