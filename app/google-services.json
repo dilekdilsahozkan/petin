@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584521513363:android:18a49b05023013b9191066",
+        "android_client_info": {
+          "package_name": "com.moralabs.petin.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584521513363-r93a53c24ftbqbru3ncgq2rc9slalfkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvDply3SxxrKszhEG0HD_xXCx4NK5dhIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584521513363-r93a53c24ftbqbru3ncgq2rc9slalfkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

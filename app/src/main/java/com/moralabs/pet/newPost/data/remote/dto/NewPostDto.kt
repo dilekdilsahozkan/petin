@@ -1,10 +1,12 @@
 package com.moralabs.pet.newPost.data.remote.dto
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.moralabs.pet.core.data.remote.dto.BaseDto
 import java.io.File
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 data class NewPostDto (
     var media: List<MediaDto>? = null,
     val text : String? = null,
@@ -14,6 +16,7 @@ data class NewPostDto (
     var files: List<File>? = null
 ): BaseDto()
 
+@Keep
 @Parcelize
 data class MediaDto(
     val id: String? = null,

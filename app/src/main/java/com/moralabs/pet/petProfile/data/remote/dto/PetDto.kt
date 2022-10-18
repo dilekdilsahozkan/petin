@@ -1,10 +1,12 @@
 package com.moralabs.pet.petProfile.data.remote.dto
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.moralabs.pet.core.data.remote.dto.BaseDto
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class PetDto(
     val id: String? = "",
@@ -15,6 +17,7 @@ data class PetDto(
     var selected: Boolean = false
 ) : BaseDto(), Parcelable
 
+@Keep
 @Parcelize
 data class PetAttributeDto(
     val attributeId: String? = "",

@@ -1,11 +1,13 @@
 package com.moralabs.pet.core.data.remote.dto
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 data class PostDto(
     val id: String = "",
     val user: UserInfoDto? = null,
@@ -21,6 +23,7 @@ data class PostDto(
     var selected: Boolean = false
 ): BaseDto()
 
+@Keep
 data class ContentDto(
     val text: String? = null,
     val media: List<MediaDto>? = null,
@@ -29,6 +32,7 @@ data class ContentDto(
     val location: LocationDto? = null
 ): BaseDto()
 
+@Keep
 data class LocationDto(
     val latitude: Float? = null,
     val longitude: Float? = null,
@@ -36,6 +40,7 @@ data class LocationDto(
     val district: String? = null
 ): BaseDto()
 
+@Keep
 @Parcelize
 data class PostLocationDto(
     val id: String? = "",
@@ -44,6 +49,7 @@ data class PostLocationDto(
     val longitude: Float? = null
 ): BaseDto(), Parcelable
 
+@Keep
 data class CommentDto(
     val id: String = "",
     val user: UserInfoDto? = null,
@@ -55,6 +61,7 @@ data class CommentDto(
     val pageIndex: Int? = null
 ): BaseDto()
 
+@Keep
 data class CommentsDto(
     val id: String = "",
     val user: UserInfoDto? = null,

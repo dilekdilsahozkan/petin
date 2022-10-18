@@ -1,10 +1,12 @@
 package com.moralabs.pet.profile.data.remote.dto
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.moralabs.pet.core.data.remote.dto.BaseDto
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class UserDto(
     val userId: String = "",

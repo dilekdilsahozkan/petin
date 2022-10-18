@@ -1,9 +1,11 @@
 package com.moralabs.pet.core.data.remote.dto
 
 import android.os.Build
+import androidx.annotation.Keep
 import com.moralabs.pet.BuildConfig
 import java.util.*
 
+@Keep
 data class AuthenticationDto(
     var userId: String? = null,
     var bearerKey: String? = null,

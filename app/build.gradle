@@ -17,9 +17,41 @@ android {
         applicationId "com.moralabs.petin"
         minSdk 23
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 1000
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../cert/keystore")
+            storePassword "Pet1nPet1n"
+            keyAlias "moralabs"
+            keyPassword "Pet1nPet1n"
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension = "default"
+            applicationIdSuffix = ".dev"
+        }
+        prod {
+            dimension = "default"
+        }
+    }
+
+    android.variantFilter { variant ->
+        variant.getFlavors().each { flavor ->
+            println variant.buildType.name + " " + flavor.name + " " + flavor.dimension
+            if ((variant.buildType.name == 'release' &&
+                    flavor.name == 'dev') ||
+                    (variant.buildType.name == 'debug' &&
+                            flavor.name == 'prod')) {
+                variant.setIgnore(true)
+            }
+        }
     }
 
     buildTypes {
@@ -30,10 +62,11 @@ android {
             buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
         }
         release {
-            debuggable false
+            debuggable true
             minifyEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
+            buildConfigField("String", "PET_BASEURL", "\"https://server-prod-be-petin.azurewebsites.net/\"")
         }
     }
     compileOptions {
@@ -117,18 +150,11 @@ dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
 
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
 
     implementation 'com.google.firebase:firebase-messaging'
-
-    // AWS Cognito
-    implementation "com.amazonaws:aws-android-sdk-cognitoauth:$aws_version"
-    implementation "com.amazonaws:aws-android-sdk-cognitoidentityprovider:$aws_version"
-    implementation "com.amazonaws:aws-android-sdk-s3:$aws_version"
 
     // Dots
     implementation "com.tbuonomo:dotsindicator:4.3"
