@@ -55,6 +55,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@{item.attributeDto.isEditable ? @drawable/background_gray : @drawable/background_edit}"
             android:focusable="false"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
