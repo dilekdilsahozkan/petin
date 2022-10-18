@@ -1,10 +1,8 @@
 package com.moralabs.pet.mainPage.presentation.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
@@ -24,7 +22,6 @@ import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
-import com.moralabs.pet.petProfile.presentation.ui.AddEditPetActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -130,8 +127,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             paddingPixel = it * paddingDp
         }
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+    }
 
-        viewModel.feedPost()
+    override fun onResume() {
+        super.onResume()
+        feedPost()
     }
 
     override fun stateSuccess(data: List<PostDto>) {
@@ -143,12 +143,12 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     override fun addListeners() {
         super.addListeners()
 
+        var textChangedListenerBlock = true
         binding.searchEdittext.addTextChangedListener {
-            if (it.toString().isEmptyOrBlank()) {
-                viewModel.feedPost()
-            } else {
-                viewModel.feedPost(it.toString())
+            if (textChangedListenerBlock.not()) {
+                feedPost()
             }
+            textChangedListenerBlock = false
         }
     }
 
@@ -160,10 +160,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         ) { _, result ->
             result.getString("locationId")
         }
-    }
 
-    override fun addObservers() {
-        super.addObservers()
         lifecycleScope.launch {
             viewModel.likeUnlikeDeleteState.collect {
                 when (it) {
@@ -171,7 +168,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                         startLoading()
                     }
                     is ViewState.Success<Boolean> -> {
-                        viewModel.feedPost()
+                        feedPost()
                     }
                     is ViewState.Error<*> -> {
                         stopLoading()
@@ -180,7 +177,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         }
-
     }
 
     override fun onItemClick(postId: String?) {
@@ -199,5 +195,13 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         ).show()
+    }
+
+    private fun feedPost() {
+        if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
+            viewModel.feedPost()
+        } else {
+            viewModel.feedPost(binding.searchEdittext.text.toString())
+        }
     }
 }
