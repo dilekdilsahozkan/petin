@@ -24,7 +24,6 @@ import com.moralabs.pet.databinding.ItemPetFeatureBinding
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetProfileViewModel
-import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -39,7 +38,6 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         activity?.intent?.getStringExtra(PetProfileActivity.OTHER_USER_ID)
     }
 
-    private var isPetEdited: Boolean = false
 
     private var resultLauncherEditPet = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -50,7 +48,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
             } else {
                 viewModel.petInfo(petId)
             }
-            isPetEdited = true
+            PetProfileActivity.isPetEdited = true
         }
     }
 
@@ -101,9 +99,6 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
         }
 
         binding.toolbar.ellipse.setOnClickListener {
-            if (isPetEdited) {
-                activity?.setResult(Activity.RESULT_OK)
-            }
             activity?.onBackPressed()
         }
 
