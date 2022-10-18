@@ -68,8 +68,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -86,8 +92,13 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _editProfile.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _editProfile.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _editProfile.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -104,9 +115,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _state.value = ViewState.Idle()
-                        _stateBlocked.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _stateBlocked.value = ViewState.Idle()
+                            _stateBlocked.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateBlocked.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -123,9 +139,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _stateUnBlocked.value = ViewState.Idle()
-                        _stateUnBlocked.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _stateUnBlocked.value = ViewState.Idle()
+                            _stateUnBlocked.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateUnBlocked.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -142,9 +163,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _stateLiked.value = ViewState.Idle()
-                        _stateLiked.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _stateLiked.value = ViewState.Idle()
+                            _stateLiked.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateLiked.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -185,8 +211,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _stateInfo.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _stateInfo.value = ViewState.Idle()
+                            _stateInfo.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateInfo.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -203,8 +235,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _stateDeleteAccount.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _stateDeleteAccount.value = ViewState.Idle()
+                            _stateDeleteAccount.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateDeleteAccount.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
         }
@@ -221,9 +259,14 @@ class SettingsViewModel @Inject constructor(
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _likeUnlikeDeleteState.value = ViewState.Idle()
-                        _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _likeUnlikeDeleteState.value = ViewState.Idle()
+                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _stateChangePW.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
                     }
                 }
 

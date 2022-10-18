@@ -72,7 +72,7 @@ class NotificationUseCase @Inject constructor(
         return flow {
             val notificationTime = notificationRepository.latestNotification()
             if(notificationTime.isSuccessful && notificationTime.code() == 200){
-                emit(BaseResult.Success(notificationTime.body()?.data ?: false))
+                emit(BaseResult.Success(true))
             }else{
                 val error = Gson().fromJson(notificationTime.errorBody()?.string(), BaseResponse::class.java)
                 emit(

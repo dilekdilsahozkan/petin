@@ -96,24 +96,28 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
 
         if (postType == TabTextType.POST_TYPE.type) {
             binding.keyboardToolbar.visibility = View.VISIBLE
+            binding.line.visibility = View.VISIBLE
             binding.petCardList.visibility = View.GONE
             binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.QAN_TYPE.type) {
             binding.keyboardToolbar.visibility = View.VISIBLE
+            binding.line.visibility = View.VISIBLE
             binding.petCardList.visibility = View.GONE
             binding.selectPetText.visibility = View.GONE
             binding.cardPostImage.visibility = View.VISIBLE
         }
         if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
             binding.keyboardToolbar.visibility = View.GONE
+            binding.line.visibility = View.GONE
             binding.petCardList.visibility = View.VISIBLE
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
         }
         if (postType == TabTextType.ADOPTION_TYPE.type) {
             binding.keyboardToolbar.visibility = View.GONE
+            binding.line.visibility = View.GONE
             binding.petCardList.visibility = View.VISIBLE
             binding.selectPetText.visibility = View.VISIBLE
             binding.cardPostImage.visibility = View.GONE
@@ -301,29 +305,6 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 }
             }
         }
-
-//    private fun getRealPathFromURI(context: Context, uri: Uri?): String? {
-//        if(uri?.path?.contains(":") == false) return uri.path
-//        var filePath = ""
-//        val wholeID = DocumentsContract.getDocumentId(uri)
-//
-//        // Split at colon, use second item in the array
-//        val id = wholeID.split(":").toTypedArray()[1]
-//        val column = arrayOf(MediaStore.Images.Media.DATA)
-//
-//        // where id is equal to
-//        val sel = MediaStore.Images.Media._ID + "=?"
-//        val cursor: Cursor? = context.contentResolver.query(
-//            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//            column, sel, arrayOf(id), null
-//        )
-//        val columnIndex = cursor?.getColumnIndex(column[0])
-//        if (cursor?.moveToFirst() == true) {
-//            filePath = columnIndex?.let { cursor?.getString(it) }.toString()
-//        }
-//        cursor?.close()
-//        return filePath
-//    }
 
     private fun openDialog() {
         val builder = AlertDialog.Builder(context)
