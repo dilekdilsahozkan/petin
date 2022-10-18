@@ -38,12 +38,13 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
-class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInformationBinding, UserDto, SettingsViewModel>() {
+class EditPersonalInformationFragment :
+    BaseFragment<FragmentEditPersonalInformationBinding, UserDto, SettingsViewModel>() {
 
     private var newProfilePictureUrl: String? = null
-    val digitType = "^(\\d{3})\\s\\d{3}\\s\\d{2}\\s\\d{2}".toRegex()
+    private val digitType = "^\\(\\d{3}\\)\\s\\d{3}\\s\\d{2}\\s\\d{2}".toRegex()
 
-    var phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+    private var phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
     var defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
     var indices = mutableListOf<Int>()
     var index = 0
@@ -69,30 +70,17 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
 
     override fun addListeners() {
         super.addListeners()
-        binding.editProfile.setOnClickListener {
 
-            if(digitType.matches(binding.phoneNumberEdit.text.toString()) || binding.phoneNumberEdit.text.isNullOrEmpty()){
-                viewModel.editUser(
-                    binding.fullNameEdit.text.toString(),
-                    null,
-                    File(newProfilePictureUrl)
-                )
-            }else{
-                if(newProfilePictureUrl.isNullOrEmpty()) {
-                    viewModel.editUser(
-                        binding.fullNameEdit.text.toString(),
-                        binding.phoneNumberEdit.text.toString(),
-                        null
-                    )
-                } else {
-                    viewModel.editUser(
-                        binding.fullNameEdit.text.toString(),
-                        binding.phoneNumberEdit.text.toString(),
-                        File(newProfilePictureUrl)
-                    )
-                }
-            }
+        binding.editProfile.setOnClickListener {
+            viewModel.editUser(
+                binding.fullNameEdit.text.toString(),
+                if (digitType.matches(binding.phoneNumberEdit.text.toString())) binding.phoneNumberEdit.text.toString() else null,
+                newProfilePictureUrl?.let {
+                    File(it)
+                } ?: null
+            )
         }
+
         binding.editImage.setOnClickListener {
             permissionResultLauncher.launch(permissions)
         }
@@ -118,29 +106,44 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
             if (event.action != KeyEvent.ACTION_DOWN)
                 return@OnKeyListener true
             if (keyCode == KeyEvent.KEYCODE_DEL) {
-                if (index == -1){
+                if (index == -1) {
                     var span = SpannableString(phoneList.joinToString(""))
                     span.setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                        ForegroundColorSpan(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.mainColor
+                            )
+                        ), 0,
                         0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                     binding.phoneNumberEdit.setText(span)
                     binding.phoneNumberEdit.setSelection(indices[0])
                     return@OnKeyListener true
-                }else{
+                } else {
                     phoneList[indices[index]] = defaultList[indices[index]]
                     index--
                     var span = SpannableString(phoneList.joinToString(""))
-                    if(index>-1){
+                    if (index > -1) {
                         span.setSpan(
-                            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.mainColor
+                                )
+                            ), 0,
                             indices[index] + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
                         binding.phoneNumberEdit.setText(span)
-                        binding.phoneNumberEdit.setSelection(indices[index]+1)
-                    }else{
+                        binding.phoneNumberEdit.setSelection(indices[index] + 1)
+                    } else {
                         span.setSpan(
-                            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.mainColor
+                                )
+                            ), 0,
                             0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
                         binding.phoneNumberEdit.setText(span)
@@ -150,22 +153,26 @@ class EditPersonalInformationFragment : BaseFragment<FragmentEditPersonalInforma
                 }
 
                 return@OnKeyListener true
-            }
-            else if (keyCode in 7..16) {
+            } else if (keyCode in 7..16) {
                 if (index == indices.size - 1) return@OnKeyListener true
                 index++
                 phoneList[indices[index]] = keyCode - 7
                 var span = SpannableString(phoneList.joinToString(""))
                 span.setSpan(
-                    ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.mainColor)), 0,
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.mainColor
+                        )
+                    ), 0,
                     indices[index] + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
                 binding.phoneNumberEdit.setText(span)
 
-                if(index+1<indices.size)
-                    binding.phoneNumberEdit.setSelection(indices[index+1])
+                if (index + 1 < indices.size)
+                    binding.phoneNumberEdit.setSelection(indices[index + 1])
                 else
-                    binding.phoneNumberEdit.setSelection(indices[index]+1)
+                    binding.phoneNumberEdit.setSelection(indices[index] + 1)
 
                 return@OnKeyListener true
             }
@@ -326,7 +333,8 @@ fun getRealPathFromURI(context: Context, uri: Uri): String? {
                 isDownloadsDocument(uri) -> {
                     val fileName = getFilePath(context, uri)
                     if (fileName != null) {
-                        return Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName
+                        return Environment.getExternalStorageDirectory()
+                            .toString() + "/Download/" + fileName
                     }
                     var id = DocumentsContract.getDocumentId(uri)
                     if (id.startsWith("raw:")) {
@@ -334,7 +342,10 @@ fun getRealPathFromURI(context: Context, uri: Uri): String? {
                         val file = File(id)
                         if (file.exists()) return id
                     }
-                    val contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id))
+                    val contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"),
+                        java.lang.Long.valueOf(id)
+                    )
                     return getDataColumn(context, contentUri, null, null)
                 }
                 isMediaDocument(uri) -> {
@@ -361,7 +372,12 @@ fun getRealPathFromURI(context: Context, uri: Uri): String? {
         }
         "content".equals(uri.scheme, ignoreCase = true) -> {
             // Return the remote address
-            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(context, uri, null, null)
+            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
+                context,
+                uri,
+                null,
+                null
+            )
         }
         "file".equals(uri.scheme, ignoreCase = true) -> {
             return uri.path
@@ -370,8 +386,10 @@ fun getRealPathFromURI(context: Context, uri: Uri): String? {
     return null
 }
 
-fun getDataColumn(context: Context, uri: Uri?, selection: String?,
-                  selectionArgs: Array<String>?): String? {
+fun getDataColumn(
+    context: Context, uri: Uri?, selection: String?,
+    selectionArgs: Array<String>?
+): String? {
     var cursor: Cursor? = null
     val column = "_data"
     val projection = arrayOf(
@@ -379,8 +397,10 @@ fun getDataColumn(context: Context, uri: Uri?, selection: String?,
     )
     try {
         if (uri == null) return null
-        cursor = context.contentResolver.query(uri, projection, selection, selectionArgs,
-            null)
+        cursor = context.contentResolver.query(
+            uri, projection, selection, selectionArgs,
+            null
+        )
         if (cursor != null && cursor.moveToFirst()) {
             val index = cursor.getColumnIndexOrThrow(column)
             return cursor.getString(index)
@@ -399,8 +419,10 @@ fun getFilePath(context: Context, uri: Uri?): String? {
     )
     try {
         if (uri == null) return null
-        cursor = context.contentResolver.query(uri, projection, null, null,
-            null)
+        cursor = context.contentResolver.query(
+            uri, projection, null, null,
+            null
+        )
         if (cursor != null && cursor.moveToFirst()) {
             val index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME)
             return cursor.getString(index)
