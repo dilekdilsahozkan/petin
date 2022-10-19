@@ -62,7 +62,7 @@ android {
             buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
         }
         release {
-            debuggable true
+            debuggable false
             minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
