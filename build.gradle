@@ -27,9 +27,46 @@ buildscript {
 
         classpath 'com.google.gms:google-services:4.3.13'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
+
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.0'
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+apply plugin: "org.sonarqube"
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.verbose", true
+        property "sonar.host.url", "http://164.92.218.1"
+
+        property "sonar.projectName", "Petin"
+        property "sonar.projectKey", "Petin_mobile.petin.android_AYPwj2RcD8zOi5rZk5yu"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.projectVersion", "0.1"
+        property "sonar.issuesReport.html.enable", "true"
+        property "sonar.issuesReport.console.enable", "true"
+        property "sonar.login", "sqp_1174e7839ca031f833043603d671a5c52f1fbc65"
+
+        property "sonar.coverage.jacoco.xmlReportPaths", findAllReports()
+        property "detekt.sonar.kotlin.config.path", "${rootProject.projectDir}/detekt-config.yml"
+
+        property "sonar.java.coveragePlugin", "jacoco"
+    }
+}
+
+String findAllReports() {
+  def file = "${rootProject.buildDir}/reports"
+
+  def sonarEnabledProjects = rootProject.subprojects
+      .findAll { p -> p.sonarqube.getProperties().get("skipProject") == false }
+      *.name
+      .collect { projectName -> "$file/jacocoTestReport-${projectName}.xml" }
+      .join(",")
+
+  return sonarEnabledProjects
 }
