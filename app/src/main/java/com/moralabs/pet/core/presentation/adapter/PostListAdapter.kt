@@ -82,7 +82,14 @@ class PostListAdapter(
                     onOfferUserClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
+
             binding.userPhoto.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onUserPhotoClick?.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.userInfoPart.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onUserPhotoClick?.invoke(getItem(bindingAdapterPosition))
                 }

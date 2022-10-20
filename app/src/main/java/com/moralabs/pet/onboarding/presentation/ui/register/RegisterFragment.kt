@@ -26,6 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, RegisterViewModel>() {
 
+ //   private val passwordType = "^(?=.?[A-Z])(?=.?[a-z])(?=.*?[0-9]).{8,}\$".toRegex()
+
     private val isFromAction by lazy {
         activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
     }
@@ -50,10 +52,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
             if (binding.agreementRadioButton.isChecked) {
                 viewModel.register(
                     RegisterRequestDto(
-                        fullName = binding.nameSurnameEdittext.text.toString(),
-                        username = binding.usernameEdittext.text.toString(),
-                        email = binding.emailEdittext.text.toString(),
-                        password = binding.passwordEdittext.text.toString()
+                        binding.nameSurnameEdittext.text.toString(),
+                        binding.usernameEdittext.text.toString(),
+                        binding.emailEdittext.text.toString(),
+                        binding.passwordEdittext.text.toString()
                     )
                 )
             }
