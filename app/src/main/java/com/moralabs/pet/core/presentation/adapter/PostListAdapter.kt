@@ -82,7 +82,14 @@ class PostListAdapter(
                     onOfferUserClick?.invoke(getItem(bindingAdapterPosition))
                 }
             }
+
             binding.userPhoto.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onUserPhotoClick?.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.userInfoPart.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onUserPhotoClick?.invoke(getItem(bindingAdapterPosition))
                 }
@@ -120,10 +127,8 @@ class PostListAdapter(
             }
 
             if (post.isPostOwnedByUser == true) {
-                binding.postSetting.visibility = View.VISIBLE
                 binding.offerButton.visibility = View.GONE
             } else {
-                binding.postSetting.visibility = View.GONE
                 binding.offerButton.visibility = View.VISIBLE
             }
 

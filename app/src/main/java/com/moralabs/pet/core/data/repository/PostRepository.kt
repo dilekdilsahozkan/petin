@@ -13,6 +13,7 @@ interface PostRepository {
     suspend fun getPetProfile(petId: String?, userId: String?): Response<BaseResponse<PetDto>>
     suspend fun likePost(postId: String?): Response<BaseResponse<Nothing>>
     suspend fun unlikePost(postId: String?): Response<BaseResponse<Nothing>>
+    suspend fun reportPost(postId: String?, reportType: Int?): Response<BaseResponse<Nothing>>
     suspend fun profilePost(): Response<BaseResponse<List<PostDto>>>
     suspend fun getPostAnotherUser(userId: String?): Response<BaseResponse<List<PostDto>>>
     suspend fun deletePost(postId: String?): Response<BaseResponse<Nothing>>

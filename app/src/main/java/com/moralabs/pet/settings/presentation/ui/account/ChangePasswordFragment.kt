@@ -1,9 +1,7 @@
 package com.moralabs.pet.settings.presentation.ui.account
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -16,7 +14,6 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentChangePasswordBinding
 import com.moralabs.pet.profile.data.remote.dto.UserDto
-import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,7 +60,7 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
         val refreshToken = preferences?.getString(USER_KEY, "")
         val json = Gson().fromJson(refreshToken, AuthenticationDto::class.java)
 
-        binding.editProfile.setOnClickListener {
+        binding.editPassword.setOnClickListener {
             viewModel.changePassword(
                 json.refreshKey ?: "",
                 ChangePasswordRequestDto(
@@ -84,7 +81,7 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding, UserD
                         startLoading()
                     }
                     is ViewState.Success<*> -> {
-                        startActivity(Intent(context, ProfileActivity::class.java))
+                        activity?.onBackPressed()
                         stopLoading()
                     }
                     is ViewState.Error<*> -> {

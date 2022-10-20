@@ -15,6 +15,7 @@ class PostRepositoryImpl @Inject constructor(private val service: FeedService) :
     override suspend fun getPetProfile(petId: String?, userId: String?) = service.getPetProfile(petId, userId)
     override suspend fun likePost(postId: String?) = service.likePost(postId)
     override suspend fun unlikePost(postId: String?) = service.unlikePost(postId)
+    override suspend fun reportPost(postId: String?, reportType: Int?) = service.reportPost(postId, reportType)
     override suspend fun profilePost() = service.profilePost()
     override suspend fun getPostAnotherUser(userId: String?) = service.getPostAnotherUser(userId)
     override suspend fun deletePost(postId: String?): Response<BaseResponse<Nothing>> = service.deletePost(postId)

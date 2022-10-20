@@ -74,7 +74,9 @@ class EditPersonalInformationFragment :
         binding.editProfile.setOnClickListener {
             viewModel.editUser(
                 binding.fullNameEdit.text.toString(),
-                if (digitType.matches(binding.phoneNumberEdit.text.toString())) binding.phoneNumberEdit.text.toString() else null,
+                if (digitType.matches(binding.phoneNumberEdit.text.toString()))
+                    binding.phoneNumberEdit.text.toString()
+                else null,
                 newProfilePictureUrl?.let {
                     File(it)
                 } ?: null
@@ -198,12 +200,8 @@ class EditPersonalInformationFragment :
                         activity?.onBackPressed()
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_profile_change),
-                            Toast.LENGTH_LONG
-                        ).show()
                     }
                 }
             }

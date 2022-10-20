@@ -49,11 +49,7 @@ class ForgotPasswordFragment :
                         )
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_wrong_email),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
