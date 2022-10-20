@@ -58,11 +58,7 @@ class PasswordCodeFragment : View.OnClickListener, BaseFragment<FragmentPassword
                         )
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_password_code),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}

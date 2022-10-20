@@ -63,11 +63,8 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding, LoginDto, L
                         ).show()
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_new_password),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        stateError(it.message)
+
                         stopLoading()
                     }
                     else -> {}
