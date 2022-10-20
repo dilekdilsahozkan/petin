@@ -43,7 +43,7 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding, UserDto, Settin
     override fun addListeners() {
         super.addListeners()
         binding.readButton.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_agreement_to_registerFragment)
+            activity?.onBackPressed()
         }
     }
 

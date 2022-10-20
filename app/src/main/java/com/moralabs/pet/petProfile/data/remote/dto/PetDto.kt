@@ -28,6 +28,7 @@ data class PetAttributeDto(
     val choice: String? = null,
 ) : BaseDto(), Parcelable
 
+@Keep
 @Parcelize
 data class AttributeDto(
     val id: String? = "",
@@ -40,17 +41,19 @@ data class AttributeDto(
     val choices: List<ChoicesDto>? = null,
 ) : BaseDto(), Parcelable
 
+@Keep
 @Parcelize
 data class ChoicesDto(
     val id: String? = "",
     val choice: String? = null,
 ) : BaseDto(), Parcelable
 
+@Keep
 data class CreatePostDto(
     val getValue: List<PetDto>? = null,
     val postValue: List<PetDto>? = null
 )
-
+@Keep
 data class CreateOfferDto(
     val getOffer: List<PetDto>? = null,
     val offerValue: List<PetDto>? = null
