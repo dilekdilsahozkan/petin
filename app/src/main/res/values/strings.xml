@@ -81,7 +81,7 @@
     <string name="settings_log_out">Çıkış Yap</string>
     <string name="settings_my_account">Hesabım</string>
     <string name="settings_personal_information">Kişisel Bilgilerim</string>
-    <string name="settings_my_favorites">Favorilerim</string>
+    <string name="settings_my_favorites">Beğenilerim</string>
     <string name="settings_change_password">Parolamı Değiştir</string>
     <string name="settings_delete_account">Hesabımı Sil</string>
     <string name="settings_change_profile_photo">Profil Fotoğrafını Değiştir</string>
@@ -178,7 +178,7 @@
     <!-- EMPTY DATA -->
 
     <string name="noPet">Kayıtlı evcil hayvan bulunamamıştır.</string>
-    <string name="noNotification">Bildirim bulunamamıştır.</string>
-    <string name="noMessage">Mesajlaşma bulunamamıştır.</string>
+    <string name="noNotification">Bildiriminiz yok.</string>
+    <string name="noMessage">Mesajlaşmanız yok.</string>
 
 </resources>
