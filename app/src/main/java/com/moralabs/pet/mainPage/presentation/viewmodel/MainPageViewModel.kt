@@ -23,6 +23,9 @@ class MainPageViewModel @Inject constructor(
     protected var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
 
+    protected var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val reportState: StateFlow<ViewState<Boolean>> = _reportState
+
     fun feedPost(searchQuery: String? = null) {
         job?.cancel()
 
@@ -91,6 +94,30 @@ class MainPageViewModel @Inject constructor(
                         }
                         is BaseResult.Error -> {
                             _likeUnlikeDeleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun reportPost(postId: String?, reportType: Int?) {
+        viewModelScope.launch {
+            useCase.reportPost(postId, reportType)
+                .onStart {
+                    _reportState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _reportState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _reportState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _reportState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }

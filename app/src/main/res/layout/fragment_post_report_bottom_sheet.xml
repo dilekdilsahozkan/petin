@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,29 +11,82 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/background_bottom_sheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:padding="@dimen/scale_16dp">
 
         <TextView
             android:id="@+id/reportText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_10dp"
+            android:fontFamily="@font/poppins_bold"
             android:text="@string/report"
-            android:fontFamily="@font/poppins_medium"
             android:textColor="@color/darkPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/scale_15dp"
+            android:textSize="@dimen/scale_15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reportText"
-            tools:listitem="@layout/item_report_reasons"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/inappropriateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/inappropriate"
+            android:textColor="@color/darkPrimary"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reportText" />
+
+        <TextView
+            android:id="@+id/spamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/spam"
+            android:textColor="@color/darkPrimary"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inappropriateText" />
+
+        <TextView
+            android:id="@+id/fraudText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/fraud"
+            android:textColor="@color/darkPrimary"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spamText" />
+
+        <TextView
+            android:id="@+id/nudityOrSexualityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/nudityOrSexuality"
+            android:textColor="@color/darkPrimary"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fraudText" />
+
+        <TextView
+            android:id="@+id/otherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/other"
+            android:textColor="@color/darkPrimary"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nudityOrSexualityText" />
+        p
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

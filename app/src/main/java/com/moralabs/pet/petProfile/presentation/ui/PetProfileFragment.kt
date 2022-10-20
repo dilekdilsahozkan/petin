@@ -125,11 +125,7 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
                         activity?.finish()
                     }
                     is ViewState.Error<*> -> {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_pet_delete),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}

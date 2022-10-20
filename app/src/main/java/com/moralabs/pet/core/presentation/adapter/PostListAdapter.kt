@@ -127,10 +127,8 @@ class PostListAdapter(
             }
 
             if (post.isPostOwnedByUser == true) {
-                binding.postSetting.visibility = View.VISIBLE
                 binding.offerButton.visibility = View.GONE
             } else {
-                binding.postSetting.visibility = View.GONE
                 binding.offerButton.visibility = View.VISIBLE
             }
 

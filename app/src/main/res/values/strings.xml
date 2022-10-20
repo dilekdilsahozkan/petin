@@ -131,7 +131,8 @@
     <string name="error_wrong_email">Sisteme kayıtlı böyle bir mail adresi bulunamamıştır.</string>
     <string name="success_profile_change">Kişisel bilgileriniz başarıyla güncellenmiştir.</string>
     <string name="error_profile_change">Ad Soyad alanının boş olmadığına ve telefon numarasını tam girdiğinize emin olun.</string>
-
+    <string name="error_report">Şikayetiniz gönderilememiştir.</string>
+    <string name="success_report">Şikayetiniz başarıyla gönderilmiştir.</string>
     <string name="error_password_code">Yanlış kod girdiniz</string>
     <string name="error_wrong_type_password">Mevcut şifrenizin doğru girdiğinizden ve kurala uygun yeni şifre girdiğinizden emin olunuz.</string>
 
@@ -149,6 +150,7 @@
     <string name="ask_sure">Emin misiniz?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
+    <string name="submit_report_warning">Gönderinizi silmek istediğinize emin misin?</string>
     <string name="delete_comment_warning">Yorumu silmek istediğinize emin misin?</string>
     <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
 
@@ -180,5 +182,14 @@
     <string name="noPet">Kayıtlı evcil hayvan bulunamamıştır.</string>
     <string name="noNotification">Bildiriminiz yok.</string>
     <string name="noMessage">Mesajlaşmanız yok.</string>
+
+    <!-- Report -->
+
+    <string name="inappropriate">Uygunsuz içerik</string>
+    <string name="spam">Spam</string>
+    <string name="fraud">Sahtekarlık veya Dolandırıcılık</string>
+    <string name="nudityOrSexuality">Çıplaklık veya Cinsellik</string>
+    <string name="other">Diğer</string>
+    <string name="submit">Gönder</string>
 
 </resources>

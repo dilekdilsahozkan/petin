@@ -23,6 +23,10 @@ interface FeedService {
     @GET("/feed/post")
     suspend fun profilePost(): Response<BaseResponse<List<PostDto>>>
 
+    // gönderi report etme
+    @POST("/feed/post/{postId}/report/{reportType}")
+    suspend fun reportPost(@Path("postId") postId: String?, @Path("reportType") reportType: Int?): Response<BaseResponse<Nothing>>
+
     // gönderi beğenme
     @POST("/feed/post/{postId}/like")
     suspend fun likePost(@Path("postId") postId: String?): Response<BaseResponse<Nothing>>
