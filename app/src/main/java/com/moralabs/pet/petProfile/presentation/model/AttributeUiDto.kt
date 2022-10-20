@@ -1,11 +1,12 @@
 package com.moralabs.pet.petProfile.presentation.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.moralabs.pet.core.data.remote.dto.BaseDto
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
 import com.moralabs.pet.petProfile.data.remote.dto.AttributeDto
 import kotlinx.android.parcel.Parcelize
-
+@Keep
 @Parcelize
 data class AttributeUiDto(
     val uiType: AttributeUiType,
