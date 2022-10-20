@@ -200,12 +200,8 @@ class EditPersonalInformationFragment :
                         activity?.onBackPressed()
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_profile_change),
-                            Toast.LENGTH_LONG
-                        ).show()
                     }
                 }
             }

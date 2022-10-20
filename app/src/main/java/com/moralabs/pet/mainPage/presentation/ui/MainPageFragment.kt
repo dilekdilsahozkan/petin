@@ -3,6 +3,7 @@ package com.moralabs.pet.mainPage.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
@@ -30,7 +31,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
-    PostSettingBottomSheetListener {
+    PostSettingBottomSheetListener, PostReportBottomSheetListener {
+
+    var reportedPostId = ""
 
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -106,11 +109,21 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onPostSettingClick = {
-                loginIfNeeded {
-                    PostSettingBottomSheetFragment(
-                        this,
-                        it.id
-                    ).show(childFragmentManager, "")
+                if (it.isPostOwnedByUser == true){
+                    loginIfNeeded {
+                        PostSettingBottomSheetFragment(
+                            this,
+                            it.id
+                        ).show(childFragmentManager, "")
+                    }
+                }else{
+                    reportedPostId = it.id
+                    loginIfNeeded {
+                        PostReportBottomSheetFragment(
+                            this,
+                            it.id
+                        ).show(childFragmentManager, "")
+                    }
                 }
             }
         )
@@ -152,6 +165,28 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
+    override fun addObservers() {
+        super.addObservers()
+
+        lifecycleScope.launch {
+            viewModel.reportState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<*> -> {
+                        Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
+                        stopLoading()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
+                        stopLoading()
+                    }
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -171,6 +206,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                         feedPost()
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
@@ -179,8 +215,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
-    override fun onItemClick(postId: String?) {
+    private fun feedPost() {
+        if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
+            viewModel.feedPost()
+        } else {
+            viewModel.feedPost(binding.searchEdittext.text.toString())
+        }
+    }
 
+    override fun onItemClick(postId: String?) {
         PetWarningDialog(
             requireContext(),
             PetWarningDialogType.CONFIRMATION,
@@ -197,11 +240,20 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         ).show()
     }
 
-    private fun feedPost() {
-        if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
-            viewModel.feedPost()
-        } else {
-            viewModel.feedPost(binding.searchEdittext.text.toString())
-        }
+    override fun onReportClick(reportType: Int?) {
+        PetWarningDialog(
+            requireContext(),
+            PetWarningDialogType.CONFIRMATION,
+            resources.getString(R.string.ask_sure),
+            okay = getString(R.string.yes),
+            discard = getString(R.string.no),
+            description = resources.getString(R.string.submit_report_warning),
+            negativeButton = resources.getString(R.string.no),
+            onResult = {
+                if (PetWarningDialogResult.OK == it) {
+                    viewModel.reportPost(reportedPostId, reportType)
+                }
+            }
+        ).show()
     }
 }
