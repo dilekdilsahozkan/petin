@@ -26,7 +26,7 @@ android {
     }
 
     signingConfigs {
-        debug {
+        alpha {
             storeFile file("../cert/keystore.dev")
             storePassword "Pet1nPet1n"
             keyAlias "moralabs"
@@ -59,11 +59,11 @@ android {
     android.variantFilter { variant ->
         variant.getFlavors().each { flavor ->
             if ((variant.buildType.name == 'release' &&
-                    flavor.name == 'dev') ||
+                    (flavor.name == 'dev')) ||
                     (variant.buildType.name == 'debug' &&
-                            flavor.name == 'prod') ||
-                    (variant.buildType.name == 'debug' &&
-                            flavor.name == 'uat')) {
+                            (flavor.name == 'uat' || flavor.name == 'prod')) ||
+                    (variant.buildType.name == 'alpha' &&
+                            (flavor.name == 'uat' || flavor.name == 'prod'))) {
                 variant.setIgnore(true)
             }
         }
@@ -71,6 +71,15 @@ android {
 
     buildTypes {
         debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
+            buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
+            buildConfigField("int", "VERSION_CODE", versionCodeDef.toString())
+        }
+        alpha {
             debuggable true
             minifyEnabled false
             signingConfig signingConfigs.debug
