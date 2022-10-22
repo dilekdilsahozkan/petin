@@ -10,6 +10,9 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+def versionCodeDef = (int) (((new Date()).getTime()) / 100000)
+def versionNameDef = System.getenv("VERSION_NAME") && System.getenv("VERSION_NAME").length() > 0 ? System.getenv("VERSION_NAME").toString() : "0.0.0"
+
 android {
     compileSdk 32
 
@@ -17,12 +20,18 @@ android {
         applicationId "com.moralabs.petin"
         minSdk 23
         targetSdk 32
-        versionCode 1002
-        versionName "1.0.2"
+        versionCode versionCodeDef
+        versionName versionNameDef
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
+        debug {
+            storeFile file("../cert/keystore.dev")
+            storePassword "Pet1nPet1n"
+            keyAlias "moralabs"
+            keyPassword "Pet1nPet1n"
+        }
         release {
             storeFile file("../cert/keystore")
             storePassword "Pet1nPet1n"
@@ -36,6 +45,11 @@ android {
         dev {
             dimension = "default"
             applicationIdSuffix = ".dev"
+            versionName = versionNameDef + "-dev"
+        }
+        uat {
+            dimension = "default"
+            versionName = versionNameDef + "-uat"
         }
         prod {
             dimension = "default"
@@ -44,11 +58,12 @@ android {
 
     android.variantFilter { variant ->
         variant.getFlavors().each { flavor ->
-            println variant.buildType.name + " " + flavor.name + " " + flavor.dimension
             if ((variant.buildType.name == 'release' &&
                     flavor.name == 'dev') ||
                     (variant.buildType.name == 'debug' &&
-                            flavor.name == 'prod')) {
+                            flavor.name == 'prod') ||
+                    (variant.buildType.name == 'debug' &&
+                            flavor.name == 'uat')) {
                 variant.setIgnore(true)
             }
         }
@@ -58,15 +73,20 @@ android {
         debug {
             debuggable true
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
+            buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
+            buildConfigField("int", "VERSION_CODE", versionCodeDef.toString())
         }
         release {
             debuggable false
             minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "PET_BASEURL", "\"https://server-prod-be-petin.azurewebsites.net/\"")
+            buildConfigField("String", "PET_BASEURL", "\"https://server-prod-be-petinder.azurewebsites.net/\"")
+            buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
+            buildConfigField("int", "VERSION_CODE", versionCodeDef.toString())
         }
     }
 
@@ -165,5 +185,4 @@ dependencies {
 
     // Dots
     implementation "com.tbuonomo:dotsindicator:4.3"
-
 }

@@ -17,5 +17,6 @@ data class AuthenticationDto(
     var deviceVersion: String? = Build.VERSION.SDK_INT.toString(),
     var applicationId: String? = BuildConfig.APPLICATION_ID,
     var applicationVersion: String? = BuildConfig.VERSION_NAME,
+    var applicationCode: Int? = BuildConfig.VERSION_CODE,
     var isGuest: Boolean = true
 )
