@@ -47,7 +47,7 @@ sonarqube {
         property "sonar.host.url", "http://164.92.218.1"
 
         property "sonar.projectName", "Petin"
-        property "sonar.projectKey", "Petin_mobile.petin.android_AYPwj2RcD8zOi5rZk5yu"
+        property "sonar.projectKey", "Petin_mobile.petin.android_AYP6qY1PBnT5e94fngzo"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.projectVersion", "0.1"
         property "sonar.issuesReport.html.enable", "true"
