@@ -23,6 +23,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file("../cert/keystore.dev")
+            storePassword "Pet1nPet1n"
+            keyAlias "moralabs"
+            keyPassword "Pet1nPet1n"
+        }
         release {
             storeFile file("../cert/keystore")
             storePassword "Pet1nPet1n"
@@ -37,6 +43,9 @@ android {
             dimension = "default"
             applicationIdSuffix = ".dev"
         }
+        uat {
+            dimension = "default"
+        }
         prod {
             dimension = "default"
         }
@@ -48,7 +57,9 @@ android {
             if ((variant.buildType.name == 'release' &&
                     flavor.name == 'dev') ||
                     (variant.buildType.name == 'debug' &&
-                            flavor.name == 'prod')) {
+                            flavor.name == 'prod') ||
+                    (variant.buildType.name == 'debug' &&
+                            flavor.name == 'uat')) {
                 variant.setIgnore(true)
             }
         }
@@ -58,6 +69,7 @@ android {
         debug {
             debuggable true
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
         }

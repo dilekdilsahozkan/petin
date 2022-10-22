@@ -36,9 +36,11 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-apply plugin: "org.sonarqube"
+apply plugin: 'org.sonarqube'
 
 sonarqube {
+    androidVariant "uatRelease"
+
     properties {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.verbose", true
@@ -50,23 +52,10 @@ sonarqube {
         property "sonar.projectVersion", "0.1"
         property "sonar.issuesReport.html.enable", "true"
         property "sonar.issuesReport.console.enable", "true"
-        property "sonar.login", "sqp_1174e7839ca031f833043603d671a5c52f1fbc65"
+        property "sonar.login", "sqp_37ac640528a6b1bc51ce9992044db02c8c8de5ae"
 
-        property "sonar.coverage.jacoco.xmlReportPaths", findAllReports()
         property "detekt.sonar.kotlin.config.path", "${rootProject.projectDir}/detekt-config.yml"
 
         property "sonar.java.coveragePlugin", "jacoco"
     }
-}
-
-String findAllReports() {
-  def file = "${rootProject.buildDir}/reports"
-
-  def sonarEnabledProjects = rootProject.subprojects
-      .findAll { p -> p.sonarqube.getProperties().get("skipProject") == false }
-      *.name
-      .collect { projectName -> "$file/jacocoTestReport-${projectName}.xml" }
-      .join(",")
-
-  return sonarEnabledProjects
 }
