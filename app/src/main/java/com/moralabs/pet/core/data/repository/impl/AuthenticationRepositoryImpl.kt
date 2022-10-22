@@ -100,6 +100,7 @@ class AuthenticationRepositoryImpl(private val context: Context?) :
             "Pet-DeviceVersion" to it.deviceVersion,
             "Pet-ApplicationId" to it.applicationId,
             "Pet-ApplicationVersion" to it.applicationVersion,
+            "Pet-ApplicationCode" to it.applicationCode.toString(),
         )
     } ?: run {
         hashMapOf()
