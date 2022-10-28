@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.moralabs.pet.R
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
+import org.w3c.dom.Text
 
 @BindingAdapter("pet:src")
 fun ImageView.loadImage(src: String?) {
@@ -28,15 +29,33 @@ fun ImageView.loadImageWithPlaceholder(src: String?) {
 }
 
 @BindingAdapter("pet:attributes")
-fun TextView.attributes(list: List<PetAttributeDto>?){
-    text = list?.filter { it.attributeType.toString() == tag}?.getOrNull(0)?.choice
+fun TextView.attributes(list: List<PetAttributeDto>?) {
+    text = list?.filter { it.attributeType.toString() == tag }?.getOrNull(0)?.choice
 }
 
 @BindingAdapter("pet:setTextCustomStyle")
-fun TextView.setTextCustomStyle(isNormal:Boolean){
+fun TextView.setTextCustomStyle(isNormal: Boolean) {
     val regular: Typeface? = ResourcesCompat.getFont(context, R.font.poppins_regular)
     val bold: Typeface? = ResourcesCompat.getFont(context, R.font.poppins_medium)
 
     if (isNormal) this.typeface = regular else this.typeface = bold
 }
 
+@BindingAdapter("pet:setOrderStatus")
+fun TextView.setOrderStatus(status: Int) {
+    when (status) {
+        0 -> text = ""
+        1 -> {
+            text = "Kabul Edildi!"
+            setTextColor(resources.getColor(R.color.green))
+        }
+        2 -> {
+            text = "Red Edildi!"
+            setTextColor(resources.getColor(R.color.red))
+        }
+        3 -> {
+            text = "Değerlendirilme Aşamasında!"
+            setTextColor(resources.getColor(R.color.yellow))
+        }
+    }
+}

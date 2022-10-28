@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -18,6 +17,7 @@
             android:id="@+id/account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
@@ -28,11 +28,37 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/settings_title"
                 android:textColor="@color/black"
-                android:textSize="15dp"
-                tools:text="Ayarlar" />
+                android:textSize="15dp"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icNavigateToAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:text="@string/settings_privacy_and_settings"
+                app:srcCompat="@drawable/ic_arrow_right" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/offers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/offersView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/myOffers"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/offersImage"
                 android:layout_width="wrap_content"
                 android:layout_height="12dp"
                 android:layout_alignParentRight="true"
@@ -57,8 +83,7 @@
                 android:text="@string/settings_privacy_and_settings"
                 android:textColor="@color/black"
                 android:textSize="15dp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="Gizlilik ve Güvenlik" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icNavigateToPrivacyAndSec"
@@ -83,8 +108,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/settings_about"
                 android:textColor="@color/black"
-                android:textSize="15dp"
-                tools:text="About" />
+                android:textSize="15dp"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icNavigateToAbout"
@@ -104,8 +128,7 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/settings_log_out"
             android:textColor="@color/mainColor"
-            android:textSize="15dp"
-            tools:text="Log Out" />
+            android:textSize="15dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
