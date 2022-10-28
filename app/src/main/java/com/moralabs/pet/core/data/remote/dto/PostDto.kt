@@ -17,6 +17,7 @@ data class PostDto(
     val likeCount: Int? = null,
     val commentCount: Int? = null,
     val offerCount: Int? = null,
+    val isOfferAvailableByUser : Boolean? = null,
     val isPostLikedByUser: Boolean? = null,
     val isPostOwnedByUser: Boolean? = null,
     val pageIndex: Int? = null,

@@ -14,6 +14,7 @@ class OfferUserActivity : BaseActivity<ActivityOfferUserBinding>(),
     companion object {
         const val POST_ID = "postId"
         const val OFFER_TEXT = "offerText"
+        const val OFFER_DATE = "offerDate"
         const val USER_NAME = "userName"
         const val OTHER_USER_ID = "otherUserId"
         const val PET_ID = "petId"
@@ -22,6 +23,7 @@ class OfferUserActivity : BaseActivity<ActivityOfferUserBinding>(),
         const val PET_AGE = "petAge"
         const val PET_GENDER = "petGender"
         const val PET_KIND = "petKind"
+        const val MY_OFFER_ID = "myOfferId"
     }
 
     override fun getLayoutId() = R.layout.activity_offer_user

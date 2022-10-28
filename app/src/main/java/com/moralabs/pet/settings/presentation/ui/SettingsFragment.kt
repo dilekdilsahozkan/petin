@@ -52,6 +52,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
         binding.account.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_settings_to_accountFragment)
         }
+        binding.offers.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_offersFragment)
+        }
         binding.privacyAndSec.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_privacyAndSecurityFragment)
         }
