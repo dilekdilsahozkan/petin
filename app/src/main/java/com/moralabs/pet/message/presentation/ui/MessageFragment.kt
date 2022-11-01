@@ -28,7 +28,14 @@ class MessageFragment : BaseFragment<FragmentMessageBinding, List<ChatDto>, Mess
 
     private val messageAdapter: BaseListAdapter<ChatDto, ItemUserMessageBinding> by lazy {
         BaseListAdapter(R.layout.item_user_message, BR.item, onRowClick = {
-            startActivity(Intent(context, MessageDetailActivity::class.java).apply { putExtras(bundleOf(MessageDetailActivity.BUNDLE_USER to it.to)) })
+            startActivity(Intent(context, MessageDetailActivity::class.java).apply {
+                putExtras(
+                    bundleOf(
+                        MessageDetailActivity.BUNDLE_USER to it.to,
+                        MessageDetailActivity.USER_ID to it.to?.userId
+                    )
+                )
+            })
         }, emptyString = getString(R.string.noMessage))
     }
 
