@@ -4,14 +4,20 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import com.moralabs.pet.R
 import androidx.navigation.fragment.findNavController
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentLoginBinding
@@ -28,6 +34,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
     private val isFromAction by lazy {
         activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
     }
+
+    private var callbackManager: CallbackManager? = null
 
     override fun getLayoutId() = R.layout.fragment_login
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -46,6 +54,33 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
             paddingPixel= it * paddingDp
         }
         binding.passwordEdittext.setPadding(paddingPixel.toInt(),0,0,0)
+
+        callbackManager = CallbackManager.Factory.create()
+        binding.facebook.setFragment(this)
+
+        binding.facebook.setOnClickListener {
+            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
+        }
+
+        LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<com.facebook.login.LoginResult>{
+            override fun onCancel() {
+                TODO("Not yet implemented")
+            }
+
+            override fun onError(error: FacebookException) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSuccess(result: com.facebook.login.LoginResult) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        callbackManager?.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun addListeners() {

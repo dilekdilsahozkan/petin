@@ -14,6 +14,7 @@ class MessageDetailActivity : BaseActivity<ActivityMessageDetailBinding>(),
 
     companion object {
         const val BUNDLE_USER = "user"
+        const val USER_ID = "userId"
     }
 
     private val userDto by lazy {
