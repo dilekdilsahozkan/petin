@@ -15,7 +15,6 @@ import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentOfferBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
-import com.moralabs.pet.offer.data.remote.dto.OfferDto
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import kotlinx.coroutines.flow.collect

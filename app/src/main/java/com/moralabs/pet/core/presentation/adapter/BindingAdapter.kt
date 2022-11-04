@@ -8,7 +8,6 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.moralabs.pet.R
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
-import org.w3c.dom.Text
 
 @BindingAdapter("pet:src")
 fun ImageView.loadImage(src: String?) {
@@ -55,7 +54,7 @@ fun TextView.setOrderStatus(status: Int) {
         }
         3 -> {
             text = "Değerlendirilme Aşamasında!"
-            setTextColor(resources.getColor(R.color.yellow))
+            setTextColor(resources.getColor(R.color.orange))
         }
     }
 }
