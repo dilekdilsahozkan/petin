@@ -18,6 +18,12 @@
             app:popEnterAnim="@anim/slide_out" />
 
         <action
+            android:id="@+id/action_settingsFragment_to_offersFragment"
+            app:destination="@id/myOffersFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out" />
+
+        <action
             android:id="@+id/action_settingsFragment_to_privacyAndSecurityFragment"
             app:destination="@id/privacyAndSecurityFragment"
             app:enterAnim="@anim/slide_in"
@@ -154,5 +160,23 @@
         android:id="@+id/whoWeAreFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.about.WhoWeAreFragment"
         android:label="WhoWeAreFragment" />
+
+    <fragment
+        android:id="@+id/myOffersFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.offers.MyOffersFragment"
+        android:label="MyOffersFragment" >
+
+        <action
+            android:id="@+id/action_myOffersFragment_to_offerDetailFragment"
+            app:destination="@id/offerDetailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/offerDetailFragment"
+        android:name="com.moralabs.pet.settings.presentation.ui.offers.OfferDetailFragment"
+        android:label="OfferDetailFragment" />
 
 </navigation>

@@ -77,6 +77,7 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
                         stateError(it.message)
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }
@@ -98,6 +99,7 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
                         stateError(it.message)
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }

@@ -18,7 +18,6 @@ import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.petProfile.presentation.viewmodel.PetViewModel
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
 
 @AndroidEntryPoint
 class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>() {
@@ -58,7 +57,6 @@ class PetFragment : BaseFragment<FragmentPetBinding, List<PetDto>, PetViewModel>
         binding.addPet.setOnClickListener {
             openAddPet()
         }
-
         getPetList()
     }
 

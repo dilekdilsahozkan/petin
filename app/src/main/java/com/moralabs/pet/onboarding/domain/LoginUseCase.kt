@@ -23,8 +23,17 @@ class LoginUseCase @Inject constructor(
 
     fun login(loginPet: LoginRequestDto): Flow<BaseResult<LoginDto>> {
         return flow {
+            val response = loginRepository.login(loginPet)
+            val error = Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
             if (loginPet.email.isNullOrEmpty() && loginPet.password.isNullOrEmpty()) {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.EMPTY_BLANKS)))
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.EMPTY_BLANKS,
+                            error.userMessage
+                        )
+                    )
+                )
             } else {
                 val response = loginRepository.login(loginPet)
                 if (response.isSuccessful && response.code() == 200) {
@@ -37,11 +46,16 @@ class LoginUseCase @Inject constructor(
                         notificationRepository.sendToken(notificationRepository.getFirebaseToken())
                         emit(BaseResult.Success(it))
                     } ?: run {
-                        emit(BaseResult.Error(ErrorResult(code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD)))
+                        emit(
+                            BaseResult.Error(
+                                ErrorResult(
+                                    code = ErrorCode.AUTH_WRONG_EMAIL_OR_PASSWORD,
+                                    error.userMessage
+                                )
+                            )
+                        )
                     }
                 } else {
-                    val error =
-                        Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
                     emit(
                         BaseResult.Error(
                             ErrorResult(
@@ -80,21 +94,42 @@ class LoginUseCase @Inject constructor(
 
     fun guestLogin(): Flow<BaseResult<LoginDto>> {
         return flow {
-            loginRepository.guestLogin().body()?.data?.let {
-                it.accessToken?.let { accessToken ->
-                    authenticationRepository.guestLogin(accessToken)
+            val guest = loginRepository.guestLogin()
+            val error = Gson().fromJson(guest.errorBody()?.string(), BaseResponse::class.java)
+            if (guest.isSuccessful && guest.code() == 200) {
+                guest.body()?.data?.let {
+                    it.accessToken?.let { accessToken ->
+                        authenticationRepository.guestLogin(accessToken)
+                    }
+                    emit(BaseResult.Success(it))
                 }
-                emit(BaseResult.Success(it))
+            } else {
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
             }
         }
     }
 
     fun forgotPassword(sendEmail: ForgotPasswordDto): Flow<BaseResult<Boolean>> {
         return flow {
+            val forgot = loginRepository.forgotPassword(sendEmail)
+            val error = Gson().fromJson(forgot.errorBody()?.string(), BaseResponse::class.java)
             if (sendEmail.email.isNullOrEmpty()) {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.EMPTY_BLANKS)))
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.EMPTY_BLANKS,
+                            error.userMessage
+                        )
+                    )
+                )
             } else {
-                val forgot = loginRepository.forgotPassword(sendEmail)
                 if (forgot.isSuccessful && forgot.code() == 200) {
                     emit(BaseResult.Success(true))
                 } else {
@@ -102,8 +137,7 @@ class LoginUseCase @Inject constructor(
                         BaseResult.Error(
                             ErrorResult(
                                 code = ErrorCode.SERVER_ERROR,
-                                forgot.body()?.userMessage,
-                                forgot.code()
+                                error.userMessage
                             )
                         )
                     )
@@ -115,6 +149,7 @@ class LoginUseCase @Inject constructor(
     fun passwordCode(passwordCode: PasswordCodeDto): Flow<BaseResult<Any>> {
         return flow {
             val pwCode = loginRepository.passwordCode(passwordCode)
+            val error = Gson().fromJson(pwCode.errorBody()?.string(), BaseResponse::class.java)
             if (pwCode.isSuccessful && pwCode.code() == 200) {
                 emit(BaseResult.Success(true))
             } else {
@@ -122,8 +157,7 @@ class LoginUseCase @Inject constructor(
                     BaseResult.Error(
                         ErrorResult(
                             code = ErrorCode.SERVER_ERROR,
-                            pwCode.body()?.userMessage,
-                            pwCode.code()
+                            error.userMessage
                         )
                     )
                 )

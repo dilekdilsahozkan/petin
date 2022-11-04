@@ -1,5 +1,7 @@
 package com.moralabs.pet.onboarding.domain
 
+import com.google.gson.Gson
+import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
@@ -21,13 +23,27 @@ class RegisterUseCase @Inject constructor(
 
     fun register(registerPet: RegisterRequestDto): Flow<BaseResult<RegisterDto>> {
         return flow {
+            val result = registerRepository.register(registerPet)
+            val error = Gson().fromJson(result.errorBody()?.string(), BaseResponse::class.java)
             if (registerPet.fullName.isNullOrEmpty() && registerPet.username.isNullOrEmpty() && registerPet.email.isNullOrEmpty() && registerPet.password.isNullOrEmpty()) {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.EMPTY_BLANKS)))
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.EMPTY_BLANKS,
+                            error.userMessage
+                        )
+                    )
+                )
             } else if (registerPet.password.toString().length < 8) {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.PASSWORD_LENGTH_LESS_THAN_EIGHT)))
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.PASSWORD_LENGTH_LESS_THAN_EIGHT,
+                            error.userMessage
+                        )
+                    )
+                )
             } else {
-                val result = registerRepository.register(registerPet)
-
                 if (result.isSuccessful && result.code() == 200) {
                     result.body()?.data?.let {
                         it.accessToken?.let { accessToken ->
@@ -35,18 +51,24 @@ class RegisterUseCase @Inject constructor(
                                 authenticationRepository.login(it.userId, accessToken, refreshToken)
                             }
                         }
-
                         notificationRepository.sendToken(notificationRepository.getFirebaseToken())
-
                         emit(BaseResult.Success(it))
                     } ?: run {
-                        emit(BaseResult.Error(ErrorResult(code = ErrorCode.NO_DATA)))
+                        emit(
+                            BaseResult.Error(
+                                ErrorResult(
+                                    code = ErrorCode.NO_DATA,
+                                    error.userMessage
+                                )
+                            )
+                        )
                     }
                 } else if (result.code() == 111) {
                     emit(
                         BaseResult.Error(
                             ErrorResult(
-                                code = ErrorCode.USERNAME_VALID
+                                code = ErrorCode.USERNAME_VALID,
+                                error.userMessage
                             )
                         )
                     )
@@ -54,12 +76,20 @@ class RegisterUseCase @Inject constructor(
                     emit(
                         BaseResult.Error(
                             ErrorResult(
-                                code = ErrorCode.EMAIL_VALID
+                                code = ErrorCode.EMAIL_VALID,
+                                error.userMessage
                             )
                         )
                     )
                 } else {
-                    emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+                    emit(
+                        BaseResult.Error(
+                            ErrorResult(
+                                code = ErrorCode.SERVER_ERROR,
+                                error.userMessage
+                            )
+                        )
+                    )
                 }
             }
         }

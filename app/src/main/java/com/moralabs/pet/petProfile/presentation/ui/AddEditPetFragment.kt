@@ -87,7 +87,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                 pet?.let { petDto ->
                     viewModel.updatePet(
                         petDto,
-                        if(isNewPhoto) petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) } else  null,
+                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) },
                         petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
                         petAdapter.currentList.filter { it.uiType == AttributeUiType.ATTRIBUTE || it.uiType == AttributeUiType.ATTRIBUTE_LIST }
                             .map {

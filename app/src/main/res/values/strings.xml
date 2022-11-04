@@ -4,6 +4,7 @@
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">977fe240ff6cd6f48de6e570d4f35aba</string>
     <string name="pets">Evcil Hayvanlarım</string>
+    <string name="empty"></string>
     <string name="description">Hayvan severlerin buluştuğu platform</string>
     <string name="mainPageTitle">Ana Sayfa</string>
     <string name="messagesTitle">Mesajlar</string>
@@ -37,6 +38,7 @@
     <string name="sendOffer">Teklifte Bulun</string>
     <string name="decline">Reddet</string>
     <string name="delete">Kaldır</string>
+    <string name="deleteOffer">Teklifimi Kaldır</string>
     <string name="accept">Kabul Et</string>
     <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
     <string name="wrongLogin">Yanlış email ya da parola</string>
@@ -79,6 +81,8 @@
     <!-- Settings -->
 
     <string name="settings_title">Ayarlar</string>
+    <string name="myOffers">Tekliflerim</string>
+    <string name="myOffer">Teklifim</string>
     <string name="settings_account">Hesap</string>
     <string name="settings_privacy_and_settings">Gizlilik ve Güvenlik</string>
     <string name="settings_about">Hakkımızda</string>
@@ -112,6 +116,7 @@
     <!-- TOAST MESSAGES -->
     <string name="accept_offer">Teklifi kabul ettiniz.</string>
     <string name="decline_offer">Teklifi reddettiniz.</string>
+    <string name="delete_offer">Teklifinizi sildiniz.</string>
     <string name="error_accept_offer">Teklifi kabul ederken bir sorun oluştu</string>
     <string name="error_decline_offer">Teklifi reddederken bir sorun oluştu</string>
     <string name="error_pet_delete">Evcil hayvanınızın profili silinirken bir sorun oluştu</string>
@@ -184,6 +189,7 @@
     <!-- EMPTY DATA -->
 
     <string name="noPet">Kayıtlı evcil hayvan bulunamamıştır.</string>
+    <string name="noOffer">Gönderilen teklif bulunamamıştır.</string>
     <string name="noNotification">Bildiriminiz yok.</string>
     <string name="noMessage">Mesajlaşmanız yok.</string>
 
