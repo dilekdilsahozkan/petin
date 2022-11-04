@@ -9,6 +9,7 @@ class LoginRepositoryImpl @Inject constructor(private val service: LoginService)
     : LoginRepository, BaseRepository {
     override suspend fun guestLogin() = service.guestLogin()
     override suspend fun login(loginPet: LoginRequestDto) = service.login(loginPet)
+    override suspend fun externalLogin(external: ExternalLoginDto) = service.externalLogin(external)
     override suspend fun forgotPassword(sendEmail: ForgotPasswordDto) = service.forgotPassword(sendEmail)
     override suspend fun passwordCode(passwordCode: PasswordCodeDto) = service.passwordCode(passwordCode)
     override suspend fun newPassword(newPw: NewPasswordDto) = service.newPassword(newPw)

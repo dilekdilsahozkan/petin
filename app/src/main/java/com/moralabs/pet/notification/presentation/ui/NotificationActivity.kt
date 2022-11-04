@@ -12,9 +12,6 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>(),
 
     companion object {
         const val CONTENT_ID = "postId"
-        const val PARTNER_OFFER_ID = "offerId"
-        const val ADOPTION_OFFER_ID = "offerId"
-        const val ACCEPT_OFFER_ID = "userId"
         const val OTHER_USER_ID = "otherUserId"
     }
 

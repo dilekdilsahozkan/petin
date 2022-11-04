@@ -7,6 +7,7 @@ import retrofit2.Response
 interface LoginRepository {
     suspend fun guestLogin(): Response<BaseResponse<LoginDto>>
     suspend fun login(loginPet: LoginRequestDto): Response<BaseResponse<LoginDto>>
+    suspend fun externalLogin(external: ExternalLoginDto): Response<BaseResponse<LoginDto>>
     suspend fun forgotPassword(sendEmail: ForgotPasswordDto): Response<BaseResponse<Nothing>>
     suspend fun passwordCode(passwordCode: PasswordCodeDto): Response<BaseResponse<Nothing>>
     suspend fun newPassword(newPw: NewPasswordDto): Response<BaseResponse<Nothing>>

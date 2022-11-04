@@ -16,6 +16,9 @@ interface LoginService {
     @POST("/auth/login")
     suspend fun login(@Body loginPet: LoginRequestDto): Response<BaseResponse<LoginDto>>
 
+    @POST("/auth/external/login")
+    suspend fun externalLogin(@Body external: ExternalLoginDto): Response<BaseResponse<LoginDto>>
+
     @POST("/auth/email")
     suspend fun forgotPassword(@Body sendEmail: ForgotPasswordDto): Response<BaseResponse<Nothing>>
 

@@ -42,6 +42,27 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun externalLogin(external: ExternalLoginDto) {
+        viewModelScope.launch {
+            useCase.externalLogin(external)
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success ->
+                            _state.value = ViewState.Success(baseResult.data)
+                        is BaseResult.Error ->
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                    }
+                }
+        }
+    }
+
     fun forgotPassword(sendEmail: ForgotPasswordDto) {
         viewModelScope.launch {
             useCase.forgotPassword(sendEmail)

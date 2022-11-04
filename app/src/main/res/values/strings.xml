@@ -76,6 +76,7 @@
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
     <string name="deletePost">Sil</string>
+    <string name="usernameNeeded">Hesabınızın güvenliği için kullanıcı adınızı belirleyiniz.</string>
 
     <!-- Settings -->
 

@@ -19,7 +19,7 @@ import com.moralabs.pet.notification.data.remote.dto.NotificationDto
 import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
-import com.moralabs.pet.profile.data.remote.dto.UserDto
+import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -61,7 +61,7 @@ class NotificationFragment :
                     }
                     NotificationType.NewPartnerOffer.type -> {
                         val bundle = bundleOf(
-                            NotificationActivity.PARTNER_OFFER_ID to notification.contentId
+                            OfferActivity.OFFER_ID to notification.contentId
                         )
                         val intent = Intent(context, OfferActivity::class.java)
                         intent.putExtras(bundle)
@@ -69,7 +69,7 @@ class NotificationFragment :
                     }
                     NotificationType.NewAdoptionOffer.type -> {
                         val bundle = bundleOf(
-                            NotificationActivity.ADOPTION_OFFER_ID to notification.contentId
+                            OfferActivity.OFFER_ID to notification.contentId
                         )
                         val intent = Intent(context, OfferActivity::class.java)
                         intent.putExtras(bundle)

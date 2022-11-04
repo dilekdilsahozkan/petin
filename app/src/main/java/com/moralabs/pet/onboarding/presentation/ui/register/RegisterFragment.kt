@@ -16,6 +16,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentRegisterBinding
+import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
 import com.moralabs.pet.onboarding.presentation.ui.login.LoginActivity
@@ -25,8 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, RegisterViewModel>() {
-
- //   private val passwordType = "^(?=.?[A-Z])(?=.?[a-z])(?=.*?[0-9]).{8,}\$".toRegex()
 
     private val isFromAction by lazy {
         activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
@@ -74,8 +73,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
                 Intent().run { putExtras(bundleOf(LoginActivity.RESULT_LOGIN to LoginResult.LOGIN_OK)) })
             activity?.finish()
         } else {
-            startActivity(Intent(context, LoginActivity::class.java))
+            startActivity(Intent(context, MainPageActivity::class.java))
+            activity?.finish()
         }
+    }
+
+    override fun stateError(data: String?) {
+        super.stateError(data)
+
+        binding.passwordRule.visibility = View.VISIBLE
     }
 
     private fun setRegisterClickable() {
