@@ -35,6 +35,10 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
         BaseListAdapter(R.layout.item_chat_message, BR.item)
     }
 
+    private val userId by lazy {
+        activity?.intent?.getStringExtra(MessageDetailActivity.USER_ID)
+    }
+
     private val userDto by lazy {
         activity?.intent?.getParcelableExtra<UserDto>(MessageDetailActivity.BUNDLE_USER)
     }

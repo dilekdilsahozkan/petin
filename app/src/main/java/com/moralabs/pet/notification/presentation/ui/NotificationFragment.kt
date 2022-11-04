@@ -17,7 +17,6 @@ import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
 import com.moralabs.pet.message.presentation.ui.MessageDetailActivity
 import com.moralabs.pet.notification.data.remote.dto.NotificationDto
 import com.moralabs.pet.notification.presentation.viewmodel.NotificationViewModel
-import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
