@@ -8,9 +8,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
+import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
-import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.databinding.FragmentOfferBinding
 import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
@@ -25,34 +25,7 @@ import kotlinx.coroutines.launch
 class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferViewModel>() {
 
     private val offerId: String? by lazy {
-        arguments?.getString(MakeOfferActivity.OFFER_ID)
-    }
-    private val userName: String? by lazy {
-        arguments?.getString(OfferUserActivity.USER_NAME)
-    }
-    private val offerText: String? by lazy {
-        arguments?.getString(OfferUserActivity.OFFER_TEXT)
-    }
-    private val petImage: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_IMAGE)
-    }
-    private val petName: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_NAME)
-    }
-    private val petAge: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_AGE)
-    }
-    private val petGender: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_GENDER)
-    }
-    private val petKind: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_KIND)
-    }
-    private val petId: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_ID)
-    }
-    private val otherUserId: String? by lazy {
-        arguments?.getString(OfferUserActivity.OTHER_USER_ID)
+        activity?.intent?.getStringExtra(OfferActivity.OFFER_ID)
     }
 
     override fun getLayoutId() = R.layout.fragment_offer
@@ -73,8 +46,8 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
 
         binding.petInfo.setOnClickListener {
             val bundle = bundleOf(
-                PetProfileActivity.PET_ID to petId,
-                PetProfileActivity.OTHER_USER_ID to otherUserId,
+                PetProfileActivity.PET_ID to viewModel.latestDto?.readOffer?.pet?.id,
+                PetProfileActivity.OTHER_USER_ID to viewModel.latestDto?.readOffer?.user?.userId,
             )
             val intent = Intent(context, PetProfileActivity::class.java)
             intent.putExtras(bundle)
@@ -132,29 +105,37 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+        binding.petInfo.visibility = View.GONE
 
         viewModel.getOffer(offerId)
+    }
 
-        if(petId == null){
+    override fun stateSuccess(data: OfferDetailDto) {
+        super.stateSuccess(data)
+
+        binding.offerText.text = data.readOffer?.text
+        binding.userInfo.text = data.readOffer?.user?.fullName
+        binding.petImage.loadImage(data.readOffer?.pet?.media?.url)
+        binding.petName.text = data.readOffer?.pet?.name
+        binding.petAge.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 5 }
+            ?.getOrNull(0)?.choice
+        binding.petType.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 6 }
+            ?.getOrNull(0)?.choice
+        binding.petGender.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 8 }
+            ?.getOrNull(0)?.choice
+
+        if (data.readOffer?.pet == null) {
             binding.petInfo.visibility = View.GONE
-        }else{
+        } else {
             binding.petInfo.visibility = View.VISIBLE
-        }
 
-        binding.offerText.text = offerText
-        binding.userInfo.text = userName
-        binding.petKind.text = petKind
-        binding.petAge.text = petAge
-        binding.petGender.text = petGender
-        binding.offerImage.loadImage(petImage)
-        binding.petName.text = petName
-
-        binding.acceptButton.setOnClickListener {
-            viewModel.acceptOffer(offerId)
-        }
-        binding.declineButton.setOnClickListener {
-            viewModel.declineOffer(offerId)
+            binding.acceptButton.setOnClickListener {
+                viewModel.acceptOffer(offerId)
+            }
+            binding.declineButton.setOnClickListener {
+                viewModel.declineOffer(offerId)
+            }
         }
     }
 }

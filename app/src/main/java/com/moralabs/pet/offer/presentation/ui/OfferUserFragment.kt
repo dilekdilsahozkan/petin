@@ -1,10 +1,10 @@
 package com.moralabs.pet.offer.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.BR
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
@@ -34,23 +34,14 @@ class OfferUserFragment :
     }
 
     private val userAdapter: BaseListAdapter<OfferDto, ItemUserInfoBinding> by lazy {
-        BaseListAdapter(R.layout.item_user_info, BR.item, onRowClick = { offer ->
-            var bundle = bundleOf(
-                MakeOfferActivity.OFFER_ID to offer.id,
-                OfferUserActivity.OFFER_TEXT to offer.text,
-                OfferUserActivity.OTHER_USER_ID to offer.user?.userId,
-                OfferUserActivity.USER_NAME to offer.user?.fullName,
-                OfferUserActivity.PET_IMAGE to offer.pet?.media?.url,
-                OfferUserActivity.PET_ID to offer.pet?.id,
-                OfferUserActivity.PET_NAME to offer.pet?.name,
-                OfferUserActivity.PET_KIND to offer.pet?.petAttributes?.filter { it.attributeType == 6 }
-                    ?.getOrNull(0)?.choice,
-                OfferUserActivity.PET_GENDER to offer.pet?.petAttributes?.filter { it.attributeType == 8 }
-                    ?.getOrNull(0)?.choice,
-                OfferUserActivity.PET_AGE to offer.pet?.petAttributes?.filter { it.attributeType == 5 }
-                    ?.getOrNull(0)?.choice
-            )
-            findNavController().navigate(R.id.action_fragment_offerUser_to_offerFragment, bundle)
+        BaseListAdapter(R.layout.item_user_info, BR.item, onRowClick = {
+            startActivity(Intent(context, OfferActivity::class.java).apply {
+                putExtras(
+                    bundleOf(
+                        OfferActivity.OFFER_ID to it.id,
+                    )
+                )
+            })
         })
     }
 
