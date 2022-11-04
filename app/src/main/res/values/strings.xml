@@ -74,6 +74,7 @@
     <string name="apply">Uygula</string>
     <string name="save">Kaydet</string>
     <string name="deletePost">Sil</string>
+    <string name="usernameNeeded">Hesabınızın güvenliği için kullanıcı adınızı belirleyiniz.</string>
 
     <!-- Settings -->
 
@@ -194,5 +195,7 @@
     <string name="nudityOrSexuality">Çıplaklık veya Cinsellik</string>
     <string name="other">Diğer</string>
     <string name="submit">Gönder</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

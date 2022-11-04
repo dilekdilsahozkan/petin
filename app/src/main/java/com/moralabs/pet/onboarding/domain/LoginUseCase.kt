@@ -7,6 +7,7 @@ import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
+import com.moralabs.pet.message.data.remote.dto.ChatDto
 import com.moralabs.pet.notification.data.repository.NotificationRepository
 import com.moralabs.pet.onboarding.data.remote.dto.*
 import com.moralabs.pet.onboarding.data.repository.LoginRepository
@@ -50,6 +51,29 @@ class LoginUseCase @Inject constructor(
                         )
                     )
                 }
+            }
+        }
+    }
+
+    fun externalLogin(external: ExternalLoginDto): Flow<BaseResult<LoginDto>> {
+        return flow {
+            val external = loginRepository.externalLogin(external)
+            if (external.isSuccessful && external.code() == 200) {
+                emit(
+                    BaseResult.Success(
+                        external.body()?.data ?: LoginDto()
+                    )
+                )
+            } else {
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            external.body()?.userMessage,
+                            external.code()
+                        )
+                    )
+                )
             }
         }
     }
@@ -110,10 +134,11 @@ class LoginUseCase @Inject constructor(
     fun newPassword(newPw: NewPasswordDto): Flow<BaseResult<Boolean>> {
         return flow {
             val response = loginRepository.newPassword(newPw)
-            if(response.isSuccessful && response.code() == 200){
+            if (response.isSuccessful && response.code() == 200) {
                 emit(BaseResult.Success(response.isSuccessful))
-            }else{
-                val error = Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
+            } else {
+                val error =
+                    Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
                         ErrorResult(
