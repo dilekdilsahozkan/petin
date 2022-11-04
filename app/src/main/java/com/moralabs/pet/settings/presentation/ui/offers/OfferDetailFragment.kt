@@ -12,7 +12,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentOfferDetailBinding
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
-import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
+import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -22,31 +22,7 @@ import kotlinx.coroutines.launch
 class OfferDetailFragment : BaseFragment<FragmentOfferDetailBinding, OfferDetailDto, OfferViewModel>() {
 
     private val offerId: String? by lazy {
-        arguments?.getString(OfferUserActivity.MY_OFFER_ID)
-    }
-    private val offerDate: Long? by lazy {
-        arguments?.getLong(OfferUserActivity.OFFER_DATE)
-    }
-    private val offerText: String? by lazy {
-        arguments?.getString(OfferUserActivity.OFFER_TEXT)
-    }
-    private val petImage: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_IMAGE)
-    }
-    private val petName: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_NAME)
-    }
-    private val petAge: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_AGE)
-    }
-    private val petGender: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_GENDER)
-    }
-    private val petKind: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_KIND)
-    }
-    private val petId: String? by lazy {
-        arguments?.getString(OfferUserActivity.PET_ID)
+        arguments?.getString(OfferActivity.OFFER_ID)
     }
 
     override fun getLayoutId() = R.layout.fragment_offer_detail
@@ -93,22 +69,29 @@ class OfferDetailFragment : BaseFragment<FragmentOfferDetailBinding, OfferDetail
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getOffer(offerId)
+    }
 
-        if(petId == null){
+    override fun stateSuccess(data: OfferDetailDto) {
+        super.stateSuccess(data)
+
+        binding.offerText.text = data.readOffer?.text
+        binding.petImage.loadImage(data.readOffer?.pet?.media?.url)
+        binding.petName.text = data.readOffer?.pet?.name
+        binding.petAge.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 5 }
+            ?.getOrNull(0)?.choice
+        binding.petType.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 6 }
+            ?.getOrNull(0)?.choice
+        binding.petGender.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 8 }
+            ?.getOrNull(0)?.choice
+
+        if (data.readOffer?.pet == null) {
             binding.petInfo.visibility = View.GONE
-        }else{
+        } else {
             binding.petInfo.visibility = View.VISIBLE
-        }
 
-        binding.offerText.text = offerText
-        binding.petKind.text = petKind
-        binding.petAge.text = petAge
-        binding.petGender.text = petGender
-        binding.offerImage.loadImage(petImage)
-        binding.petName.text = petName
-
-        binding.deleteButton.setOnClickListener {
-            viewModel.deleteOffer(offerId)
+            binding.deleteButton.setOnClickListener {
+                viewModel.deleteOffer(offerId)
+            }
         }
     }
 }
