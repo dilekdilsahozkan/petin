@@ -43,10 +43,6 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
         activity?.intent?.getParcelableExtra<UserDto>(MessageDetailActivity.BUNDLE_USER)
     }
 
-    private val userId by lazy {
-        activity?.intent?.getStringExtra(MessageDetailActivity.USER_ID)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
