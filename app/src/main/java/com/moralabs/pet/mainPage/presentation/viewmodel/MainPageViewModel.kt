@@ -8,6 +8,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.mainPage.domain.MainPageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,13 +21,10 @@ class MainPageViewModel @Inject constructor(
 
     private var job: Job? = null
 
-    protected var _likeUnlikeState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
-    val likeUnlikeState: StateFlow<ViewState<Boolean>> = _likeUnlikeState
-
-    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
-    protected var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
     fun feedPost(searchQuery: String? = null) {
@@ -56,6 +54,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun likePost(postId: String?) {
+<<<<<<< HEAD
         viewModelScope.launch {
             useCase.likePost(postId)
                 .onStart {
@@ -101,6 +100,13 @@ class MainPageViewModel @Inject constructor(
                     }
                 }
         }
+=======
+        GlobalScope.launch { useCase.likePost(postId).collect {  } }
+    }
+
+    fun unlikePost(postId: String?) {
+        GlobalScope.launch { useCase.unlikePost(postId).collect {  } }
+>>>>>>> bugfix/kemalsen/like_no_loading
     }
 
     fun reportPost(postId: String?, reportType: Int?) {
@@ -140,7 +146,10 @@ class MainPageViewModel @Inject constructor(
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
+<<<<<<< HEAD
                             _deleteState.value = ViewState.Idle()
+=======
+>>>>>>> bugfix/kemalsen/like_no_loading
                             _deleteState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
