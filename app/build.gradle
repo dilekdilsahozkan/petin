@@ -26,6 +26,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file("../cert/keystore.dev")
+            storePassword "Pet1nPet1n"
+            keyAlias "moralabs"
+            keyPassword "Pet1nPet1n"
+        }
         alpha {
             storeFile file("../cert/keystore.dev")
             storePassword "Pet1nPet1n"
@@ -73,7 +79,7 @@ android {
         debug {
             debuggable true
             minifyEnabled false
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.alpha
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
             buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
@@ -82,11 +88,12 @@ android {
         alpha {
             debuggable true
             minifyEnabled false
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.alpha
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "PET_BASEURL", "\"https://server-test-be-petinder.azurewebsites.net/\"")
             buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
             buildConfigField("int", "VERSION_CODE", versionCodeDef.toString())
+            matchingFallbacks = ['debug']
         }
         release {
             debuggable false
@@ -96,6 +103,13 @@ android {
             buildConfigField("String", "PET_BASEURL", "\"https://server-prod-be-petinder.azurewebsites.net/\"")
             buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
             buildConfigField("int", "VERSION_CODE", versionCodeDef.toString())
+        }
+        getByName("release") {
+            minifyEnabled = false
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
         }
     }
 
