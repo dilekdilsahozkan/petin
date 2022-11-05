@@ -2,10 +2,7 @@ package com.moralabs.pet.message.domain
 
 import com.google.gson.Gson
 import com.moralabs.pet.core.data.remote.dto.BaseResponse
-import com.moralabs.pet.core.domain.BaseResult
-import com.moralabs.pet.core.domain.BaseUseCase
-import com.moralabs.pet.core.domain.ErrorCode
-import com.moralabs.pet.core.domain.ErrorResult
+import com.moralabs.pet.core.domain.*
 import com.moralabs.pet.message.data.remote.dto.ChatDto
 import com.moralabs.pet.message.data.remote.dto.ChatRequestDto
 import com.moralabs.pet.message.data.repository.MessageRepository
@@ -32,22 +29,28 @@ class MessageUseCase @Inject constructor(
     fun getMessage(userId: String?): Flow<BaseResult<ChatDto>> {
         return flow {
             val postValue = messageRepository.getChatDetail(userId)
-            if(postValue.isSuccessful && postValue.code() == 200){
+            if (postValue.isSuccessful && postValue.code() == 200) {
                 emit(
                     BaseResult.Success(
                         postValue.body()?.data ?: ChatDto()
                     )
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(postValue.errorBody()?.string(), BaseResponse::class.java)
-                emit(
-                    BaseResult.Error(
-                        ErrorResult(
-                            code = ErrorCode.SERVER_ERROR,
-                            error.userMessage
+                if (error.code != ServerErrorCode.CHAT_NOT_FOUND.value) {
+                    emit(
+                        BaseResult.Error(
+                            ErrorResult(
+                                code = ErrorCode.SERVER_ERROR,
+                                error.userMessage
+                            )
                         )
                     )
-                )
+                } else {
+                    emit(
+                        BaseResult.Success(ChatDto())
+                    )
+                }
             }
         }
     }
@@ -55,13 +58,13 @@ class MessageUseCase @Inject constructor(
     fun sendMessage(userId: String?, chatRequestDto: ChatRequestDto): Flow<BaseResult<ChatDto>> {
         return flow {
             val postValue = messageRepository.sendMessage(userId, chatRequestDto)
-            if(postValue.isSuccessful && postValue.code() == 200){
+            if (postValue.isSuccessful && postValue.code() == 200) {
                 emit(
                     BaseResult.Success(
                         postValue.body()?.data ?: ChatDto()
                     )
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(postValue.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
@@ -78,13 +81,13 @@ class MessageUseCase @Inject constructor(
     fun searchUser(keyword: String): Flow<BaseResult<List<UserDto>>> {
         return flow {
             val postValue = messageRepository.searchUser(keyword)
-            if(postValue.isSuccessful && postValue.code() == 200){
+            if (postValue.isSuccessful && postValue.code() == 200) {
                 emit(
                     BaseResult.Success(
                         postValue.body()?.data ?: listOf()
                     )
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(postValue.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(

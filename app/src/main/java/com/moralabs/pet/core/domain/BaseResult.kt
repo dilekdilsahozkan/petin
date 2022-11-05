@@ -23,3 +23,7 @@ enum class ErrorCode {
     AUTH_WRONG_EMAIL_OR_PASSWORD,
     EMPTY_NEW_POST_TEXT
 }
+
+enum class ServerErrorCode(val value: String) {
+    CHAT_NOT_FOUND("PET130")
+}
