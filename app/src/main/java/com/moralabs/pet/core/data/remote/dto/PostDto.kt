@@ -14,10 +14,10 @@ data class PostDto(
     val dateTime: Long? = null,
     val content: ContentDto? = null,
     val comments: List<CommentDto>? = null,
-    val likeCount: Int? = null,
+    var likeCount: Int? = null,
     val commentCount: Int? = null,
     val offerCount: Int? = null,
-    val isPostLikedByUser: Boolean? = null,
+    var isPostLikedByUser: Boolean? = null,
     val isPostOwnedByUser: Boolean? = null,
     val pageIndex: Int? = null,
     var selected: Boolean = false
