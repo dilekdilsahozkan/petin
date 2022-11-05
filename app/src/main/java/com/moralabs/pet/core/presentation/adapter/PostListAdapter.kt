@@ -70,6 +70,14 @@ class PostListAdapter(
             binding.likeIcon.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onLikeClick?.invoke(getItem(bindingAdapterPosition))
+
+                    if (getItem(bindingAdapterPosition).isPostLikedByUser == true) {
+                        binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
+                    } else {
+                        binding.likeIcon.setImageResource(R.drawable.ic_like)
+                    }
+
+                    binding.likeCount.text = getItem(bindingAdapterPosition).likeCount.toString()
                 }
             }
 
