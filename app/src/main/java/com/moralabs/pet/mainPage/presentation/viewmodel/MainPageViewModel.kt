@@ -54,59 +54,11 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun likePost(postId: String?) {
-<<<<<<< HEAD
-        viewModelScope.launch {
-            useCase.likePost(postId)
-                .onStart {
-                    _state.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success -> {
-                            _likeUnlikeState.value = ViewState.Idle()
-                            _likeUnlikeState.value = ViewState.Success(baseResult.data)
-                        }
-                        is BaseResult.Error -> {
-                            _likeUnlikeState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
-                        }
-                    }
-                }
-        }
-    }
-
-    fun unlikePost(postId: String?) {
-        viewModelScope.launch {
-            useCase.unlikePost(postId)
-                .onStart {
-                    _likeUnlikeState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _likeUnlikeState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success -> {
-                            _state.value = ViewState.Idle()
-                            _likeUnlikeState.value = ViewState.Success(baseResult.data)
-                        }
-                        is BaseResult.Error -> {
-                            _likeUnlikeState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
-                        }
-                    }
-                }
-        }
-=======
         GlobalScope.launch { useCase.likePost(postId).collect {  } }
     }
 
     fun unlikePost(postId: String?) {
         GlobalScope.launch { useCase.unlikePost(postId).collect {  } }
->>>>>>> bugfix/kemalsen/like_no_loading
     }
 
     fun reportPost(postId: String?, reportType: Int?) {
@@ -146,10 +98,6 @@ class MainPageViewModel @Inject constructor(
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-<<<<<<< HEAD
-                            _deleteState.value = ViewState.Idle()
-=======
->>>>>>> bugfix/kemalsen/like_no_loading
                             _deleteState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {

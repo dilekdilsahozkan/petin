@@ -210,7 +210,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
 
         lifecycleScope.launch {
-            viewModel.likeUnlikeState.collect {
+            viewModel.deleteState.collect {
                 when (it) {
                     is ViewState.Success<*> -> {
                         stopLoading()
