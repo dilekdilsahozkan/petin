@@ -4,6 +4,7 @@ import com.moralabs.pet.BuildConfig
 import com.moralabs.pet.core.data.remote.api.AuthenticationService
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.onboarding.data.remote.dto.RefreshTokenDto
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,33 +26,53 @@ class AuthenticationInterceptorRefreshToken(
         val initialResponse = chain.proceed(originalRequest)
 
         when {
-            (initialResponse.code == 403 || initialResponse.code == 401) -> {
-                if(refreshing){
+            ((initialResponse.code == 403 || initialResponse.code == 401) &&
+                    listOf(
+                        userRepository.getAuthentication()?.refreshKey,
+                        userRepository.getAuthentication()?.bearerKey
+                    ).all { it != null }) -> {
+                if (refreshing) {
 
                     return runBlocking {
                         val oldBearer = userRepository.getAuthentication()?.bearerKey
 
-                        while (oldBearer == userRepository.getAuthentication()?.bearerKey){}
+                        while (oldBearer == userRepository.getAuthentication()?.bearerKey) {
+                            delay(100)
+                        }
 
-                        val newAuthenticationRequest = originalRequest.newBuilder()
-                            .removeHeader("Authorization").addHeader("Authorization", "Bearer ${userRepository.getAuthentication()?.bearerKey}").build()
-                        chain.proceed(newAuthenticationRequest)
+                        userRepository.getAuthentication()?.bearerKey?.let {
+                            val newAuthenticationRequest = originalRequest.newBuilder()
+                                .removeHeader("Authorization")
+                                .addHeader("Authorization", "Bearer ${userRepository.getAuthentication()?.bearerKey}").build()
+                            chain.proceed(newAuthenticationRequest)
+                        } ?: run {
+                            initialResponse
+                        }
                     }
-                }else{
+                } else {
                     refreshing = true
 
                     return runBlocking {
-                        val response = getService().refreshToken(RefreshTokenDto(userRepository.getAuthentication()?.refreshKey))
+                        val response =
+                            getService().refreshToken(RefreshTokenDto(userRepository.getAuthentication()?.refreshKey))
 
                         var refreshingResponse = when {
-                            response == null || response.code() != 200 -> {
+                            (response == null || response.code() != 200) &&
+                                    listOf(
+                                        response.body()?.data?.accessToken,
+                                        response.body()?.data?.refreshToken
+                                    ).all { it != null } -> {
                                 initialResponse
                             }
                             else -> {
-                                userRepository.refreshLogin(response.body()?.data?.accessToken, response.body()?.data?.refreshToken)
+                                userRepository.refreshLogin(
+                                    response.body()?.data?.accessToken,
+                                    response.body()?.data?.refreshToken
+                                )
 
                                 val newAuthenticationRequest = originalRequest.newBuilder()
-                                    .removeHeader("Authorization").addHeader("Authorization", "Bearer ${response.body()?.data?.accessToken}").build()
+                                    .removeHeader("Authorization")
+                                    .addHeader("Authorization", "Bearer ${response.body()?.data?.accessToken}").build()
                                 chain.proceed(newAuthenticationRequest)
                             }
                         }
@@ -66,7 +87,7 @@ class AuthenticationInterceptorRefreshToken(
 
     }
 
-    fun getService(): AuthenticationService{
+    fun getService(): AuthenticationService {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttpClient = OkHttpClient.Builder()
