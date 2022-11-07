@@ -45,6 +45,31 @@ class OfferUseCase @Inject constructor(
         }
     }
 
+    fun myOffers(): Flow<BaseResult<OfferDetailDto>> {
+        return flow {
+            val readOffer = offerRepository.myOffers()
+            if(readOffer.isSuccessful && readOffer.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        OfferDetailDto(
+                            allOffers = readOffer.body()?.data
+                        )
+                    )
+                )
+            }else{
+                val error = Gson().fromJson(readOffer.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
+        }
+    }
+
     fun getOffer(offerId: String?): Flow<BaseResult<OfferDetailDto>> {
         return flow {
             val readOffer = offerRepository.getOffer(offerId)
@@ -117,6 +142,25 @@ class OfferUseCase @Inject constructor(
     fun acceptOffer(offerId: String?): Flow<BaseResult<Boolean>> {
         return flow {
             val accept = offerRepository.acceptOffer(offerId)
+            if(accept.isSuccessful && accept.code() == 200){
+                emit(BaseResult.Success(true))
+            }else{
+                val error = Gson().fromJson(accept.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
+        }
+    }
+
+    fun deleteOffer(offerId: String?): Flow<BaseResult<Boolean>> {
+        return flow {
+            val accept = offerRepository.deleteOffer(offerId)
             if(accept.isSuccessful && accept.code() == 200){
                 emit(BaseResult.Success(true))
             }else{

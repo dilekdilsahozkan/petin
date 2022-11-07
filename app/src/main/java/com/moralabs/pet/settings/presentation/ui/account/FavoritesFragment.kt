@@ -124,6 +124,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }
@@ -140,6 +141,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, UserDto, Settin
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }

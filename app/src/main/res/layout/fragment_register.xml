@@ -156,6 +156,7 @@
                     android:id="@+id/passwordRule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/scale_10dp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="@string/settings_new_password_info"

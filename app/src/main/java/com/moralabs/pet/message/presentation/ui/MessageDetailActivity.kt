@@ -14,6 +14,7 @@ class MessageDetailActivity : BaseActivity<ActivityMessageDetailBinding>(),
 
     companion object {
         const val BUNDLE_USER = "user"
+        const val USER_ID = "userId"
     }
 
     private val userDto by lazy {
@@ -25,7 +26,10 @@ class MessageDetailActivity : BaseActivity<ActivityMessageDetailBinding>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.appBar.setUser(userDto)
+        userDto?.let {
+            binding.appBar.setUser(userDto)
+        }
+
         setSupportActionBar(binding.appBar)
     }
 
@@ -33,5 +37,9 @@ class MessageDetailActivity : BaseActivity<ActivityMessageDetailBinding>(),
         when (id) {
             R.id.img_back -> super.onBackPressed()
         }
+    }
+
+    fun setUser(userDto: UserDto?) {
+        binding.appBar.setUser(userDto)
     }
 }

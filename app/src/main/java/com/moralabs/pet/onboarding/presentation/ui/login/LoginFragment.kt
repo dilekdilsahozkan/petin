@@ -4,14 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import com.moralabs.pet.R
 import androidx.navigation.fragment.findNavController
+import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentLoginBinding
@@ -39,13 +41,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val paddingDp = 15
         val density = context?.resources?.displayMetrics?.density
         var paddingPixel = 0f
         density?.let {
-            paddingPixel= it * paddingDp
+            paddingPixel = it * paddingDp
         }
-        binding.passwordEdittext.setPadding(paddingPixel.toInt(),0,0,0)
+        binding.passwordEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
     }
 
     override fun addListeners() {
@@ -74,6 +77,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
             activity?.finish()
         } else {
             startActivity(Intent(context, MainPageActivity::class.java))
+            activity?.finish()
         }
     }
 

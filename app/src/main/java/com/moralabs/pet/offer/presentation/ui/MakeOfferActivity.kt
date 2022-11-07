@@ -13,7 +13,6 @@ class MakeOfferActivity : BaseActivity<ActivityOfferBinding>(),
 
     companion object {
         const val POST_ID = "postId"
-        const val OFFER_ID = "offerId"
         const val OFFER_TYPE = "offer_type"
     }
 

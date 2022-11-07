@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -37,6 +39,7 @@ class PostListAdapter(
         }
     }
 
+    val likeCount: Int = 0
     val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
@@ -67,7 +70,14 @@ class PostListAdapter(
             binding.likeIcon.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onLikeClick?.invoke(getItem(bindingAdapterPosition))
-                    notifyDataSetChanged()
+
+                    if (getItem(bindingAdapterPosition).isPostLikedByUser == true) {
+                        binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
+                    } else {
+                        binding.likeIcon.setImageResource(R.drawable.ic_like)
+                    }
+
+                    binding.likeCount.text = getItem(bindingAdapterPosition).likeCount.toString()
                 }
             }
 
@@ -119,6 +129,12 @@ class PostListAdapter(
             binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 6 }?.getOrNull(0)?.choice
             binding.petLocation.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
             binding.petGender.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
+
+            if (post.isOfferAvailableByUser == true) {
+                binding.offerButton.setOnClickListener {
+                    Toast.makeText(context, "Zaten teklifte bulundunuz", Toast.LENGTH_SHORT).show()
+                }
+            }
 
             if (post.isPostLikedByUser == true) {
                 binding.likeIcon.setImageResource(R.drawable.ic_like_orange)

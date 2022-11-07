@@ -17,13 +17,14 @@ class OfferViewModel @Inject constructor(
     private val useCase: OfferUseCase
 ) : BaseViewModel<OfferDetailDto>(useCase) {
 
-    protected var _declineState: MutableStateFlow<ViewState<Boolean>> =
-        MutableStateFlow(ViewState.Idle())
+    protected var _declineState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val declineState: StateFlow<ViewState<Boolean>> = _declineState
 
-    protected var _acceptState: MutableStateFlow<ViewState<Boolean>> =
-        MutableStateFlow(ViewState.Idle())
+    protected var _acceptState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val acceptState: StateFlow<ViewState<Boolean>> = _acceptState
+
+    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
     fun usersOffer(postId: String?) {
         viewModelScope.launch {
@@ -39,6 +40,29 @@ class OfferViewModel @Inject constructor(
                     when (baseResult) {
                         is BaseResult.Success -> {
                             _state.value = ViewState.Idle()
+                            _state.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun myOffers() {
+        viewModelScope.launch {
+            useCase.myOffers()
+                .onStart {
+                    _state.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _state.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
                             _state.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
@@ -115,6 +139,30 @@ class OfferViewModel @Inject constructor(
                         }
                         is BaseResult.Error -> {
                             _acceptState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun deleteOffer(offerId: String?) {
+        viewModelScope.launch {
+            useCase.deleteOffer(offerId)
+                .onStart {
+                    _deleteState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _deleteState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _deleteState.value = ViewState.Idle()
+                            _deleteState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _deleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }

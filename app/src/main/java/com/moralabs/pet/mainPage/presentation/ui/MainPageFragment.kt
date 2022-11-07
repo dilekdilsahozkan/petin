@@ -74,6 +74,9 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                     } else {
                         viewModel.likePost(it.id)
                     }
+
+                    it.isPostLikedByUser = it.isPostLikedByUser?.not() ?: true
+                    it.likeCount = (it.likeCount ?: 0) + (if(it.isPostLikedByUser == true) 1 else -1)
                 }
             },
             onCommentClick = {
@@ -99,13 +102,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onUserPhotoClick = {
-                if (it.isPostOwnedByUser != true) {
-                    val bundle = bundleOf(
-                        ProfileActivity.OTHER_USER_ID to it.user?.userId
-                    )
-                    val intent = Intent(context, ProfileActivity::class.java)
-                    intent.putExtras(bundle)
-                    context?.startActivity(intent)
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser != true) {
+                        val bundle = bundleOf(
+                            ProfileActivity.OTHER_USER_ID to it.user?.userId
+                        )
+                        val intent = Intent(context, ProfileActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
                 }
             },
             onPostSettingClick = {
@@ -163,6 +168,24 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             }
             textChangedListenerBlock = false
         }
+
+        lifecycleScope.launch {
+            viewModel.deleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<Boolean> -> {
+                        feedPost()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     override fun addObservers() {
@@ -194,24 +217,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             "fragment_location"
         ) { _, result ->
             result.getString("locationId")
-        }
-
-        lifecycleScope.launch {
-            viewModel.likeUnlikeDeleteState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<Boolean> -> {
-                        feedPost()
-                    }
-                    is ViewState.Error<*> -> {
-                        stateError(it.message)
-                        stopLoading()
-                    }
-                    else -> {}
-                }
-            }
         }
     }
 

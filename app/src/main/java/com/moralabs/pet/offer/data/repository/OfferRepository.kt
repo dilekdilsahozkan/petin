@@ -9,8 +9,10 @@ import retrofit2.Response
 
 interface OfferRepository {
     suspend fun makeOffer(newOfferRequest: OfferRequestDto): Response<BaseResponse<List<PetDto>>>
+    suspend fun myOffers(): Response<BaseResponse<List<OfferDto>>>
     suspend fun getOffer(offerId: String?): Response<BaseResponse<OfferDto>>
     suspend fun usersOffer(postId: String?): Response<BaseResponse<List<OfferDto>>>
     suspend fun declineOffer(offerId: String?): Response<EmptyDto>
     suspend fun acceptOffer(offerId: String?): Response<EmptyDto>
+    suspend fun deleteOffer(offerId: String?): Response<EmptyDto>
 }

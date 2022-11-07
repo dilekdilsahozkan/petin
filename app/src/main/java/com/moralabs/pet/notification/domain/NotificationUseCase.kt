@@ -25,13 +25,13 @@ class NotificationUseCase @Inject constructor(
     fun notificationPet(): Flow<BaseResult<List<NotificationDto>>> {
         return flow {
             var notification = notificationRepository.notificationPet()
-            if(notification.isSuccessful && notification.code() == 200){
+            if (notification.isSuccessful && notification.code() == 200) {
                 emit(
                     BaseResult.Success(
                         notification.body()?.data ?: listOf()
                     )
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(notification.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
@@ -48,13 +48,13 @@ class NotificationUseCase @Inject constructor(
     fun notificationDateTime(dateTime: String?): Flow<BaseResult<List<NotificationDto>>> {
         return flow {
             var notificationTime = notificationRepository.notificationDateTime(dateTime)
-            if(notificationTime.isSuccessful && notificationTime.code() == 200){
+            if (notificationTime.isSuccessful && notificationTime.code() == 200) {
                 emit(
                     BaseResult.Success(
                         notificationTime.body()?.data ?: listOf()
                     )
                 )
-            }else{
+            } else {
                 val error = Gson().fromJson(notificationTime.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
@@ -71,15 +71,15 @@ class NotificationUseCase @Inject constructor(
     fun latestNotification(): Flow<BaseResult<Boolean>> {
         return flow {
             val notificationTime = notificationRepository.latestNotification()
-            if(notificationTime.isSuccessful && notificationTime.code() == 200){
-                emit(BaseResult.Success(true))
-            }else{
+            if (notificationTime.isSuccessful && notificationTime.code() == 200) {
+                emit(BaseResult.Success(notificationTime.body()?.data == true))
+            } else {
                 val error = Gson().fromJson(notificationTime.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
                         ErrorResult(
                             code = ErrorCode.SERVER_ERROR,
-                            error.userMessage
+                            message = error?.userMessage
                         )
                     )
                 )

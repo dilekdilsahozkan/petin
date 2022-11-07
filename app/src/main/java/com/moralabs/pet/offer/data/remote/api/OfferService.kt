@@ -12,6 +12,9 @@ interface OfferService {
     @POST("/offer")
     suspend fun newOffer(@Body makeOfferRequest: OfferRequestDto): Response<BaseResponse<List<PetDto>>>
 
+    @GET("/offer")
+    suspend fun myOffers(): Response<BaseResponse<List<OfferDto>>>
+
     @GET("/offer/{offerId}")
     suspend fun getOffer(@Path("offerId") offerId: String?): Response<BaseResponse<OfferDto>>
 
@@ -24,6 +27,6 @@ interface OfferService {
     @POST("/offer/{offerId}/decline")
     suspend fun declineOffer(@Path("offerId") offerId: String?): Response<EmptyDto>
 
-    @DELETE("/offer/{offerId}/decline")
+    @DELETE("/offer/{offerId}/delete")
     suspend fun deleteOffer(@Path("offerId") offerId: String?): Response<EmptyDto>
 }

@@ -1,11 +1,14 @@
 package com.moralabs.pet.offer.data.remote.dto
 
+import android.os.Parcelable
 import androidx.annotation.Keep
 import com.moralabs.pet.core.data.remote.dto.BaseDto
 import com.moralabs.pet.petProfile.data.remote.dto.PetDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
+import kotlinx.android.parcel.Parcelize
 
 @Keep
+@Parcelize
 data class OfferDto(
     val id: String = "",
     val pet: PetDto? = null,
@@ -14,7 +17,7 @@ data class OfferDto(
     val text: String? = null,
     val pageIndex: Int? = null,
     val status: Int? = null
-): BaseDto()
+): BaseDto(), Parcelable
 
 @Keep
 data class OfferDetailDto(

@@ -13,123 +13,91 @@
         android:layout_margin="16dp">
 
         <TextView
-            android:id="@+id/userInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/scale_15dp"
-            android:textColor="@color/darkPrimary"
-            android:fontFamily="@font/poppins_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="dilsah ozkan"/>
-
-        <TextView
             android:id="@+id/offerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/scale_15dp"
-            android:textColor="@color/darkPrimary"
-            android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="@dimen/scale_5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/darkPrimary"
+            android:textSize="@dimen/scale_15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userInfo"
-            tools:text="Merhaba"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Merhaba" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/petInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="10dp"
             android:background="@drawable/background_gray"
-            app:layout_constraintTop_toBottomOf="@id/offerText"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/offerText">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/petImage"
+                style="@style/PetImageView.PetCard"
                 android:layout_width="132dp"
                 android:layout_height="120dp"
-                style="@style/PetImageView.PetCard"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:id="@+id/petInfoText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="150dp">
+                android:layout_marginStart="150dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/petName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/scale_17dp"
-                    android:textColor="@color/darkPrimary"
                     android:fontFamily="@font/poppins_regular"
-                    tools:text="Kara Fırtına"/>
+                    android:textColor="@color/darkPrimary"
+                    android:textSize="@dimen/scale_17dp"
+                    tools:text="Kara Fırtına" />
 
                 <TextView
                     android:id="@+id/petType"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular"
-                    tools:text="Himalaya"/>
+                    android:textSize="@dimen/scale_13dp"
+                    tools:text="Himalaya" />
 
                 <TextView
                     android:id="@+id/petAge"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/scale_13dp"
                     android:fontFamily="@font/poppins_regular"
-                    tools:text="Merhaba"/>
+                    android:textSize="@dimen/scale_13dp"
+                    tools:text="12 yo" />
 
                 <TextView
                     android:id="@+id/petGender"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@{}"
                     android:textSize="@dimen/scale_13dp"
-                    android:fontFamily="@font/poppins_regular"
-                    tools:text="Merhaba"/>
+                    tools:text="Dişi" />
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/deleteButton"
+            style="@style/PetButtonOrange.Outlined"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="44dp"
             android:gravity="center"
+            android:text="@string/deleteOffer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <Button
-                android:id="@+id/declineButton"
-                android:layout_width="150dp"
-                android:layout_height="44dp"
-                style="@style/PetButtonOrange.Outlined"
-                android:text="@string/decline"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <Button
-                android:id="@+id/acceptButton"
-                android:layout_width="150dp"
-                android:layout_height="44dp"
-                style="@style/PetButton"
-                android:text="@string/accept"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
