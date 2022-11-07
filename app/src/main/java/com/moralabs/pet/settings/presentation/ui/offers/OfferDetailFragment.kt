@@ -24,7 +24,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class OfferDetailFragment : BaseFragment<FragmentOfferDetailBinding, OfferDetailDto, OfferViewModel>() {
+class OfferDetailFragment :
+    BaseFragment<FragmentOfferDetailBinding, OfferDetailDto, OfferViewModel>() {
 
     private val offerId: String? by lazy {
         arguments?.getString(OfferActivity.OFFER_ID)
@@ -86,8 +87,9 @@ class OfferDetailFragment : BaseFragment<FragmentOfferDetailBinding, OfferDetail
             ?.getOrNull(0)?.choice
         binding.petType.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 6 }
             ?.getOrNull(0)?.choice
-        binding.petGender.text = data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 8 }
-            ?.getOrNull(0)?.choice
+        binding.petGender.text =
+            data.readOffer?.pet?.petAttributes?.filter { it.attributeType == 8 }
+                ?.getOrNull(0)?.choice
 
         if (data.readOffer?.pet == null) {
             binding.petInfo.visibility = View.GONE

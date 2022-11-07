@@ -130,7 +130,6 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         } else {
             binding.petInfo.visibility = View.VISIBLE
         }
-
         binding.acceptButton.setOnClickListener {
             viewModel.acceptOffer(offerId)
         }
