@@ -1,5 +1,6 @@
 package com.moralabs.pet.settings.presentation.ui.offers
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,12 +9,16 @@ import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentOfferDetailBinding
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
+import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -88,10 +93,23 @@ class OfferDetailFragment : BaseFragment<FragmentOfferDetailBinding, OfferDetail
             binding.petInfo.visibility = View.GONE
         } else {
             binding.petInfo.visibility = View.VISIBLE
+        }
 
-            binding.deleteButton.setOnClickListener {
-                viewModel.deleteOffer(offerId)
-            }
+        binding.deleteButton.setOnClickListener {
+            PetWarningDialog(
+                requireContext(),
+                PetWarningDialogType.CONFIRMATION,
+                resources.getString(R.string.ask_sure),
+                okay = getString(R.string.yes),
+                discard = getString(R.string.no),
+                description = resources.getString(R.string.deleteOfferSure),
+                negativeButton = resources.getString(R.string.no),
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        viewModel.deleteOffer(offerId)
+                    }
+                }
+            ).show()
         }
     }
 }
