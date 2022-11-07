@@ -208,20 +208,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         }
-
-        lifecycleScope.launch {
-            viewModel.deleteState.collect {
-                when (it) {
-                    is ViewState.Success<*> -> {
-                        stopLoading()
-                    }
-                    is ViewState.Error<*> -> {
-                        stateError(it.message)
-                        stopLoading()
-                    }
-                }
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
