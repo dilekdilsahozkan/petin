@@ -129,13 +129,13 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
             binding.petInfo.visibility = View.GONE
         } else {
             binding.petInfo.visibility = View.VISIBLE
+        }
 
-            binding.acceptButton.setOnClickListener {
-                viewModel.acceptOffer(offerId)
-            }
-            binding.declineButton.setOnClickListener {
-                viewModel.declineOffer(offerId)
-            }
+        binding.acceptButton.setOnClickListener {
+            viewModel.acceptOffer(offerId)
+        }
+        binding.declineButton.setOnClickListener {
+            viewModel.declineOffer(offerId)
         }
     }
 }
