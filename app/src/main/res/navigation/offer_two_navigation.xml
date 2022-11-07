@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/offer_two_navigation"
+    app:startDestination="@id/offerFragment2">
+
+    <fragment
+        android:id="@+id/offerFragment2"
+        android:name="com.moralabs.pet.offer.presentation.ui.OfferFragment"
+        android:label="OfferFragment"
+        tools:layout="@layout/fragment_offer"/>
+
+</navigation>

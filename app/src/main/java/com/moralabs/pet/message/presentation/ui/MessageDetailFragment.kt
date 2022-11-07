@@ -39,13 +39,21 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
         activity?.intent?.getParcelableExtra<UserDto>(MessageDetailActivity.BUNDLE_USER)
     }
 
+    private val userId by lazy {
+        activity?.intent?.getStringExtra(MessageDetailActivity.USER_ID)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.adapter = messageAdapter
         (binding.recyclerView.layoutManager as? LinearLayoutManager)?.stackFromEnd = true
 
-        viewModel.getDetail(userDto?.userId)
+        userDto?.userId?.let{
+            viewModel.getDetail(userDto?.userId)
+        } ?: run {
+            viewModel.getDetail(userId)
+        }
     }
 
     override fun setToolbar() {
@@ -100,5 +108,7 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
             }
         }
         messageAdapter.submitList(uiList)
+
+        (activity as? MessageDetailActivity)?.setUser(data.to)
     }
 }

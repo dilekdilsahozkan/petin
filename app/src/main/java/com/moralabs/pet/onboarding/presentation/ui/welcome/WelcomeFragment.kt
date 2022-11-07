@@ -90,6 +90,7 @@ class WelcomeFragment : View.OnClickListener,
         when (v?.id) {
             R.id.login_button -> {
                 startActivity(Intent(context, LoginActivity::class.java))
+                activity?.finish()
             }
             R.id.guest_button -> {
                 viewModel.guestLogin()

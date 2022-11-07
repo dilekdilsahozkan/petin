@@ -20,8 +20,11 @@ class MainPageViewModel @Inject constructor(
 
     private var job: Job? = null
 
-    protected var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
-    val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
+    protected var _likeUnlikeState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val likeUnlikeState: StateFlow<ViewState<Boolean>> = _likeUnlikeState
+
+    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
     protected var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
@@ -56,20 +59,20 @@ class MainPageViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.likePost(postId)
                 .onStart {
-                    _likeUnlikeDeleteState.value = ViewState.Loading()
+                    _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
+                    _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _likeUnlikeDeleteState.value = ViewState.Idle()
-                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                            _likeUnlikeState.value = ViewState.Idle()
+                            _likeUnlikeState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
-                            _likeUnlikeDeleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                            _likeUnlikeState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }
@@ -80,20 +83,20 @@ class MainPageViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.unlikePost(postId)
                 .onStart {
-                    _likeUnlikeDeleteState.value = ViewState.Loading()
+                    _likeUnlikeState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
+                    _likeUnlikeState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
                             _state.value = ViewState.Idle()
-                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                            _likeUnlikeState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
-                            _likeUnlikeDeleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                            _likeUnlikeState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }
@@ -128,20 +131,20 @@ class MainPageViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.deletePost(postId)
                 .onStart {
-                    _likeUnlikeDeleteState.value = ViewState.Loading()
+                    _deleteState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
+                    _deleteState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _likeUnlikeDeleteState.value = ViewState.Idle()
-                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                            _deleteState.value = ViewState.Idle()
+                            _deleteState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
-                            _likeUnlikeDeleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                            _deleteState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }

@@ -65,11 +65,3 @@ class PostReportBottomSheetFragment(
 interface PostReportBottomSheetListener {
     fun onReportClick(reportType: Int?)
 }
-
-internal enum class ReportTextType(val type: Int) {
-    Other(0),
-    Inappropriate(1),
-    Spam(2),
-    Fraud(3),
-    NudityOrSexuality(4)
-}

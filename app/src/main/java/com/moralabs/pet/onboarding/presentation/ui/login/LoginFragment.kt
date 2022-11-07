@@ -4,14 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import com.moralabs.pet.R
 import androidx.navigation.fragment.findNavController
+import com.facebook.*
+import com.facebook.login.LoginManager
+import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.databinding.FragmentLoginBinding
@@ -21,6 +25,7 @@ import com.moralabs.pet.onboarding.data.remote.dto.LoginRequestDto
 import com.moralabs.pet.onboarding.presentation.ui.register.RegisterActivity
 import com.moralabs.pet.onboarding.presentation.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewModel>() {
@@ -28,6 +33,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
     private val isFromAction by lazy {
         activity?.intent?.getBooleanExtra(LoginActivity.BUNDLE_ACTION, false) ?: false
     }
+
+    private var callbackManager: CallbackManager? = null
 
     override fun getLayoutId() = R.layout.fragment_login
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -39,13 +46,61 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.let { FacebookSdk.sdkInitialize(it) }
+
         val paddingDp = 15
         val density = context?.resources?.displayMetrics?.density
         var paddingPixel = 0f
         density?.let {
-            paddingPixel= it * paddingDp
+            paddingPixel = it * paddingDp
         }
-        binding.passwordEdittext.setPadding(paddingPixel.toInt(),0,0,0)
+        binding.passwordEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+
+        callbackManager = CallbackManager.Factory.create()
+        binding.facebook.setFragment(this)
+
+        binding.facebook.setOnClickListener {
+            LoginManager.getInstance()
+                .logInWithReadPermissions(this, listOf("public_profile", "email"))
+        }
+
+        LoginManager.getInstance().registerCallback(
+            callbackManager,
+            object : FacebookCallback<com.facebook.login.LoginResult> {
+                override fun onCancel() {
+                    startActivity(Intent(context, LoginActivity::class.java))
+                }
+
+                override fun onError(error: FacebookException) {
+                    startActivity(Intent(context, LoginActivity::class.java))
+                }
+
+                override fun onSuccess(result: com.facebook.login.LoginResult) {
+
+                    val token = AccessToken.getCurrentAccessToken()
+
+                    val request = GraphRequest.newMeRequest(
+                        token
+                    ) { `object`, _ -> // Application code
+                        try {
+                            val email = `object`?.getString("email")
+                            val gender = `object`?.getString("gender")
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                    val parameters = Bundle()
+                    parameters.putString("fields", "id,name,email,gender,birthday")
+                    request.parameters = parameters
+                    request.executeAsync()
+                }
+            })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager?.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun addListeners() {
@@ -74,6 +129,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
             activity?.finish()
         } else {
             startActivity(Intent(context, MainPageActivity::class.java))
+            activity?.finish()
         }
     }
 

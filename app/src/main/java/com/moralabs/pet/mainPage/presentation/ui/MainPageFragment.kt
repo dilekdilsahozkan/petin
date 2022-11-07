@@ -99,13 +99,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onUserPhotoClick = {
-                if (it.isPostOwnedByUser != true) {
-                    val bundle = bundleOf(
-                        ProfileActivity.OTHER_USER_ID to it.user?.userId
-                    )
-                    val intent = Intent(context, ProfileActivity::class.java)
-                    intent.putExtras(bundle)
-                    context?.startActivity(intent)
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser != true) {
+                        val bundle = bundleOf(
+                            ProfileActivity.OTHER_USER_ID to it.user?.userId
+                        )
+                        val intent = Intent(context, ProfileActivity::class.java)
+                        intent.putExtras(bundle)
+                        context?.startActivity(intent)
+                    }
                 }
             },
             onPostSettingClick = {
@@ -185,6 +187,20 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.likeUnlikeState.collect {
+                when (it) {
+                    is ViewState.Success<*> -> {
+                        stopLoading()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
+                        stopLoading()
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -197,11 +213,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
 
         lifecycleScope.launch {
-            viewModel.likeUnlikeDeleteState.collect {
+            viewModel.deleteState.collect {
                 when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
                     is ViewState.Success<Boolean> -> {
                         feedPost()
                     }

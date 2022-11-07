@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentUris
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -25,11 +24,9 @@ import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
-import com.moralabs.pet.core.presentation.extension.fromHtml
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentEditPersonalInformationBinding
-import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint

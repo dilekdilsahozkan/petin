@@ -10,4 +10,5 @@
         android:name="com.moralabs.pet.notification.presentation.ui.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification"/>
+
 </navigation>
