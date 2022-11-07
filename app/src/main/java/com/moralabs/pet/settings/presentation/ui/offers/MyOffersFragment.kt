@@ -38,7 +38,7 @@ class MyOffersFragment : BaseFragment<FragmentMyOffersBinding, OfferDetailDto, O
         BaseListAdapter(R.layout.item_my_offers, BR.item, onRowClick = { offer ->
             var bundle = bundleOf(
                 OfferActivity.OFFER_ID to offer.id
-                )
+            )
             findNavController().navigate(R.id.action_myOffersFragment_to_offerDetailFragment, bundle)
         }, isSameDto = { oldItem, newItem ->
             oldItem == newItem
