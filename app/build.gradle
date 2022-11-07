@@ -100,7 +100,7 @@ android {
             minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "PET_BASEURL", "\"https://server-prod-be-petinder.azurewebsites.net/\"")
+            buildConfigField("String", "PET_BASEURL", "\"https://server-prod-be-petin.azurewebsites.net/\"")
             buildConfigField("String", "VERSION_NAME", "\"" + versionNameDef + "\"")
             buildConfigField("int", "VERSION_CODE", versionCodeDef.toString())
         }
