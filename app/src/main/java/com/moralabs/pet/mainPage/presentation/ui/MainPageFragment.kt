@@ -74,6 +74,9 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                     } else {
                         viewModel.likePost(it.id)
                     }
+
+                    it.isPostLikedByUser = it.isPostLikedByUser?.not() ?: true
+                    it.likeCount = (it.likeCount ?: 0) + (if(it.isPostLikedByUser == true) 1 else -1)
                 }
             },
             onCommentClick = {
@@ -165,6 +168,24 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             }
             textChangedListenerBlock = false
         }
+
+        lifecycleScope.launch {
+            viewModel.deleteState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<Boolean> -> {
+                        feedPost()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     override fun addObservers() {
@@ -210,21 +231,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             "fragment_location"
         ) { _, result ->
             result.getString("locationId")
-        }
-
-        lifecycleScope.launch {
-            viewModel.deleteState.collect {
-                when (it) {
-                    is ViewState.Success<Boolean> -> {
-                        feedPost()
-                    }
-                    is ViewState.Error<*> -> {
-                        stateError(it.message)
-                        stopLoading()
-                    }
-                    else -> {}
-                }
-            }
         }
     }
 

@@ -8,6 +8,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.mainPage.domain.MainPageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,13 +21,10 @@ class MainPageViewModel @Inject constructor(
 
     private var job: Job? = null
 
-    protected var _likeUnlikeState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
-    val likeUnlikeState: StateFlow<ViewState<Boolean>> = _likeUnlikeState
-
-    protected var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
-    protected var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
     fun feedPost(searchQuery: String? = null) {
@@ -56,51 +54,11 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun likePost(postId: String?) {
-        viewModelScope.launch {
-            useCase.likePost(postId)
-                .onStart {
-                    _state.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _state.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success -> {
-                            _likeUnlikeState.value = ViewState.Idle()
-                            _likeUnlikeState.value = ViewState.Success(baseResult.data)
-                        }
-                        is BaseResult.Error -> {
-                            _likeUnlikeState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
-                        }
-                    }
-                }
-        }
+        GlobalScope.launch { useCase.likePost(postId).collect {  } }
     }
 
     fun unlikePost(postId: String?) {
-        viewModelScope.launch {
-            useCase.unlikePost(postId)
-                .onStart {
-                    _likeUnlikeState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _likeUnlikeState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success -> {
-                            _state.value = ViewState.Idle()
-                            _likeUnlikeState.value = ViewState.Success(baseResult.data)
-                        }
-                        is BaseResult.Error -> {
-                            _likeUnlikeState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
-                        }
-                    }
-                }
-        }
+        GlobalScope.launch { useCase.unlikePost(postId).collect {  } }
     }
 
     fun reportPost(postId: String?, reportType: Int?) {
@@ -140,7 +98,6 @@ class MainPageViewModel @Inject constructor(
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _deleteState.value = ViewState.Idle()
                             _deleteState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
