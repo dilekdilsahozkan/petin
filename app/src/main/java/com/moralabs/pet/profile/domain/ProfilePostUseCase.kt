@@ -18,11 +18,23 @@ class ProfilePostUseCase @Inject constructor(
 
     fun profilePost(): Flow<BaseResult<List<PostDto>>> {
         return flow {
-            emit(
-                BaseResult.Success(
-                    postRepository.profilePost().body()?.data ?: listOf()
+
+            val response = postRepository.profilePost()
+            if (response.isSuccessful && response.code() == 200) {
+                emit(
+                    BaseResult.Success(response.body()?.data ?: listOf())
                 )
-            )
+            } else {
+                val error = Gson().fromJson(response.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 
