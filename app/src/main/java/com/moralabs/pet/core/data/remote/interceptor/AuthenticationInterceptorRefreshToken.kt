@@ -43,7 +43,7 @@ class AuthenticationInterceptorRefreshToken(
                         userRepository.getAuthentication()?.bearerKey?.let {
                             val newAuthenticationRequest = originalRequest.newBuilder()
                                 .removeHeader("Authorization")
-                                .addHeader("Authorization", "Bearer ${userRepository.getAuthentication()?.bearerKey}").build()
+                                .addHeader("Authorization", "Bearer $it").build()
                             chain.proceed(newAuthenticationRequest)
                         } ?: run {
                             initialResponse
@@ -57,23 +57,27 @@ class AuthenticationInterceptorRefreshToken(
                             getService().refreshToken(RefreshTokenDto(userRepository.getAuthentication()?.refreshKey))
 
                         var refreshingResponse = when {
-                            (response == null || response.code() != 200) &&
-                                    listOf(
-                                        response.body()?.data?.accessToken,
-                                        response.body()?.data?.refreshToken
-                                    ).all { it != null } -> {
+                            (response == null || response.code() != 200) -> {
                                 initialResponse
                             }
                             else -> {
-                                userRepository.refreshLogin(
-                                    response.body()?.data?.accessToken,
-                                    response.body()?.data?.refreshToken
-                                )
+                                if( listOf(
+                                            response.body()?.data?.accessToken,
+                                            response.body()?.data?.refreshToken
+                                        ).any { it == null }) {
+                                    initialResponse
+                                } else {
+                                    userRepository.refreshLogin(
+                                        response.body()?.data?.accessToken,
+                                        response.body()?.data?.refreshToken
+                                    )
 
-                                val newAuthenticationRequest = originalRequest.newBuilder()
-                                    .removeHeader("Authorization")
-                                    .addHeader("Authorization", "Bearer ${response.body()?.data?.accessToken}").build()
-                                chain.proceed(newAuthenticationRequest)
+                                    val newAuthenticationRequest = originalRequest.newBuilder()
+                                        .removeHeader("Authorization")
+                                        .addHeader("Authorization", "Bearer ${response.body()?.data?.accessToken}").build()
+                                    chain.proceed(newAuthenticationRequest)
+                                }
+
                             }
                         }
 
