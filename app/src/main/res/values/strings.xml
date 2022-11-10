@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Petin</string>
     <string name="facebook_app_id">979547742953607</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="fb_login_protocol_scheme">fb979547742953607</string>
     <string name="facebook_client_token">977fe240ff6cd6f48de6e570d4f35aba</string>
     <string name="pets">Evcil Hayvanlarım</string>
     <string name="empty"></string>
@@ -77,6 +77,7 @@
     <string name="save">Kaydet</string>
     <string name="deletePost">Sil</string>
     <string name="usernameNeeded">Hesabınızın güvenliği için kullanıcı adınızı belirleyiniz.</string>
+    <string name="welcomeBack">Başarıyla giriş yaptınız.</string>
 
     <!-- Settings -->
 

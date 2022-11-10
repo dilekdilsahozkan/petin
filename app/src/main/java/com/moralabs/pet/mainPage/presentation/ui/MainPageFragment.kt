@@ -76,7 +76,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                     }
 
                     it.isPostLikedByUser = it.isPostLikedByUser?.not() ?: true
-                    it.likeCount = (it.likeCount ?: 0) + (if(it.isPostLikedByUser == true) 1 else -1)
+                    it.likeCount =
+                        (it.likeCount ?: 0) + (if (it.isPostLikedByUser == true) 1 else -1)
                 }
             },
             onCommentClick = {
@@ -114,20 +115,22 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onPostSettingClick = {
-                if (it.isPostOwnedByUser == true){
-                    loginIfNeeded {
-                        PostSettingBottomSheetFragment(
-                            this,
-                            it.id
-                        ).show(childFragmentManager, "")
-                    }
-                }else{
-                    reportedPostId = it.id
-                    loginIfNeeded {
-                        PostReportBottomSheetFragment(
-                            this,
-                            it.id
-                        ).show(childFragmentManager, "")
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        loginIfNeeded {
+                            PostSettingBottomSheetFragment(
+                                this,
+                                it.id
+                            ).show(childFragmentManager, "")
+                        }
+                    } else {
+                        reportedPostId = it.id
+                        loginIfNeeded {
+                            PostReportBottomSheetFragment(
+                                this,
+                                it.id
+                            ).show(childFragmentManager, "")
+                        }
                     }
                 }
             }
@@ -198,7 +201,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                         startLoading()
                     }
                     is ViewState.Success<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.success_report),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         stopLoading()
                     }
                     is ViewState.Error<*> -> {

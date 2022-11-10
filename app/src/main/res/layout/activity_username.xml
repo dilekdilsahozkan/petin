@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/login_title"
+                android:id="@+id/loginTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
@@ -41,7 +41,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/email_title"
+                android:id="@+id/welcomeBack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/welcomeBack"
+                android:textColor="@color/mainColor"
+                android:textSize="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/emailTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
@@ -51,10 +65,10 @@
                 android:textSize="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/login_title" />
+                app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
             <EditText
-                android:id="@+id/email_edittext"
+                android:id="@+id/emailEdittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit"
@@ -63,22 +77,25 @@
                 android:padding="10dp"
                 android:textSize="@dimen/scale_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/email_title"
-                app:layout_constraintTop_toBottomOf="@id/email_title" />
+                app:layout_constraintStart_toStartOf="@id/emailTitle"
+                app:layout_constraintTop_toBottomOf="@id/emailTitle" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/login_button"
+                android:id="@+id/nextButton"
                 style="@style/PetButton"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="76dp"
                 android:text="@string/next"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/email_title"
-                app:layout_constraintTop_toBottomOf="@id/email_title" />
+                app:layout_constraintStart_toStartOf="@id/emailTitle"
+                app:layout_constraintTop_toBottomOf="@id/emailTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
+
+
+
