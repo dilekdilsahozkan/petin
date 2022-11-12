@@ -27,6 +27,8 @@ class MainPageViewModel @Inject constructor(
     private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
+    val posts = mutableListOf<PostDto>()
+
     private var latestDateTime = -1L
 
     fun feedPost(searchQuery: String? = null) {
@@ -44,8 +46,12 @@ class MainPageViewModel @Inject constructor(
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            latestDateTime = baseResult.data.maxOf { it.dateTime ?: -1 }
-                            _state.value = ViewState.Success(baseResult.data)
+                            if(baseResult.data.isNotEmpty()) {
+                                latestDateTime = baseResult.data.maxOf { it.dateTime ?: -1 }
+                            }
+
+                            posts.addAll(baseResult.data)
+                            _state.value = ViewState.Success(posts)
                         }
                         is BaseResult.Error -> {
                             _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
