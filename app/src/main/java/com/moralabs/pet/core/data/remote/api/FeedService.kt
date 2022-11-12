@@ -11,7 +11,15 @@ import retrofit2.http.*
 interface FeedService {
     // GET all feeds
     @GET("/feed")
-    suspend fun getFeed(@Query("searchQuery") searchQuery: String? = null): Response<BaseResponse<List<PostDto>>>
+    suspend fun getFeed(
+        @Query("searchQuery") searchQuery: String? = null,
+        @Query("index") index: Int? = null,
+        @Query("size") size: Int? = null
+    ): Response<BaseResponse<List<PostDto>>>
+
+    // GET all feeds from dateTime
+    @GET("/feed/{dateTime}")
+    suspend fun getFeedFromDate(@Path("dateTime") dateTime: Long): Response<BaseResponse<List<PostDto>>>
 
     // POST new feeds
     @POST("/feed/post")
@@ -25,7 +33,10 @@ interface FeedService {
 
     // gönderi report etme
     @POST("/feed/post/{postId}/report/{reportType}")
-    suspend fun reportPost(@Path("postId") postId: String?, @Path("reportType") reportType: Int?): Response<BaseResponse<Nothing>>
+    suspend fun reportPost(
+        @Path("postId") postId: String?,
+        @Path("reportType") reportType: Int?
+    ): Response<BaseResponse<Nothing>>
 
     // gönderi beğenme
     @POST("/feed/post/{postId}/like")

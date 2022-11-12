@@ -11,13 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
@@ -34,6 +34,10 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     PostSettingBottomSheetListener, PostReportBottomSheetListener {
 
     var reportedPostId = ""
+
+    companion object {
+        var instance: MainPageFragment? = null
+    }
 
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -76,7 +80,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                     }
 
                     it.isPostLikedByUser = it.isPostLikedByUser?.not() ?: true
-                    it.likeCount = (it.likeCount ?: 0) + (if(it.isPostLikedByUser == true) 1 else -1)
+                    it.likeCount = (it.likeCount ?: 0) + (if (it.isPostLikedByUser == true) 1 else -1)
                 }
             },
             onCommentClick = {
@@ -114,14 +118,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onPostSettingClick = {
-                if (it.isPostOwnedByUser == true){
+                if (it.isPostOwnedByUser == true) {
                     loginIfNeeded {
                         PostSettingBottomSheetFragment(
                             this,
                             it.id
                         ).show(childFragmentManager, "")
                     }
-                }else{
+                } else {
                     reportedPostId = it.id
                     loginIfNeeded {
                         PostReportBottomSheetFragment(
@@ -147,15 +151,18 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
     }
 
-    override fun onResume() {
-        super.onResume()
-        feedPost()
-    }
-
     override fun stateSuccess(data: List<PostDto>) {
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+
+        binding.refreshLayout.isRefreshing = false
+    }
+
+    override fun stateError(data: String?) {
+        super.stateError(data)
+
+        binding.refreshLayout.isRefreshing = false
     }
 
     override fun addListeners() {
@@ -186,6 +193,10 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         }
+
+        binding.refreshLayout.setOnRefreshListener {
+            feedPost()
+        }
     }
 
     override fun addObservers() {
@@ -213,10 +224,24 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        instance = this
+
         setFragmentResultListener(
             "fragment_location"
         ) { _, result ->
             result.getString("locationId")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        feedPost()
+    }
+
+    override fun startLoading() {
+        if (postAdapter.currentList.isEmpty()) {
+            super.startLoading()
         }
     }
 
@@ -260,5 +285,9 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         ).show()
+    }
+
+    fun scrollToTop() {
+        binding.recyclerview.smoothScrollToPosition(0)
     }
 }
