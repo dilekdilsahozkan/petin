@@ -152,19 +152,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/passwordRule"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/scale_10dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="@string/settings_new_password_info"
-                    android:textSize="@dimen/scale_12dp"
-                    android:textColor="@color/mainColor"
-                    android:gravity="center"
-                    app:layout_constraintTop_toBottomOf="@+id/password_inputLayout"/>
-
                 <LinearLayout
                     android:id="@+id/agreement_layout"
                     android:layout_width="match_parent"
@@ -172,10 +159,10 @@
                     android:layout_marginTop="@dimen/scale_32dp"
                     android:padding="@dimen/scale_5dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/passwordRule">
+                    app:layout_constraintTop_toBottomOf="@id/password_inputLayout">
 
                     <CheckBox
-                        android:id="@+id/agreement_radio_button"
+                        android:id="@+id/agreementButton"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:buttonTint="@color/mainColor" />
