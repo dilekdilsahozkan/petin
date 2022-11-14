@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.BR
 import com.moralabs.pet.core.data.remote.dto.SimpleDto
 import com.moralabs.pet.databinding.UiItemBaseListEmptyBinding
-import com.moralabs.pet.petProfile.data.remote.dto.PetDto
+import com.moralabs.pet.message.presentation.model.UiChatUserDto
 
 class MessageUserAdapter<Dto, Binding : ViewDataBinding>(
     private val layoutId: Int,
@@ -28,7 +28,7 @@ class MessageUserAdapter<Dto, Binding : ViewDataBinding>(
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Dto, newItem: Dto): Boolean {
-            return (oldItem as PetDto).selected == (newItem as PetDto).selected
+            return (oldItem as UiChatUserDto).isSelected == (newItem as UiChatUserDto).isSelected
         }
     }) {
 
