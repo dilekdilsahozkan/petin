@@ -16,6 +16,7 @@
     <string name="register">Kayıt Ol</string>
     <string name="forgotPassword">Parolamı Unuttum?</string>
     <string name="haveAccount">Zaten hesabınız var mı? Giriş yap.</string>
+    <string name="checkAgreement">Kullanıcı sözleşmesini kabul etmeniz gerekmektedir..</string>
     <string name="dontHaveAccount">Hala kayıt olmadınız mı? Kayıt ol.</string>
     <string name="or">ya da</string>
     <string name="email">Email</string>

@@ -9,6 +9,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -48,7 +49,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
         super.addListeners()
         setRegisterClickable()
         binding.registerButton.setOnClickListener {
-            if (binding.agreementRadioButton.isChecked) {
+            if (binding.agreementButton.isChecked) {
                 viewModel.register(
                     RegisterRequestDto(
                         binding.nameSurnameEdittext.text.toString(),
@@ -57,6 +58,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
                         binding.passwordEdittext.text.toString()
                     )
                 )
+            }else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.checkAgreement),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
         binding.agreementRead.setOnClickListener {
@@ -76,12 +83,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
             startActivity(Intent(context, MainPageActivity::class.java))
             activity?.finish()
         }
-    }
-
-    override fun stateError(data: String?) {
-        super.stateError(data)
-
-        binding.passwordRule.visibility = View.VISIBLE
     }
 
     private fun setRegisterClickable() {
