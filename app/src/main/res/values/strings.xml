@@ -5,7 +5,7 @@
     <string name="facebook_client_token">977fe240ff6cd6f48de6e570d4f35aba</string>
     <string name="pets">Evcil Hayvanlarım</string>
     <string name="empty"></string>
-    <string name="description">Hayvan severlerin buluştuğu platform</string>
+    <string name="description">Hayvanseverlerin buluştuğu platform</string>
     <string name="mainPageTitle">Ana Sayfa</string>
     <string name="messagesTitle">Mesajlar</string>
     <string name="notificationTitle">Bildirimler</string>
@@ -101,6 +101,7 @@
     <string name="settings_what_is_pet">Petin nedir?</string>
     <string name="settings_who_we_are">Biz kimiz?</string>
     <string name="settings_our_purpose">Amacımız</string>
+    <string name="settings_wrong_number">Eksik telefon numarası girdiniz!</string>
     <string name="settings_bout">Hakkımızda</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
     <string name="settings_current_password">Mevcut Parola</string>
@@ -162,7 +163,7 @@
     <string name="ask_sure">Emin misiniz?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
-    <string name="submit_report_warning">Gönderinizi silmek istediğinize emin misin?</string>
+    <string name="submit_report_warning">Gönderiyi şikayet etmek istediğinize emin misin?</string>
     <string name="delete_comment_warning">Yorumu silmek istediğinize emin misin?</string>
     <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
 
@@ -185,7 +186,7 @@
 
     <!-- TUTORIAL -->
 
-    <string name="tutorial_1">Petin hayvan severlerin bir araya geldiği bir uygulama</string>
+    <string name="tutorial_1">Petin hayvanseverlerin bir araya geldiği bir uygulama</string>
     <string name="tutorial_2">Petin uygulaması sayesinde hayvan sahiplenebilir, evcil hayvanınıza arkadaş bulabilirsiniz</string>
     <string name="tutorial_3">Petin uygulamasında hayvanlar hakkında sorularınıza cevap bulabilirisiniz</string>
 

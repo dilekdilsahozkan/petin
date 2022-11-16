@@ -45,7 +45,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/write_a_message"
                 android:includeFontPadding="false"
-                android:inputType="textLongMessage"
+                android:inputType="textLongMessage|textCapSentences"
                 android:padding="@dimen/scale_10dp"
                 android:textSize="@dimen/scale_15dp" />
 

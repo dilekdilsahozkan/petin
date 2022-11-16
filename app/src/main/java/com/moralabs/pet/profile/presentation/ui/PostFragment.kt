@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
@@ -61,6 +62,10 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
                 } else {
                     viewModel.likePost(it.id)
                 }
+
+                it.isPostLikedByUser = it.isPostLikedByUser?.not() ?: true
+                it.likeCount = (it.likeCount ?: 0) + (if(it.isPostLikedByUser == true) 1 else -1)
+
             },
             onCommentClick = {
                 val bundle = bundleOf(
@@ -105,29 +110,26 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
         }
     }
 
-    override fun addObservers() {
-        super.addObservers()
+    override fun addListeners() {
+        super.addListeners()
+
         lifecycleScope.launch {
-            viewModel.likeUnlikeDeleteState.collect {
+            viewModel.deleteState.collect {
                 when (it) {
                     is ViewState.Loading -> {
                         startLoading()
                     }
                     is ViewState.Success<Boolean> -> {
-                        if (!otherUserId.isNullOrEmpty()) {
-                            viewModel.getPostAnotherUser(otherUserId)
-                        } else {
-                            viewModel.profilePost()
-                        }
+                        viewModel.profilePost()
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
                 }
             }
         }
-
     }
 
     override fun stateSuccess(data: List<PostDto>) {

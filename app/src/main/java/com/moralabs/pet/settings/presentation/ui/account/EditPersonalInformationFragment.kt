@@ -22,9 +22,9 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentEditPersonalInformationBinding
 import com.moralabs.pet.profile.data.remote.dto.UserDto
@@ -71,12 +71,11 @@ class EditPersonalInformationFragment :
         binding.editProfile.setOnClickListener {
             viewModel.editUser(
                 binding.fullNameEdit.text.toString(),
-                if (digitType.matches(binding.phoneNumberEdit.text.toString()))
+                if (digitType.matches(binding.phoneNumberEdit.text.toString())){
                     binding.phoneNumberEdit.text.toString()
+                }
                 else null,
-                newProfilePictureUrl?.let {
-                    File(it)
-                } ?: null
+                newProfilePictureUrl?.let { File(it) }
             )
         }
 
