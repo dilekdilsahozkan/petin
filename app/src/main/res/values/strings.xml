@@ -99,6 +99,7 @@
     <string name="settings_what_is_pet">Petin nedir?</string>
     <string name="settings_who_we_are">Biz kimiz?</string>
     <string name="settings_our_purpose">Amacımız</string>
+    <string name="settings_wrong_number">Eksik telefon numarası girdiniz!</string>
     <string name="settings_bout">Hakkımızda</string>
     <string name="settings_delete_account_info">Hesabınız kalıcı olarak silinecektir.</string>
     <string name="settings_current_password">Mevcut Parola</string>

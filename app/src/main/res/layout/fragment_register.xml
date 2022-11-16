@@ -51,7 +51,7 @@
                     android:layout_height="44dp"
                     android:background="@drawable/background_edit"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
                     android:maxLines="1"
                     android:maxLength="25"
                     android:padding="10dp"

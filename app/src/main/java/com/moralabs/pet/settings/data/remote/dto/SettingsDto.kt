@@ -25,7 +25,7 @@ data class EditUserDto(
     val userName: String? = null,
     val fullName: String? = null,
     val email: String? = null,
-    val phoneNumber: String? = null,
+    val phoneNumber: Any? = null,
     val birthDate: String? = null,
 ) : BaseDto()
 

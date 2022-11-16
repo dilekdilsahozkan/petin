@@ -4,13 +4,14 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentUris
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -20,23 +21,22 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.moralabs.pet.R
+import com.bumptech.glide.Glide
 import com.moralabs.pet.BR
+import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.adapter.PetListAdapter
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
-import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
+import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentNewPostBinding
 import com.moralabs.pet.databinding.ItemPetCardBinding
-import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.newPost.data.remote.dto.NewPostDto
 import com.moralabs.pet.newPost.presentation.viewmodel.NewPostViewModel
 import com.moralabs.pet.petProfile.data.remote.dto.CreatePostDto
@@ -205,6 +205,21 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
                 binding.inputViewCounter.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGray))
             }
         }
+        binding.explanationText.addTextChangedListener(object : TextWatcher {
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text: String = binding.explanationText.text.toString()
+                if (text.startsWith(" ")) {
+                    binding.explanationText.setText(text.trim { it <= ' ' })
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     override fun addObservers() {

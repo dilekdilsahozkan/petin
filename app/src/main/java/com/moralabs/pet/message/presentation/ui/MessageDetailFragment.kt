@@ -1,6 +1,8 @@
 package com.moralabs.pet.message.presentation.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -74,6 +76,19 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
                 }
             }
         }
+
+        binding.messageText.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text: String = binding.messageText.text.toString()
+                if (text.startsWith(" ")) {
+                    binding.messageText.setText(text.trim { it <= ' ' })
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     override fun stateSuccess(data: ChatDto) {
