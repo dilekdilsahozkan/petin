@@ -74,7 +74,7 @@ class EditPersonalInformationFragment :
                 if (digitType.matches(binding.phoneNumberEdit.text.toString())){
                     binding.phoneNumberEdit.text.toString()
                 }
-                else null,
+                else "",
                 newProfilePictureUrl?.let { File(it) }
             )
         }
