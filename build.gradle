@@ -46,13 +46,13 @@ sonarqube {
         property "sonar.verbose", true
         property "sonar.host.url", "http://164.92.218.1"
 
-        property "sonar.projectName", "Petin"
+        property "sonar.projectName", "mobile.petin.android"
         property "sonar.projectKey", "Petin_mobile.petin.android_AYP6qY1PBnT5e94fngzo"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.projectVersion", "0.1"
         property "sonar.issuesReport.html.enable", "true"
         property "sonar.issuesReport.console.enable", "true"
-        property "sonar.login", "sqa_ee79bb40406ad51fa1a19c2e637f37335c28a27a"
+        property "sonar.login", "sqp_949d1a78b567f4ffdfdd0620ff5801468bf207b5"
 
         property "detekt.sonar.kotlin.config.path", "${rootProject.projectDir}/detekt-config.yml"
 
