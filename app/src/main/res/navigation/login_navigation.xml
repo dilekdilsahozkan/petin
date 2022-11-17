@@ -14,6 +14,8 @@
         <action
             android:id="@+id/action_fragment_login_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment"
+            app:popUpTo="@id/forgotPasswordFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
 
@@ -28,6 +30,8 @@
         <action
             android:id="@+id/action_fragment_forgot_to_passwordCodeFragment"
             app:destination="@id/passwordCodeFragment"
+            app:popUpTo="@id/passwordCodeFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
 
@@ -42,6 +46,8 @@
         <action
             android:id="@+id/action_fragment_code_to_newPasswordFragment"
             app:destination="@id/newPasswordFragment"
+            app:popUpTo="@id/newPasswordFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out"/>
 

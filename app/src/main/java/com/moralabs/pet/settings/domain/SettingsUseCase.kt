@@ -6,6 +6,7 @@ import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.core.domain.*
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
+import com.moralabs.pet.newPost.data.remote.dto.MediaType
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
@@ -58,7 +59,7 @@ class SettingsUseCase @Inject constructor(
             val medias = mutableListOf<MediaDto>()
 
             file?.let {
-                val media = mediaRepository.uploadPhoto(1, it)
+                val media = mediaRepository.uploadPhoto(MediaType.USER.value, it)
 
                 media.body()?.data?.getOrNull(0)?.let {
                     medias.add(it)
@@ -68,15 +69,15 @@ class SettingsUseCase @Inject constructor(
             editUserDto.media = medias
 
             val result = settingRepository.editUser(editUserDto)
+            val error = Gson().fromJson(result.errorBody()?.string(), BaseResponse::class.java)
 
             if(result.isSuccessful && result.code() == 200){
-                settingRepository.editUser(editUserDto).body()?.data?.let {
+                result.body()?.data?.let {
                     emit(
                         BaseResult.Success(it)
                     )
                 }
             }else{
-                val error = Gson().fromJson(result.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
                         ErrorResult(

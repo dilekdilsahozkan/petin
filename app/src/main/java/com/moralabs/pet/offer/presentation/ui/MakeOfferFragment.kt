@@ -2,6 +2,8 @@ package com.moralabs.pet.offer.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -84,6 +86,19 @@ class MakeOfferFragment :
 
     override fun addListeners() {
         super.addListeners()
+
+        binding.explanationText.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text: String = binding.explanationText.text.toString()
+                if (text.startsWith(" ")) {
+                    binding.explanationText.setText(text.trim { it <= ' ' })
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
 
         binding.explanationText.doAfterTextChanged {
             binding.inputViewCounter.text = "${it?.length}/${MAX_CHAR_NUMBER}"

@@ -8,6 +8,7 @@ import com.moralabs.pet.core.domain.BaseUseCase
 import com.moralabs.pet.core.domain.ErrorCode
 import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
+import com.moralabs.pet.newPost.data.remote.dto.MediaType
 import com.moralabs.pet.petProfile.data.remote.dto.*
 import com.moralabs.pet.petProfile.data.repository.PetRepository
 import kotlinx.coroutines.flow.Flow
@@ -139,7 +140,7 @@ class PetUseCase @Inject constructor(
     fun updatePet(petDto: PetDto, file: File?, name: String?, attributes: List<PetAttributeDto>): Flow<BaseResult<Boolean>> {
         return flow {
 
-            val postDto = PetRequestDto(
+            val petRequestDto = PetRequestDto(
                 name = name,
                 petAttributes = attributes
             )
@@ -147,7 +148,7 @@ class PetUseCase @Inject constructor(
             val medias = mutableListOf<MediaDto>()
 
             file?.let {
-                val media = mediaRepository.uploadPhoto(1, it)
+                val media = mediaRepository.uploadPhoto(MediaType.PET.value, it)
 
                 media.body()?.data?.getOrNull(0)?.let {
                     medias.add(it)
@@ -158,16 +159,26 @@ class PetUseCase @Inject constructor(
                 }
             }
 
-            if (medias.isNotEmpty()) {
-                postDto.media = medias
-            }
+            petRequestDto.media = medias
 
-            val result = petRepository.updatePet(petDto.id, postDto).body()?.success ?: false
+            val result = petRepository.updatePet(petDto.id, petRequestDto)
 
-            if (result) {
-                emit(BaseResult.Success(false))
-            } else {
-                emit(BaseResult.Error(ErrorResult(code = ErrorCode.SERVER_ERROR)))
+            if(result.isSuccessful && result.code() == 200){
+                emit(
+                    BaseResult.Success(
+                        result.isSuccessful
+                    )
+                )
+            }else{
+                val error = Gson().fromJson(result.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
             }
         }
     }

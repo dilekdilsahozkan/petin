@@ -46,11 +46,7 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
         binding.emailEdit.text = data.email.toString()
         binding.usernameEdit.text = data.userName.toString()
         binding.fullNameEdit.text = data.fullName.toString()
-        if(binding.phoneNumberEdit.text.isNullOrEmpty()){
-            binding.phoneNumberEdit.text = "-"
-        }else{
-            binding.phoneNumberEdit.text = data.phoneNumber.toString()
-        }
+        binding.phoneNumberEdit.text = data.phoneNumber
         binding.userImage.loadImageWithPlaceholder(data.media?.url)
     }
 }

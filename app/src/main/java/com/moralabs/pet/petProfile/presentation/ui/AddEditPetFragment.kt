@@ -87,7 +87,8 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                 pet?.let { petDto ->
                     viewModel.updatePet(
                         petDto,
-                        if(isNewPhoto) petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) } else  null,                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
+                        if(isNewPhoto) petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.PHOTO }?.choice?.let { File(it) } else  null,
+                        petAdapter.currentList.firstOrNull { it.uiType == AttributeUiType.NAME }?.choice,
                         petAdapter.currentList.filter { it.uiType == AttributeUiType.ATTRIBUTE || it.uiType == AttributeUiType.ATTRIBUTE_LIST }
                             .map {
                                 PetAttributeDto(
@@ -246,6 +247,7 @@ class AddEditPetFragment : BaseFragment<FragmentAddPetBinding, List<AttributeDto
                 getString(R.string.cancel)
             )
         ) { _, index ->
+            isNewPhoto = true
             when (index) {
                 0 -> {
                     cameraResultLauncher.launch(createPhotoUri())
