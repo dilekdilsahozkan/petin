@@ -52,7 +52,7 @@ sonarqube {
         property "sonar.projectVersion", "0.1"
         property "sonar.issuesReport.html.enable", "true"
         property "sonar.issuesReport.console.enable", "true"
-        property "sonar.login", "sqp_37ac640528a6b1bc51ce9992044db02c8c8de5ae"
+        property "sonar.login", "sqa_ee79bb40406ad51fa1a19c2e637f37335c28a27a"
 
         property "detekt.sonar.kotlin.config.path", "${rootProject.projectDir}/detekt-config.yml"
 
