@@ -188,28 +188,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
-    override fun addObservers() {
-        super.addObservers()
-
-        lifecycleScope.launch {
-            viewModel.reportState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
-                        stopLoading()
-                    }
-                    is ViewState.Error<*> -> {
-                        stateError(it.message)
-                        stopLoading()
-                    }
-                }
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -256,6 +234,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             negativeButton = resources.getString(R.string.no),
             onResult = {
                 if (PetWarningDialogResult.OK == it) {
+                    Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
                     viewModel.reportPost(reportedPostId, reportType)
                 }
             }
