@@ -8,16 +8,20 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.moralabs.pet.R
 import com.moralabs.pet.databinding.FragmentOtherUserActionBottomSheetBinding
+import com.moralabs.pet.profile.presentation.viewmodel.ProfileViewModel
 
 class OtherUserActionBottomSheetFragment(
     val isUserFollowed: Boolean?,
     val isUserBlocked: Boolean?,
+    val userId: String?,
     val listenerFollowUnfollow: FollowUnfollowBottomSheetListener,
-    val listenerBlockUnblock: BlockUnblockBottomSheetListener
+    val listenerBlockUnblock: BlockUnblockBottomSheetListener,
+    val listenerReportUser: ReportUserBottomSheetListener
 ) : BottomSheetDialogFragment(),
     View.OnClickListener {
 
     lateinit var binding: FragmentOtherUserActionBottomSheetBinding
+    lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +36,7 @@ class OtherUserActionBottomSheetFragment(
         InitBottomSheetUI()
         binding.followUnfollowUserText.setOnClickListener(this)
         binding.blockUnblockUserText.setOnClickListener(this)
+        binding.reportUserText.setOnClickListener(this)
 
         return binding.root
     }
@@ -46,10 +51,15 @@ class OtherUserActionBottomSheetFragment(
                 listenerBlockUnblock.onBlockUnblockItemClick(isUserBlocked)
                 dismiss()
             }
+            R.id.report_user_text -> {
+                listenerReportUser.onReportItemClick(userId, 0)
+                dismiss()
+            }
         }
     }
 
     private fun InitBottomSheetUI() {
+        binding.reportUserText.visibility = View.VISIBLE
         isUserFollowed?.let {
             if (isUserBlocked != true) {
                 binding.followUnfollowUserText.visibility = View.VISIBLE
@@ -77,4 +87,8 @@ interface FollowUnfollowBottomSheetListener {
 
 interface BlockUnblockBottomSheetListener {
     fun onBlockUnblockItemClick(isUserBlocked: Boolean?)
+}
+
+interface ReportUserBottomSheetListener {
+    fun onReportItemClick(userId: String?, isUserReported: Int?)
 }

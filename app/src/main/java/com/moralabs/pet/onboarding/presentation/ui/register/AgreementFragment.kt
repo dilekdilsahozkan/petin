@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
@@ -64,6 +63,7 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding, UserDto, Settin
                     is ViewState.Error<*> -> {
                         stopLoading()
                     }
+                    else -> {}
                 }
             }
         }
