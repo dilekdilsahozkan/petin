@@ -3,6 +3,7 @@ package com.moralabs.pet.profile.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -17,9 +18,7 @@ import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentPostBinding
-import com.moralabs.pet.mainPage.presentation.ui.CommentActivity
-import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetFragment
-import com.moralabs.pet.mainPage.presentation.ui.PostSettingBottomSheetListener
+import com.moralabs.pet.mainPage.presentation.ui.*
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.profile.presentation.viewmodel.ProfilePostViewModel
@@ -29,7 +28,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePostViewModel>(),
-    PostSettingBottomSheetListener {
+    PostSettingBottomSheetListener, PostReportBottomSheetListener {
+
+    var reportedPostId = ""
 
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
@@ -88,11 +89,23 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
                 }
             },
             onPostSettingClick = {
-                fragmentManager?.let { it1 ->
-                    PostSettingBottomSheetFragment(
-                        this,
-                        it.id
-                    ).show(it1, "")
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        loginIfNeeded {
+                            PostSettingBottomSheetFragment(
+                                this,
+                                it.id
+                            ).show(childFragmentManager, "")
+                        }
+                    } else {
+                        reportedPostId = it.id
+                        loginIfNeeded {
+                            PostReportBottomSheetFragment(
+                                this,
+                                it.id
+                            ).show(childFragmentManager, "")
+                        }
+                    }
                 }
             }
         )
@@ -151,6 +164,24 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
             onResult = {
                 if (PetWarningDialogResult.OK == it) {
                     viewModel.deletePost(postId)
+                }
+            }
+        ).show()
+    }
+
+    override fun onReportClick(reportType: Int?) {
+        PetWarningDialog(
+            requireContext(),
+            PetWarningDialogType.CONFIRMATION,
+            resources.getString(R.string.ask_sure),
+            okay = getString(R.string.yes),
+            discard = getString(R.string.no),
+            description = resources.getString(R.string.submit_report_warning),
+            negativeButton = resources.getString(R.string.no),
+            onResult = {
+                if (PetWarningDialogResult.OK == it) {
+                    Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
+                    viewModel.reportPost(reportedPostId, reportType)
                 }
             }
         ).show()

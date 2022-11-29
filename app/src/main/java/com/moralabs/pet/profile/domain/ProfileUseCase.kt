@@ -1,7 +1,11 @@
 package com.moralabs.pet.profile.domain
 
+import com.google.gson.Gson
+import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.domain.BaseUseCase
+import com.moralabs.pet.core.domain.ErrorCode
+import com.moralabs.pet.core.domain.ErrorResult
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 import com.moralabs.pet.profile.data.repository.ProfileRepository
@@ -98,6 +102,27 @@ class ProfileUseCase @Inject constructor(
                     } ?: false
                 )
             )
+        }
+    }
+
+    fun reportUser(userId: String?, reportType: Int?): Flow<BaseResult<Boolean>> {
+        return flow {
+            val report = profileRepository.reportUser(userId, reportType)
+            if (report.isSuccessful && report.code() == 200) {
+                emit(
+                    BaseResult.Success(true)
+                )
+            } else {
+                val error = Gson().fromJson(report.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
         }
     }
 }

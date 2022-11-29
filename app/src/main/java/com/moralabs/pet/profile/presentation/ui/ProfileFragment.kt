@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(), BlockUnblockBottomSheetListener,
-    FollowUnfollowBottomSheetListener {
+    ReportUserBottomSheetListener, FollowUnfollowBottomSheetListener, UserReportBottomSheetListener {
 
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
@@ -71,8 +72,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                     OtherUserActionBottomSheetFragment(
                         user.isUserFollowed,
                         user.isBlocked,
+                        otherUserId,
                         this@ProfileFragment,
-                        this@ProfileFragment
+                        this@ProfileFragment,
+                        this@ProfileFragment,
                     ).show(this.parentFragmentManager, "OtherUserActionBottomSheetFragment")
                 }
             }
@@ -112,6 +115,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                         }
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
@@ -130,6 +134,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                         }
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
@@ -148,6 +153,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                         }
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
@@ -166,6 +172,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
                         }
                     }
                     is ViewState.Error<*> -> {
+                        stateError(it.message)
+                        stopLoading()
+                    }
+                    else -> {}
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.reportState.collect {
+                when (it) {
+                    is ViewState.Loading -> {
+                        startLoading()
+                    }
+                    is ViewState.Success<Boolean> -> {
+                        if (it.data) {
+                            getUserInfo()
+                        }
+                        Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
+                    }
+                    is ViewState.Error<*> -> {
+                        stateError(it.message)
                         stopLoading()
                     }
                     else -> {}
@@ -291,5 +318,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         Glide.with(this)
             .load(R.drawable.ic_error_profile)
             .into(binding.userPhoto)
+    }
+
+    override fun onReportItemClick(userId: String?, isUserReported: Int?) {
+        if(isUserReported == 0)
+            UserReportBottomSheetFragment(this, otherUserId).show(childFragmentManager, null)
+    }
+
+    override fun onSelectReportClick(userId: String?, reportType: Int?) {
+        PetWarningDialog(
+            requireContext(),
+            PetWarningDialogType.CONFIRMATION,
+            resources.getString(R.string.ask_sure),
+            okay = getString(R.string.yes),
+            discard = getString(R.string.no),
+            description = resources.getString(R.string.submit_user_report_warning),
+            negativeButton = resources.getString(R.string.no),
+            onResult = {
+                if (PetWarningDialogResult.OK == it) {
+                    viewModel.reportUser(userId, reportType)
+                }
+            }
+        ).show()
     }
 }

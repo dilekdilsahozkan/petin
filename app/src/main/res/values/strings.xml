@@ -41,7 +41,6 @@
     <string name="delete">Kaldır</string>
     <string name="deleteOffer">Teklifimi Kaldır</string>
     <string name="accept">Kabul Et</string>
-    <string name="report">Bu postu şikayet etme sebebinizi seçiniz.</string>
     <string name="wrongLogin">Yanlış email ya da parola</string>
     <string name="chooseType">Gönderi tipinizi seçiniz</string>
     <string name="post">Paylaşım</string>
@@ -164,6 +163,7 @@
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
     <string name="submit_report_warning">Gönderiyi şikayet etmek istediğinize emin misin?</string>
+    <string name="submit_user_report_warning">Kullanıcıyı şikayet etmek istediğinize emin misiniz?</string>
     <string name="delete_comment_warning">Yorumu silmek istediğinize emin misin?</string>
     <string name="postSure">Paylaşım yapmak istemediğinize emin misin?</string>
 
@@ -199,11 +199,17 @@
 
     <!-- Report -->
 
+    <string name="post_report">Bu postu şikayet etme sebebinizi seçiniz.</string>
+    <string name="user_report">Kullanıcıyı şikayet etme sebebinizi seçiniz.</string>
+    <string name="inappropriate_user">Kullanıcı uygunsuz içerik paylaşımı yapıyor.</string>
+    <string name="identity_theft_user">Kullanıcı başka biri gibi davranıyor.</string>
+    <string name="underage_user">13 yaş ve altı bir kullanıcı.</string>
     <string name="inappropriate">Uygunsuz içerik</string>
     <string name="spam">Spam</string>
     <string name="fraud">Sahtekarlık veya Dolandırıcılık</string>
     <string name="nudityOrSexuality">Çıplaklık veya Cinsellik</string>
     <string name="other">Diğer</string>
     <string name="submit">Gönder</string>
+    <string name="report">Şikayet Et</string>
 
 </resources>

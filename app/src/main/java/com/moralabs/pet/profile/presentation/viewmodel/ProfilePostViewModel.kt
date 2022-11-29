@@ -21,6 +21,9 @@ class ProfilePostViewModel @Inject constructor(
     private var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
 
+    private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val reportState: StateFlow<ViewState<Boolean>> = _reportState
+
     fun profilePost() {
         viewModelScope.launch {
             useCase.profilePost()
@@ -63,6 +66,30 @@ class ProfilePostViewModel @Inject constructor(
                         }
                         is BaseResult.Error -> {
                             _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun reportPost(postId: String?, reportType: Int?) {
+        viewModelScope.launch {
+            useCase.reportPost(postId, reportType)
+                .onStart {
+                    _reportState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _reportState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _reportState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _reportState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }

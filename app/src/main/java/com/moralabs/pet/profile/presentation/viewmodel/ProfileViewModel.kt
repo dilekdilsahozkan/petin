@@ -18,17 +18,20 @@ class ProfileViewModel @Inject constructor(
     private val useCase: ProfileUseCase
 ) : BaseViewModel<UserDto>(useCase) {
 
-    protected var _followUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _followUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val followUserState: StateFlow<ViewState<Boolean>> = _followUserState
 
-    protected var _unfollowUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _unfollowUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val unfollowUserState: StateFlow<ViewState<Boolean>> = _unfollowUserState
 
-    protected var _blockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _blockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val blockUserState: StateFlow<ViewState<Boolean>> = _blockUserState
 
-    protected var _unblockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    private var _unblockUserState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val unblockUserState: StateFlow<ViewState<Boolean>> = _unblockUserState
+
+    private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
     fun userInfo() {
         viewModelScope.launch {
@@ -174,4 +177,27 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun reportUser(userId: String?, reportType: Int?) {
+        viewModelScope.launch {
+            useCase.reportUser(userId, reportType)
+                .onStart {
+                    _reportState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _reportState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _state.value = ViewState.Idle()
+                            _reportState.value = ViewState.Success(baseResult.data)
+                        }
+                        is BaseResult.Error -> {
+                            _reportState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
+    }
 }

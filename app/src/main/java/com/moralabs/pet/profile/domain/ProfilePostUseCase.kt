@@ -71,13 +71,34 @@ class ProfilePostUseCase @Inject constructor(
 
     fun unlikePost(postId: String?): Flow<BaseResult<Boolean>> {
         return flow {
-            val like = postRepository.unlikePost(postId)
-            if (like.isSuccessful && like.code() == 200) {
+            val unlike = postRepository.unlikePost(postId)
+            if (unlike.isSuccessful && unlike.code() == 200) {
                 emit(
                     BaseResult.Success(true)
                 )
             } else {
-                val error = Gson().fromJson(like.errorBody()?.string(), BaseResponse::class.java)
+                val error = Gson().fromJson(unlike.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
+        }
+    }
+
+    fun reportPost(postId: String?, reportType: Int?): Flow<BaseResult<Boolean>> {
+        return flow {
+            val report = postRepository.reportPost(postId, reportType)
+            if (report.isSuccessful && report.code() == 200) {
+                emit(
+                    BaseResult.Success(true)
+                )
+            } else {
+                val error = Gson().fromJson(report.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
                         ErrorResult(
