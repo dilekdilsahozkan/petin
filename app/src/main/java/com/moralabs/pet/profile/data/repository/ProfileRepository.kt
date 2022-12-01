@@ -12,6 +12,7 @@ interface ProfileRepository {
     suspend fun getFollowerList(): Response<BaseResponse<List<UserInfoDto>>>
     suspend fun followUser(userId: String?): Response<BaseResponse<Nothing>>
     suspend fun unfollowUser(userId: String?): Response<BaseResponse<Nothing>>
+    suspend fun reportUser(userId: String?, reportType: Int?): Response<BaseResponse<Nothing>>
     suspend fun getBlockedList(): Response<BaseResponse<List<UserInfoDto>>>
     suspend fun blockUser(userId: String?): Response<BaseResponse<Nothing>>
     suspend fun unblockUser(userId: String?): Response<BaseResponse<Nothing>>

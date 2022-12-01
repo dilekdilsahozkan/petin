@@ -27,10 +27,10 @@ class NewPostViewModel @Inject constructor(
     var selectedPet: MutableLiveData<List<PetDto>?> = MutableLiveData()
     var petList = mutableListOf<PetDto>()
 
-    protected var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())
+    private var _userInfo: MutableStateFlow<ViewState<UserDto>> = MutableStateFlow(ViewState.Idle())
     val getUser: StateFlow<ViewState<UserDto>> = _userInfo
 
-    protected var _createPost: MutableStateFlow<ViewState<CreatePostDto>> = MutableStateFlow(ViewState.Idle())
+    private var _createPost: MutableStateFlow<ViewState<CreatePostDto>> = MutableStateFlow(ViewState.Idle())
     val createPost: StateFlow<ViewState<CreatePostDto>> = _createPost
 
     fun createPost(createNewPost: NewPostDto) {

@@ -27,8 +27,7 @@
             tools:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/block_unblock_user_text"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/block_unblock_user_text"
@@ -43,8 +42,20 @@
             android:textSize="@dimen/scale_15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/follow_unfollow_user_text"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/follow_unfollow_user_text"/>
+
+        <TextView
+            android:id="@+id/report_user_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/report"
+            android:layout_marginVertical="@dimen/scale_16dp"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/scale_15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/block_unblock_user_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

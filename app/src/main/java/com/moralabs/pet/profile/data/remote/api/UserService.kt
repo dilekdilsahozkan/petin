@@ -37,4 +37,7 @@ interface UserService {
 
     @PATCH("/user/{userId}/unblock")
     suspend fun unblockUser(@Path("userId") userId: String?): Response<BaseResponse<Nothing>>
+
+    @POST("/user/{userId}/report/{reportType}")
+    suspend fun reportUser(@Path("userId") postId: String?, @Path("reportType") reportType: Int?): Response<BaseResponse<Nothing>>
 }
