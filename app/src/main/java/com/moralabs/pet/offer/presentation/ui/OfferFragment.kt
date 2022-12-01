@@ -41,20 +41,6 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
         toolbarListener?.showTitleText(getString(R.string.offer))
     }
 
-    override fun addListeners() {
-        super.addListeners()
-
-        binding.petInfo.setOnClickListener {
-            val bundle = bundleOf(
-                PetProfileActivity.PET_ID to viewModel.latestDto?.readOffer?.pet?.id,
-                PetProfileActivity.OTHER_USER_ID to viewModel.latestDto?.readOffer?.user?.userId,
-            )
-            val intent = Intent(context, PetProfileActivity::class.java)
-            intent.putExtras(bundle)
-            context?.startActivity(intent)
-        }
-    }
-
     override fun addObservers() {
         super.addObservers()
 
@@ -113,6 +99,16 @@ class OfferFragment : BaseFragment<FragmentOfferBinding, OfferDetailDto, OfferVi
 
     override fun stateSuccess(data: OfferDetailDto) {
         super.stateSuccess(data)
+
+        binding.petInfo.setOnClickListener {
+            val bundle = bundleOf(
+                PetProfileActivity.PET_ID to data.readOffer?.pet?.id,
+                PetProfileActivity.OTHER_USER_ID to data.readOffer?.user?.userId,
+            )
+            val intent = Intent(context, PetProfileActivity::class.java)
+            intent.putExtras(bundle)
+            context?.startActivity(intent)
+        }
 
         binding.offerText.text = data.readOffer?.text
         binding.userInfo.text = data.readOffer?.user?.fullName
