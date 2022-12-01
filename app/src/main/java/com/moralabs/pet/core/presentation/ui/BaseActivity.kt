@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -48,6 +49,15 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         super.onBackPressed()
     }
 
+    open fun stateError(data: String?) {
+        if(data == null){
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(this, data, Toast.LENGTH_LONG).show()
+        }
+        stopLoading()
+    }
+
     open fun stopLoading() {
         (binding.root as? ViewGroup)?.removeView(loadingImage)
     }
@@ -89,6 +99,7 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity(), Pe
         { result ->
             when (result) {
 
+                else -> {}
             }
         }
 

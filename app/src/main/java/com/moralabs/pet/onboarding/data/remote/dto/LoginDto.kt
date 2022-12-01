@@ -21,8 +21,3 @@ data class ExternalLoginDto (
     val userName: String,
     val type: Int? = null
 ): BaseDto()
-
-enum class ExternalType(val type: Int){
-    FACEBOOK(1),
-    GOOGLE(2)
-}

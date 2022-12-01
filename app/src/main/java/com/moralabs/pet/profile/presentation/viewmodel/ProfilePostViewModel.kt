@@ -8,6 +8,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.profile.domain.ProfilePostUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +18,11 @@ class ProfilePostViewModel @Inject constructor(
     private val useCase: ProfilePostUseCase
 ) : BaseViewModel<List<PostDto>>(useCase) {
 
-    protected var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
-    val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
+    private var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val deleteState: StateFlow<ViewState<Boolean>> = _deleteState
+
+    private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
     fun profilePost() {
         viewModelScope.launch {
@@ -68,72 +72,52 @@ class ProfilePostViewModel @Inject constructor(
         }
     }
 
-    fun likePost(postId: String?) {
+    fun reportPost(postId: String?, reportType: Int?) {
         viewModelScope.launch {
-            useCase.likePost(postId)
+            useCase.reportPost(postId, reportType)
                 .onStart {
-                    _likeUnlikeDeleteState.value = ViewState.Loading()
+                    _reportState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
+                    _reportState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
-                    if (baseResult is BaseResult.Success) {
-                        _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
-                    }
                     when (baseResult) {
                         is BaseResult.Success -> {
                             _state.value = ViewState.Idle()
-                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                            _reportState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
-                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                            _reportState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
                 }
         }
     }
 
+    fun likePost(postId: String?) {
+        GlobalScope.launch { useCase.likePost(postId).collect {  } }
+    }
+
     fun unlikePost(postId: String?) {
-        viewModelScope.launch {
-            useCase.unlikePost(postId)
-                .onStart {
-                    _likeUnlikeDeleteState.value = ViewState.Loading()
-                }
-                .catch { exception ->
-                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
-                    Log.e("CATCH", "exception : $exception")
-                }
-                .collect { baseResult ->
-                    when (baseResult) {
-                        is BaseResult.Success -> {
-                            _state.value = ViewState.Idle()
-                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
-                        }
-                        is BaseResult.Error -> {
-                            _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
-                        }
-                    }
-                }
-        }
+        GlobalScope.launch { useCase.likePost(postId).collect {  } }
     }
 
     fun deletePost(postId: String?) {
         viewModelScope.launch {
             useCase.deletePost(postId)
                 .onStart {
-                    _likeUnlikeDeleteState.value = ViewState.Loading()
+                    _deleteState.value = ViewState.Loading()
                 }
                 .catch { exception ->
-                    _likeUnlikeDeleteState.value = ViewState.Error(message = exception.message)
+                    _deleteState.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _state.value = ViewState.Idle()
-                            _likeUnlikeDeleteState.value = ViewState.Success(baseResult.data)
+                            _deleteState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
                             _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)

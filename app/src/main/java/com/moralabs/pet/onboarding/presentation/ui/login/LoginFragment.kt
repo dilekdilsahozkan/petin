@@ -73,7 +73,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginDto, LoginViewMode
         if (isFromAction) {
             activity?.setResult(
                 Activity.RESULT_OK,
-                Intent().run { putExtras(bundleOf(LoginActivity.RESULT_LOGIN to LoginResult.LOGIN_OK)) })
+                Intent().run { putExtras(bundleOf(LoginActivity.RESULT_LOGIN to LoginResults.LOGIN_OK)) })
             activity?.finish()
         } else {
             startActivity(Intent(context, MainPageActivity::class.java))

@@ -2,6 +2,8 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -78,10 +80,24 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CommentDto, Comment
                 }
             }
         }
+
+        binding.writeComment.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text: String = binding.writeComment.text.toString()
+                if (text.startsWith(" ")) {
+                    binding.writeComment.setText(text.trim { it <= ' ' })
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     override fun addObservers() {
         super.addObservers()
+
         lifecycleScope.launch {
             viewModel.deleteState.collect {
                 when (it) {
@@ -120,7 +136,7 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CommentDto, Comment
             resources.getString(R.string.ask_sure),
             okay = getString(R.string.yes),
             discard = getString(R.string.no),
-            description = resources.getString(R.string.delete_post_warning),
+            description = resources.getString(R.string.delete_comment_warning),
             negativeButton = resources.getString(R.string.no),
             onResult = {
                 if (PetWarningDialogResult.OK == it) {

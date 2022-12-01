@@ -83,13 +83,13 @@ class MainPageUseCase @Inject constructor(
 
     fun reportPost(postId: String?, reportType: Int?): Flow<BaseResult<Boolean>> {
         return flow {
-            val delete = postRepository.reportPost(postId, reportType)
-            if (delete.isSuccessful && delete.code() == 200) {
+            val report = postRepository.reportPost(postId, reportType)
+            if (report.isSuccessful && report.code() == 200) {
                 emit(
                     BaseResult.Success(true)
                 )
             } else {
-                val error = Gson().fromJson(delete.errorBody()?.string(), BaseResponse::class.java)
+                val error = Gson().fromJson(report.errorBody()?.string(), BaseResponse::class.java)
                 emit(
                     BaseResult.Error(
                         ErrorResult(

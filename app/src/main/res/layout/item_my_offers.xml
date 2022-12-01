@@ -77,7 +77,6 @@
                         android:fontFamily="@font/poppins_regular"
                         pet:setOrderStatus="@{item.status}" />
 
-
                 </LinearLayout>
 
             </LinearLayout>

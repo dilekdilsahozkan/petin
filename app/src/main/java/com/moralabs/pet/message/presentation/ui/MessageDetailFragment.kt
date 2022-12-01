@@ -1,6 +1,8 @@
 package com.moralabs.pet.message.presentation.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -35,12 +37,12 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
         BaseListAdapter(R.layout.item_chat_message, BR.item)
     }
 
-    private val userDto by lazy {
-        activity?.intent?.getParcelableExtra<UserDto>(MessageDetailActivity.BUNDLE_USER)
-    }
-
     private val userId by lazy {
         activity?.intent?.getStringExtra(MessageDetailActivity.USER_ID)
+    }
+
+    private val userDto by lazy {
+        activity?.intent?.getParcelableExtra<UserDto>(MessageDetailActivity.BUNDLE_USER)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,6 +76,19 @@ class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, ChatDto
                 }
             }
         }
+
+        binding.messageText.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text: String = binding.messageText.text.toString()
+                if (text.startsWith(" ")) {
+                    binding.messageText.setText(text.trim { it <= ' ' })
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     override fun stateSuccess(data: ChatDto) {
