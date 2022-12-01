@@ -1,5 +1,6 @@
 package com.moralabs.pet.settings.presentation.ui.offers
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -17,6 +18,7 @@ import com.moralabs.pet.databinding.FragmentOfferDetailBinding
 import com.moralabs.pet.offer.data.remote.dto.OfferDetailDto
 import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.viewmodel.OfferViewModel
+import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

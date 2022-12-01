@@ -76,7 +76,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                     }
 
                     it.isPostLikedByUser = it.isPostLikedByUser?.not() ?: true
-                    it.likeCount = (it.likeCount ?: 0) + (if(it.isPostLikedByUser == true) 1 else -1)
+                    it.likeCount =
+                        (it.likeCount ?: 0) + (if (it.isPostLikedByUser == true) 1 else -1)
                 }
             },
             onCommentClick = {
@@ -114,20 +115,22 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             },
             onPostSettingClick = {
-                if (it.isPostOwnedByUser == true){
-                    loginIfNeeded {
-                        PostSettingBottomSheetFragment(
-                            this,
-                            it.id
-                        ).show(childFragmentManager, "")
-                    }
-                }else{
-                    reportedPostId = it.id
-                    loginIfNeeded {
-                        PostReportBottomSheetFragment(
-                            this,
-                            it.id
-                        ).show(childFragmentManager, "")
+                loginIfNeeded {
+                    if (it.isPostOwnedByUser == true) {
+                        loginIfNeeded {
+                            PostSettingBottomSheetFragment(
+                                this,
+                                it.id
+                            ).show(childFragmentManager, "")
+                        }
+                    } else {
+                        reportedPostId = it.id
+                        loginIfNeeded {
+                            PostReportBottomSheetFragment(
+                                this,
+                                it.id
+                            ).show(childFragmentManager, "")
+                        }
                     }
                 }
             }
@@ -188,28 +191,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
-    override fun addObservers() {
-        super.addObservers()
-
-        lifecycleScope.launch {
-            viewModel.reportState.collect {
-                when (it) {
-                    is ViewState.Loading -> {
-                        startLoading()
-                    }
-                    is ViewState.Success<*> -> {
-                        Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
-                        stopLoading()
-                    }
-                    is ViewState.Error<*> -> {
-                        stateError(it.message)
-                        stopLoading()
-                    }
-                }
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -256,6 +237,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             negativeButton = resources.getString(R.string.no),
             onResult = {
                 if (PetWarningDialogResult.OK == it) {
+                    Toast.makeText(requireContext(), getString(R.string.success_report), Toast.LENGTH_SHORT).show()
                     viewModel.reportPost(reportedPostId, reportType)
                 }
             }

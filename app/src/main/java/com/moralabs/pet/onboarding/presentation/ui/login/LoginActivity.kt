@@ -48,20 +48,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(),
     fun getPassword(): NewPasswordDto {
         return newPassword
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        try {
-            for (fragment in supportFragmentManager.fragments) {
-                fragment.onActivityResult(requestCode, resultCode, data)
-                Log.d("Activity", "ON RESULT CALLED")
-            }
-        } catch (e: Exception) {
-            Log.d("ERROR", e.toString())
-        }
-    }
 }
 
-class LoginResultContract : ActivityResultContract<LoginAction, LoginResult>() {
+class LoginResultContract : ActivityResultContract<LoginAction, LoginResults>() {
 
     private var action: LoginAction? = null
 
@@ -71,22 +60,22 @@ class LoginResultContract : ActivityResultContract<LoginAction, LoginResult>() {
         return Intent(context, LoginActivity::class.java).apply { putExtras(bundleOf(LoginActivity.BUNDLE_ACTION to true)) }
     }
 
-    override fun parseResult(resultCode: Int, result: Intent?): LoginResult {
+    override fun parseResult(resultCode: Int, result: Intent?): LoginResults {
         if (resultCode != Activity.RESULT_OK) {
-            return LoginResult.LOGIN_CANCELED
+            return LoginResults.LOGIN_CANCELED
         }
 
-        val loginResult = result?.getParcelableExtra<LoginResult>(LoginActivity.RESULT_LOGIN)
+        val loginResult = result?.getParcelableExtra<LoginResults>(LoginActivity.RESULT_LOGIN)
 
-        if (loginResult == LoginResult.LOGIN_OK) {
+        if (loginResult == LoginResults.LOGIN_OK) {
             this.action?.invoke()
         }
 
-        return loginResult ?: LoginResult.LOGIN_CANCELED
+        return loginResult ?: LoginResults.LOGIN_CANCELED
     }
 }
 
 @Parcelize
-enum class LoginResult : Parcelable {
+enum class LoginResults : Parcelable {
     LOGIN_OK, LOGIN_CANCELED
 }

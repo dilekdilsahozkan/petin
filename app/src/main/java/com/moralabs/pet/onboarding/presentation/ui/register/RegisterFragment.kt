@@ -21,7 +21,7 @@ import com.moralabs.pet.mainPage.presentation.ui.MainPageActivity
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterDto
 import com.moralabs.pet.onboarding.data.remote.dto.RegisterRequestDto
 import com.moralabs.pet.onboarding.presentation.ui.login.LoginActivity
-import com.moralabs.pet.onboarding.presentation.ui.login.LoginResult
+import com.moralabs.pet.onboarding.presentation.ui.login.LoginResults
 import com.moralabs.pet.onboarding.presentation.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,7 +77,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
         if (isFromAction) {
             activity?.setResult(
                 Activity.RESULT_OK,
-                Intent().run { putExtras(bundleOf(LoginActivity.RESULT_LOGIN to LoginResult.LOGIN_OK)) })
+                Intent().run { putExtras(bundleOf(LoginActivity.RESULT_LOGIN to LoginResults.LOGIN_OK)) })
             activity?.finish()
         } else {
             startActivity(Intent(context, MainPageActivity::class.java))
