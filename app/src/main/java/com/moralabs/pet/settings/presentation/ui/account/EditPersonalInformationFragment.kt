@@ -39,7 +39,7 @@ class EditPersonalInformationFragment :
     BaseFragment<FragmentEditPersonalInformationBinding, UserDto, SettingsViewModel>() {
 
     private var newProfilePictureUrl: String? = null
-    private val digitType = "^\\(\\d{3}\\)\\s\\d{3}\\s\\d{2}\\s\\d{2}".toRegex()
+    private val digitType = "^\\(\\d{3}\\)\\s\\d{3}[-]\\d{4}".toRegex()
 
     private var phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
     var defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
@@ -85,8 +85,8 @@ class EditPersonalInformationFragment :
 
         index = 0
         indices.clear()
-        defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
-        phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", " ", "_", "_", " ", "_", "_")
+        defaultList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", "-", "_", "_", "_", "_")
+        phoneList = mutableListOf<Any>("(", "_", "_", "_", ")", " ", "_", "_", "_", "-", "_", "_", "_", "_")
 
         if (index == 0)
             phoneList.forEachIndexed { i, e -> if (e is Int || e == "_") indices.add(i) }
