@@ -109,11 +109,17 @@ class AuthenticationInterceptorRefreshToken(
                         .addInterceptor(loggingInterceptor)
                         .readTimeout(1, TimeUnit.MINUTES)
                         .writeTimeout(1, TimeUnit.MINUTES)
+                        .hostnameVerifier { _, _ ->
+                            true
+                        }
                         .build()
                 } else OkHttpClient
                     .Builder()
                     .readTimeout(1, TimeUnit.MINUTES)
                     .writeTimeout(1, TimeUnit.MINUTES)
+                    .hostnameVerifier { _, _ ->
+                        true
+                    }
                     .build()
             )
             .addConverterFactory(GsonConverterFactory.create())

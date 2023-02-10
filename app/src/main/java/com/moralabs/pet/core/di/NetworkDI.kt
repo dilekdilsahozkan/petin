@@ -16,6 +16,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -35,6 +37,9 @@ class NetworkDI {
             .addInterceptor(loggingInterceptor)
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
+            .hostnameVerifier { _, _ ->
+                true
+            }
             .build()
     } else OkHttpClient
         .Builder()
@@ -42,6 +47,9 @@ class NetworkDI {
         .addInterceptor(authenticationInterceptorRefreshToken)
         .readTimeout(1, TimeUnit.MINUTES)
         .writeTimeout(1, TimeUnit.MINUTES)
+        .hostnameVerifier { _, _ ->
+            true
+        }
         .build()
 
     @Provides
