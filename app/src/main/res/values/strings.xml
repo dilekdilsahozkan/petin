@@ -161,6 +161,7 @@
     <string name="logoutSure">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="deleteOfferSure">Teklifinizi silmek istediğinize emin misiniz?</string>
     <string name="ask_sure">Emin misiniz?</string>
+    <string name="delete_user_warning">Hesabınız kalıcı olarak silenecektir emin misin?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
     <string name="submit_report_warning">Gönderiyi şikayet etmek istediğinize emin misin?</string>
