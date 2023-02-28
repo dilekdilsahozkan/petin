@@ -1,12 +1,16 @@
 package com.moralabs.pet
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.Network
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
-import com.facebook.FacebookSdk
-import com.facebook.appevents.AppEventsLogger
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityMainBinding
@@ -17,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,11 +32,13 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var notificationUseCase: NotificationUseCase
-
     companion object {
         var instance: MainActivity? = null
     }
 
+    private var connectStatus = ConnectivityStatus.Unset
+
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseActivity.currentActivity = this
         instance = this
@@ -58,6 +63,46 @@ class MainActivity : AppCompatActivity() {
             notificationUseCase.sendNotificationToken()
         }
 
-    }
+        (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).registerDefaultNetworkCallback(object :
+            ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                connectStatus = ConnectivityStatus.Available
+            }
 
+            override fun onLosing(network: Network, maxMsToLive: Int) {
+                super.onLosing(network, maxMsToLive)
+
+                if (connectStatus == ConnectivityStatus.Available) {
+                    Toast.makeText(applicationContext, R.string.connection_lost, Toast.LENGTH_SHORT).show()
+                }
+
+                connectStatus = ConnectivityStatus.Losing
+            }
+
+            override fun onLost(network: Network) {
+                super.onLost(network)
+
+                if (connectStatus == ConnectivityStatus.Available) {
+                    Toast.makeText(applicationContext, R.string.connection_lost, Toast.LENGTH_SHORT).show()
+                }
+
+                connectStatus = ConnectivityStatus.Lost
+            }
+
+            override fun onUnavailable() {
+                super.onUnavailable()
+
+                if (connectStatus == ConnectivityStatus.Available) {
+                    Toast.makeText(applicationContext, R.string.connection_lost, Toast.LENGTH_SHORT).show()
+                }
+
+                connectStatus = ConnectivityStatus.Unavailable
+            }
+        })
+    }
+}
+
+enum class ConnectivityStatus {
+    Unset, Available, Unavailable, Losing, Lost
 }
