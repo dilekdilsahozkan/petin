@@ -45,16 +45,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/register_title" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/name_surname_edittext"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/background_edit"
                     android:imeOptions="actionNext"
+                    android:fontFamily="@font/poppins_regular"
                     android:inputType="text|textCapSentences"
                     android:maxLines="1"
                     android:maxLength="25"
-                    android:padding="10dp"
+                    android:padding="11dp"
                     android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/name_surname_title"
@@ -73,16 +74,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/name_surname_edittext" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/username_edittext"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/background_edit"
                     android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:fontFamily="@font/poppins_regular"
                     android:maxLines="1"
                     android:maxLength="25"
-                    android:padding="10dp"
+                    android:padding="11dp"
                     android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/username_title"
@@ -101,16 +103,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/username_edittext" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/email_edittext"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/background_edit"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:fontFamily="@font/poppins_regular"
                     android:maxLines="1"
-                    android:padding="10dp"
-                    android:textSize="15dp"
+                    android:maxLength="25"
+                    android:inputType="text"
+                    android:padding="11dp"
+                    android:textSize="@dimen/scale_15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/email_title"
                     app:layout_constraintTop_toBottomOf="@id/email_title" />
@@ -132,6 +136,7 @@
                     android:id="@+id/password_inputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:padding="0dp"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -145,14 +150,15 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_edit"
                         android:imeOptions="actionDone"
-                        android:inputType="textPassword"
                         android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:textSize="15dp" />
+                        android:inputType="textPassword"
+                        android:paddingTop="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/scale_15dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/agreement_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -165,7 +171,9 @@
                         android:id="@+id/agreementButton"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:buttonTint="@color/mainColor" />
+                        android:buttonTint="@color/mainColor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
                     <TextView
                         android:id="@+id/agreementRead"
@@ -176,9 +184,11 @@
                         android:textSize="@dimen/scale_13dp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/agreementText"
-                        android:textColor="@color/darkSecondary" />
+                        android:textColor="@color/darkSecondary"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/agreementButton"/>
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/register_button"

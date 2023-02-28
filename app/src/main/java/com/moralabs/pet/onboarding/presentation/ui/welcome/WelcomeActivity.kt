@@ -11,4 +11,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(),
     PetToolbarListener {
 
     override fun getLayoutId() = R.layout.activity_welcome
+
+    override fun onBackPressed() {
+    }
 }

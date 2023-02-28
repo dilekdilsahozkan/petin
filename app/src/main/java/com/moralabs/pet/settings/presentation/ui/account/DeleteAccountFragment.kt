@@ -9,6 +9,9 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.adapter.loadImage
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
+import com.moralabs.pet.core.presentation.ui.PetWarningDialog
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
+import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentDeleteAccountBinding
 import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
@@ -38,7 +41,20 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding, UserDto
         super.addListeners()
 
         binding.deleteAccountButton.setOnClickListener {
-            viewModel.deleteAccount()
+            PetWarningDialog(
+                requireContext(),
+                PetWarningDialogType.CONFIRMATION,
+                resources.getString(R.string.ask_sure),
+                okay = getString(R.string.yes),
+                discard = getString(R.string.no),
+                description = resources.getString(R.string.delete_user_warning),
+                negativeButton = resources.getString(R.string.no),
+                onResult = {
+                    if (PetWarningDialogResult.OK == it) {
+                        viewModel.deleteAccount()
+                    }
+                }
+            ).show()
         }
     }
 
