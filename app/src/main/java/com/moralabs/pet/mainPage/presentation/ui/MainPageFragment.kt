@@ -21,7 +21,10 @@ import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
+import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
+import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
@@ -31,10 +34,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
-    PostSettingBottomSheetListener, PostReportBottomSheetListener {
+    PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
-
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
@@ -148,6 +150,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             paddingPixel = it * paddingDp
         }
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
     }
 
     override fun onResume() {
@@ -242,5 +252,34 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         ).show()
+    }
+
+    override fun onFilterClick(postType: Int) {
+        when (postType) {
+            0 -> TabTextType.POST_TYPE.type
+            1 -> TabTextType.QAN_TYPE.type
+            2 -> TabTextType.FIND_PARTNER_TYPE.type
+            3 -> TabTextType.ADOPTION_TYPE.type
+            4 -> TabTextType.ALL_POST.type
+            else -> 4
+        }
+
+        when (postType) {
+            TabTextType.POST_TYPE.type -> {
+                viewModel.feedPost("", 0)
+            }
+            TabTextType.QAN_TYPE.type -> {
+                viewModel.feedPost("", 1)
+            }
+            TabTextType.FIND_PARTNER_TYPE.type -> {
+                viewModel.feedPost("", 2)
+            }
+            TabTextType.ADOPTION_TYPE.type -> {
+                viewModel.feedPost("", 3)
+            }
+            TabTextType.ALL_POST.type -> {
+                viewModel.feedPost()
+            }
+        }
     }
 }

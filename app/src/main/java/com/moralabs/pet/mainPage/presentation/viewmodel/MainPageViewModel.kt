@@ -26,14 +26,14 @@ class MainPageViewModel @Inject constructor(
 
     private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
-
-    fun feedPost(searchQuery: String? = null) {
+    fun feedPost(searchQuery: String? = null, postType: Int? = null) {
         job?.cancel()
 
         job = viewModelScope.launch {
-            useCase.getFeed(searchQuery)
+            useCase.getFeed(searchQuery, postType)
                 .onStart {
                     if (searchQuery == null) _state.value = ViewState.Loading()
+                    if (postType == null) _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
                     _state.value = ViewState.Error(message = exception.message)

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(private val service: FeedService) :
     PostRepository, BaseRepository {
-    override suspend fun getFeed(searchQuery: String?)= service.getFeed(searchQuery)
+    override suspend fun getFeed(searchQuery: String?, postType: Int?)= service.getFeed(searchQuery, postType)
     override suspend fun postFeed(newPost: NewPostDto) = service.postFeed(newPost)
     override suspend fun getPetProfile(petId: String?, userId: String?) = service.getPetProfile(petId, userId)
     override suspend fun likePost(postId: String?) = service.likePost(postId)

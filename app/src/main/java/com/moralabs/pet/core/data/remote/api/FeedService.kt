@@ -11,7 +11,8 @@ import retrofit2.http.*
 interface FeedService {
     // GET all feeds
     @GET("/feed")
-    suspend fun getFeed(@Query("searchQuery") searchQuery: String? = null): Response<BaseResponse<List<PostDto>>>
+    suspend fun getFeed(@Query("searchQuery") searchQuery: String? = null,
+                        @Query("postType") postType: Int? = null): Response<BaseResponse<List<PostDto>>>
 
     // POST new feeds
     @POST("/feed/post")

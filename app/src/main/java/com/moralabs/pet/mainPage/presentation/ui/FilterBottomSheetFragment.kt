@@ -1,6 +1,7 @@
-package com.moralabs.pet.newPost.presentation.ui
+package com.moralabs.pet.mainPage.presentation.ui
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,16 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.moralabs.pet.R
 import com.moralabs.pet.databinding.ChooseTypeBottomSheetBinding
+import com.moralabs.pet.databinding.FragmentFilterBottomSheetBinding
+import com.moralabs.pet.newPost.presentation.ui.ChooseTypeBottomSheetListener
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 
-class ChooseTypeBottomSheetFragment(
-    var listener: ChooseTypeBottomSheetListener,
+class FilterBottomSheetFragment (
+    var listener: FilterBottomSheetListener,
 ) : BottomSheetDialogFragment(),
     View.OnClickListener {
 
-    lateinit var binding: ChooseTypeBottomSheetBinding
+    lateinit var binding: FragmentFilterBottomSheetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,9 +27,9 @@ class ChooseTypeBottomSheetFragment(
     ): View? {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.choose_type_bottom_sheet, null, false
+            R.layout.fragment_filter_bottom_sheet, null, false
         )
-
+        binding.allPostText.setOnClickListener(this)
         binding.postText.setOnClickListener(this)
         binding.qnaText.setOnClickListener(this)
         binding.findPartnerText.setOnClickListener(this)
@@ -36,34 +40,30 @@ class ChooseTypeBottomSheetFragment(
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.allPostText -> {
+                dismiss()
+                listener.onFilterClick(4)
+            }
             R.id.postText -> {
                 dismiss()
-                listener.onItemClick(0)
+                listener.onFilterClick(0)
             }
             R.id.qnaText -> {
                 dismiss()
-                listener.onItemClick(1)
+                listener.onFilterClick(1)
             }
             R.id.findPartnerText -> {
                 dismiss()
-                listener.onItemClick(2)
+                listener.onFilterClick(2)
             }
             R.id.adoptionText -> {
                 dismiss()
-                listener.onItemClick(3)
+                listener.onFilterClick(3)
             }
         }
     }
 }
 
-interface ChooseTypeBottomSheetListener {
-    fun onItemClick(type: Int)
-}
-
-internal enum class TabTextType(val type: Int) {
-    POST_TYPE(0),
-    QAN_TYPE(1),
-    FIND_PARTNER_TYPE(2),
-    ADOPTION_TYPE(3),
-    ALL_POST(4)
+interface FilterBottomSheetListener {
+    fun onFilterClick(postType: Int)
 }

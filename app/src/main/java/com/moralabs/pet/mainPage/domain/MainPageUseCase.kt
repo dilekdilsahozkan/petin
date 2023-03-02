@@ -16,9 +16,9 @@ class MainPageUseCase @Inject constructor(
     private val postRepository: PostRepository,
 ) : BaseUseCase() {
 
-    fun getFeed(searchQuery: String? = null): Flow<BaseResult<List<PostDto>>> {
+    fun getFeed(searchQuery: String? = null, postType: Int? = null): Flow<BaseResult<List<PostDto>>> {
         return flow {
-            val feed = postRepository.getFeed(searchQuery)
+            val feed = postRepository.getFeed(searchQuery, postType)
             if (feed.isSuccessful && feed.code() == 200) {
                 emit(
                     BaseResult.Success(
