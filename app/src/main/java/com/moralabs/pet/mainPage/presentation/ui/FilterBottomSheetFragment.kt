@@ -38,27 +38,45 @@ class FilterBottomSheetFragment (
         return binding.root
     }
 
+    fun hide(){
+        binding.allPostText.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
+        binding.postText.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
+        binding.qnaText.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
+        binding.findPartnerText.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
+        binding.adoptionText.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.allPostText -> {
-                dismiss()
+                hide()
                 listener.onFilterClick(4)
+                binding.allPostText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_select,0)
+                dismiss()
             }
             R.id.postText -> {
-                dismiss()
+                hide()
                 listener.onFilterClick(0)
+                binding.postText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_select,0)
+                dismiss()
             }
             R.id.qnaText -> {
-                dismiss()
+                hide()
                 listener.onFilterClick(1)
+                binding.qnaText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_select,0)
+                dismiss()
             }
             R.id.findPartnerText -> {
-                dismiss()
+                hide()
                 listener.onFilterClick(2)
+                binding.findPartnerText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_select,0)
+                dismiss()
             }
             R.id.adoptionText -> {
-                dismiss()
+                hide()
                 listener.onFilterClick(3)
+                binding.adoptionText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_select,0)
+                dismiss()
             }
         }
     }

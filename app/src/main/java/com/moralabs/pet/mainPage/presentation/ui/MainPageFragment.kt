@@ -2,6 +2,7 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -11,26 +12,25 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
-import com.moralabs.pet.newPost.presentation.ui.NewPostActivity
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
-import com.moralabs.pet.offer.presentation.ui.OfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
@@ -169,6 +169,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+        binding.recyclerview.smoothScrollToPosition(0)
     }
 
     override fun addListeners() {
@@ -267,18 +268,26 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         when (postType) {
             TabTextType.POST_TYPE.type -> {
                 viewModel.feedPost("", 0)
+                binding.filterType.setImageResource(R.drawable.ic_filter_post)
+                binding.filterType.visibility = View.VISIBLE
             }
             TabTextType.QAN_TYPE.type -> {
                 viewModel.feedPost("", 1)
+                binding.filterType.setImageResource(R.drawable.ic_filter_qna)
+                binding.filterType.visibility = View.VISIBLE
             }
             TabTextType.FIND_PARTNER_TYPE.type -> {
                 viewModel.feedPost("", 2)
+                binding.filterType.setImageResource(R.drawable.ic_filter_partner)
+                binding.filterType.visibility = View.VISIBLE
             }
             TabTextType.ADOPTION_TYPE.type -> {
                 viewModel.feedPost("", 3)
-            }
-            TabTextType.ALL_POST.type -> {
+                binding.filterType.setImageResource(R.drawable.ic_filter_adoption)
+                binding.filterType.visibility = View.VISIBLE
+            } else -> {
                 viewModel.feedPost()
+                binding.filterType.visibility = View.GONE
             }
         }
     }
