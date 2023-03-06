@@ -1,18 +1,17 @@
 package com.moralabs.pet.core.data.repository.impl
 
-import android.content.Context
+import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.google.gson.Gson
+import com.moralabs.pet.MainActivity
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.data.remote.dto.UserState
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class AuthenticationRepositoryImpl(
-    private val context: Context?
-) : AuthenticationRepository {
+class AuthenticationRepositoryImpl : AuthenticationRepository {
 
     companion object {
         private const val USER_KEY = "user"
@@ -23,8 +22,12 @@ class AuthenticationRepositoryImpl(
     var _userChanged: MutableStateFlow<AuthenticationDto> = MutableStateFlow(_user)
 
 
-    private val preferences by lazy {
-        context?.let {
+    private var preferences: SharedPreferences? = null
+
+    private fun createPreferences(): SharedPreferences? {
+        if (preferences != null) return preferences
+
+        preferences = MainActivity.instance?.let {
             val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
             EncryptedSharedPreferences.create(
@@ -35,21 +38,38 @@ class AuthenticationRepositoryImpl(
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             )
         }
+
+        return preferences
     }
 
     init {
-        preferences?.getString(USER_KEY, null)?.let {
-            _authentication = Gson().fromJson(it, AuthenticationDto::class.java)
-        }
+        createAuthDto()
+    }
 
-        if (_authentication == null) {
-            _authentication = AuthenticationDto()
+    private fun createAuthDto() {
+        createPreferences()
 
-            preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
+        preferences?.let { preferences ->
+            preferences.getString(USER_KEY, null)?.let {
+                _authentication = Gson().fromJson(it, AuthenticationDto::class.java)
+            }
+
+            if (_authentication == null) {
+                _authentication = AuthenticationDto()
+
+                preferences.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
+            }
         }
     }
 
-    override fun isLoggedIn() = _authentication?.bearerKey != null
+    override fun isLoggedIn(): Boolean {
+
+        if (_authentication == null) createAuthDto()
+
+        return _authentication?.bearerKey != null
+
+    }
+
     override fun isGuest() = _authentication?.isGuest == true
 
     override fun logout(): Boolean {
