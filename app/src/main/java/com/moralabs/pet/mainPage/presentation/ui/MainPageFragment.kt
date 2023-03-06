@@ -3,12 +3,15 @@ package com.moralabs.pet.mainPage.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
@@ -28,6 +31,7 @@ import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
@@ -174,7 +178,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         var textChangedListenerBlock = true
         binding.searchEdittext.addTextChangedListener {
             if (textChangedListenerBlock.not()) {
-                feedPost()
+                feedPost(true)
             }
             textChangedListenerBlock = false
         }
@@ -186,7 +190,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                         startLoading()
                     }
                     is ViewState.Success<Boolean> -> {
-                        feedPost()
+                        feedPost(true)
                     }
                     is ViewState.Error<*> -> {
                         stateError(it.message)
@@ -198,8 +202,20 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
 
         binding.refreshLayout.setOnRefreshListener {
-            feedPost()
+            feedPost(true)
         }
+
+        binding.recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if ((binding.recyclerview.layoutManager as? LinearLayoutManager)?.findLastVisibleItemPosition() == postAdapter.currentList.size - 1) {
+                    if (postAdapter.currentList.size > 0 && postAdapter.currentList[postAdapter.currentList.size - 1].user == null) {
+                        feedPost()
+                    }
+                }
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -217,7 +233,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     override fun onStart() {
         super.onStart()
 
-        feedPost()
+        feedPost(true)
     }
 
     override fun startLoading() {
@@ -226,11 +242,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
-    private fun feedPost() {
+    private fun feedPost(forceReload: Boolean = false) {
         if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
-            viewModel.feedPost()
+            viewModel.feedPost(forceReload)
         } else {
-            viewModel.feedPost(binding.searchEdittext.text.toString())
+            viewModel.feedPost(forceReload, binding.searchEdittext.text.toString())
         }
     }
 

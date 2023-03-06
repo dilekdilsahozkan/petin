@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,6 +16,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.extension.toFullDate
 import com.moralabs.pet.databinding.ItemPostBinding
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 
 class PostListAdapter(
     private val onOfferClick: ((post: PostDto) -> Unit)? = null,
@@ -112,100 +114,110 @@ class PostListAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(post: PostDto) {
-            binding.username.text = post.user?.userName.toString()
-            binding.userPhoto.loadImageWithPlaceholder(post.user?.media?.url)
-            binding.postText.text = post.content?.text.toString()
-            binding.post2Text.text = post.content?.text.toString()
-            binding.likeCount.text = post.likeCount.toString()
-            binding.commentCount.text = post.commentCount.toString()
-            binding.offerCount.text = post.offerCount.toString()
-            binding.postReleaseTime.text = post.dateTime.toFullDate(context)
-            binding.post2ReleaseTime.text = post.dateTime.toFullDate(context)
+            if(post.user == null) {
+                binding.postProgressBar.isVisible = true
+                binding.userInfoLinear.isVisible = false
+                binding.postContentLinear.isVisible = false
+                binding.postContent2Linear.isVisible = false
+            }else {
+                binding.postProgressBar.isVisible = false
+                binding.userInfoLinear.isVisible = true
 
-            binding.petName.text = post.content?.pet?.name
-            binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 6 }?.getOrNull(0)?.choice
-            binding.petLocation.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
-            binding.petGender.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
+                binding.username.text = post.user?.userName.toString()
+                binding.userPhoto.loadImageWithPlaceholder(post.user?.media?.url)
+                binding.postText.text = post.content?.text.toString()
+                binding.post2Text.text = post.content?.text.toString()
+                binding.likeCount.text = post.likeCount.toString()
+                binding.commentCount.text = post.commentCount.toString()
+                binding.offerCount.text = post.offerCount.toString()
+                binding.postReleaseTime.text = post.dateTime.toFullDate(context)
+                binding.post2ReleaseTime.text = post.dateTime.toFullDate(context)
 
-            if (post.isOfferAvailableByUser == true) {
-                binding.offerButton.setOnClickListener {
-                    Toast.makeText(context, "Zaten teklifte bulundunuz", Toast.LENGTH_SHORT).show()
+                binding.petName.text = post.content?.pet?.name
+                binding.petKind.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 6 }?.getOrNull(0)?.choice
+                binding.petLocation.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 5 }?.getOrNull(0)?.choice
+                binding.petGender.text = post.content?.pet?.petAttributes?.filter { it.attributeType == 8 }?.getOrNull(0)?.choice
+
+                if (post.isOfferAvailableByUser == true) {
+                    binding.offerButton.setOnClickListener {
+                        Toast.makeText(context, "Zaten teklifte bulundunuz", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
 
-            if (post.isPostLikedByUser == true) {
-                binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
-            } else {
-                binding.likeIcon.setImageResource(R.drawable.ic_like)
-            }
-
-            if (post.isPostOwnedByUser == true) {
-                binding.offerButton.visibility = View.GONE
-            } else {
-                binding.offerButton.visibility = View.VISIBLE
-            }
-
-            if (post.content?.pet?.media?.url.isNullOrEmpty()) {
-                binding.petImage.visibility = View.GONE
-            } else {
-                binding.petImage.visibility = View.VISIBLE
-                binding.petImage.loadImage(post.content?.pet?.media?.url)
-            }
-
-            if (post.content?.location?.city.isNullOrEmpty()) {
-                binding.location.visibility = View.GONE
-            } else {
-                binding.location.visibility = View.VISIBLE
-                binding.location.text = post.content?.location?.city.toString()
-            }
-
-            if (post.content?.media.isNullOrEmpty()) {
-                binding.postImage.visibility = View.GONE
-            } else {
-                binding.postImage.visibility = View.VISIBLE
-                binding.postImage.loadImage(post.content?.media?.get(0)?.url)
-            }
-
-            when (post.content?.type) {
-                0 -> {
-                    binding.postIcon.setImageResource(R.drawable.ic_post)
-                    binding.postTypeText.text = context.getString(R.string.post)
-                    binding.postContentLinear.visibility = View.VISIBLE
-                    binding.postContent2Linear.visibility = View.GONE
-                    binding.empty2.visibility = View.GONE
-
-                    binding.empty.visibility =
-                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                if (post.isPostLikedByUser == true) {
+                    binding.likeIcon.setImageResource(R.drawable.ic_like_orange)
+                } else {
+                    binding.likeIcon.setImageResource(R.drawable.ic_like)
                 }
-                1 -> {
-                    binding.postIcon.setImageResource(R.drawable.ic_qna)
-                    binding.postTypeText.text = context.getString(R.string.qna)
-                    binding.postContentLinear.visibility = View.VISIBLE
-                    binding.postContent2Linear.visibility = View.GONE
-                    binding.empty2.visibility = View.GONE
 
-                    binding.empty.visibility =
-                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                if (post.isPostOwnedByUser == true) {
+                    binding.offerButton.visibility = View.GONE
+                } else {
+                    binding.offerButton.visibility = View.VISIBLE
                 }
-                2 -> {
-                    binding.postIcon.setImageResource(R.drawable.ic_partner)
-                    binding.postTypeText.text = context.getString(R.string.findPartner)
-                    binding.postContentLinear.visibility = View.GONE
-                    binding.postContent2Linear.visibility = View.VISIBLE
-                    binding.empty.visibility = View.GONE
 
-                    binding.empty2.visibility =
-                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                if (post.content?.pet?.media?.url.isNullOrEmpty()) {
+                    binding.petImage.visibility = View.GONE
+                } else {
+                    binding.petImage.visibility = View.VISIBLE
+                    binding.petImage.loadImage(post.content?.pet?.media?.url)
                 }
-                3 -> {
-                    binding.postIcon.setImageResource(R.drawable.ic_adoption)
-                    binding.postTypeText.text = context.getString(R.string.adoption)
-                    binding.postContentLinear.visibility = View.GONE
-                    binding.postContent2Linear.visibility = View.VISIBLE
-                    binding.empty.visibility = View.GONE
 
-                    binding.empty2.visibility =
-                        if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                if (post.content?.location?.city.isNullOrEmpty()) {
+                    binding.location.visibility = View.GONE
+                } else {
+                    binding.location.visibility = View.VISIBLE
+                    binding.location.text = post.content?.location?.city.toString()
+                }
+
+                if (post.content?.media.isNullOrEmpty()) {
+                    binding.postImage.visibility = View.GONE
+                } else {
+                    binding.postImage.visibility = View.VISIBLE
+                    binding.postImage.loadImage(post.content?.media?.get(0)?.url)
+                }
+
+                when (post.content?.type) {
+                    TabTextType.POST_TYPE.type -> {
+                        binding.postIcon.setImageResource(R.drawable.ic_post)
+                        binding.postTypeText.text = context.getString(R.string.post)
+                        binding.postContentLinear.visibility = View.VISIBLE
+                        binding.postContent2Linear.visibility = View.GONE
+                        binding.empty2.visibility = View.GONE
+
+                        binding.empty.visibility =
+                            if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    }
+                    TabTextType.QAN_TYPE.type -> {
+                        binding.postIcon.setImageResource(R.drawable.ic_qna)
+                        binding.postTypeText.text = context.getString(R.string.qna)
+                        binding.postContentLinear.visibility = View.VISIBLE
+                        binding.postContent2Linear.visibility = View.GONE
+                        binding.empty2.visibility = View.GONE
+
+                        binding.empty.visibility =
+                            if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    }
+                    TabTextType.FIND_PARTNER_TYPE.type -> {
+                        binding.postIcon.setImageResource(R.drawable.ic_partner)
+                        binding.postTypeText.text = context.getString(R.string.findPartner)
+                        binding.postContentLinear.visibility = View.GONE
+                        binding.postContent2Linear.visibility = View.VISIBLE
+                        binding.empty.visibility = View.GONE
+
+                        binding.empty2.visibility =
+                            if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    }
+                    TabTextType.ADOPTION_TYPE.type -> {
+                        binding.postIcon.setImageResource(R.drawable.ic_adoption)
+                        binding.postTypeText.text = context.getString(R.string.adoption)
+                        binding.postContentLinear.visibility = View.GONE
+                        binding.postContent2Linear.visibility = View.VISIBLE
+                        binding.empty.visibility = View.GONE
+
+                        binding.empty2.visibility =
+                            if (bindingAdapterPosition == currentList.size - 1) View.VISIBLE else View.GONE
+                    }
                 }
             }
         }

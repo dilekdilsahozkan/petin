@@ -10,10 +10,10 @@ interface PostRepository {
     suspend fun getFeed(
         searchQuery: String? = null,
         index: Int? = null,
-        size: Int? = null
+        size: Int? = null,
+        dateTime: Long? = null
     ): Response<BaseResponse<List<PostDto>>>
 
-    suspend fun getFeedFromDate(dateTime: Long): Response<BaseResponse<List<PostDto>>>
     suspend fun postFeed(newPost: NewPostDto): Response<BaseResponse<List<PostDto>>>
     suspend fun getPetProfile(petId: String?, userId: String?): Response<BaseResponse<PetDto>>
     suspend fun likePost(postId: String?): Response<BaseResponse<Nothing>>

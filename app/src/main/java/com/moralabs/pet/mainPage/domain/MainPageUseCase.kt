@@ -27,25 +27,11 @@ class MainPageUseCase @Inject constructor(
     private val postDao: PostDao
 ) : BaseUseCase() {
 
-    fun getFeed(searchQuery: String? = null, latestDateTime: Long = -1): Flow<BaseResult<List<PostDto>>> {
+    fun getFeed(searchQuery: String? = null, lastDateTime: Long? = null): Flow<BaseResult<List<PostDto>>> {
         return flow {
-            if (searchQuery.isNullOrEmpty()) {
-                val cachedPosts = postDao.getAllPostsFrom(latestDateTime)
+            // TODO : Get Posts from cache
 
-                if (cachedPosts.isEmpty().not()) {
-                    emit(
-                        BaseResult.Success(
-                            cachedPosts.map {
-                                it.toPostDto()
-                            }
-                        )
-                    )
-                }
-            }
-
-            val feed = if (latestDateTime == -1L) postRepository.getFeed(searchQuery) else postRepository.getFeedFromDate(
-                latestDateTime
-            )
+            val feed = postRepository.getFeed(searchQuery = searchQuery, dateTime = lastDateTime)
 
             if (feed.isSuccessful && feed.code() == 200) {
                 feed.body()?.data?.map {
@@ -54,13 +40,9 @@ class MainPageUseCase @Inject constructor(
                     postDao.upsertPosts(it)
                 }
 
-                val cachedPosts = postDao.getAllPostsFrom(latestDateTime)
-
                 emit(
                     BaseResult.Success(
-                        cachedPosts.map {
-                            it.toPostDto()
-                        }
+                        feed.body()?.data ?: mutableListOf()
                     )
                 )
 

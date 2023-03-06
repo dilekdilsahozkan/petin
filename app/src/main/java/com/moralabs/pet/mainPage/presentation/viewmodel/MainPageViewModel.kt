@@ -27,27 +27,75 @@ class MainPageViewModel @Inject constructor(
     private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
-    private var latestDateTime = -1L
+    private val posts = mutableListOf<PostDto>()
 
-    fun feedPost(searchQuery: String? = null) {
+    private var lastDateTime: Long? = null
+    private var appendingState = false
+
+    fun feedPost(forceReload: Boolean, searchQuery: String? = null) {
+
+        if (appendingState && !forceReload && searchQuery == null) {
+            return
+        }
+
+        if (!forceReload && searchQuery == null && lastDateTime != null) {
+            appendingState = true
+        }
+
+        if (forceReload) {
+            posts.clear()
+            lastDateTime = null
+        }
+
         job?.cancel()
 
         job = viewModelScope.launch {
-            useCase.getFeed(searchQuery, latestDateTime)
+            useCase.getFeed(searchQuery, lastDateTime)
                 .onStart {
                     if (searchQuery == null) _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
+                    appendingState = false
+                    posts.getOrNull(posts.size - 1)?.let {
+                        if (it.user == null) {
+                            posts.removeLast()
+                            _state.value = ViewState.Success(posts)
+                        }
+                    }
+
                     _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
                 .collect { baseResult ->
+                    appendingState = false
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            latestDateTime = baseResult.data.maxOf { it.dateTime ?: -1 }
-                            _state.value = ViewState.Success(baseResult.data)
+                            posts.getOrNull(posts.size - 1)?.let {
+                                if (it.user == null) {
+                                    posts.removeLast()
+                                }
+                            }
+
+                            if (baseResult.data.isNotEmpty()) {
+                                lastDateTime = baseResult.data.minOf { it.dateTime ?: -1 }
+                            }
+
+                            posts.addAll(baseResult.data)
+
+                            if (baseResult.data.isNotEmpty()) {
+                                posts.add(PostDto())
+                            }
+
+                            _state.value = ViewState.Success(posts)
                         }
                         is BaseResult.Error -> {
+                            posts.getOrNull(posts.size - 1)?.let {
+                                if (it.user == null) {
+                                    posts.removeLast()
+                                    _state.value = ViewState.Success(posts)
+                                }
+                            }
+
                             _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }
@@ -56,11 +104,11 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun likePost(postId: String?) {
-        GlobalScope.launch { useCase.likePost(postId).collect {  } }
+        GlobalScope.launch { useCase.likePost(postId).collect { } }
     }
 
     fun unlikePost(postId: String?) {
-        GlobalScope.launch { useCase.unlikePost(postId).collect {  } }
+        GlobalScope.launch { useCase.unlikePost(postId).collect { } }
     }
 
     fun reportPost(postId: String?, reportType: Int?) {
