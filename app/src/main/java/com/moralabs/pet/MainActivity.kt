@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityMainBinding
@@ -19,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var notificationUseCase: NotificationUseCase
+
     companion object {
         var instance: MainActivity? = null
     }
