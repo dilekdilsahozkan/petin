@@ -56,13 +56,6 @@ class MainPageViewModel @Inject constructor(
                 }
                 .catch { exception ->
                     appendingState = false
-                    posts.getOrNull(posts.size - 1)?.let {
-                        if (it.user == null) {
-                            posts.removeLast()
-                            _state.value = ViewState.Success(posts)
-                        }
-                    }
-
                     _state.value = ViewState.Error(message = exception.message)
                     Log.e("CATCH", "exception : $exception")
                 }
@@ -70,32 +63,15 @@ class MainPageViewModel @Inject constructor(
                     appendingState = false
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            posts.getOrNull(posts.size - 1)?.let {
-                                if (it.user == null) {
-                                    posts.removeLast()
-                                }
-                            }
-
                             if (baseResult.data.isNotEmpty()) {
                                 lastDateTime = baseResult.data.minOf { it.dateTime ?: -1 }
                             }
 
                             posts.addAll(baseResult.data)
 
-                            if (baseResult.data.isNotEmpty()) {
-                                posts.add(PostDto())
-                            }
-
                             _state.value = ViewState.Success(posts)
                         }
                         is BaseResult.Error -> {
-                            posts.getOrNull(posts.size - 1)?.let {
-                                if (it.user == null) {
-                                    posts.removeLast()
-                                    _state.value = ViewState.Success(posts)
-                                }
-                            }
-
                             _state.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
                         }
                     }

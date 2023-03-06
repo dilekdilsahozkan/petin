@@ -170,6 +170,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateError(data)
 
         binding.refreshLayout.isRefreshing = false
+
+        if (postAdapter.currentList.size > 0 &&
+            postAdapter.currentList[postAdapter.currentList.size - 1].user == null
+        ) {
+            var list = postAdapter.currentList.toMutableList()
+            list.removeLast()
+            postAdapter.submitList(list)
+        }
     }
 
     override fun addListeners() {
@@ -206,13 +214,17 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
 
         binding.recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
 
-                if ((binding.recyclerview.layoutManager as? LinearLayoutManager)?.findLastVisibleItemPosition() == postAdapter.currentList.size - 1) {
-                    if (postAdapter.currentList.size > 0 && postAdapter.currentList[postAdapter.currentList.size - 1].user == null) {
-                        feedPost()
-                    }
+                if (recyclerView.canScrollVertically(1).not() &&
+                    postAdapter.currentList.size > 0 &&
+                    postAdapter.currentList[postAdapter.currentList.size - 1].user != null
+                ) {
+                    var list = postAdapter.currentList.toMutableList()
+                    list.add(PostDto())
+                    postAdapter.submitList(list)
+                    feedPost()
                 }
             }
         })
