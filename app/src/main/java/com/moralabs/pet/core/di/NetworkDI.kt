@@ -73,6 +73,5 @@ class NetworkDI {
 
     @Provides
     @Singleton
-    fun provideAuthenticationRepository(): AuthenticationRepository =
-        AuthenticationRepositoryImpl(MainActivity.instance)
+    fun provideAuthenticationRepository(): AuthenticationRepository = AuthenticationRepositoryImpl()
 }
