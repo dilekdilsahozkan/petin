@@ -39,9 +39,6 @@ class PostListAdapter(
         }
     }
 
-    val likeCount: Int = 0
-    val differ = AsyncListDiffer(this, DIFF_CALLBACK)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostListViewHolder(parent.context, binding)

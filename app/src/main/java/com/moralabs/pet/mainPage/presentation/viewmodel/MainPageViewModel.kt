@@ -27,11 +27,13 @@ class MainPageViewModel @Inject constructor(
     private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
 
+    private var latestDateTime = -1L
+
     fun feedPost(searchQuery: String? = null) {
         job?.cancel()
 
         job = viewModelScope.launch {
-            useCase.getFeed(searchQuery)
+            useCase.getFeed(searchQuery, latestDateTime)
                 .onStart {
                     if (searchQuery == null) _state.value = ViewState.Loading()
                 }
@@ -42,7 +44,7 @@ class MainPageViewModel @Inject constructor(
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _state.value = ViewState.Idle()
+                            latestDateTime = baseResult.data.maxOf { it.dateTime ?: -1 }
                             _state.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {

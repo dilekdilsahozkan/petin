@@ -21,3 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.google.crypto.** { *; }
+
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-dontwarn androidx.room.paging.**
