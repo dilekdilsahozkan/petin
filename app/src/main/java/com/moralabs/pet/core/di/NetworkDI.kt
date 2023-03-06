@@ -1,6 +1,5 @@
 package com.moralabs.pet.core.di
 
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.moralabs.pet.BuildConfig
 import com.moralabs.pet.MainActivity
 import com.moralabs.pet.core.data.remote.interceptor.AuthenticationInterceptorRefreshToken
@@ -17,9 +16,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
+
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkDI {
+
     @Provides
     @Singleton
     fun provideOkHttpClient(

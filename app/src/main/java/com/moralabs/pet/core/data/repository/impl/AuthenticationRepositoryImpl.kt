@@ -3,13 +3,10 @@ package com.moralabs.pet.core.data.repository.impl
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.google.gson.Gson
 import com.moralabs.pet.MainActivity
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
-import com.moralabs.pet.core.data.remote.dto.UserState
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 
 class AuthenticationRepositoryImpl : AuthenticationRepository {
 
@@ -18,9 +15,6 @@ class AuthenticationRepositoryImpl : AuthenticationRepository {
     }
 
     private var _authentication: AuthenticationDto? = null
-    private var _user: AuthenticationDto = AuthenticationDto(loginState = UserState.UNSET)
-    var _userChanged: MutableStateFlow<AuthenticationDto> = MutableStateFlow(_user)
-
 
     private var preferences: SharedPreferences? = null
 
@@ -83,12 +77,6 @@ class AuthenticationRepositoryImpl : AuthenticationRepository {
         return true
     }
 
-    override fun checkLoginState() {
-        if (_user.loginState == UserState.UNSET) {
-            _user = AuthenticationDto()
-            _userChanged.value = _user
-        }
-    }
     override fun login(userId: String?, bearerToken: String, refreshToken: String): Boolean {
         _authentication?.apply {
             this.bearerKey = bearerToken
