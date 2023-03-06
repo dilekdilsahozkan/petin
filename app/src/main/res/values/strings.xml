@@ -157,6 +157,8 @@
     <string name="user_block">Kullanıcıyı engellemek istediğinize emin misiniz?</string>
     <string name="user_unblock">Kullanıcının engelini kaldırmak istediğinize emin misiniz?</string>
     <string name="warning">Uyarı</string>
+    <string name="no_internet">Lütfen internet bağlantınızı kontrol ediniz.</string>
+    <string name="reconnect">Tekrar bağlan</string>
     <string name="logoutSure">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="deleteOfferSure">Teklifinizi silmek istediğinize emin misiniz?</string>
     <string name="ask_sure">Emin misiniz?</string>
