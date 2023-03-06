@@ -3,11 +3,9 @@ package com.moralabs.pet
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.Network
-import android.os.Build
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
@@ -36,9 +34,6 @@ class MainActivity : AppCompatActivity() {
         var instance: MainActivity? = null
     }
 
-    private var connectStatus = ConnectivityStatus.Unset
-
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseActivity.currentActivity = this
         instance = this
@@ -46,63 +41,52 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(ActivityMainBinding.inflate(layoutInflater).root)
 
-        lifecycleScope.launch {
-            delay(500)
-            if (authenticationRepository.isLoggedIn()) {
-                startActivity(Intent(applicationContext, MainPageActivity::class.java))
-                finish()
-            } else {
-                startActivity(Intent(applicationContext, WelcomeActivity::class.java))
-                finish()
-            }
-        }
-
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        CoroutineScope(Dispatchers.Default).launch {
-            notificationUseCase.sendNotificationToken()
-        }
+        restart()
 
-        (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).registerDefaultNetworkCallback(object :
-            ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
-                connectStatus = ConnectivityStatus.Available
-            }
-
-            override fun onLosing(network: Network, maxMsToLive: Int) {
-                super.onLosing(network, maxMsToLive)
-
-                if (connectStatus == ConnectivityStatus.Available) {
-                    Toast.makeText(applicationContext, R.string.connection_lost, Toast.LENGTH_SHORT).show()
-                }
-
-                connectStatus = ConnectivityStatus.Losing
-            }
-
-            override fun onLost(network: Network) {
-                super.onLost(network)
-
-                if (connectStatus == ConnectivityStatus.Available) {
-                    Toast.makeText(applicationContext, R.string.connection_lost, Toast.LENGTH_SHORT).show()
-                }
-
-                connectStatus = ConnectivityStatus.Lost
-            }
-
-            override fun onUnavailable() {
-                super.onUnavailable()
-
-                if (connectStatus == ConnectivityStatus.Available) {
-                    Toast.makeText(applicationContext, R.string.connection_lost, Toast.LENGTH_SHORT).show()
-                }
-
-                connectStatus = ConnectivityStatus.Unavailable
-            }
-        })
     }
-}
 
-enum class ConnectivityStatus {
-    Unset, Available, Unavailable, Losing, Lost
+    private fun restart() {
+        if (isOnline(this)) {
+            lifecycleScope.launch {
+                delay(500)
+                if (authenticationRepository.isLoggedIn()) {
+                    startActivity(Intent(applicationContext, MainPageActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(applicationContext, WelcomeActivity::class.java))
+                    finish()
+                }
+            }
+
+            CoroutineScope(Dispatchers.Default).launch {
+                notificationUseCase.sendNotificationToken()
+            }
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle(resources.getString(R.string.warning))
+                .setMessage(resources.getString(R.string.no_internet))
+                .setPositiveButton(resources.getString(R.string.reconnect)) { _, _ ->
+                    restart()
+                }.show()
+        }
+    }
+
+    private fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                return true
+            }
+        }
+        return false
+    }
 }
