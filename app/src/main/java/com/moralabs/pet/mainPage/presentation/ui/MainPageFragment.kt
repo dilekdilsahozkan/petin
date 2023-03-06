@@ -3,21 +3,24 @@ package com.moralabs.pet.mainPage.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
@@ -29,11 +32,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
     PostSettingBottomSheetListener, PostReportBottomSheetListener {
 
     var reportedPostId = ""
+
+    companion object {
+        var instance: MainPageFragment? = null
+    }
 
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -150,15 +158,18 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
     }
 
-    override fun onResume() {
-        super.onResume()
-        feedPost()
-    }
-
     override fun stateSuccess(data: List<PostDto>) {
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+
+        binding.refreshLayout.isRefreshing = false
+    }
+
+    override fun stateError(data: String?) {
+        super.stateError(data)
+
+        binding.refreshLayout.isRefreshing = false
     }
 
     override fun addListeners() {
@@ -167,7 +178,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         var textChangedListenerBlock = true
         binding.searchEdittext.addTextChangedListener {
             if (textChangedListenerBlock.not()) {
-                feedPost()
+                feedPost(true)
             }
             textChangedListenerBlock = false
         }
@@ -179,7 +190,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                         startLoading()
                     }
                     is ViewState.Success<Boolean> -> {
-                        feedPost()
+                        feedPost(true)
                     }
                     is ViewState.Error<*> -> {
                         stateError(it.message)
@@ -189,10 +200,28 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         }
+
+        binding.refreshLayout.setOnRefreshListener {
+            feedPost(true)
+        }
+
+        binding.recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if ((binding.recyclerview.layoutManager as? LinearLayoutManager)?.findLastVisibleItemPosition() == postAdapter.currentList.size - 1) {
+                    if (postAdapter.currentList.size > 0 && postAdapter.currentList[postAdapter.currentList.size - 1].user == null) {
+                        feedPost()
+                    }
+                }
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        instance = this
 
         setFragmentResultListener(
             "fragment_location"
@@ -201,11 +230,23 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
-    private fun feedPost() {
+    override fun onStart() {
+        super.onStart()
+
+        feedPost(true)
+    }
+
+    override fun startLoading() {
+        if (postAdapter.currentList.isEmpty()) {
+            super.startLoading()
+        }
+    }
+
+    private fun feedPost(forceReload: Boolean = false) {
         if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
-            viewModel.feedPost()
+            viewModel.feedPost(forceReload)
         } else {
-            viewModel.feedPost(binding.searchEdittext.text.toString())
+            viewModel.feedPost(forceReload, binding.searchEdittext.text.toString())
         }
     }
 
@@ -242,5 +283,9 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         ).show()
+    }
+
+    fun scrollToTop() {
+        binding.recyclerview.smoothScrollToPosition(0)
     }
 }
