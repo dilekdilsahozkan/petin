@@ -2,6 +2,7 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -24,6 +25,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
@@ -35,7 +37,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
-    PostSettingBottomSheetListener, PostReportBottomSheetListener {
+    PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
 
@@ -156,6 +158,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             paddingPixel = it * paddingDp
         }
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {
@@ -179,6 +189,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             list.removeLast()
             postAdapter.submitList(list)
         }
+        binding.recyclerview.smoothScrollToPosition(0)
     }
 
     override fun addListeners() {
@@ -300,5 +311,43 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
 
     fun scrollToTop() {
         binding.recyclerview.smoothScrollToPosition(0)
+    }
+
+    override fun onFilterClick(postType: Int) {
+        when (postType) {
+            0 -> TabTextType.POST_TYPE.type
+            1 -> TabTextType.QAN_TYPE.type
+            2 -> TabTextType.FIND_PARTNER_TYPE.type
+            3 -> TabTextType.ADOPTION_TYPE.type
+            4 -> TabTextType.ALL_POST.type
+            else -> 4
+        }
+
+        when (postType) {
+            TabTextType.POST_TYPE.type -> {
+                viewModel.feedPost(postType = 0)
+                binding.filterType.setImageResource(R.drawable.ic_filter_post)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.QAN_TYPE.type -> {
+                viewModel.feedPost(postType = 1)
+                binding.filterType.setImageResource(R.drawable.ic_filter_qna)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.FIND_PARTNER_TYPE.type -> {
+                viewModel.feedPost(postType = 2)
+                binding.filterType.setImageResource(R.drawable.ic_filter_partner)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.ADOPTION_TYPE.type -> {
+                viewModel.feedPost(postType = 3)
+                binding.filterType.setImageResource(R.drawable.ic_filter_adoption)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            else -> {
+                viewModel.feedPost()
+                binding.filterType.visibility = View.GONE
+            }
+        }
     }
 }

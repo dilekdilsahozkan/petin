@@ -11,7 +11,8 @@ interface PostRepository {
         searchQuery: String? = null,
         index: Int? = null,
         size: Int? = null,
-        dateTime: Long? = null
+        dateTime: Long? = null, 
+        postType: Int? = null
     ): Response<BaseResponse<List<PostDto>>>
 
     suspend fun postFeed(newPost: NewPostDto): Response<BaseResponse<List<PostDto>>>
