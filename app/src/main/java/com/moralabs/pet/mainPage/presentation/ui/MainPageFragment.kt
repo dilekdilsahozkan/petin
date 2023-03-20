@@ -162,6 +162,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+        postAdapter.notifyDataSetChanged()
 
         binding.refreshLayout.isRefreshing = false
     }
