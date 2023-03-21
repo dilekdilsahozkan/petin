@@ -27,11 +27,11 @@ class MainPageUseCase @Inject constructor(
     private val postDao: PostDao
 ) : BaseUseCase() {
 
-    fun getFeed(searchQuery: String? = null, lastDateTime: Long? = null): Flow<BaseResult<List<PostDto>>> {
+    fun getFeed(searchQuery: String? = null, postType: Int? = null, lastDateTime: Long? = null): Flow<BaseResult<List<PostDto>>> {
         return flow {
             // TODO : Get Posts from cache
 
-            val feed = postRepository.getFeed(searchQuery = searchQuery, dateTime = lastDateTime)
+            val feed = postRepository.getFeed(searchQuery = searchQuery, postType = postType, dateTime = lastDateTime)
 
             if (feed.isSuccessful && feed.code() == 200) {
                 feed.body()?.data?.map {

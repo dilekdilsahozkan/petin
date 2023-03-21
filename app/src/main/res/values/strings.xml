@@ -43,6 +43,8 @@
     <string name="accept">Kabul Et</string>
     <string name="wrongLogin">Yanlış email ya da parola</string>
     <string name="chooseType">Gönderi tipinizi seçiniz</string>
+    <string name="filters">Filtreleme</string>
+    <string name="all_posts">Tüm Paylaşımlar</string>
     <string name="post">Paylaşım</string>
     <string name="qna">Soru - Cevap</string>
     <string name="findPartner">Arkadaş Bulma</string>
@@ -213,5 +215,7 @@
     <string name="other">Diğer</string>
     <string name="submit">Gönder</string>
     <string name="report">Şikayet Et</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
