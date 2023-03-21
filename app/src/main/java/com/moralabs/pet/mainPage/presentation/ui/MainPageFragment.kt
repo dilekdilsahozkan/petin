@@ -40,6 +40,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
+
+    companion object {
+        var instance: MainPageFragment? = null
+    }
+
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
@@ -153,12 +158,37 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             paddingPixel = it * paddingDp
         }
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+        postAdapter.notifyDataSetChanged()
+
+        binding.refreshLayout.isRefreshing = false
+    }
+
+    override fun stateError(data: String?) {
+        super.stateError(data)
+
+        binding.refreshLayout.isRefreshing = false
+
+        if (postAdapter.currentList.size > 0 &&
+            postAdapter.currentList[postAdapter.currentList.size - 1].user == null
+        ) {
+            var list = postAdapter.currentList.toMutableList()
+            list.removeLast()
+            postAdapter.submitList(list)
+        }
         binding.recyclerview.smoothScrollToPosition(0)
     }
 
@@ -295,25 +325,26 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
 
         when (postType) {
             TabTextType.POST_TYPE.type -> {
-                viewModel.feedPost("", 0)
+                viewModel.feedPost(postType = 0)
                 binding.filterType.setImageResource(R.drawable.ic_filter_post)
                 binding.filterType.visibility = View.VISIBLE
             }
             TabTextType.QAN_TYPE.type -> {
-                viewModel.feedPost("", 1)
+                viewModel.feedPost(postType = 1)
                 binding.filterType.setImageResource(R.drawable.ic_filter_qna)
                 binding.filterType.visibility = View.VISIBLE
             }
             TabTextType.FIND_PARTNER_TYPE.type -> {
-                viewModel.feedPost("", 2)
+                viewModel.feedPost(postType = 2)
                 binding.filterType.setImageResource(R.drawable.ic_filter_partner)
                 binding.filterType.visibility = View.VISIBLE
             }
             TabTextType.ADOPTION_TYPE.type -> {
-                viewModel.feedPost("", 3)
+                viewModel.feedPost(postType = 3)
                 binding.filterType.setImageResource(R.drawable.ic_filter_adoption)
                 binding.filterType.visibility = View.VISIBLE
-            } else -> {
+            }
+            else -> {
                 viewModel.feedPost()
                 binding.filterType.visibility = View.GONE
             }
