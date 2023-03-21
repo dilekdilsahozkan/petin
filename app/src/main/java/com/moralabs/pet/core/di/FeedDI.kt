@@ -1,5 +1,6 @@
 package com.moralabs.pet.core.di
 
+import com.moralabs.pet.core.data.local.dao.PostDao
 import com.moralabs.pet.core.data.remote.api.FeedService
 import com.moralabs.pet.core.data.repository.PostRepository
 import com.moralabs.pet.core.data.repository.impl.PostRepositoryImpl
@@ -27,8 +28,8 @@ class FeedDI {
 
     @Provides
     @Singleton
-    fun provideMainPageUseCase(postRepository: PostRepository): MainPageUseCase =
-        MainPageUseCase(postRepository)
+    fun provideMainPageUseCase(postRepository: PostRepository, postDao: PostDao): MainPageUseCase =
+        MainPageUseCase(postRepository, postDao)
 
     @Provides
     @Singleton
