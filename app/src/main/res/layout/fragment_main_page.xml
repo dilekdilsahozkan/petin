@@ -8,65 +8,74 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/scale_16dp"
-            android:src="@drawable/ic_petin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <LinearLayout
-            android:id="@+id/searchLinear"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_margin="@dimen/scale_16dp"
-            android:weightSum="6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_inputLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:hintEnabled="false"
-                app:startIconDrawable="@drawable/ic_search">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/search_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_gray"
-                    android:fontFamily="@font/poppins_regular"
-                    android:maxLength="25"
-                    android:hint="@string/search"
-                    android:includeFontPadding="false"
-                    android:inputType="textLongMessage"
-                    android:padding="10dp"
-                    android:textSize="@dimen/scale_15dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/filter_icon"
-                android:layout_width="44dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="9dp"
-                android:layout_weight="1"
-                android:visibility="gone"
-                android:background="@drawable/background_filter"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_filter" />
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/scale_16dp"
+                android:src="@drawable/ic_petin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/searchLinear"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_margin="@dimen/scale_16dp"
+                android:weightSum="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_inputLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_weight="6"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="false"
+                    app:startIconDrawable="@drawable/ic_search">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_gray"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLength="25"
+                        android:hint="@string/search"
+                        android:includeFontPadding="false"
+                        android:inputType="textLongMessage"
+                        android:padding="10dp"
+                        android:textSize="@dimen/scale_15dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/filter_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_filter" />
+
+                    <ImageView
+                        android:id="@+id/filter_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
@@ -91,6 +100,6 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

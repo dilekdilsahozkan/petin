@@ -2,6 +2,7 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -24,6 +25,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
@@ -35,14 +37,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
-    PostSettingBottomSheetListener, PostReportBottomSheetListener {
+    PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
-
-    companion object {
-        var instance: MainPageFragment? = null
-    }
-
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
 
@@ -162,23 +159,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
-        postAdapter.notifyDataSetChanged()
-
-        binding.refreshLayout.isRefreshing = false
-    }
-
-    override fun stateError(data: String?) {
-        super.stateError(data)
-
-        binding.refreshLayout.isRefreshing = false
-
-        if (postAdapter.currentList.size > 0 &&
-            postAdapter.currentList[postAdapter.currentList.size - 1].user == null
-        ) {
-            var list = postAdapter.currentList.toMutableList()
-            list.removeLast()
-            postAdapter.submitList(list)
-        }
+        binding.recyclerview.smoothScrollToPosition(0)
     }
 
     override fun addListeners() {
@@ -300,5 +281,42 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
 
     fun scrollToTop() {
         binding.recyclerview.smoothScrollToPosition(0)
+    }
+
+    override fun onFilterClick(postType: Int) {
+        when (postType) {
+            0 -> TabTextType.POST_TYPE.type
+            1 -> TabTextType.QAN_TYPE.type
+            2 -> TabTextType.FIND_PARTNER_TYPE.type
+            3 -> TabTextType.ADOPTION_TYPE.type
+            4 -> TabTextType.ALL_POST.type
+            else -> 4
+        }
+
+        when (postType) {
+            TabTextType.POST_TYPE.type -> {
+                viewModel.feedPost("", 0)
+                binding.filterType.setImageResource(R.drawable.ic_filter_post)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.QAN_TYPE.type -> {
+                viewModel.feedPost("", 1)
+                binding.filterType.setImageResource(R.drawable.ic_filter_qna)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.FIND_PARTNER_TYPE.type -> {
+                viewModel.feedPost("", 2)
+                binding.filterType.setImageResource(R.drawable.ic_filter_partner)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.ADOPTION_TYPE.type -> {
+                viewModel.feedPost("", 3)
+                binding.filterType.setImageResource(R.drawable.ic_filter_adoption)
+                binding.filterType.visibility = View.VISIBLE
+            } else -> {
+                viewModel.feedPost()
+                binding.filterType.visibility = View.GONE
+            }
+        }
     }
 }
