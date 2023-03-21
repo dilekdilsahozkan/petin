@@ -19,7 +19,8 @@
     <string name="checkAgreement">Kullanıcı sözleşmesini kabul etmeniz gerekmektedir..</string>
     <string name="dontHaveAccount">Hala kayıt olmadınız mı? Kayıt ol.</string>
     <string name="or">ya da</string>
-    <string name="email">Email</string>
+    <string name="email">E-posta</string>
+    <string name="your_email">E-posta adresiniz</string>
     <string name="password">Parola</string>
     <string name="username">Kullanıcı Adı</string>
     <string name="phoneNumber">Telefon Numarası</string>
@@ -41,7 +42,7 @@
     <string name="delete">Kaldır</string>
     <string name="deleteOffer">Teklifimi Kaldır</string>
     <string name="accept">Kabul Et</string>
-    <string name="wrongLogin">Yanlış email ya da parola</string>
+    <string name="wrongLogin">Yanlış e-posta ya da parola</string>
     <string name="chooseType">Gönderi tipinizi seçiniz</string>
     <string name="filters">Filtreleme</string>
     <string name="all_posts">Tüm Paylaşımlar</string>
@@ -164,6 +165,7 @@
     <string name="logoutSure">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="deleteOfferSure">Teklifinizi silmek istediğinize emin misiniz?</string>
     <string name="ask_sure">Emin misiniz?</string>
+    <string name="delete_user_warning">Hesabınız kalıcı olarak silenecektir emin misin?</string>
     <string name="delete_pet_warning">Evcil hayvanınızı silmek istediğinize emin misin?</string>
     <string name="delete_post_warning">Gönderinizi silmek istediğinize emin misin?</string>
     <string name="submit_report_warning">Gönderiyi şikayet etmek istediğinize emin misin?</string>
