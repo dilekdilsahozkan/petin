@@ -52,7 +52,7 @@ class MainPageViewModel @Inject constructor(
         job?.cancel()
 
         job = viewModelScope.launch {
-            useCase.getFeed(searchQuery, lastDateTime, postType)
+            useCase.getFeed(searchQuery, lastDateTime, if(postType == 4) null else postType)
                 .onStart {
                     if (searchQuery == null) _state.value = ViewState.Loading()
                     if (postType == null) _state.value = ViewState.Loading()
