@@ -24,6 +24,10 @@ import javax.inject.Inject
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
+    companion object {
+        var BUNDLE_FILTER_TYPE = "type"
+    }
+
     @Inject
     lateinit var notificationHandler: NotificationHandler
 

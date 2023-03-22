@@ -16,7 +16,8 @@ interface FeedService {
         @Query("postType") postType: Int? = null,
         @Query("index") index: Int? = null,
         @Query("size") size: Int? = null,
-        @Query("dateTime") dateTime: Long? = null
+        @Query("dateTime") dateTime: Long? = null,
+        @Query("postType") postType: Int? = null
     ): Response<BaseResponse<List<PostDto>>>
 
     // POST new feeds
