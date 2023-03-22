@@ -275,11 +275,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     private fun feedPost(forceReload: Boolean = false) {
         viewModel.postType.observe(this){ postType ->
             if(postType == -1){
-                viewModel.feedPost()
-            }
-            else if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
+                viewModel.feedPost(forceReload)
+            } else if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
                 viewModel.feedPost(forceReload, postType = postType)
-            } else {
+            }
+            else {
                 viewModel.feedPost(forceReload, binding.searchEdittext.text.toString(), postType)
             }
         }
