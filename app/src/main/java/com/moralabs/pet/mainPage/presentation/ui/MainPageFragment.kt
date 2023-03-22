@@ -26,6 +26,7 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
+import com.moralabs.pet.notification.presentation.ui.NotificationActivity
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
@@ -40,6 +41,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
+    var postType = 0
 
     companion object {
         var instance: MainPageFragment? = null
@@ -267,10 +269,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     }
 
     private fun feedPost(forceReload: Boolean = false) {
-        if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
-            viewModel.feedPost(forceReload)
-        } else {
-            viewModel.feedPost(forceReload, binding.searchEdittext.text.toString())
+        viewModel.postType.observe(this){ postType ->
+            if(postType == -1){
+                viewModel.feedPost()
+            }
+            else if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
+                viewModel.feedPost(forceReload, postType = postType)
+            } else {
+                viewModel.feedPost(forceReload, binding.searchEdittext.text.toString(), postType)
+            }
         }
     }
 
@@ -322,6 +329,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             4 -> TabTextType.ALL_POST.type
             else -> 4
         }
+
+        viewModel.postType.value = postType
 
         when (postType) {
             TabTextType.POST_TYPE.type -> {
