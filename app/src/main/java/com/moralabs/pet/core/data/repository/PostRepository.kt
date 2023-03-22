@@ -8,11 +8,11 @@ import retrofit2.Response
 
 interface PostRepository {
     suspend fun getFeed(
-        searchQuery: String? = null,
+        searchQuery: String? = null, 
+        postType: Int? = null,
         index: Int? = null,
         size: Int? = null,
-        dateTime: Long? = null, 
-        postType: Int? = null
+        dateTime: Long? = null
     ): Response<BaseResponse<List<PostDto>>>
 
     suspend fun postFeed(newPost: NewPostDto): Response<BaseResponse<List<PostDto>>>

@@ -28,7 +28,6 @@ class MainPageViewModel @Inject constructor(
 
     private var _reportState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val reportState: StateFlow<ViewState<Boolean>> = _reportState
-
     private val posts = mutableListOf<PostDto>()
 
     private var lastDateTime: Long? = null
@@ -52,7 +51,7 @@ class MainPageViewModel @Inject constructor(
         job?.cancel()
 
         job = viewModelScope.launch {
-            useCase.getFeed(searchQuery, lastDateTime, if(postType == 4) null else postType)
+            useCase.getFeed(searchQuery, if(postType == 4) null else postType, lastDateTime)
                 .onStart {
                     if (searchQuery == null) _state.value = ViewState.Loading()
                     if (postType == null) _state.value = ViewState.Loading()

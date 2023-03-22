@@ -13,10 +13,10 @@ interface FeedService {
     @GET("/feed")
     suspend fun getFeed(
         @Query("searchQuery") searchQuery: String? = null,
+        @Query("postType") postType: Int? = null,
         @Query("index") index: Int? = null,
         @Query("size") size: Int? = null,
-        @Query("dateTime") dateTime: Long? = null,
-        @Query("postType") postType: Int? = null
+        @Query("dateTime") dateTime: Long? = null
     ): Response<BaseResponse<List<PostDto>>>
 
     // POST new feeds

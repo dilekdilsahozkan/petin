@@ -2,16 +2,13 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
@@ -26,7 +23,6 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
 import com.moralabs.pet.newPost.presentation.ui.TabTextType
-import com.moralabs.pet.notification.presentation.ui.NotificationActivity
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
@@ -160,6 +156,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             paddingPixel = it * paddingDp
         }
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
 
         binding.filterIcon.setOnClickListener {
             loginIfNeeded {
