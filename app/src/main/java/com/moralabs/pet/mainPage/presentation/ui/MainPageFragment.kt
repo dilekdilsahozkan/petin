@@ -196,7 +196,6 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             postAdapter.submitList(list)
         }
         binding.recyclerview.smoothScrollToPosition(0)
-        binding.recyclerview.smoothScrollToPosition(0)
     }
 
     override fun addListeners() {

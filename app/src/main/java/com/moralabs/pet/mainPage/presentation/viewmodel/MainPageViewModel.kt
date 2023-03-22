@@ -55,7 +55,6 @@ class MainPageViewModel @Inject constructor(
                 .onStart {
                     if (searchQuery == null) _state.value = ViewState.Loading()
                     if (postType == null) _state.value = ViewState.Loading()
-                    if (postType == null) _state.value = ViewState.Loading()
                 }
                 .catch { exception ->
                     appendingState = false
