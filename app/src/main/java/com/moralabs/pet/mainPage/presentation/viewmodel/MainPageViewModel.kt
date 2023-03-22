@@ -1,6 +1,7 @@
 package com.moralabs.pet.mainPage.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.domain.BaseResult
@@ -20,6 +21,7 @@ class MainPageViewModel @Inject constructor(
 ) : BaseViewModel<List<PostDto>>(useCase) {
 
     private var job: Job? = null
+    var postType = MutableLiveData<Int>(-1)
 
     private var _deleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val deleteState: StateFlow<ViewState<Boolean>> = _deleteState

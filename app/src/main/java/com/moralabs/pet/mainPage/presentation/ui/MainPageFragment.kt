@@ -2,16 +2,13 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
@@ -40,6 +37,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
+    var postType = 0
 
     companion object {
         var instance: MainPageFragment? = null
@@ -166,6 +164,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 ).show(childFragmentManager, "")
             }
         }
+
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {
@@ -267,10 +273,15 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
     }
 
     private fun feedPost(forceReload: Boolean = false) {
-        if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
-            viewModel.feedPost(forceReload)
-        } else {
-            viewModel.feedPost(forceReload, binding.searchEdittext.text.toString())
+        viewModel.postType.observe(this){ postType ->
+            if(postType == -1){
+                viewModel.feedPost()
+            }
+            else if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
+                viewModel.feedPost(forceReload, postType = postType)
+            } else {
+                viewModel.feedPost(forceReload, binding.searchEdittext.text.toString(), postType)
+            }
         }
     }
 
@@ -322,6 +333,8 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             4 -> TabTextType.ALL_POST.type
             else -> 4
         }
+
+        viewModel.postType.value = postType
 
         when (postType) {
             TabTextType.POST_TYPE.type -> {
