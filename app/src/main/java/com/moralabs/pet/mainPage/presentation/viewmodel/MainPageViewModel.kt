@@ -34,7 +34,6 @@ class MainPageViewModel @Inject constructor(
     private var appendingState = false
 
     fun feedPost(forceReload: Boolean = true, searchQuery: String? = null, postType: Int? = null) {
-    fun feedPost(forceReload: Boolean = true, searchQuery: String? = null, postType: Int? = null) {
 
         if (appendingState && !forceReload && searchQuery == null) {
             return
