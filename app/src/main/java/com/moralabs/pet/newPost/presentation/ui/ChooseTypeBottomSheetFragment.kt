@@ -64,5 +64,6 @@ internal enum class TabTextType(val type: Int) {
     POST_TYPE(0),
     QAN_TYPE(1),
     FIND_PARTNER_TYPE(2),
-    ADOPTION_TYPE(3)
+    ADOPTION_TYPE(3),
+    ALL_POST(4)
 }

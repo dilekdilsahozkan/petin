@@ -3,6 +3,7 @@ package com.moralabs.pet.onboarding.presentation.ui.register
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -45,6 +46,17 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterDto, Regi
         toolbarListener?.showTitleText("")
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val paddingDp = 15
+        val density = context?.resources?.displayMetrics?.density
+        var paddingPixel = 0f
+        density?.let {
+            paddingPixel = it * paddingDp
+        }
+        binding.passwordEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
+    }
     override fun addListeners() {
         super.addListeners()
         setRegisterClickable()

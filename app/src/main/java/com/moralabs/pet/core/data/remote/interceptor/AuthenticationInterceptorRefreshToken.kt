@@ -1,6 +1,5 @@
 package com.moralabs.pet.core.data.remote.interceptor
 
-import android.util.Log
 import com.moralabs.pet.BuildConfig
 import com.moralabs.pet.core.data.remote.api.AuthenticationService
 import com.moralabs.pet.core.data.repository.AuthenticationRepository

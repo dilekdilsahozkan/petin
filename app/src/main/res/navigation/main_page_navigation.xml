@@ -21,7 +21,7 @@
         android:id="@+id/notification"
         android:name="com.moralabs.pet.notification.presentation.ui.NotificationFragment"
         android:label="NewPostFragment"
-        tools:layout="@layout/fragment_new_post_bottom_sheet" />
+        tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/profile"

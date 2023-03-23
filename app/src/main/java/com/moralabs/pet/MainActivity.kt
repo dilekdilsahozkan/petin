@@ -1,12 +1,14 @@
 package com.moralabs.pet
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
-import com.facebook.FacebookSdk
-import com.facebook.appevents.AppEventsLogger
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivityMainBinding
@@ -17,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,23 +42,52 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(ActivityMainBinding.inflate(layoutInflater).root)
 
-        lifecycleScope.launch {
-            delay(500)
-            if (authenticationRepository.isLoggedIn()) {
-                startActivity(Intent(applicationContext, MainPageActivity::class.java))
-                finish()
-            } else {
-                startActivity(Intent(applicationContext, WelcomeActivity::class.java))
-                finish()
-            }
-        }
-
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        CoroutineScope(Dispatchers.Default).launch {
-            notificationUseCase.sendNotificationToken()
-        }
+        restart()
 
     }
 
+    private fun restart() {
+        if (isOnline(this)) {
+            lifecycleScope.launch {
+                delay(500)
+                if (authenticationRepository.isLoggedIn()) {
+                    startActivity(Intent(applicationContext, MainPageActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(applicationContext, WelcomeActivity::class.java))
+                    finish()
+                }
+            }
+
+            CoroutineScope(Dispatchers.Default).launch {
+                notificationUseCase.sendNotificationToken()
+            }
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle(resources.getString(R.string.warning))
+                .setMessage(resources.getString(R.string.no_internet))
+                .setPositiveButton(resources.getString(R.string.reconnect)) { _, _ ->
+                    restart()
+                }.show()
+        }
+    }
+
+    private fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                return true
+            }
+        }
+        return false
+    }
 }

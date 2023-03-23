@@ -24,6 +24,10 @@ import javax.inject.Inject
 class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
     PetToolbarListener, ChooseTypeBottomSheetListener {
 
+    companion object {
+        var BUNDLE_FILTER_TYPE = "type"
+    }
+
     @Inject
     lateinit var notificationHandler: NotificationHandler
 
@@ -67,9 +71,12 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
         }
 
         binding.dashboardNavigation.setOnItemSelectedListener { item ->
-            val result = loginIfNeeded {}
+            val result = if(item.itemId == R.id.home) true else loginIfNeeded {}
 
             if (result) {
+                if (binding.dashboardNavigation.selectedItemId == item.itemId && item.itemId == R.id.home) {
+                    MainPageFragment.instance?.scrollToTop()
+                }
                 NavigationUI.onNavDestinationSelected(item, navController)
             }
             result

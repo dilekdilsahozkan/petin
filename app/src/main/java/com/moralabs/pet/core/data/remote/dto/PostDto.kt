@@ -20,7 +20,6 @@ data class PostDto(
     val isOfferAvailableByUser : Boolean? = null,
     var isPostLikedByUser: Boolean? = null,
     val isPostOwnedByUser: Boolean? = null,
-    val pageIndex: Int? = null,
     var selected: Boolean = false
 ): BaseDto()
 

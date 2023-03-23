@@ -9,18 +9,20 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
-import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
 import com.moralabs.pet.core.presentation.extension.isEmptyOrBlank
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
 import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentMainPageBinding
 import com.moralabs.pet.mainPage.presentation.viewmodel.MainPageViewModel
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.offer.presentation.ui.MakeOfferActivity
 import com.moralabs.pet.offer.presentation.ui.OfferUserActivity
 import com.moralabs.pet.petProfile.presentation.ui.PetProfileActivity
@@ -29,11 +31,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
-    PostSettingBottomSheetListener, PostReportBottomSheetListener {
+    PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
 
     var reportedPostId = ""
+    var postType = 0
+
+    companion object {
+        var instance: MainPageFragment? = null
+    }
 
     override fun getLayoutId() = R.layout.fragment_main_page
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -148,17 +156,46 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             paddingPixel = it * paddingDp
         }
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
-    }
 
-    override fun onResume() {
-        super.onResume()
-        feedPost()
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
+
+        binding.filterIcon.setOnClickListener {
+            loginIfNeeded {
+                FilterBottomSheetFragment(
+                    this
+                ).show(childFragmentManager, "")
+            }
+        }
     }
 
     override fun stateSuccess(data: List<PostDto>) {
         super.stateSuccess(data)
 
         postAdapter.submitList(data)
+        postAdapter.notifyDataSetChanged()
+
+        binding.refreshLayout.isRefreshing = false
+    }
+
+    override fun stateError(data: String?) {
+        super.stateError(data)
+
+        binding.refreshLayout.isRefreshing = false
+
+        if (postAdapter.currentList.size > 0 &&
+            postAdapter.currentList[postAdapter.currentList.size - 1].user == null
+        ) {
+            var list = postAdapter.currentList.toMutableList()
+            list.removeLast()
+            postAdapter.submitList(list)
+        }
+        binding.recyclerview.smoothScrollToPosition(0)
     }
 
     override fun addListeners() {
@@ -167,7 +204,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         var textChangedListenerBlock = true
         binding.searchEdittext.addTextChangedListener {
             if (textChangedListenerBlock.not()) {
-                feedPost()
+                feedPost(true)
             }
             textChangedListenerBlock = false
         }
@@ -179,7 +216,7 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                         startLoading()
                     }
                     is ViewState.Success<Boolean> -> {
-                        feedPost()
+                        feedPost(true)
                     }
                     is ViewState.Error<*> -> {
                         stateError(it.message)
@@ -189,10 +226,32 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         }
+
+        binding.refreshLayout.setOnRefreshListener {
+            feedPost(true)
+        }
+
+        binding.recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (recyclerView.canScrollVertically(1).not() &&
+                    postAdapter.currentList.size > 0 &&
+                    postAdapter.currentList[postAdapter.currentList.size - 1].user != null
+                ) {
+                    var list = postAdapter.currentList.toMutableList()
+                    list.add(PostDto())
+                    postAdapter.submitList(list)
+                    feedPost()
+                }
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        instance = this
 
         setFragmentResultListener(
             "fragment_location"
@@ -201,11 +260,28 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         }
     }
 
-    private fun feedPost() {
-        if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
-            viewModel.feedPost()
-        } else {
-            viewModel.feedPost(binding.searchEdittext.text.toString())
+    override fun onStart() {
+        super.onStart()
+
+        feedPost(true)
+    }
+
+    override fun startLoading() {
+        if (postAdapter.currentList.isEmpty()) {
+            super.startLoading()
+        }
+    }
+
+    private fun feedPost(forceReload: Boolean = false) {
+        viewModel.postType.observe(this){ postType ->
+            if(postType == -1){
+                viewModel.feedPost(forceReload)
+            } else if (binding.searchEdittext.text.toString().isEmptyOrBlank()) {
+                viewModel.feedPost(forceReload, postType = postType)
+            }
+            else {
+                viewModel.feedPost(forceReload, binding.searchEdittext.text.toString(), postType)
+            }
         }
     }
 
@@ -242,5 +318,49 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
                 }
             }
         ).show()
+    }
+
+    fun scrollToTop() {
+        binding.recyclerview.smoothScrollToPosition(0)
+    }
+
+    override fun onFilterClick(postType: Int) {
+        when (postType) {
+            0 -> TabTextType.POST_TYPE.type
+            1 -> TabTextType.QAN_TYPE.type
+            2 -> TabTextType.FIND_PARTNER_TYPE.type
+            3 -> TabTextType.ADOPTION_TYPE.type
+            4 -> TabTextType.ALL_POST.type
+            else -> 4
+        }
+
+        viewModel.postType.value = postType
+
+        when (postType) {
+            TabTextType.POST_TYPE.type -> {
+                viewModel.feedPost(postType = 0)
+                binding.filterType.setImageResource(R.drawable.ic_filter_post)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.QAN_TYPE.type -> {
+                viewModel.feedPost(postType = 1)
+                binding.filterType.setImageResource(R.drawable.ic_filter_qna)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.FIND_PARTNER_TYPE.type -> {
+                viewModel.feedPost(postType = 2)
+                binding.filterType.setImageResource(R.drawable.ic_filter_partner)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            TabTextType.ADOPTION_TYPE.type -> {
+                viewModel.feedPost(postType = 3)
+                binding.filterType.setImageResource(R.drawable.ic_filter_adoption)
+                binding.filterType.visibility = View.VISIBLE
+            }
+            else -> {
+                viewModel.feedPost()
+                binding.filterType.visibility = View.GONE
+            }
+        }
     }
 }
