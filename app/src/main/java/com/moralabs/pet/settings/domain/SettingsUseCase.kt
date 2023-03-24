@@ -12,6 +12,7 @@ import com.moralabs.pet.profile.data.repository.ProfileRepository
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
 import com.moralabs.pet.settings.data.remote.dto.EditUserDto
+import com.moralabs.pet.settings.data.remote.dto.SettingsRequestDto
 import com.moralabs.pet.settings.data.repository.SettingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -199,7 +200,29 @@ class SettingsUseCase @Inject constructor(
         }
     }
 
-    fun logout() {
-        authenticationUseCase.logout()
+    fun logout(logout: SettingsRequestDto): Flow<BaseResult<Boolean>> {
+        return flow {
+
+            val logoutToken = SettingsRequestDto(
+                refreshToken = logout.refreshToken
+            )
+
+            val logout = settingRepository.logout(logoutToken)
+            if (logout.isSuccessful && logout.code() == 200) {
+                emit(
+                    BaseResult.Success(true)
+                )
+            } else {
+                val error = Gson().fromJson(logout.errorBody()?.string(), BaseResponse::class.java)
+                emit(
+                    BaseResult.Error(
+                        ErrorResult(
+                            code = ErrorCode.SERVER_ERROR,
+                            error.userMessage
+                        )
+                    )
+                )
+            }
+        }
     }
 }

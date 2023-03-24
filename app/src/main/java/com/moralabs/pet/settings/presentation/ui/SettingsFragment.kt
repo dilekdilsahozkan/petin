@@ -3,8 +3,12 @@ package com.moralabs.pet.settings.presentation.ui
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.facebook.login.LoginManager
+import com.google.gson.Gson
 import com.moralabs.pet.R
+import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
@@ -13,11 +17,16 @@ import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
 import com.moralabs.pet.databinding.FragmentSettingsBinding
 import com.moralabs.pet.onboarding.presentation.ui.welcome.WelcomeActivity
 import com.moralabs.pet.profile.data.remote.dto.UserDto
+import com.moralabs.pet.settings.data.remote.dto.SettingsRequestDto
 import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, SettingsViewModel>() {
+
+    companion object {
+        private const val USER_KEY = "user"
+    }
 
     override fun getLayoutId() = R.layout.fragment_settings
     override fun fetchStrategy() = UseCaseFetchStrategy.NO_FETCH
@@ -27,8 +36,25 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
         return viewModel
     }
 
+    private val preferences by lazy {
+        context?.let {
+            val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+
+            EncryptedSharedPreferences.create(
+                "encrypted_preferences",
+                masterKeyAlias,
+                it,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+        }
+    }
+
     override fun addListeners() {
         super.addListeners()
+
+        val refreshToken = preferences?.getString(USER_KEY, "")
+        val json = Gson().fromJson(refreshToken, AuthenticationDto::class.java)
 
         binding.tvLogOut.setOnClickListener {
             PetWarningDialog(
@@ -43,7 +69,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
                     if (PetWarningDialogResult.OK == it) {
                         //TODO:bunu kontrol et....
                         LoginManager.getInstance().logOut()
-                        viewModel.logout()
+                        viewModel.logout(SettingsRequestDto( json.refreshKey ?: "" ))
                         val intent = Intent(context, WelcomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)

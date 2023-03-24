@@ -31,7 +31,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
     PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
@@ -158,19 +157,9 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
 
         binding.filterIcon.setOnClickListener {
-            loginIfNeeded {
-                FilterBottomSheetFragment(
-                    this
-                ).show(childFragmentManager, "")
-            }
-        }
-
-        binding.filterIcon.setOnClickListener {
-            loginIfNeeded {
-                FilterBottomSheetFragment(
-                    this
-                ).show(childFragmentManager, "")
-            }
+            FilterBottomSheetFragment(
+                this
+            ).show(childFragmentManager, "")
         }
     }
 

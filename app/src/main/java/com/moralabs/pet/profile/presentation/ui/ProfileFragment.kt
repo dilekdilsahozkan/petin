@@ -61,9 +61,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         getUserInfo()
     }
 
-
     override fun addListeners() {
         super.addListeners()
+
         binding.imgMenu.setOnClickListener {
             if (otherUserId.isNullOrBlank()) {
                 startActivity(Intent(context, SettingsActivity::class.java))
