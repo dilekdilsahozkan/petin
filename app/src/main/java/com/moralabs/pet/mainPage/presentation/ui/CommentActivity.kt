@@ -13,6 +13,9 @@ class CommentActivity : BaseActivity<ActivityCommentBinding>(),
 
     companion object {
         const val POST_ID = "postId"
+        const val BUNDLE_USER_IMAGE = "userImage"
+        const val BUNDLE_USER_NAME = "userName"
+        const val BUNDLE_POST_TYPE = "postType"
     }
 
     override fun getLayoutId() = R.layout.activity_comment

@@ -31,7 +31,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, MainPageViewModel>(),
     PostSettingBottomSheetListener, PostReportBottomSheetListener, FilterBottomSheetListener {
@@ -91,7 +90,10 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
             onCommentClick = {
                 loginIfNeeded {
                     val bundle = bundleOf(
-                        CommentActivity.POST_ID to it.id
+                        CommentActivity.POST_ID to it.id,
+                        CommentActivity.BUNDLE_USER_IMAGE to it.user?.media?.url,
+                        CommentActivity.BUNDLE_USER_NAME to it.user?.userName,
+                        CommentActivity.BUNDLE_POST_TYPE to it.content?.type
                     )
                     val intent = Intent(context, CommentActivity::class.java)
                     intent.putExtras(bundle)
