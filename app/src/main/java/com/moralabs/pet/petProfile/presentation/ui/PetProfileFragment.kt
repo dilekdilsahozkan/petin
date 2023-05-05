@@ -15,10 +15,7 @@ import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.adapter.BaseListAdapter
 import com.moralabs.pet.core.presentation.adapter.loadImage
-import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.ui.PetWarningDialog
-import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
-import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.ui.*
 import com.moralabs.pet.databinding.FragmentPetProfileBinding
 import com.moralabs.pet.databinding.ItemPetFeatureBinding
 import com.moralabs.pet.petProfile.data.remote.dto.PetAttributeDto
@@ -37,7 +34,6 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(PetProfileActivity.OTHER_USER_ID)
     }
-
 
     private var resultLauncherEditPet = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -141,6 +137,14 @@ class PetProfileFragment : BaseFragment<FragmentPetProfileBinding, PetDto, PetPr
 
         binding.petName.text = data.name.toString()
         binding.petImage.loadImage(data.media?.url)
+        binding.petImage.setOnClickListener {
+            data.media?.url?.let { it1 ->
+                ImageViewerView(
+                    requireContext(),
+                    it1
+                ).show()
+            }
+        }
 
         data.petAttributes?.forEach {
             when (it.attributeType) {
