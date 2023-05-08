@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.CommentDto
+import com.moralabs.pet.core.presentation.adapter.loadImage
+import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.extension.hideKeyboard
 import com.moralabs.pet.core.presentation.extension.isNotEmptyOrBlank
@@ -21,6 +23,7 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentCommentBinding
 import com.moralabs.pet.mainPage.presentation.adapter.CommentAdapter
 import com.moralabs.pet.mainPage.presentation.viewmodel.CommentViewModel
+import com.moralabs.pet.newPost.presentation.ui.TabTextType
 import com.moralabs.pet.profile.presentation.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -32,6 +35,15 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CommentDto, Comment
 
     private val postId: String? by lazy {
         activity?.intent?.getStringExtra(CommentActivity.POST_ID)
+    }
+    private val userImage: String? by lazy {
+        activity?.intent?.getStringExtra(CommentActivity.BUNDLE_USER_IMAGE)
+    }
+    private val userName: String? by lazy {
+        activity?.intent?.getStringExtra(CommentActivity.BUNDLE_USER_NAME)
+    }
+    private val postType: Int? by lazy {
+        activity?.intent?.getIntExtra(CommentActivity.BUNDLE_POST_TYPE, 0)
     }
 
     override fun getLayoutId() = R.layout.fragment_comment
@@ -122,11 +134,30 @@ class CommentFragment : BaseFragment<FragmentCommentBinding, CommentDto, Comment
         binding.recyclerView.adapter = commentAdapter
 
         viewModel.getComment(postId)
+
+        when (postType) {
+            TabTextType.POST_TYPE.type -> {
+                binding.postIcon.setImageResource(R.drawable.ic_post)
+                binding.postTypeText.text = context?.getString(R.string.post)
+            }
+            TabTextType.QAN_TYPE.type -> {
+                binding.postIcon.setImageResource(R.drawable.ic_qna)
+                binding.postTypeText.text = context?.getString(R.string.qna)
+            }
+        }
     }
 
     override fun stateSuccess(data: CommentDto) {
         super.stateSuccess(data)
         commentAdapter.submitList(data.comments)
+        if(!data.content?.media.isNullOrEmpty()) {
+            binding.postImage.loadImage(data.content?.media?.get(0)?.url)
+        } else {
+            binding.postImage.visibility = View.GONE
+        }
+        binding.postText.text = data.content?.text.toString()
+        binding.userPhoto.loadImageWithPlaceholder(userImage)
+        binding.username.text = userName
     }
 
     override fun onItemClick(postId: String?) {
