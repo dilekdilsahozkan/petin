@@ -74,23 +74,26 @@
             android:layout_marginHorizontal="@dimen/scale_16dp"
             android:focusable="false"
             app:boxStrokeWidth="0dp"
+            android:padding="0dp"
             app:boxStrokeWidthFocused="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name">
 
             <AutoCompleteTextView
                 android:id="@+id/cities"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/scale_50dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/background_edit"
                 android:cursorVisible="false"
                 android:focusable="false"
+                android:padding="10dp"
                 android:focusableInTouchMode="false"
+                android:includeFontPadding="false"
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="textAutoComplete"
-                android:padding="@dimen/scale_10dp"
                 android:textColor="@color/secondaryColor"
-                android:textSize="@dimen/scale_15dp" />
+                android:textSize="@dimen/scale_15dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

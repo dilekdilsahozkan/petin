@@ -87,6 +87,22 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         })
     }
 
+    fun hidePet(){
+        binding.keyboardToolbar.visibility = View.VISIBLE
+        binding.line.visibility = View.VISIBLE
+        binding.petCardList.visibility = View.GONE
+        binding.selectPetText.visibility = View.GONE
+        binding.cardPostImage.visibility = View.VISIBLE
+    }
+
+    fun hideBottom(){
+        binding.keyboardToolbar.visibility = View.GONE
+        binding.line.visibility = View.GONE
+        binding.petCardList.visibility = View.VISIBLE
+        binding.selectPetText.visibility = View.VISIBLE
+        binding.cardPostImage.visibility = View.GONE
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -94,33 +110,19 @@ class NewPostFragment : BaseFragment<FragmentNewPostBinding, CreatePostDto, NewP
         viewModel.userInfo()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-        if (postType == TabTextType.POST_TYPE.type) {
-            binding.keyboardToolbar.visibility = View.VISIBLE
-            binding.line.visibility = View.VISIBLE
-            binding.petCardList.visibility = View.GONE
-            binding.selectPetText.visibility = View.GONE
-            binding.cardPostImage.visibility = View.VISIBLE
-        }
-        if (postType == TabTextType.QAN_TYPE.type) {
-            binding.keyboardToolbar.visibility = View.VISIBLE
-            binding.line.visibility = View.VISIBLE
-            binding.petCardList.visibility = View.GONE
-            binding.selectPetText.visibility = View.GONE
-            binding.cardPostImage.visibility = View.VISIBLE
-        }
-        if (postType == TabTextType.FIND_PARTNER_TYPE.type) {
-            binding.keyboardToolbar.visibility = View.GONE
-            binding.line.visibility = View.GONE
-            binding.petCardList.visibility = View.VISIBLE
-            binding.selectPetText.visibility = View.VISIBLE
-            binding.cardPostImage.visibility = View.GONE
-        }
-        if (postType == TabTextType.ADOPTION_TYPE.type) {
-            binding.keyboardToolbar.visibility = View.GONE
-            binding.line.visibility = View.GONE
-            binding.petCardList.visibility = View.VISIBLE
-            binding.selectPetText.visibility = View.VISIBLE
-            binding.cardPostImage.visibility = View.GONE
+        when (postType) {
+            TabTextType.POST_TYPE.type -> {
+                hidePet()
+            }
+            TabTextType.QAN_TYPE.type -> {
+                hidePet()
+            }
+            TabTextType.FIND_PARTNER_TYPE.type -> {
+                hideBottom()
+            }
+            else -> {
+                hideBottom()
+            }
         }
     }
 

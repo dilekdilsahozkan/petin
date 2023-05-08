@@ -160,19 +160,9 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding, List<PostDto>, Ma
         binding.searchEdittext.setPadding(paddingPixel.toInt(), 0, 0, 0)
 
         binding.filterIcon.setOnClickListener {
-            loginIfNeeded {
-                FilterBottomSheetFragment(
-                    this
-                ).show(childFragmentManager, "")
-            }
-        }
-
-        binding.filterIcon.setOnClickListener {
-            loginIfNeeded {
-                FilterBottomSheetFragment(
-                    this
-                ).show(childFragmentManager, "")
-            }
+            FilterBottomSheetFragment(
+                this
+            ).show(childFragmentManager, "")
         }
     }
 
