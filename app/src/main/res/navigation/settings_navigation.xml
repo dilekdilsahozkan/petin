@@ -44,8 +44,8 @@
         tools:layout="@layout/fragment_account">
 
         <action
-            android:id="@+id/action_accountFragment_to_personalInformationsFragment"
-            app:destination="@id/personalInformationsFragment"
+            android:id="@+id/action_accountFragment_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment"
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
 
@@ -70,7 +70,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/personalInformationsFragment"
+        android:id="@+id/personalInformationFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.account.PersonalInformationFragment"
         android:label="fragment_personal_informations"
         tools:layout="@layout/fragment_personal_information">
@@ -178,5 +178,19 @@
         android:id="@+id/offerDetailFragment"
         android:name="com.moralabs.pet.settings.presentation.ui.offers.OfferDetailFragment"
         android:label="OfferDetailFragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.moralabs.pet.profile.presentation.ui.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_fragment_profile_to_personalInfoFragment"
+            app:destination="@id/personalInformationFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
+    </fragment>
 
 </navigation>

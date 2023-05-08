@@ -35,6 +35,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
+    private val visibility: Boolean? by lazy {
+        activity?.intent?.getBooleanExtra(ProfileActivity.OTHER_USER_ID, true)
+    }
     private var userInfo: UserDto? = null
 
     override fun getLayoutId() = R.layout.fragment_profile
@@ -92,6 +95,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
             if (otherUserId.isNullOrBlank()) {
                 binding.viewpager.adapter = null
                 findNavController().navigate(R.id.action_fragment_profile_to_followersFragment)
+            }
+        }
+
+        binding.editUserProfile.setOnClickListener {
+            if (otherUserId.isNullOrBlank()) {
+                binding.viewpager.adapter = null
+                findNavController().navigate(R.id.action_fragment_profile_to_personalInfoFragment)
             }
         }
 
@@ -234,9 +244,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
     private fun getUserInfo() {
         if (otherUserId.isNullOrBlank().not()) {
             viewModel.otherUsersInfo(otherUserId)
+            binding.editUserProfile.visibility = View.GONE
         } else {
             viewModel.userInfo()
             binding.imgBack.visibility = View.GONE
+            binding.editUserProfile.visibility = View.VISIBLE
         }
     }
 

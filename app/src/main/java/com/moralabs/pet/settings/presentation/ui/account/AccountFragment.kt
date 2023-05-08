@@ -29,7 +29,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, UserDto, SettingsVi
     override fun addListeners() {
         super.addListeners()
         binding.personalInfo.setOnClickListener {
-            findNavController().navigate(R.id.action_accountFragment_to_personalInformationsFragment)
+            findNavController().navigate(R.id.action_accountFragment_to_personalInformationFragment)
         }
         binding.favorites.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_favoritesFragment)
