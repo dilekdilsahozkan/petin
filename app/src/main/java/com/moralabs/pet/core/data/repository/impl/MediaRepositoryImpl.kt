@@ -1,7 +1,6 @@
 package com.moralabs.pet.core.data.repository.impl
 
 import com.moralabs.pet.core.data.remote.api.MediaService
-import com.moralabs.pet.core.data.remote.dto.BaseResponse
 import com.moralabs.pet.core.data.repository.BaseRepository
 import com.moralabs.pet.core.data.repository.MediaRepository
 import com.moralabs.pet.newPost.data.remote.dto.MediaDto
