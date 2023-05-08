@@ -6,7 +6,6 @@ import com.moralabs.pet.core.domain.BaseResult
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.profile.data.remote.dto.UserDto
-import com.moralabs.pet.profile.data.remote.dto.UserInfoDto
 import com.moralabs.pet.profile.domain.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

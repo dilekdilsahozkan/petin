@@ -12,6 +12,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(),
 
     companion object {
         const val OTHER_USER_ID = "otherUserId"
+        const val BUNDLE_VISIBILITY = "otherUserId"
+
     }
 
     override fun getLayoutId() = R.layout.activity_profile
