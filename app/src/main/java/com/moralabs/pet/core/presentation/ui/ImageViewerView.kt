@@ -4,13 +4,16 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.LinearLayout
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
 import com.moralabs.pet.databinding.UiImageViewerViewBinding
+
 
 class ImageViewerView(
     context: Context,
     imageUrl: String,
-) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar), Animator.AnimatorListener
+) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen), Animator.AnimatorListener
 {
     private var binding = UiImageViewerViewBinding.inflate(layoutInflater)
     private val ANIMATION_DURATION = 100L
@@ -28,6 +31,11 @@ class ImageViewerView(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding.imageView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
     }
 
     override fun dismiss() {

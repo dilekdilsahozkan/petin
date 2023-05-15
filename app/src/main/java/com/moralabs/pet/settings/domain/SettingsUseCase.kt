@@ -27,8 +27,9 @@ class SettingsUseCase @Inject constructor(
 ) : BaseUseCase() {
 
     fun userInfo(): Flow<BaseResult<UserDto>> {
+        authenticationUseCase.logout()
         return flow {
-            var user = profileRepository.userInfo()
+            val user = profileRepository.userInfo()
             if(user.isSuccessful && user.code() == 200){
                 user.body()?.data?.let {
                     emit(

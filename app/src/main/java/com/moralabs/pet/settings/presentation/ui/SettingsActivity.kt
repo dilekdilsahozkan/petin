@@ -7,6 +7,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
 import com.moralabs.pet.core.presentation.ui.BaseActivity
 import com.moralabs.pet.databinding.ActivitySettingsBinding
+import com.moralabs.pet.profile.presentation.ui.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +30,14 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>(),
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_settings) as NavHostFragment
         navController = navHostFragment.navController
+        val graph = navController.navInflater.inflate(R.navigation.settings_navigation)
+
+        if(intent.extras?.getBoolean(ProfileFragment.NAVIGATE_TO_PROFILE_INFORMATION, false) == true){
+            graph.setStartDestination(R.id.personalInformationFragment)
+        } else{
+            graph.setStartDestination(R.id.settingsFragment)
+        }
+        navController.setGraph(graph, null)
 
         setSupportActionBar(binding.appBar)
     }
