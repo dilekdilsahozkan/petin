@@ -27,7 +27,6 @@ class SettingsUseCase @Inject constructor(
 ) : BaseUseCase() {
 
     fun userInfo(): Flow<BaseResult<UserDto>> {
-        authenticationUseCase.logout()
         return flow {
             val user = profileRepository.userInfo()
             if(user.isSuccessful && user.code() == 200){
@@ -203,7 +202,6 @@ class SettingsUseCase @Inject constructor(
 
     fun logout(logout: SettingsRequestDto): Flow<BaseResult<Boolean>> {
         return flow {
-
             val logoutToken = SettingsRequestDto(
                 refreshToken = logout.refreshToken
             )

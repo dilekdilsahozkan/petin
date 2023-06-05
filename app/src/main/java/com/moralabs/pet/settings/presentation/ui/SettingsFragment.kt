@@ -12,6 +12,7 @@ import com.facebook.login.LoginManager
 import com.google.gson.Gson
 import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.AuthenticationDto
+import com.moralabs.pet.core.domain.AuthenticationUseCase
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.ui.BaseFragment
 import com.moralabs.pet.core.presentation.ui.PetWarningDialog
@@ -26,6 +27,7 @@ import com.moralabs.pet.settings.presentation.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, SettingsViewModel>() {
@@ -41,6 +43,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
         val viewModel: SettingsViewModel by viewModels()
         return viewModel
     }
+
+    @Inject
+    override lateinit var authenticationUseCase: AuthenticationUseCase
 
     private val preferences by lazy {
         context?.let {
@@ -72,6 +77,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
                         val intent = Intent(context, WelcomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
+                        authenticationUseCase.logout()
                     }
                     is ViewState.Error<*> -> {
                         stateError(it.message)
