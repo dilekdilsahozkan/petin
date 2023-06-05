@@ -41,6 +41,12 @@
             app:enterAnim="@anim/slide_in"
             app:popEnterAnim="@anim/slide_out" />
 
+        <action
+            android:id="@+id/action_fragment_profile_to_personalInfoFragment"
+            app:destination="@id/personalInfo"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/slide_out"/>
+
     </fragment>
 
     <fragment
@@ -54,5 +60,11 @@
         android:name="com.moralabs.pet.profile.presentation.ui.FollowerFragment"
         android:label="FollowerFragment"
         tools:layout="@layout/fragment_follower" />
+
+    <fragment
+        android:id="@+id/personalInfo"
+        android:name="com.moralabs.pet.settings.presentation.ui.account.PersonalInformationFragment"
+        android:label="PersonalInformationFragment"
+        tools:layout="@layout/fragment_personal_information"/>
 
 </navigation>

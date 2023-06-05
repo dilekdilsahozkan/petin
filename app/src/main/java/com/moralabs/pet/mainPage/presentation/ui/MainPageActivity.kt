@@ -2,12 +2,16 @@ package com.moralabs.pet.mainPage.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.observable.NotificationHandler
 import com.moralabs.pet.core.presentation.toolbar.PetToolbarListener
@@ -42,6 +46,15 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
             supportFragmentManager.findFragmentById(R.id.nav_main_page) as NavHostFragment
 
         navController = navHostFragment.navController
+
+        lifecycleScope.launchWhenResumed {
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                when(destination.id){
+                    R.id.personalInformationFragment -> binding.dashboardNavigation.visibility = View.GONE
+
+                }
+            }
+        }
 
         setSupportActionBar(binding.appBar)
         setupActionBarWithNavController(
