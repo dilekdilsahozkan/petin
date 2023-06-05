@@ -1,7 +1,6 @@
 package com.moralabs.pet.core.di
 
 import com.moralabs.pet.BuildConfig
-import com.moralabs.pet.MainActivity
 import com.moralabs.pet.core.data.remote.interceptor.AuthenticationInterceptorRefreshToken
 import com.moralabs.pet.core.data.remote.interceptor.HeaderInterceptor
 import com.moralabs.pet.core.data.repository.AuthenticationRepository
@@ -16,8 +15,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLSession
 
 @Module
 @InstallIn(SingletonComponent::class)

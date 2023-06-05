@@ -12,7 +12,7 @@ interface MediaService {
     suspend fun uploadMedia(
         @Part media: MultipartBody.Part,
         @Part type: MultipartBody.Part,
-        @Header("Content-Type") contentType: String? = "image/png"
+     //   @Header("Content-Type") contentType: String? = "image/png"
     ): Response<BaseResponse<List<MediaDto>>>
 
     @PUT("/media/{mediaId}")
