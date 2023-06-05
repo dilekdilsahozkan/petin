@@ -12,10 +12,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.data.remote.dto.PostDto
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.adapter.PostListAdapter
-import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.ui.PetWarningDialog
-import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
-import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.ui.*
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.databinding.FragmentPostBinding
 import com.moralabs.pet.mainPage.presentation.ui.*
@@ -86,6 +83,14 @@ class PostFragment : BaseFragment<FragmentPostBinding, List<PostDto>, ProfilePos
                         intent.putExtras(bundle)
                         context?.startActivity(intent)
                     }
+                }
+            },
+            onContentImage = {
+                it.content?.media?.get(0)?.url?.let { it1 ->
+                    ImageViewerView(
+                        requireContext(),
+                        it1
+                    ).show()
                 }
             },
             onPostSettingClick = {

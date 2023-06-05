@@ -152,7 +152,7 @@ abstract class BaseFragment<T : ViewDataBinding,
     protected abstract fun fragmentViewModel(): BaseViewModel<U>
     // LOGIN AREA
     @Inject
-    lateinit var authenticationUseCase: AuthenticationUseCase
+    open lateinit var authenticationUseCase: AuthenticationUseCase
 
     private val loginResultLauncher =
         registerForActivityResult(

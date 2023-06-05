@@ -29,6 +29,10 @@ import kotlinx.coroutines.launch
 class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(), BlockUnblockBottomSheetListener,
     ReportUserBottomSheetListener, FollowUnfollowBottomSheetListener, UserReportBottomSheetListener {
 
+    companion object{
+        const val NAVIGATE_TO_PROFILE_INFORMATION = "navigateToProfileInformation"
+    }
+
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
     }
@@ -98,7 +102,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.editUserProfile.setOnClickListener {
             if (otherUserId.isNullOrBlank()) {
                 binding.viewpager.adapter = null
-                findNavController().navigate(R.id.action_fragment_profile_to_personalInfoFragment)
+//                findNavController().navigate(R.id.action_fragment_profile_to_personalInfoFragment)
+                val intent = Intent(requireContext(), SettingsActivity::class.java)
+                intent.putExtra(NAVIGATE_TO_PROFILE_INFORMATION, true)
+                startActivity(intent)
             }
         }
 

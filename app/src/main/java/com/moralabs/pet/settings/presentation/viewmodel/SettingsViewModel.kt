@@ -70,7 +70,7 @@ class SettingsViewModel @Inject constructor(
                 .collect { baseResult ->
                     when (baseResult) {
                         is BaseResult.Success -> {
-                            _logoutState.value = ViewState.Idle()
+                            _logoutState.value = ViewState.Success(baseResult.data)
                         }
                         is BaseResult.Error -> {
                             _logoutState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
