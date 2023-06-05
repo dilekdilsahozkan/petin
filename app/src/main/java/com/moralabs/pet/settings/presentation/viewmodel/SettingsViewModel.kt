@@ -9,6 +9,7 @@ import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.profile.data.remote.dto.UserDto
 import com.moralabs.pet.settings.data.remote.dto.BlockedDto
 import com.moralabs.pet.settings.data.remote.dto.ChangePasswordRequestDto
+import com.moralabs.pet.settings.data.remote.dto.SettingsRequestDto
 import com.moralabs.pet.settings.domain.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -51,10 +52,32 @@ class SettingsViewModel @Inject constructor(
     private var _likeUnlikeDeleteState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
     val likeUnlikeDeleteState: StateFlow<ViewState<Boolean>> = _likeUnlikeDeleteState
 
+    private var _logoutState: MutableStateFlow<ViewState<Boolean>> = MutableStateFlow(ViewState.Idle())
+    val logoutState: StateFlow<ViewState<Boolean>> = _logoutState
+
     var description: String? = ""
 
-    fun logout() {
-        useCase.logout()
+    fun logout(logout: SettingsRequestDto) {
+        viewModelScope.launch {
+            useCase.logout(logout)
+                .onStart {
+                    _logoutState.value = ViewState.Loading()
+                }
+                .catch { exception ->
+                    _logoutState.value = ViewState.Error(message = exception.message)
+                    Log.e("CATCH", "exception : $exception")
+                }
+                .collect { baseResult ->
+                    when (baseResult) {
+                        is BaseResult.Success -> {
+                            _logoutState.value = ViewState.Idle()
+                        }
+                        is BaseResult.Error -> {
+                            _logoutState.value = ViewState.Error(baseResult.error.code, baseResult.error.message)
+                        }
+                    }
+                }
+        }
     }
 
     fun userInfo() {
