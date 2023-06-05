@@ -222,4 +222,7 @@ dependencies {
 
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
+
+    implementation("com.otaliastudios:zoomlayout:1.9.0")
+
 }

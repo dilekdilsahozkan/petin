@@ -14,10 +14,7 @@ import com.moralabs.pet.R
 import com.moralabs.pet.core.presentation.viewmodel.BaseViewModel
 import com.moralabs.pet.core.presentation.viewmodel.ViewState
 import com.moralabs.pet.core.presentation.adapter.loadImageWithPlaceholder
-import com.moralabs.pet.core.presentation.ui.BaseFragment
-import com.moralabs.pet.core.presentation.ui.PetWarningDialog
-import com.moralabs.pet.core.presentation.ui.PetWarningDialogResult
-import com.moralabs.pet.core.presentation.ui.PetWarningDialogType
+import com.moralabs.pet.core.presentation.ui.*
 import com.moralabs.pet.databinding.FragmentProfileBinding
 import com.moralabs.pet.petProfile.presentation.ui.PetFragment
 import com.moralabs.pet.profile.data.remote.dto.UserDto
@@ -31,6 +28,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileViewModel>(), BlockUnblockBottomSheetListener,
     ReportUserBottomSheetListener, FollowUnfollowBottomSheetListener, UserReportBottomSheetListener {
+
+    companion object{
+        const val NAVIGATE_TO_PROFILE_INFORMATION = "navigateToProfileInformation"
+    }
 
     private val otherUserId: String? by lazy {
         activity?.intent?.getStringExtra(ProfileActivity.OTHER_USER_ID)
@@ -101,7 +102,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.editUserProfile.setOnClickListener {
             if (otherUserId.isNullOrBlank()) {
                 binding.viewpager.adapter = null
-                findNavController().navigate(R.id.action_fragment_profile_to_personalInfoFragment)
+//                findNavController().navigate(R.id.action_fragment_profile_to_personalInfoFragment)
+                val intent = Intent(requireContext(), SettingsActivity::class.java)
+                intent.putExtra(NAVIGATE_TO_PROFILE_INFORMATION, true)
+                startActivity(intent)
             }
         }
 
@@ -313,6 +317,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, UserDto, ProfileVie
         binding.followers.text = data.followerCount.toString()
         binding.following.text = data.followedCount.toString()
         binding.userPhoto.loadImageWithPlaceholder(data.media?.url)
+        if (!otherUserId.isNullOrBlank()) {
+            binding.userPhoto.setOnClickListener {
+                data.media?.url?.let { it1 ->
+                    ImageViewerView(
+                        requireContext(),
+                        it1
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun otherUserBlockedUI() {

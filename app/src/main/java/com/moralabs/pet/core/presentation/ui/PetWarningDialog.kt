@@ -4,10 +4,8 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.view.View
-import androidx.core.view.isVisible
 import com.moralabs.pet.R
 import com.moralabs.pet.databinding.UiPetWarningDialogBinding
-import kotlinx.android.synthetic.main.ui_pet_warning_dialog.*
 
 enum class PetWarningDialogType {
     WARNING,

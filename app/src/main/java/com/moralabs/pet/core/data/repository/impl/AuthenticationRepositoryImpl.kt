@@ -70,6 +70,7 @@ class AuthenticationRepositoryImpl : AuthenticationRepository {
         _authentication?.apply {
             this.bearerKey = null
             this.userId = null
+            this.isGuest = true
 
             preferences?.edit()?.putString(USER_KEY, Gson().toJson(_authentication))?.commit()
         }

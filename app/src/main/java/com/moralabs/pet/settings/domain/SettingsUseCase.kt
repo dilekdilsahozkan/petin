@@ -28,7 +28,7 @@ class SettingsUseCase @Inject constructor(
 
     fun userInfo(): Flow<BaseResult<UserDto>> {
         return flow {
-            var user = profileRepository.userInfo()
+            val user = profileRepository.userInfo()
             if(user.isSuccessful && user.code() == 200){
                 user.body()?.data?.let {
                     emit(
@@ -202,7 +202,6 @@ class SettingsUseCase @Inject constructor(
 
     fun logout(logout: SettingsRequestDto): Flow<BaseResult<Boolean>> {
         return flow {
-
             val logoutToken = SettingsRequestDto(
                 refreshToken = logout.refreshToken
             )

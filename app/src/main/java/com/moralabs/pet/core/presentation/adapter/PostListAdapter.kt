@@ -23,6 +23,7 @@ class PostListAdapter(
     private val onCommentClick: ((post: PostDto) -> Unit)? = null,
     private val onOfferUserClick: ((post: PostDto) -> Unit)? = null,
     private val onUserPhotoClick: ((post: PostDto) -> Unit)? = null,
+    private val onContentImage: ((post: PostDto) -> Unit)? = null,
     private val onPostSettingClick: ((user: PostDto) -> Unit)? = null
 ) : ListAdapter<PostDto, PostListAdapter.PostListViewHolder>(DIFF_CALLBACK) {
 
@@ -93,6 +94,12 @@ class PostListAdapter(
             binding.userPhoto.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     onUserPhotoClick?.invoke(getItem(bindingAdapterPosition))
+                }
+            }
+
+            binding.postImage.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    onContentImage?.invoke(getItem(bindingAdapterPosition))
                 }
             }
 
