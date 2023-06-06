@@ -47,15 +47,6 @@ class MainPageActivity : BaseActivity<ActivityMainPageBinding>(),
 
         navController = navHostFragment.navController
 
-        lifecycleScope.launchWhenResumed {
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                when(destination.id){
-                    R.id.personalInformationFragment -> binding.dashboardNavigation.visibility = View.GONE
-
-                }
-            }
-        }
-
         setSupportActionBar(binding.appBar)
         setupActionBarWithNavController(
             navHostFragment.navController, AppBarConfiguration.Builder(

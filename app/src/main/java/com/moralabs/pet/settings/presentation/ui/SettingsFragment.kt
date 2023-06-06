@@ -74,10 +74,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
                         startLoading()
                     }
                     is ViewState.Success<*> -> {
+                        authenticationUseCase.logout()
                         val intent = Intent(context, WelcomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
-                        authenticationUseCase.logout()
                     }
                     is ViewState.Error<*> -> {
                         stateError(it.message)
@@ -99,12 +99,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, UserDto, Settings
                 negativeButton = resources.getString(R.string.no),
                 onResult = {
                     if (PetWarningDialogResult.OK == it) {
-                        //TODO:bunu kontrol et....
                         LoginManager.getInstance().logOut()
                         viewModel.logout(SettingsRequestDto( json.refreshKey ?: "" ))
-//                        val intent = Intent(context, WelcomeActivity::class.java)
-//                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                        startActivity(intent)
                     }
                 }
             ).show()
