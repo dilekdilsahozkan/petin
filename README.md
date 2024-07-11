@@ -1,5 +1,3 @@
-<img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/4a177e30-785a-4e67-8635-8e87069282e7.png" width="500" height="500" hspace="80">
-
 # 🐶 Petin
 Petin is a social media application designed for pet owners to create profiles for their pets, share their photos, and engage in Q&A when encountering issues. You can also find playmates or suitable partners for mating, as well as adopt or rehome pets.
 
@@ -19,8 +17,7 @@ Petin is a social media application designed for pet owners to create profiles f
 
 1. Clone the project to Android Studio.
 2. Download the necessary dependencies.
-3. Add your own API KEY.
-4. Run the app on an Android device or emulator.
+3. Run the app on an Android device or emulator.
 
 
 ## Build With 🛠
@@ -42,15 +39,12 @@ Petin is a social media application designed for pet owners to create profiles f
     version of a Sequence, a type of collection whose values are lazily produced.
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores
     UI-related data that isn"t destroyed on UI changes.
-  - [Jetpack Compose Navigation](https://developer.android.com/jetpack/compose/navigation) - The
-    Navigation component provides support for Jetpack Compose applications.
   - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Jetpack
     DataStore is a data storage solution that allows you to store key-value pairs or typed objects
     with protocol buffers. DataStore uses Kotlin coroutines and Flow to store data asynchronously,
     consistently, and transitionally.
-- [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a dependency injection library for Android that reduces the     boilerplate of doing manual dependency injection in your project. Doing manual dependency injection requires you to construct every class and its                 dependencies by hand, and to use containers to reuse and manage dependencies.
-  
-- [Splash API](https://developer.android.com/develop/ui/views/launch/splash-screen) - Starting in Android 12, the SplashScreen API lets apps launch with animation, including an into-app motion at launch, a splash screen showing your app icon, and a transition to your app itself. A SplashScreen is a Window and therefore covers an Activity.
+- [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a dependency injection library for Android that reduces the     boilerplate of doing manual dependency injection in your project. Doing manual dependency injection requires you to construct every class and its dependencies by hand, and to use containers to reuse and manage dependencies.
+
 - [Material Components for Android](https://github.com/material-components/material-components-android)
   - Modular and customizable Material Design UI components for Android.
 - [Figma](https://figma.com/) - Figma is a vector graphics editor and prototyping tool which is
@@ -63,7 +57,3 @@ If you'd like to contribute, please submit a pull request. All contributions are
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Contact
-
-For any questions or feedback, please reach out to dilekdilsah21@gmail.com.
