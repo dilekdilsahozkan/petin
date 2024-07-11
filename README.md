@@ -5,12 +5,12 @@ Petin is a social media application designed for pet owners to create profiles f
 
 <div style="display: flex; justify-content: space-between;">
 
+  <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/2f6005e3-ebe9-46ce-96ce-17ce2042265b" alt="Visual 5" width="200">
+  <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/3f9375ae-db8b-48e7-a70c-49a9f9d55274" alt="Visual 5" width="200">
+  <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/0037e58e-2efe-4867-837d-d8d8d8b87e63" alt="Visual 5" width="200"><br><br>
   <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/7741f85c-9db5-48c2-839c-3498c8692038" alt="Visual 5" width="200">
   <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/57332694-b849-4025-824e-0b6e924a1ed9" alt="Visual 5" width="200">
-  <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/0037e58e-2efe-4867-837d-d8d8d8b87e63" alt="Visual 5" width="200"><br><br>
-  <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/3f9375ae-db8b-48e7-a70c-49a9f9d55274" alt="Visual 5" width="200">
-  <img src="https://github.com/dilekdilsahozkan/PETIN/assets/77121799/2f6005e3-ebe9-46ce-96ce-17ce2042265b" alt="Visual 5" width="200">
-
+  
 </div>
 
 ## Installation
